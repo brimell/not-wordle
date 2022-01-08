@@ -25,11 +25,15 @@ function randomTarget(wordLength: number) {
   return pick(eligible);
 }
 
+if (!localStorage.getItem("wordLength")) {
+  localStorage.setItem("wordLength", "5");
+}
+
 function Game(props: GameProps) {
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState<string>("");
-  const [wordLength, setWordLength] = useState(5);
+  const [wordLength, setWordLength] = useState(parseInt(localStorage.getItem("wordLength") || "5"));
   const [hint, setHint] = useState<string>(`Make your first guess!`);
   const [target, setTarget] = useState(() => {
     resetRng();
@@ -123,6 +127,8 @@ function Game(props: GameProps) {
       );
     });
 
+    
+
   return (
     <div className="Game" style={{ display: props.hidden ? "none" : "block" }}>
       <div className="Game-options">
@@ -148,6 +154,7 @@ function Game(props: GameProps) {
             setWordLength(length);
             setHint(`${length} letters`);
             (document.activeElement as HTMLElement)?.blur();
+            (localStorage.setItem('wordLength', length.toString()) as any);
           }}
         ></input>
         <button
