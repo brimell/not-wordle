@@ -129,20 +129,22 @@ function Game(props: GameProps) {
       );
     });
     function resizeGrid() {
-      if (String($('.Row').children().length / 6) === (localStorage.getItem('wordLength'))) {
-        if (parseInt(localStorage.getItem('wordLength')!) <= 5) {
-          $('.Row-letter').attr('style','width: 7vh')
-        } else if (localStorage.getItem('wordLength')! === "6") {
-          $('.Row-letter').attr('style','width: 6.8vh')
-        } else if (localStorage.getItem('wordLength')! === "7") {
-          $('.Row-letter').attr('style','width: 5.7vh')
-        } else if (localStorage.getItem('wordLength')! === "8") {
-          $('.Row-letter').attr('style','width: 5vh')
+      if (window.screen.width <= 800) {
+        if (String($('.Row').children().length / 6) === (localStorage.getItem('wordLength'))) {
+          if (parseInt(localStorage.getItem('wordLength')!) <= 5) {
+            $('.Row-letter').attr('style','width: 7vh')
+          } else if (localStorage.getItem('wordLength')! === "6") {
+            $('.Row-letter').attr('style','width: 6.8vh')
+          } else if (localStorage.getItem('wordLength')! === "7") {
+            $('.Row-letter').attr('style','width: 5.7vh')
+          } else if (localStorage.getItem('wordLength')! === "8") {
+            $('.Row-letter').attr('style','width: 5vh')
+          }
+          console.log('done2')
+        } else {
+          console.log('done')
+          setTimeout(resizeGrid, 100);
         }
-        console.log('done2')
-      } else {
-        console.log('done')
-        setTimeout(resizeGrid, 100);
       }
     }
     resizeGrid()
