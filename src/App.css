@@ -60,7 +60,7 @@ body {
 .App-container {
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
+  margin-top: 0.8rem;
   align-items: center;
   width: 35%;
   height: 100%;
@@ -178,7 +178,7 @@ a:active {
 }
 
 #hint {
-  padding: 1rem;
+  padding: 1vh;
   font-size: large;
 }
 
@@ -201,6 +201,11 @@ svg {
   top: 0;
   right: 0;
   margin: 20px;
+}
+
+#settingsButton {
+  background-color: rgba(255, 255, 255, 0) !important;
+  border: none;
 }
 
 .settingsContainer {

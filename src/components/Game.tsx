@@ -5,6 +5,8 @@ import { Clue, clue } from "./clue";
 import { Keyboard } from "./Keyboard";
 import common from "../common.json";
 import { dictionarySet, pick, resetRng, seed } from "./util";
+import $ from "jquery";
+import { log } from "console";
 
 enum GameState {
   Playing,
@@ -126,13 +128,28 @@ function Game(props: GameProps) {
         />
       );
     });
-
-    
-
+    function resizeGrid() {
+      if (String($('.Row').children().length / 6) === (localStorage.getItem('wordLength'))) {
+        if (parseInt(localStorage.getItem('wordLength')!) <= 5) {
+          $('.Row-letter').attr('style','width: 7vh')
+        } else if (localStorage.getItem('wordLength')! === "6") {
+          $('.Row-letter').attr('style','width: 6.8vh')
+        } else if (localStorage.getItem('wordLength')! === "7") {
+          $('.Row-letter').attr('style','width: 5.7vh')
+        } else if (localStorage.getItem('wordLength')! === "8") {
+          $('.Row-letter').attr('style','width: 5vh')
+        }
+        console.log('done2')
+      } else {
+        console.log('done')
+        setTimeout(resizeGrid, 100);
+      }
+    }
+    resizeGrid()
   return (
-    <div className="Game" style={{ display: props.hidden ? "none" : "block" }}>
-      <div className="Game-options">
-        <label htmlFor="wordLength">Letters:</label>
+    <div className="Game" >
+      <div className="Game-options" id="GameOptions">
+        <label htmlFor="wordLength">{wordLength} Letters:</label>
         <input
           className="slider"
           type="range"
@@ -155,6 +172,7 @@ function Game(props: GameProps) {
             setHint(`${length} letters`);
             (document.activeElement as HTMLElement)?.blur();
             (localStorage.setItem('wordLength', length.toString()) as any);
+            resizeGrid();
           }}
         ></input>
         <button
@@ -172,6 +190,7 @@ function Game(props: GameProps) {
           Give up
         </button>
       </div>
+      <div className="Game" id="gridKeyboardHint" style={{ display: props.hidden ? "none" : "block" }}>
       {rowDivs}
       <p id="hint" >{hint || `\u00a0`}</p> {/* no break space / nbsp */}
       <Keyboard letterInfo={letterInfo} onKey={onKey} />
@@ -180,6 +199,8 @@ function Game(props: GameProps) {
           seed {seed}, length {wordLength}, game {gameNumber}
         </div>
       ) : undefined}
+      </div>
+      
     </div>
   );
 }

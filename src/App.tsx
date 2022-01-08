@@ -16,7 +16,7 @@ function App() {
       document.location = "?seed=" + new Date().toISOString().replace(/-/g, "").slice(0, 8)
       console.log("redirecting to " + document.location);
       sessionStorage.setItem('isPageRefreshed', 'true');
-
+      
       
     }
   }, []);
@@ -26,9 +26,12 @@ function App() {
     <div className="App-container">
       <h1>not wordle</h1>
       <div className="settingsIcon">
-        <a href="#" onClick={() => setSettings((a) => !a)}>
+        <button id="settingsButton" onClick={() => {
+          setSettings((a) => !a)
+          settings ?  document.getElementById('GameOptions')!.style.display = 'none' : document.getElementById('GameOptions')!.style.display = 'flex'
+          }}>
           {settings ? < CloseIcon fontSize="large" /> : <SettingsIcon fontSize="large" /> }
-        </a>
+        </button>
       </div>
       <div className="GameContainer">
         
@@ -62,6 +65,7 @@ function App() {
             Random Word
           </button>
           </div>
+          
           
           {/* <p>
             <i>not wordle</i> is a remake of the word game{" "}
