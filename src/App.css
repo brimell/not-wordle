@@ -61,7 +61,7 @@ body {
   flex-direction: column;
   margin-top: 2rem;
   align-items: center;
-  width: 100%;
+  width: 35%;
   height: 100%;
 }
 
@@ -181,4 +181,15 @@ ul {
 
 a {
   text-decoration: none;
+}
+
+svg {
+  fill: white !important;
+}
+
+.settingsIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
 }

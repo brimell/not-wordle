@@ -131,7 +131,7 @@ function Game(props: GameProps) {
           className="slider"
           type="range"
           min="3"
-          max="7"
+          max="8"
           id="wordLength"
           disabled={
             gameState === GameState.Playing &&

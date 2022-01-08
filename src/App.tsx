@@ -4,16 +4,19 @@ import { dictionarySet, pick, seed } from "./components/util";
 import Game from "./components/Game";
 import { Row, RowState } from "./components/Row";
 import { Clue } from "./components/clue";
+import { useState } from "react";
+import SettingsIcon from '@mui/icons-material/Settings';
+import CloseIcon from '@mui/icons-material/Close';
 
 function App() {
-  const [about, setAbout] = useState(false);
+  const [settings, setSettings] = useState(false);
   const maxGuesses = 6;
   return (
     <div className="App-container">
       <h1>not wordle</h1>
-      <div style={{ position: "absolute", right: 5, top: 5 }}>
-        <a href="#" onClick={() => setAbout((a) => !a)}>
-          {about ? "Close" : "About"}
+      <div className="settingsIcon">
+        <a href="#" onClick={() => setSettings((a) => !a)}>
+          {settings ? < CloseIcon fontSize="large" /> : <SettingsIcon fontSize="large" /> }
         </a>
       </div>
       <div className="GameContainer">
@@ -25,14 +28,13 @@ function App() {
         >
           {seed ? "Random" : "Today's"}
         </button>
-        {about && (
-        <div className="App-about">
+        {settings && (
+        <div className="App-settings">
           <p>
-            <i>hello wordl</i> is a remake of the word game{" "}
+            <i>not wordle</i> is a remake of the word game{" "}
             <a href="https://www.powerlanguage.co.uk/wordle/">
               <i>Wordle</i>
             </a>
-            , which I think is based on the TV show <i>Lingo</i>.
           </p>
           <p>
             You get {maxGuesses} tries to guess a target word.
@@ -81,14 +83,10 @@ function App() {
                 { clue: Clue.Correct, letter: "t" },
               ]}
             />
-            Got it!
           </p>
-          Report issues{" "}
-          <a href="https://github.com/lynn/hello-wordl/issues">here</a>, or
-          tweet <a href="https://twitter.com/chordbug">@chordbug</a>.
         </div>
       )}
-      <Game maxGuesses={maxGuesses} hidden={about} />
+      <Game maxGuesses={maxGuesses} hidden={settings} />
     </div>
   </div>
   );
