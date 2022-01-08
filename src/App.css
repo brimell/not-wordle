@@ -214,8 +214,8 @@ svg {
 
 @media only screen and (max-height: 1070px) {
   .Row-letter {
-    width: 5vh;
-    height: 5vh;
+    width: 7vh;
+    height: 7vh;
     font-size: 3rem;
   }
   .App-container h1 {
@@ -225,12 +225,30 @@ svg {
 
 @media only screen and (max-height: 800px) {
   .Row-letter {
-    width: 5vh;
-    height: 5vh;
-    font-size: 3rem;
+    width: 7vh;
+    height: 7vh;
+    font-size: 1.6rem;
   }
   .App-container h1 {
     font-size: 2rem;
     top: 0;
+  }
+  .Game-seed-info {
+    display: none;
+  }
+  .Game-keyboard {
+    max-width: 100vw;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+  .Game-options {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 470px) {
+  .Game-keyboard {
+    position: relative;
   }
 }
