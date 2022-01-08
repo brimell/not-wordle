@@ -20,17 +20,39 @@ function App() {
         </a>
       </div>
       <div className="GameContainer">
-        <button
-          className="button is-outlined is-primary"
-          onClick={() =>
-            (document.location = seed ? "/" : "?seed=" + new Date().toISOString().replace(/-/g, "").slice(0, 8))
-          }
-        >
-          {seed ? "Random" : "Today's"}
-        </button>
+        
         {settings && (
         <div className="App-settings">
-          <p>
+          <p>You can change this from random to having a different word per day using this button</p>
+          <div className="settingsContainer">
+            <button
+            className={ seed ? 'button is-primary' : 'button is-primary is-outlined'}
+            id="todaysWord"
+            onClick={() => {
+              document.location = "?seed=" + new Date().toISOString().replace(/-/g, "").slice(0, 8)
+              localStorage.setItem("wordMode", "todaysWord")
+            }
+              
+            }
+          >
+            {/* {seed ? "Random Word" : "Today's Word"} */}
+            Today's Word
+          </button>
+          <button
+            className={ seed ? 'button is-primary is-outlined' : 'button is-primary'}
+            id="randomWord"
+            onClick={() => {
+              document.location = "/"
+              localStorage.setItem("wordMode", "randomWord")
+            }
+              
+            }
+          >
+            Random Word
+          </button>
+          </div>
+          
+          {/* <p>
             <i>not wordle</i> is a remake of the word game{" "}
             <a href="https://www.powerlanguage.co.uk/wordle/">
               <i>Wordle</i>
@@ -83,7 +105,7 @@ function App() {
                 { clue: Clue.Correct, letter: "t" },
               ]}
             />
-          </p>
+          </p> */}
         </div>
       )}
       <Game maxGuesses={maxGuesses} hidden={settings} />

@@ -193,3 +193,12 @@ svg {
   right: 0;
   margin: 20px;
 }
+
+.settingsContainer {
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 20px;
+}
