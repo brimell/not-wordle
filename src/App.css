@@ -1,5 +1,6 @@
 :root {
   --bg: #0e0f10;
+  --keyboard-key-colour: #5e666a;
 }
 
 * {
@@ -46,8 +47,8 @@ body {
   margin: 2px;
   border: 2px solid rgba(255, 255, 255, 0.4);
   border-radius: 10%;
-  width: 10vh;
-  height: 10vh;
+  width: 9vh;
+  height: 9vh;
   font-size: 5rem;
   display: flex;
   justify-content: center;
@@ -67,7 +68,8 @@ body {
 
 .App-container h1 {
   font-size: 5rem;
-  margin-bottom: 3rem;
+  white-space: nowrap;
+  /* margin-bottom: 3rem; */
 
 }
 
@@ -90,10 +92,12 @@ body {
 
 .Game-keyboard-button {
   margin: 2px;
-  background-color: #cdcdcd;
+  background-color: var(--keyboard-key-colour);
   padding: 2px;
   text-transform: capitalize;
   border-radius: 4px;
+  height: 58px;
+  width: 43px;
   min-height: 40px;
   display: flex;
   flex: 1;
@@ -164,8 +168,13 @@ a:active {
 
 .Game-seed-info {
   opacity: 0.5;
-  margin-top: 1em;
   font-variant-numeric: tabular-nums;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  left: 0;
+  position: absolute;
+  top: 0;
+  margin-top: 25vh;
 }
 
 #hint {
@@ -201,4 +210,27 @@ svg {
   align-items: center;
   justify-content: space-evenly;
   padding: 20px;
+}
+
+@media only screen and (max-height: 1070px) {
+  .Row-letter {
+    width: 5vh;
+    height: 5vh;
+    font-size: 3rem;
+  }
+  .App-container h1 {
+    font-size: 4rem;
+  }
+}
+
+@media only screen and (max-height: 800px) {
+  .Row-letter {
+    width: 5vh;
+    height: 5vh;
+    font-size: 3rem;
+  }
+  .App-container h1 {
+    font-size: 2rem;
+    top: 0;
+  }
 }

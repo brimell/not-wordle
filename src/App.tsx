@@ -34,7 +34,7 @@ function App() {
         
         {settings && (
         <div className="App-settings">
-          <p>You can change this from random to having a different word per day using this button</p>
+          <p>You can change this from a random word to having a different word per day using these buttons</p>
           <div className="settingsContainer">
             <button
             className={ seed ? 'button is-primary' : 'button is-primary is-outlined'}
