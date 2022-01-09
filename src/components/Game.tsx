@@ -32,6 +32,7 @@ if (!localStorage.getItem("wordLength")) {
 
 function updateStats(gameState: boolean, wordLength: number, guesses: number) {
   // console.log(guesses)
+  guesses ++
   const today = new Date()
   var yesterday = new Date(today)
   yesterday.setDate(yesterday.getDate() - 1)
@@ -43,7 +44,7 @@ function updateStats(gameState: boolean, wordLength: number, guesses: number) {
       games: 0,
       wins: 0,
       losses: 0,
-      guesses: 0,
+      guesses: {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0},
     };
   }
 
@@ -57,8 +58,15 @@ function updateStats(gameState: boolean, wordLength: number, guesses: number) {
   } else {
     stats[wordLength].losses ++;
   }
+  if (Number.isInteger(stats[wordLength].guesses)) {
+    stats[wordLength].guesses = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
+  }
+  if (!stats[wordLength].guesses[guesses]) {
+    stats[wordLength].guesses[guesses] = 1;
+  } else {
+    stats[wordLength].guesses[guesses] ++
+  }
   stats['last_played'] = new Date().toISOString().replace(/-/g, "").slice(0, 8)
-  stats[wordLength].guesses += guesses
   stats[wordLength].games++;
   localStorage.setItem("stats", JSON.stringify(stats));
   
