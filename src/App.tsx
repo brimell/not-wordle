@@ -1,9 +1,7 @@
 import "./App.css";
-import common from "./common.json";
-import { dictionarySet, pick, seed } from "./components/util";
+// import common from "./common.json";
+import { seed } from "./components/util";
 import Game from "./components/Game";
-import { Row, RowState } from "./components/Row";
-import { Clue } from "./components/clue";
 import { useState, useEffect } from "react";
 import SettingsIcon from '@mui/icons-material/Settings';
 import CloseIcon from '@mui/icons-material/Close';
