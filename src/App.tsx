@@ -28,15 +28,15 @@ function App() {
       
     }
   }, []);
-  
+  var stats = localStorage.getItem("stats") || 'No Stats Yet...'
 
   return (
     <div className="App-container">
       <Modal>
         <div className="modalContainer">
           <CloseIcon onClick={close} className="modalCloseIcon" />
-          <h1>Title</h1>
-          <p>This is a customizable modal.</p>
+          <h1>Stats</h1>
+          <p>{stats}</p>
         </div>
       </Modal>
       <h1>not wordle</h1>

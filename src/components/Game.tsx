@@ -4,9 +4,8 @@ import dictionary from "../dictionary.json";
 import { Clue, clue } from "./clue";
 import { Keyboard } from "./Keyboard";
 import common from "../common.json";
-import { dictionarySet, pick, resetRng, seed } from "./util";
+import { pick, resetRng, seed } from "./util";
 import $ from "jquery";
-import { log } from "console";
 
 enum GameState {
   Playing,
@@ -29,6 +28,39 @@ function randomTarget(wordLength: number) {
 
 if (!localStorage.getItem("wordLength")) {
   localStorage.setItem("wordLength", "5");
+}
+
+function updateStats(gameState: boolean, wordLength: number, guesses: number) {
+  const today = new Date()
+  var yesterday = new Date(today)
+  yesterday.setDate(yesterday.getDate() - 1)
+  var yesterday_string = yesterday.toISOString().slice(0, 10).replaceAll('-','')
+
+  const stats = JSON.parse(localStorage.getItem("stats") || "{}");
+  if (!stats[wordLength]) {
+    stats[wordLength] = {
+      games: 0,
+      wins: 0,
+      losses: 0,
+      guesses: 0,
+    };
+  }
+
+  if (!stats['last_played']) {
+    stats['streak'] = 1
+  } else if (yesterday_string === stats['last_played']) {
+    stats['streak'] ++
+  }
+  if (gameState) {
+    stats[wordLength].wins += 1;
+  } else {
+    stats[wordLength].losses ++;
+  }
+  stats['last_played'] = new Date().toISOString().replace(/-/g, "").slice(0, 8)
+  localStorage.setItem("stats", JSON.stringify(stats));
+  stats[wordLength].guesses += guesses
+  stats[wordLength].games++;
+  
 }
 
 function Game(props: GameProps) {
@@ -80,11 +112,13 @@ function Game(props: GameProps) {
       if (currentGuess === target) {
         setHint("You won! (Enter to play again)");
         setGameState(GameState.Won);
+        updateStats(true, wordLength, guesses.length);
       } else if (guesses.length + 1 === props.maxGuesses) {
         setHint(
           `You lost! The answer was ${target.toUpperCase()}. (Enter to play again)`
         );
         setGameState(GameState.Lost);
+        updateStats(false, wordLength, guesses.length);
       } else {
         setHint("");
       }
@@ -96,11 +130,14 @@ function Game(props: GameProps) {
       if (!e.ctrlKey && !e.metaKey) {
         onKey(e.key);
       }
+      console.log(target)
     };
+    
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentGuess, gameState]);
 
   let letterInfo = new Map<string, Clue>();
@@ -184,6 +221,7 @@ function Game(props: GameProps) {
               `The answer was ${target.toUpperCase()}. (Enter to play again)`
             );
             setGameState(GameState.Lost);
+            updateStats(false, wordLength, guesses.length);
             (document.activeElement as HTMLElement)?.blur();
           }}
         >
