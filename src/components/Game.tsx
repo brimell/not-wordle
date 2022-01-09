@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Row, RowState } from "./Row";
-import dictionary from "../dictionary.json";
+// import dictionary from "../dictionary.json";
 import { Clue, clue } from "./clue";
 import { Keyboard } from "./Keyboard";
 import common from "../common.json";
@@ -104,7 +104,7 @@ function Game(props: GameProps) {
         setHint("Too short");
         return;
       }
-      if (!dictionary.includes(currentGuess)) {
+      if (!common.includes(currentGuess)) {
         setHint("Not a valid word");
         return;
       }

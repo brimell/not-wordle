@@ -9,6 +9,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import CloseIcon from '@mui/icons-material/Close';
 import PersonIcon from '@mui/icons-material/Person';
 import { useModal } from 'react-hooks-use-modal';
+import $ from 'jquery'
 
 if (!localStorage.getItem("wordMode")) {localStorage.setItem("wordMode", "todaysWord")}
 
@@ -29,7 +30,6 @@ function App() {
     }
   }, []);
   var stats = localStorage.getItem("stats") || 'No Stats Yet...'
-
   return (
     <div className="App-container">
       <Modal>
@@ -45,12 +45,12 @@ function App() {
           setSettings((a) => !a)
           settings ?  document.getElementById('GameOptions')!.style.display = 'none' : document.getElementById('GameOptions')!.style.display = 'flex'
           }}>
-          {settings ? < CloseIcon fontSize="large" /> : <SettingsIcon fontSize="large" /> }
+          {settings ? < CloseIcon fontSize={$(window).height()! > 510 ? "large" : "small"} /> : <SettingsIcon fontSize={$(window).height()! > 510 ? "large" : "small"} /> }
         </button>
       </div>
       <div className="personIcon">
         <button id="personButton" onClick={open}>
-          <PersonIcon fontSize="large" />
+          <PersonIcon fontSize={$(window).height()! > 510 ? "large" : "small"} />
         </button>
       </div>
       <div className="GameContainer">
