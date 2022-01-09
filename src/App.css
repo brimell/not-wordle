@@ -283,3 +283,10 @@ svg {
     position: relative;
   }
 }
+
+@media only screen and (max-height: 510px) {
+  .App-container h1 {
+    font-size: 1rem;
+    top: 0;
+  }
+}
