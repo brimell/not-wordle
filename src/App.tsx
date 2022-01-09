@@ -7,8 +7,16 @@ import { Clue } from "./components/clue";
 import { useState, useEffect } from "react";
 import SettingsIcon from '@mui/icons-material/Settings';
 import CloseIcon from '@mui/icons-material/Close';
+import PersonIcon from '@mui/icons-material/Person';
+import { useModal } from 'react-hooks-use-modal';
+
+if (!localStorage.getItem("wordMode")) {localStorage.setItem("wordMode", "todaysWord")}
 
 function App() {
+  const [Modal, open, close, isOpen] = useModal('root', {
+    preventScroll: true,
+    // closeOnOverlayClick: false
+  });
   const [settings, setSettings] = useState(false);
   const maxGuesses = 6;
   useEffect(() => { // makes sure the code only gets run once
@@ -24,6 +32,13 @@ function App() {
 
   return (
     <div className="App-container">
+      <Modal>
+        <div className="modalContainer">
+          <CloseIcon onClick={close} className="modalCloseIcon" />
+          <h1>Title</h1>
+          <p>This is a customizable modal.</p>
+        </div>
+      </Modal>
       <h1>not wordle</h1>
       <div className="settingsIcon">
         <button id="settingsButton" onClick={() => {
@@ -31,6 +46,11 @@ function App() {
           settings ?  document.getElementById('GameOptions')!.style.display = 'none' : document.getElementById('GameOptions')!.style.display = 'flex'
           }}>
           {settings ? < CloseIcon fontSize="large" /> : <SettingsIcon fontSize="large" /> }
+        </button>
+      </div>
+      <div className="personIcon">
+        <button id="personButton" onClick={open}>
+          <PersonIcon fontSize="large" />
         </button>
       </div>
       <div className="GameContainer">

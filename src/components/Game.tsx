@@ -140,9 +140,7 @@ function Game(props: GameProps) {
           } else if (localStorage.getItem('wordLength')! === "8") {
             $('.Row-letter').attr('style','width: 5vh')
           }
-          console.log('done2')
         } else {
-          console.log('done')
           setTimeout(resizeGrid, 100);
         }
       }

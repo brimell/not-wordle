@@ -203,9 +203,31 @@ svg {
   margin: 20px;
 }
 
-#settingsButton {
+.personIcon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 20px;
+}
+
+.modalContainer {
+  background-color: #0e0f10;
+  border-radius: 0.5rem;
+  padding: 3vh;
+}
+
+.modalCloseIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+  cursor: pointer;
+}
+
+#settingsButton, #personButton {
   background-color: rgba(255, 255, 255, 0) !important;
   border: none;
+  cursor: pointer;
 }
 
 .settingsContainer {
