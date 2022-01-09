@@ -22,7 +22,7 @@ function App() {
   useEffect(() => { // makes sure the code only gets run once
     if (!sessionStorage.getItem('isPageRefreshed') && localStorage.getItem("wordMode") === "todaysWord") {
       document.location = "?seed=" + new Date().toISOString().replace(/-/g, "").slice(0, 8)
-      console.log("redirecting to " + document.location);
+      // console.log("redirecting to " + document.location);
       sessionStorage.setItem('isPageRefreshed', 'true');
       
       

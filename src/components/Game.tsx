@@ -31,6 +31,7 @@ if (!localStorage.getItem("wordLength")) {
 }
 
 function updateStats(gameState: boolean, wordLength: number, guesses: number) {
+  // console.log(guesses)
   const today = new Date()
   var yesterday = new Date(today)
   yesterday.setDate(yesterday.getDate() - 1)
@@ -57,9 +58,9 @@ function updateStats(gameState: boolean, wordLength: number, guesses: number) {
     stats[wordLength].losses ++;
   }
   stats['last_played'] = new Date().toISOString().replace(/-/g, "").slice(0, 8)
-  localStorage.setItem("stats", JSON.stringify(stats));
   stats[wordLength].guesses += guesses
   stats[wordLength].games++;
+  localStorage.setItem("stats", JSON.stringify(stats));
   
 }
 
@@ -130,7 +131,7 @@ function Game(props: GameProps) {
       if (!e.ctrlKey && !e.metaKey) {
         onKey(e.key);
       }
-      console.log(target)
+      // console.log(target)
     };
     
     document.addEventListener("keydown", onKeyDown);
