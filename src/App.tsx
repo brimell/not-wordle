@@ -75,7 +75,7 @@ function App() {
       <div className="settingsIcon">
         <button id="settingsButton" onClick={() => {
           setSettings((a) => !a)
-          settings ?  document.getElementById('GameOptions')!.style.display = 'none' : document.getElementById('GameOptions')!.style.display = 'flex'
+          if (window.screen.width <= 800) {settings ?  document.getElementById('GameOptions')!.style.display = 'none' : document.getElementById('GameOptions')!.style.display = 'flex'}
           }}>
           {settings ? < CloseIcon fontSize={$(window).height()! > 510 ? "large" : "small"} /> : <SettingsIcon fontSize={$(window).height()! > 510 ? "large" : "small"} /> }
         </button>
