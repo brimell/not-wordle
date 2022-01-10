@@ -232,6 +232,7 @@ svg {
   background-color: rgba(255, 255, 255, 0) !important;
   border: none;
   cursor: pointer;
+  user-select: none;
 }
 
 .settingsContainer {

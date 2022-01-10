@@ -12,9 +12,12 @@ function mulberry32(a: number) {
 }
 
 export const seed = Number(
-  new URLSearchParams(window.location.search).get("seed")
+  sessionStorage.getItem("seed") // the string "flalse" is falsy which means it will be set to false in a boolean context or 0 when assigned to a number
 );
-const makeRandom = () => (seed ? mulberry32(seed) : () => Math.random());
+if (localStorage.getItem("todays_last_played") === new Date().toISOString().replace(/-/g, "").slice(0, 8)) {
+  var todaysDisabled = true;
+}
+const makeRandom = () => (seed ? (todaysDisabled ? () => Math.random() : mulberry32(seed)) : () => Math.random());
 let random = makeRandom();
 
 export function resetRng(): void {

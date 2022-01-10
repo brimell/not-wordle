@@ -19,11 +19,8 @@ function App() {
   const [settings, setSettings] = useState(false);
   const maxGuesses = 6;
   useEffect(() => { // makes sure the code only gets run once
-    if (!sessionStorage.getItem('isPageRefreshed') && localStorage.getItem("wordMode") === "todaysWord") {
-      document.location = "?seed=" + new Date().toISOString().replace(/-/g, "").slice(0, 8)
-      // console.log("redirecting to " + document.location);
-      sessionStorage.setItem('isPageRefreshed', 'true');
-      
+    if (localStorage.getItem("wordMode") === "todaysWord") {
+      sessionStorage.setItem('seed',new Date().toISOString().replace(/-/g, "").slice(0, 8)) 
       
     }
   }, []);
@@ -53,7 +50,7 @@ function App() {
       sum += parseInt(guessesArray[i]);
   }
   var averageGuesses = Math.round(sum / guessesArray.length)
-  // console.log(stats)
+
   return (
     <div className="App-container">
       <Modal>
@@ -98,21 +95,24 @@ function App() {
             className={ seed ? 'button is-primary' : 'button is-primary is-outlined'}
             id="todaysWord"
             onClick={() => {
-              document.location = "?seed=" + new Date().toISOString().replace(/-/g, "").slice(0, 8)
+              sessionStorage.setItem('seed',new Date().toISOString().replace(/-/g, "").slice(0, 8))
               localStorage.setItem("wordMode", "todaysWord")
+              $('#todaysWord').removeClass('is-outlined')
+              $('#randomWord').addClass('is-outlined')
             }
               
             }
           >
-            {/* {seed ? "Random Word" : "Today's Word"} */}
             Today's Word
           </button>
           <button
             className={ seed ? 'button is-primary is-outlined' : 'button is-primary'}
             id="randomWord"
             onClick={() => {
-              document.location = "/"
+              sessionStorage.setItem('seed', 'false')
               localStorage.setItem("wordMode", "randomWord")
+              $('#todaysWord').addClass('is-outlined')
+              $('#randomWord').removeClass('is-outlined')
             }
               
             }

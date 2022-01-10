@@ -6,6 +6,8 @@ import { Keyboard } from "./Keyboard";
 import common from "../common.json";
 import { pick, resetRng, seed } from "./util";
 import $ from "jquery";
+import { useModal } from 'react-hooks-use-modal';
+import CloseIcon from '@mui/icons-material/Close';
 
 enum GameState {
   Playing,
@@ -83,7 +85,10 @@ function Game(props: GameProps) {
     return randomTarget(wordLength);
   });
   const [gameNumber, setGameNumber] = useState(1);
-
+  const [Modal, open, close, isOpen] = useModal('root', {
+    preventScroll: true,
+    // closeOnOverlayClick: false
+  });
   const startNextGame = () => {
     setTarget(randomTarget(wordLength));
     setGuesses([]);
@@ -93,6 +98,17 @@ function Game(props: GameProps) {
     setGameNumber((x) => x + 1);
   };
 
+  function disableTodaysWord() {
+    if (seed && localStorage.getItem("wordMode") === "todaysWord") {
+      localStorage.setItem("wordMode", "randomWord");
+      $('#todaysWord').addClass('is-outlined')
+      $('#randomWord').removeClass('is-outlined')
+      localStorage.setItem("todays_last_played", new Date().toISOString().replace(/-/g, "").slice(0, 8));
+      open()
+    }
+    // set modal display to block
+  }
+
   const onKey = (key: string) => {
     if (gameState !== GameState.Playing) {
       if (key === "Enter") {
@@ -101,7 +117,7 @@ function Game(props: GameProps) {
       return;
     }
     if (guesses.length === props.maxGuesses) return;
-    if (/^[a-z]$/.test(key)) {
+    if (/^[a-z]$/.test(key.toLowerCase())) {
       setCurrentGuess((guess) => (guess + key).slice(0, wordLength));
       setHint("");
     } else if (key === "Backspace") {
@@ -119,13 +135,23 @@ function Game(props: GameProps) {
       setGuesses((guesses) => guesses.concat([currentGuess]));
       setCurrentGuess((guess) => "");
       if (currentGuess === target) {
-        setHint("You won! (Enter to play again)");
+        if (seed) {
+          disableTodaysWord()
+          setHint("You won! (Enter to play a random word)");
+        } else {
+          setHint("You won! (Enter to play again)");
+        }
         setGameState(GameState.Won);
         updateStats(true, wordLength, guesses.length);
       } else if (guesses.length + 1 === props.maxGuesses) {
-        setHint(
-          `You lost! The answer was ${target.toUpperCase()}. (Enter to play again)`
-        );
+        if (seed) {
+          disableTodaysWord()
+          setHint(`You lost! The answer was ${target.toUpperCase()}. (Enter to play a random word)`)
+        } else {
+          setHint(
+            `You lost! The answer was ${target.toUpperCase()}. (Enter to play again)`
+          );
+        }
         setGameState(GameState.Lost);
         updateStats(false, wordLength, guesses.length);
       } else {
@@ -194,6 +220,13 @@ function Game(props: GameProps) {
     resizeGrid()
   return (
     <div className="Game" >
+      <Modal>
+        <div className="modalContainer">
+          <CloseIcon onClick={close} className="modalCloseIcon" />
+          <h1 className="statsHeader">Well Done!</h1>
+          <p>You have just completed todays word! You can continue playing by closing out of this popup and pressing enter.</p>
+        </div>
+      </Modal>
       <div className="Game-options" id="GameOptions">
         <label htmlFor="wordLength">{wordLength} Letters:</label>
         <input
@@ -226,10 +259,19 @@ function Game(props: GameProps) {
           style={{ flex: "0" }}
           disabled={gameState !== GameState.Playing || guesses.length === 0}
           onClick={() => {
-            setHint(
-              `The answer was ${target.toUpperCase()}. (Enter to play again)`
-            );
+            if (seed) {
+              disableTodaysWord()
+              setHint(
+                `The answer was ${target.toUpperCase()}. (Enter to play a random word)`
+              );
+            } else {
+              setHint(
+                `The answer was ${target.toUpperCase()}. (Enter to play again)`
+              );
+            }
+            
             setGameState(GameState.Lost);
+            if (seed) {disableTodaysWord()}
             updateStats(false, wordLength, guesses.length);
             (document.activeElement as HTMLElement)?.blur();
           }}
