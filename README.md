@@ -1,4 +1,4 @@
 # not wordle
-It's [Wordle](https://www.powerlanguage.co.uk/wordle/) but you can play forever
+All credit to [Wordle](https://www.powerlanguage.co.uk/wordle/) but you can change the number of letters and can play forever!
 
-Play it [here](future netlify link).
+You can play it [here](https://notwordle.netlify.app).
