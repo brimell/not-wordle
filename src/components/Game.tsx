@@ -223,8 +223,8 @@ function Game(props: GameProps) {
       <Modal>
         <div className="modalContainer">
           <CloseIcon onClick={close} className="modalCloseIcon" />
-          <h1 className="statsHeader">Well Done!</h1>
-          <p>You have just completed todays word! You can continue playing by closing out of this popup and pressing enter.</p>
+          <h1 className="statsHeader">{gameState === GameState.Won ? "Well Done!" : 'Nice Try!'}</h1>
+          <p>{(gameState === GameState.Won ? "You have just completed todays word!" : "You have completed todays word.") + "You can continue playing by closing out of this popup and pressing enter."}</p>
         </div>
       </Modal>
       <div className="Game-options" id="GameOptions">
