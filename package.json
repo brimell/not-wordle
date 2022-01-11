@@ -1,7 +1,7 @@
 {
-  "name": "wordl",
+  "name": "not-wordle",
   "version": "0.1.0",
-  "homepage": "",
+  "homepage": "/",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.7.1",
