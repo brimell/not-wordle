@@ -285,6 +285,37 @@ svg {
   }
 }
 
+.slider {
+  -webkit-appearance: none;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  height: 8px;
+  border-radius: 10px;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  background: #00d1b2;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #00d1b2;
+  cursor: pointer;
+}
 @media only screen and (min-width: 470px) {
   .Game-keyboard {
     position: relative;
