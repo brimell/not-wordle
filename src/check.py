@@ -1,21 +1,35 @@
 import json
- 
-f = open('./common.json')
-f2 = open('./common2.json')
- 
-# returns JSON object as
-# a dictionary
-data = json.load(f)
-data2 = json.load(f2)
- 
-# Iterating through the json
-# list
-new_common = []
-for i in data2:
-    if i in data:
-        new_common.append(i)
+import requests
+from contextlib import redirect_stdout
 
- 
-# Closing file
-f.close()
-f2.close()
+f = open('common.json')
+f2 = open('dictionary.json')
+
+data = json.load(f)
+dictionary = json.load(f2)
+
+not_word = []
+for i,word in enumerate(data):
+    print(i,word)
+    if len(word) == 5:
+        response = requests.get(f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}")
+        response = response.json()
+        try:
+            x = response[0]['meanings'][0]['definitions'][0]['definition']
+        except:
+            not_word.append(word)
+    else:
+        data.remove(word)
+        
+# for word in data[:100]:
+#     if word in dictionary.keys():
+#         print(word)
+
+
+        
+for word in not_word:
+    data.remove(word)
+
+with open('words_5.txt', 'w') as f:
+    with redirect_stdout(f):
+        print(data)
