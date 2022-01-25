@@ -26,7 +26,8 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "npm run build && netlify deploy --prod && gh-pages -d build",
+    "githubdeploy": "npm run build && gh-pages -d build",
+    "netlifydeploy": "npm run build && netlify deploy --prod",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

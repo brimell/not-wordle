@@ -9,6 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useModal } from 'react-hooks-use-modal';
 import $ from 'jquery'
 
+var seed_update = seed;
 if (!localStorage.getItem("wordMode")) {localStorage.setItem("wordMode", "todaysWord")}
 
 function App() {
@@ -44,7 +45,7 @@ function App() {
     }
   }
   
-  console.log(guessesArray)
+  // console.log(guessesArray)
   let sum = 0;
   for (let i = 0; i < guessesArray.length; i++) {
       sum += parseInt(guessesArray[i]);
@@ -74,6 +75,7 @@ function App() {
       <h1>not wordle</h1>
       <div className="settingsIcon">
         <button id="settingsButton" onClick={() => {
+          seed_update = Number(sessionStorage.getItem('seed')) || false
           setSettings((a) => !a)
           if (window.screen.width <= 800) {settings ?  document.getElementById('GameOptions')!.style.display = 'none' : document.getElementById('GameOptions')!.style.display = 'flex'}
           }}>
@@ -92,7 +94,7 @@ function App() {
           <p>You can change this from a random word to having a different word per day using these buttons</p>
           <div className="settingsContainer">
             <button
-            className={ seed ? 'button is-primary' : 'button is-primary is-outlined'}
+            className={ seed_update ? 'button is-primary' : 'button is-primary is-outlined'}
             id="todaysWord"
             onClick={() => {
               sessionStorage.setItem('seed',new Date().toISOString().replace(/-/g, "").slice(0, 8))
@@ -106,10 +108,10 @@ function App() {
             Today's Word
           </button>
           <button
-            className={ seed ? 'button is-primary is-outlined' : 'button is-primary'}
+            className={ seed_update ? 'button is-primary is-outlined' : 'button is-primary'}
             id="randomWord"
             onClick={() => {
-              sessionStorage.setItem('seed', 'false')
+              sessionStorage.setItem('seed', '0')
               localStorage.setItem("wordMode", "randomWord")
               $('#todaysWord').addClass('is-outlined')
               $('#randomWord').removeClass('is-outlined')

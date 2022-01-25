@@ -11,9 +11,13 @@ function mulberry32(a: number) {
   };
 }
 
-export const seed = Number(
-  sessionStorage.getItem("seed") // the string "flalse" is falsy which means it will be set to false in a boolean context or 0 when assigned to a number
-);
+function seedFunc() {
+  // console.log(Number(sessionStorage.getItem("seed")) || false)
+  return Number(sessionStorage.getItem("seed")) || false;
+}
+
+export const seed = seedFunc();
+
 if (localStorage.getItem("todays_last_played") === new Date().toISOString().replace(/-/g, "").slice(0, 8)) {
   var todaysDisabled = true;
 }
