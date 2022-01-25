@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/not-wordle/static/css/main.5e1aaf21.css",
+    "main.js": "/not-wordle/static/js/main.eaea4cb4.js",
+    "index.html": "/not-wordle/index.html",
+    "main.5e1aaf21.css.map": "/not-wordle/static/css/main.5e1aaf21.css.map",
+    "main.eaea4cb4.js.map": "/not-wordle/static/js/main.eaea4cb4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5e1aaf21.css",
+    "static/js/main.eaea4cb4.js"
+  ]
+}
