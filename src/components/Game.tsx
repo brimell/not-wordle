@@ -258,15 +258,24 @@ function Game(props: GameProps) {
           className="button is-primary is-outlined"
           style={{ flex: "0" }}
           disabled={gameState !== GameState.Playing || guesses.length === 0}
-          onClick={() => {
+          onClick={async () => {
+            async function getData() {
+              const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${target}`)
+              const data = await response.json()
+              const definition = data[0].meanings[0].definitions[0].definition
+              const example = data[0].meanings[0].definitions[0].example
+              // return [definition, example] || ["none", "none"]
+              console.log(definition)
+              return definition
+            }
             if (seed) {
               disableTodaysWord()
               setHint(
-                `The answer was ${target.toUpperCase()}. (Enter to play a random word)`
+                `The answer was ${target.toUpperCase()}. Definition: ${await getData()} (Enter to play a random word)`
               );
             } else {
               setHint(
-                `The answer was ${target.toUpperCase()}. (Enter to play again)`
+                `The answer was ${target.toUpperCase()}. Definition: ${await getData()} (Enter to play again)`
               );
             }
             
