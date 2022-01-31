@@ -17,7 +17,6 @@ function App() {
   const [seedUpdate, setSeedUpdate] = useState(seed);
   const [Modal, open, close, isOpen] = useModal("root", {
     preventScroll: true,
-    // closeOnOverlayClick: false
   });
   const [settings, setSettings] = useState(false);
   const maxGuesses = 6;
