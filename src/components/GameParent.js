@@ -12,5 +12,5 @@ export default function GameParent(props) {
           {settings && (<Settings seedUpdate={seedUpdate}/>)}
           <Game maxGuesses={maxGuesses} hidden={settings} />
         </div>
-    )
+    )   
   }

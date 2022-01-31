@@ -1,5 +1,4 @@
 import "./App.css";
-// import common from "./common.json";
 import { seed } from "./components/util";
 import { useState, useEffect } from "react";
 import { useModal } from "react-hooks-use-modal";

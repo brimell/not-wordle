@@ -4,7 +4,7 @@
   "homepage": "https://raaydon.github.io/not-wordle",
   "private": false,
   "dependencies": {
-    "@emotion/react": "^11.7.1",
+    "@emotio2": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.3.1",
