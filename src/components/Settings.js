@@ -3,7 +3,6 @@ import $ from "jquery";
 
 export default function Settings(props) {
 
-    var settings = props.settings
     const seedUpdate = props.seedUpdate
     return (
         <div className="App-settings">

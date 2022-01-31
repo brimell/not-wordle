@@ -1,14 +1,12 @@
 import "./App.css";
 // import common from "./common.json";
 import { seed } from "./components/util";
-import Game from "./components/Game";
 import { useState, useEffect } from "react";
 import { useModal } from "react-hooks-use-modal";
 
 import MainNav from './components/MainNav';
 import StatsModal from './components/StatsModal';
-import Settings from './components/Settings';
-
+import Homepage from './components/Homepage';
 if (!localStorage.getItem("wordMode")) {
   localStorage.setItem("wordMode", "todaysWord");
 }
@@ -31,14 +29,11 @@ function App() {
   
   return (
     <div className="App-container">
+
       <StatsModal modal={Modal} close={close} />
       <MainNav settings={settings} setSettings={setSettings} setSeedUpdate={setSeedUpdate} open={open}/>
-      <div className="GameContainer">
-        {settings && (
-          <Settings seedUpdate={seedUpdate}/>
-        )}
-        <Game maxGuesses={maxGuesses} hidden={settings} />
-      </div>
+
+      <Homepage />
     </div>
   );
 }

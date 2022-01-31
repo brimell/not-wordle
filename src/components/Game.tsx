@@ -73,6 +73,8 @@ function updateStats(gameState: boolean, wordLength: number, guesses: number) {
   
 }
 
+
+
 function Game(props: GameProps) {
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState<string[]>([]);
@@ -301,5 +303,4 @@ function Game(props: GameProps) {
     </div>
   );
 }
-
 export default Game;
