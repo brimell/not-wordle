@@ -77,7 +77,9 @@ function App() {
         <button id="settingsButton" onClick={() => {
           seed_update = Number(sessionStorage.getItem('seed')) || false
           setSettings((a) => !a)
-          if (window.screen.width <= 800) {settings ?  document.getElementById('GameOptions')!.style.display = 'none' : document.getElementById('GameOptions')!.style.display = 'flex'}
+          if (window.screen.width <= 800) {
+            console.log('test')
+          }
           }}>
           {settings ? < CloseIcon fontSize={$(window).height()! > 510 ? "large" : "small"} /> : <SettingsIcon fontSize={$(window).height()! > 510 ? "large" : "small"} /> }
         </button>

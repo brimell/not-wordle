@@ -227,7 +227,7 @@ function Game(props: GameProps) {
           <p>{(gameState === GameState.Won ? "You have just completed todays word!" : "Unfortunately, you have failed todays word.") + "You can continue playing by closing out of this popup and pressing enter."}</p>
         </div>
       </Modal>
-      <div className="Game-options" id="GameOptions">
+      <div className="Game-options" id="GameOptions" style={{display: window.screen.width <= 800 ? (props.hidden ? 'flex' : 'none') : 'flex'}}>
         <label htmlFor="wordLength">{wordLength} Letters:</label>
         <input
           className="slider"
