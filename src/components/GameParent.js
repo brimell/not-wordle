@@ -1,6 +1,5 @@
 import React from 'react'
 import Game from './Game'
-import { useState, useEffect } from 'react'
 import Settings from './Settings'
 
 export default function GameParent(props) {
