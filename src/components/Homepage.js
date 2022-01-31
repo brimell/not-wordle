@@ -1,25 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Multiplayer from "./Multiplayer";
-import GameParent from "./GameParent";
+import { Link } from "react-router-dom";
+import { Button } from '@mui/material';
 
 export default function Homepage() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/">
-          <div className="homepage">
-            <Link to="/multiplayer">Multiplayer</Link>
-            <Link to="/game">Normal</Link>
-          </div>
-        </Route>
-        <Route path="/multiplayer">
-          <Multiplayer />
-        </Route>
-        <Route path="/game">
-            <GameParent />
-        </Route>
-      </Routes>
-    </Router>
+    <div className="homepage">
+      <Link to="/not-wordle/multiplayer" className="link">
+        <Button variant="contained">Multiplayer</Button>
+      </Link>
+      <Link to="/not-wordle/game" className="link">
+        <Button variant="contained">Normal</Button>
+      </Link>
+    </div>
   );
 }

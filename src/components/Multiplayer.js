@@ -1,17 +1,17 @@
 import React from 'react'
-import firebase from './firebaseInit'
+import {database} from './firebaseInit'
 import 'firebase/compat/database';
+import { set, ref } from 'firebase/database';
 
-const db = firebase.database()
 export default function Multiplayer() {
+
+    const [players, setPlayers] = React.useState([]);
+    const roomsRef = ref(database, 'rooms');
+    set(ref(database, 'rooms' + roomsRef.key), {
+        players: [],
+    })
     return (
         <div className="multiplayer">
-            <form>
-                onSubmit={(e) => {
-                    e.preventDefault()
-                    const gamesRef = db.ref("games")
-                }}
-            </form>
         </div>
     )
 }

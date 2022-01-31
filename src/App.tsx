@@ -3,9 +3,14 @@ import { seed } from "./components/util";
 import { useState, useEffect } from "react";
 import { useModal } from "react-hooks-use-modal";
 
-import MainNav from './components/MainNav';
-import StatsModal from './components/StatsModal';
-import Homepage from './components/Homepage';
+import MainNav from "./components/MainNav";
+import StatsModal from "./components/StatsModal";
+import Homepage from "./components/Homepage";
+
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Multiplayer from "./components/Multiplayer";
+import GameParent from "./components/GameParent";
+
 if (!localStorage.getItem("wordMode")) {
   localStorage.setItem("wordMode", "todaysWord");
 }
@@ -25,15 +30,28 @@ function App() {
       );
     }
   }, []);
-  
+
   return (
-    <div className="App-container">
+    <Router>
+      <div className="App-container">
+        <StatsModal modal={Modal} close={close} />
+        <MainNav
+          settings={settings}
+          setSettings={setSettings}
+          setSeedUpdate={setSeedUpdate}
+          open={open}
+        />
 
-      <StatsModal modal={Modal} close={close} />
-      <MainNav settings={settings} setSettings={setSettings} setSeedUpdate={setSeedUpdate} open={open}/>
-
-      <Homepage />
-    </div>
+        <Routes>
+          <Route path="/not-wordle" element={<Homepage />}>
+          </Route>
+          <Route path="/not-wordle/multiplayer" element={<Multiplayer />}>
+          </Route>
+          <Route path="/not-wordle/game" element={<GameParent settings={settings} maxGuesses={maxGuesses} seedUpdate={seedUpdate} />}>
+          </Route>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

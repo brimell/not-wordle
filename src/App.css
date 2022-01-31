@@ -206,8 +206,27 @@ svg {
 .personIcon {
   position: absolute;
   top: 0;
+  left: 50px;
+  margin: 20px;
+}
+
+.homeIcon {
+  position: absolute;
+  top: 0;
   left: 0;
   margin: 20px;
+}
+
+.link {
+  margin: 20px;
+}
+
+.homepage {
+  margin: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .modalContainer {

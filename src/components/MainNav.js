@@ -2,6 +2,9 @@ import React from 'react'
 import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from '@mui/icons-material/Home';
+
+import { Link } from "react-router-dom";
 import $ from "jquery";
 
 export default function MainNav(props) {
@@ -13,6 +16,20 @@ export default function MainNav(props) {
     return (
         <div className="navContainer">
             <h1>not wordle</h1>
+            <div className="homeIcon">
+                <Link to="/not-wordle/" id="homeButton">
+                <HomeIcon
+                    fontSize={$(window).height() > 510 ? "large" : "small"}
+                />
+                </Link>
+            </div>
+            <div className="personIcon">
+                <button id="personButton" onClick={open}>
+                <PersonIcon
+                    fontSize={$(window).height() > 510 ? "large" : "small"}
+                />
+                </button>
+            </div>
             <div className="settingsIcon">
                 <button
                 id="settingsButton"
@@ -35,13 +52,7 @@ export default function MainNav(props) {
                 )}
                 </button>
             </div>
-            <div className="personIcon">
-                <button id="personButton" onClick={open}>
-                <PersonIcon
-                    fontSize={$(window).height() > 510 ? "large" : "small"}
-                />
-                </button>
-            </div>
+            
         </div>
     )
 }
