@@ -11,7 +11,7 @@ export default function Homepage() {
         }}>Multiplayer</Button>
       </Link>
       <Link to="/not-wordle/game" className="link">
-        <Button variant="contained">Normal</Button>
+        <Button variant="contained">Singleplayer</Button>
       </Link>
     </div>
   );

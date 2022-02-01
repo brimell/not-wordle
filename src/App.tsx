@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { useModal } from "react-hooks-use-modal";
 
 import MainNav from "./components/MainNav";
-import StatsModal from "./components/StatsModal";
+import StatsModal from "./components/Modals/StatsModal";
 import Homepage from "./components/Homepage";
+import Lobby from './components/Multiplayer/Lobby';
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Multiplayer from "./components/Multiplayer/Multiplayer";
@@ -46,6 +47,8 @@ function App() {
           <Route path="/not-wordle" element={<Homepage />}>
           </Route>
           <Route path="/not-wordle/multiplayer" element={<Multiplayer />}>
+          </Route>
+          <Route path="/not-wordle/lobby" element={<Lobby />}>
           </Route>
           <Route path="/not-wordle/game" element={<GameParent settings={settings} maxGuesses={maxGuesses} seedUpdate={seedUpdate} />}>
           </Route>

@@ -1,15 +1,13 @@
 import React from "react";
 import Game from "./Game";
-import Settings from "../Settings";
+import Settings from "../Modals/Settings";
 import { useEffect } from "react";
 import {supabase} from '../supabaseInit'
-import { ConstructionOutlined } from "@mui/icons-material";
-import Multiplayer from '../Multiplayer/Multiplayer';
 
 async function fetchPlayers(currentRoom) {
   const { data, error } = await supabase
   .from('rooms')
-  .select({id: currentRoom })
+  .select({code: currentRoom })
   return data
 }
 
@@ -17,10 +15,8 @@ async function updatePlayers(currentRoom, players) {
   const { data, error } = await supabase
   .from('rooms')
   .update({ players: players })
-  .match({ id: currentRoom })
+  .match({ code: currentRoom })
 }
-
-var multiplayer = Boolean(sessionStorage.getItem('multiplayer'))
 
 export default function GameParent(props) {
   const settings = props.settings;
@@ -33,8 +29,7 @@ export default function GameParent(props) {
   useEffect(() => {
 
     // console.log('settings: '+settings)
-    console.log(currentGrid)
-    if (multiplayer) {
+    if (sessionStorage.getItem('multiplayer') === 'true') {
       console.log(fetchPlayers(currentRoom))
       updatePlayers(currentRoom, fetchPlayers(currentRoom))
     } 
