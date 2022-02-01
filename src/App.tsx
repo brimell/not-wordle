@@ -8,7 +8,7 @@ import StatsModal from "./components/StatsModal";
 import Homepage from "./components/Homepage";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Multiplayer from "./components/Multiplayer";
+import Multiplayer from "./components/Multiplayer/Multiplayer";
 import GameParent from "./components/GameParent";
 
 if (!localStorage.getItem("wordMode")) {

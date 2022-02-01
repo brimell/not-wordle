@@ -4,7 +4,7 @@ import Settings from "./Settings";
 import { useEffect } from "react";
 import {supabase} from './supabaseInit'
 import { ConstructionOutlined } from "@mui/icons-material";
-import Multiplayer from './Multiplayer';
+import Multiplayer from './Multiplayer/Multiplayer';
 
 async function fetchPlayers(currentRoom) {
   const { data, error } = await supabase

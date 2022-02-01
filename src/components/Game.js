@@ -161,7 +161,9 @@ function Game(props) {
       if (!e.ctrlKey && !e.metaKey) {
         onKey(e.key);
       }
-      props.setCurrentGrid(currGrid)
+      if (sessionStorage.getItem("multiplayer") === "true") {
+        props.setCurrentGrid(currGrid)
+      }
       // console.log(target)
     };
     
