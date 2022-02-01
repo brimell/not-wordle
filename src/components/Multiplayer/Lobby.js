@@ -2,14 +2,15 @@ import React from "react";
 import "./Multiplayer.css";
 import { supabase } from "../supabaseInit";
 import { Input, TextField, Button } from "@mui/material";
+import socket from "../socketio";
 
 function startGame() {
     console.log('test')
 }
 
 export default function Lobby() {
-  const [playerList, setPlayerList] = React.useState({});
-
+  const playerList = socket.emit('fetchUserList',{})
+  console.log(playerList)
   return (
     <div className="lobby">
       <h2 className="lobby-title">

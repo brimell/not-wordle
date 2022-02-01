@@ -3,10 +3,7 @@ import "firebase/compat/database";
 import { TextField, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import "./Multiplayer.css";
-import io from "socket.io-client";
-
-// const socket = io('https://rimell.cc/bill:3000')
-const socket = io('http://localhost:3001')
+import socket from "../socketio";
 
 export default function Multiplayer() {
   const nameRef = useRef("");
@@ -42,6 +39,7 @@ export default function Multiplayer() {
               if (nameRef.current.value.length > 2 && codeRef.current.value.length > 2) {
                 socket.emit('join-room', {
                   name: nameRef.current.value,
+                  role: 'user',
                   code: codeRef.current.value
                 })
                 window.location.href = `/not-wordle/lobby?code=${codeRef.current.value}`
@@ -61,6 +59,7 @@ export default function Multiplayer() {
               if (nameRef.current.value.length > 2 && codeRef.current.value.length > 2) {
                 socket.emit('create-room', {
                   name: nameRef.current.value,
+                  role: 'host',
                   code: codeRef.current.value
                 })
                 window.location.href = `/not-wordle/lobby?code=${codeRef.current.value}`
