@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import { Row, RowState } from "./Row";
 import { Clue, clue } from "./clue";
 import { Keyboard } from "./Keyboard";
@@ -17,6 +17,7 @@ enum GameState {
 interface GameProps {
   maxGuesses: number;
   hidden: boolean;
+  setCurrentGrid: useState;
 }
 
 const targets = common
@@ -201,6 +202,10 @@ function Game(props: GameProps) {
         />
       );
     });
+    useEffect(() => {
+      props.setCurrentGrid(rowDivs)
+    })
+
     function resizeGrid() {
       if (window.screen.width <= 800) {
         if (String($('.Row').children().length / 6) === (localStorage.getItem('wordLength'))) {
