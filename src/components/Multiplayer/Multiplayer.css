@@ -1,42 +1,59 @@
 .multiplayer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10vh;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 10px;
+}
+
+.input-div {
+  margin: 10px !important;
+}
+
+.loading-text:after {
+  content: " .";
+  animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  40% {
+    color: white;
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  60% {
+    text-shadow: 0.25em 0 0 white, 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  80%,
+  100% {
+    text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
+  }
+}
+
+.lobby {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 10vh;
+    margin-top: 2vh;
 }
 
-.form-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin-top: 10px;
+.lobby-title {
+    font-size: 3rem;
+    font-weight: normal;
+    margin: 10px;
 }
 
-.input-div {
-    margin: 10px !important;
+.code-txt {
+    color: #1565c0;
 }
-
-.loading-text:after {
-    content: ' .';
-    animation: dots 1s steps(5, end) infinite;}
-  
-  @keyframes dots {
-    0%, 20% {
-      color: rgba(0,0,0,0);
-      text-shadow:
-        .25em 0 0 rgba(0,0,0,0),
-        .5em 0 0 rgba(0,0,0,0);}
-    40% {
-      color: white;
-      text-shadow:
-        .25em 0 0 rgba(0,0,0,0),
-        .5em 0 0 rgba(0,0,0,0);}
-    60% {
-      text-shadow:
-        .25em 0 0 white,
-        .5em 0 0 rgba(0,0,0,0);}
-    80%, 100% {
-      text-shadow:
-        .25em 0 0 white,
-        .5em 0 0 white;}}
-  
