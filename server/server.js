@@ -75,4 +75,4 @@ const PORT = process.env.PORT || 3001;
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-instrument(io, {auth: false})
+instrument(io, {auth: false}) // go to admin.socket.io for admin panel
