@@ -1,5 +1,7 @@
 import React from 'react'
 import './Multiplayer.css'
+import { supabase } from "../supabaseInit";
+import { Code } from '@mui/icons-material';
 
 window.onbeforeunload = closingCode;
 function closingCode(){
@@ -7,7 +9,16 @@ function closingCode(){
    return null;
 }
 
+async function fetchRoom(currentRoom) {
+    const { data, error } = await supabase
+    .from('rooms')
+    .select('*')
+    return data
+  }
+
 export default function Lobby() {
+    const currentRoom = sessionStorage.getItem("currentRoom");
+    console.log(fetchRoom(currentRoom))
     return (
         <div>
         <h1>Lobby</h1>

@@ -6,10 +6,10 @@ import { styled } from "@mui/system";
 import "./Multiplayer.css";
 import { useEffect } from "react";
 
-async function fetchId(currentRoom) {
+async function fetchRoom(currentRoom) {
   const { data, error } = await supabase
   .from('rooms')
-  .select({code: currentRoom })
+  .select('*')
   return data
 }
 
@@ -22,7 +22,7 @@ async function insertRoom(username, code) {
 async function updatePlayers(currentRoom) {
   const { data, error } = await supabase
     .from("rooms")
-    .update({ name: "Middle Earth" })
+    .update({ players: "Middle Earth" })
     .match({ code: currentRoom });
 }
 
@@ -37,7 +37,7 @@ async function createGame(name, code) {
   sessionStorage.setItem('code', code);
   sessionStorage.setItem('name', name);
   await insertRoom(name,code);
-  // window.location.href = "/not-wordle/lobby";
+  window.location.href = "/not-wordle/lobby";
 }
 
 export default function Multiplayer() {
@@ -72,7 +72,13 @@ export default function Multiplayer() {
             className="join-game-btn"
             variant="contained"
             onClick={() => {
-              // need to implement joining
+              fetchRoom(currentRoom).then(data => {
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].code === codeRef.current.value) {
+                    joinGame(data[i].code, data[i].players, nameRef['current'].value.length);
+                  }
+                }
+              })
             }}
           >
             Join Game
@@ -83,7 +89,7 @@ export default function Multiplayer() {
             className="create-game-btn"
             variant="contained"
             onClick={() => {
-              if (nameRef['current'].value.length > 2 && codeRef['current'].value.length > 2) {
+              if (nameRef['current'].value.length > 2 && codeRef.current.value.length > 2) {
                 createGame(nameRef['current'].value, codeRef['current'].value);
               } else {
                 alert("name and code must be at least 3 characters");
