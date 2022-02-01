@@ -13,17 +13,24 @@ async function fetchRoom(currentRoom) {
   return data
 }
 
-async function insertRoom(username, code) {
+async function joinGame(code, players, name) {
+  sessionStorage.setItem('code', code);
+  sessionStorage.setItem('name', name);
+  players[name] = [];
   const { data, error } = await supabase
     .from("rooms")
-    .insert([{ players: username, code: code }]);
+    .update({ players: players })
+    .match({ code: code });
+  window.location.href = "/not-wordle/lobby";
 }
 
-async function updatePlayers(currentRoom) {
+async function insertRoom(username, code) {
+  const players = {}
+  players[username] = [];
+
   const { data, error } = await supabase
     .from("rooms")
-    .update({ players: "Middle Earth" })
-    .match({ code: currentRoom });
+    .insert([{ players: players, code: code }]);
 }
 
 const mySubscription = supabase
@@ -43,7 +50,6 @@ async function createGame(name, code) {
 export default function Multiplayer() {
   const nameRef = useRef("");
   const codeRef = useRef("");
-  const currentRoom = sessionStorage.getItem("currentRoom");
 
   const CustomTextField = styled(TextField)({
     "& .MuiInput-underline:after": {
@@ -72,10 +78,12 @@ export default function Multiplayer() {
             className="join-game-btn"
             variant="contained"
             onClick={() => {
-              fetchRoom(currentRoom).then(data => {
+              fetchRoom(codeRef.current.value).then(data => {
                 for (let i = 0; i < data.length; i++) {
                   if (data[i].code === codeRef.current.value) {
-                    joinGame(data[i].code, data[i].players, nameRef['current'].value.length);
+                    // console.log(data[i])
+                    joinGame(data[i].code, data[i].players, nameRef.current.value);
+                    break
                   }
                 }
               })
@@ -89,8 +97,8 @@ export default function Multiplayer() {
             className="create-game-btn"
             variant="contained"
             onClick={() => {
-              if (nameRef['current'].value.length > 2 && codeRef.current.value.length > 2) {
-                createGame(nameRef['current'].value, codeRef['current'].value);
+              if (nameRef.current.value.length > 2 && codeRef.current.value.length > 2) {
+                createGame(nameRef.current.value, codeRef.current.value);
               } else {
                 alert("name and code must be at least 3 characters");
               }
