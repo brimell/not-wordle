@@ -6,7 +6,9 @@ export default function Homepage() {
   return (
     <div className="homepage">
       <Link to="/not-wordle/multiplayer" className="link">
-        <Button variant="contained">Multiplayer</Button>
+        <Button variant="contained" onClick={() => {
+          sessionStorage.setItem('multiplayer', 'true');
+        }}>Multiplayer</Button>
       </Link>
       <Link to="/not-wordle/game" className="link">
         <Button variant="contained">Normal</Button>

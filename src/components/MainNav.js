@@ -17,7 +17,9 @@ export default function MainNav(props) {
         <div className="navContainer">
             <h1>not wordle</h1>
             <div className="homeIcon">
-                <Link to="/not-wordle/" id="homeButton">
+                <Link to="/not-wordle/" id="homeButton" onClick={() => {
+                    sessionStorage.setItem('multiplayer', 'false');
+                }}>
                 <HomeIcon
                     fontSize={$(window).height() > 510 ? "large" : "small"}
                 />

@@ -8,22 +8,16 @@ import $ from "jquery";
 import { useModal } from 'react-hooks-use-modal';
 import CloseIcon from '@mui/icons-material/Close';
 
-enum GameState {
-  Playing,
-  Won,
-  Lost,
-}
-
-interface GameProps {
-  maxGuesses: number;
-  hidden: boolean;
-  setCurrentGrid: useState;
+const GameState = {
+  Playing: "Playing",
+  Won: "Won",
+  Lost: "Lost",
 }
 
 const targets = common
   .slice(0, 20000) // adjust for max target freakiness
 
-function randomTarget(wordLength: number) {
+function randomTarget(wordLength) {
   const eligible = targets.filter((word) => word.length === wordLength);
   return pick(eligible);
 }
@@ -32,7 +26,7 @@ if (!localStorage.getItem("wordLength")) {
   localStorage.setItem("wordLength", "5");
 }
 
-function updateStats(gameState: boolean, wordLength: number, guesses: number) {
+function updateStats(gameState, wordLength, guesses) {
   // console.log(guesses)
   guesses ++
   const today = new Date()
@@ -75,13 +69,13 @@ function updateStats(gameState: boolean, wordLength: number, guesses: number) {
 }
 
 
-
-function Game(props: GameProps) {
+function Game(props) {
+  var currGrid = []
   const [gameState, setGameState] = useState(GameState.Playing);
-  const [guesses, setGuesses] = useState<string[]>([]);
-  const [currentGuess, setCurrentGuess] = useState<string>("");
+  const [guesses, setGuesses] = useState([]);
+  const [currentGuess, setCurrentGuess] = useState("");
   const [wordLength, setWordLength] = useState(parseInt(localStorage.getItem("wordLength") || "5"));
-  const [hint, setHint] = useState<string>(`Make your first guess!`);
+  const [hint, setHint] = useState(`Make your first guess!`);
   const [target, setTarget] = useState(() => {
     resetRng();
     return randomTarget(wordLength);
@@ -111,7 +105,7 @@ function Game(props: GameProps) {
     // set modal display to block
   }
 
-  const onKey = (key: string) => {
+  const onKey = (key) => {
     if (gameState !== GameState.Playing) {
       if (key === "Enter") {
         startNextGame();
@@ -163,10 +157,11 @@ function Game(props: GameProps) {
   };
 
   useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
+    const onKeyDown = (e) => {
       if (!e.ctrlKey && !e.metaKey) {
         onKey(e.key);
       }
+      props.setCurrentGrid(currGrid)
       // console.log(target)
     };
     
@@ -177,12 +172,14 @@ function Game(props: GameProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentGuess, gameState]);
 
-  let letterInfo = new Map<string, Clue>();
+  
+  let letterInfo = new Map();
   const rowDivs = Array(props.maxGuesses)
     .fill(undefined)
     .map((_, i) => {
       const guess = [...guesses, currentGuess][i] ?? "";
       const cluedLetters = clue(guess, target);
+      currGrid.push(cluedLetters)
       const lockedIn = i < guesses.length;
       if (lockedIn) {
         for (const { clue, letter } of cluedLetters) {
@@ -201,21 +198,18 @@ function Game(props: GameProps) {
           cluedLetters={cluedLetters}
         />
       );
-    });
-    useEffect(() => {
-      props.setCurrentGrid(rowDivs)
     })
-
+    const setGrid = props.setCurrentGrid
     function resizeGrid() {
       if (window.screen.width <= 800) {
         if (String($('.Row').children().length / 6) === (localStorage.getItem('wordLength'))) {
-          if (parseInt(localStorage.getItem('wordLength')!) <= 5) {
+          if (parseInt(localStorage.getItem('wordLength')) <= 5) {
             $('.Row-letter').attr('style','width: 7vh')
-          } else if (localStorage.getItem('wordLength')! === "6") {
+          } else if (localStorage.getItem('wordLength') === "6") {
             $('.Row-letter').attr('style','width: 6.8vh')
-          } else if (localStorage.getItem('wordLength')! === "7") {
+          } else if (localStorage.getItem('wordLength') === "7") {
             $('.Row-letter').attr('style','width: 5.7vh')
-          } else if (localStorage.getItem('wordLength')! === "8") {
+          } else if (localStorage.getItem('wordLength') === "8") {
             $('.Row-letter').attr('style','width: 5vh')
           }
         } else {
@@ -255,8 +249,8 @@ function Game(props: GameProps) {
             setTarget(randomTarget(length));
             setWordLength(length);
             setHint(`${length} letters`);
-            (document.activeElement as HTMLElement)?.blur();
-            (localStorage.setItem('wordLength', length.toString()) as any);
+            (document.activeElement)?.blur();
+            (localStorage.setItem('wordLength', length.toString()));
             resizeGrid();
           }}
         ></input>
@@ -288,7 +282,7 @@ function Game(props: GameProps) {
             setGameState(GameState.Lost);
             if (seed) {disableTodaysWord()}
             updateStats(false, wordLength, guesses.length);
-            (document.activeElement as HTMLElement)?.blur();
+            (document.activeElement)?.blur();
           }}
         >
           Give up

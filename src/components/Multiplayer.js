@@ -3,6 +3,7 @@ import 'firebase/compat/database';
 import {supabase} from './supabaseInit'
 import {Input, Button} from '@mui/material';
 import { useEffect } from 'react';
+
 // async function insertRoom(props) {
 //     const { data, error } = await supabase
 //     .from('rooms')
@@ -20,6 +21,7 @@ async function updatePlayers(props) {
 
 export default function Multiplayer() {
     
+    const currentRoom = sessionStorage.getItem('currentRoom')
     const [name, setName] = React.useState('')
 
     return (
