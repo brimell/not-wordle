@@ -1,51 +1,12 @@
 import React, { useRef } from "react";
 import "firebase/compat/database";
-import { supabase } from "../supabaseInit";
-import { Input, TextField, Button } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import "./Multiplayer.css";
-import { useEffect } from "react";
+import io from "socket.io-client";
 
-async function fetchRoom(currentRoom) {
-  const { data, error } = await supabase
-  .from('rooms')
-  .select('*')
-  return data
-}
-
-async function joinGame(code, players, name) {
-  sessionStorage.setItem('code', code);
-  sessionStorage.setItem('name', name);
-  players[name] = [];
-  const { data, error } = await supabase
-    .from("rooms")
-    .update({ players: players })
-    .match({ code: code });
-  window.location.href = "/not-wordle/lobby";
-}
-
-async function insertRoom(username, code) {
-  const players = {}
-  players[username] = [];
-
-  const { data, error } = await supabase
-    .from("rooms")
-    .insert([{ players: players, code: code }]);
-}
-
-const mySubscription = supabase
-  .from('rooms')
-  .on('*', payload => {
-    console.log('Change received!', payload)
-  })
-  .subscribe()
-
-async function createGame(name, code) {
-  sessionStorage.setItem('code', code);
-  sessionStorage.setItem('name', name);
-  await insertRoom(name,code);
-  window.location.href = "/not-wordle/lobby";
-}
+// const socket = io('https://rimell.cc/bill:3000')
+const socket = io('http://localhost:3001')
 
 export default function Multiplayer() {
   const nameRef = useRef("");
@@ -78,15 +39,15 @@ export default function Multiplayer() {
             className="join-game-btn"
             variant="contained"
             onClick={() => {
-              fetchRoom(codeRef.current.value).then(data => {
-                for (let i = 0; i < data.length; i++) {
-                  if (data[i].code === codeRef.current.value) {
-                    // console.log(data[i])
-                    joinGame(data[i].code, data[i].players, nameRef.current.value);
-                    break
-                  }
-                }
-              })
+              if (nameRef.current.value.length > 2 && codeRef.current.value.length > 2) {
+                socket.emit('join-room', {
+                  name: nameRef.current.value,
+                  code: codeRef.current.value
+                })
+                window.location.href = `/not-wordle/lobby?code=${codeRef.current.value}`
+              } else {
+                alert("name and code must be at least 3 characters");
+              }
             }}
           >
             Join Game
@@ -98,7 +59,11 @@ export default function Multiplayer() {
             variant="contained"
             onClick={() => {
               if (nameRef.current.value.length > 2 && codeRef.current.value.length > 2) {
-                createGame(nameRef.current.value, codeRef.current.value);
+                socket.emit('create-room', {
+                  name: nameRef.current.value,
+                  code: codeRef.current.value
+                })
+                window.location.href = `/not-wordle/lobby?code=${codeRef.current.value}`
               } else {
                 alert("name and code must be at least 3 characters");
               }

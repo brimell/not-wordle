@@ -24,6 +24,8 @@
     "react-hooks-use-modal": "^2.1.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1",
     "typescript": "^4.5.4",
     "web-vitals": "^2.1.2"
   },
@@ -34,7 +36,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "nodemon server/server.js",
+    "serverprod": "node server/server.js"
   },
   "eslintConfig": {
     "extends": [
@@ -56,6 +60,7 @@
   },
   "devDependencies": {
     "@types/jquery": "^3.5.11",
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^3.2.3",
+    "nodemon": "^2.0.15"
   }
 }
