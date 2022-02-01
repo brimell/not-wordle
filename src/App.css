@@ -335,6 +335,15 @@ svg {
   background: #00d1b2;
   cursor: pointer;
 }
+
+input {
+  color: white !important;
+}
+
+label {
+  color: rgb(153, 153, 153) !important;
+}
+
 @media only screen and (min-width: 470px) {
   .Game-keyboard {
     position: relative;
