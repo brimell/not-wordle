@@ -10,7 +10,9 @@ async function startGame(setGame) {
     await socket.on('game-started', props => {
         setGame(true)
     })
-    socket.on('update-grid-client')
+    socket.on('update-grid-client', props => {
+      
+    })
 }
 
 export default function Lobby(props) {
