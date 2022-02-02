@@ -1,20 +1,34 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Multiplayer.css";
 import { TextField, Button } from "@mui/material";
 import socket from "../socketio";
+import GameParent from '../Game/GameParent'
 
-function startGame() {
-    console.log('test')
-    socket.emit('start-game', {
-        name: 'test',
+async function startGame(setGame) {
+    console.log('start game')
+    socket.emit('start-game')
+    await socket.on('game-started', props => {
+        setGame(true)
     })
+    socket.on('update-grid-client')
 }
 
-export default function Lobby() {
-  const playerList = socket.emit('fetchUserList',{})
-  console.log(playerList)
+export default function Lobby(props) {
+  const [users, setUsers] = React.useState([]);
+  const [game, setGame] = React.useState(false);
+
+  useEffect(() => {
+    socket.emit('fetchUserList')
+    socket.on('user-list', (userList) => {
+      setUsers(userList)
+    })
+  },[])
+
+  console.log('player list: ',users)
   return (
-    <div className="lobby">
+    <div className="container">
+      {!game &&
+      <div className="lobby">
       <h2 className="lobby-title">
         Game Code: <span className="code-txt">{}</span>
       </h2>
@@ -25,10 +39,10 @@ export default function Lobby() {
         Waiting for players
       </h2>
       <div className="player-list">
-        {Object.keys(playerList).map(function (key, index) {
+        {Object.values(users).map(function (key, index) {
           return (
             <div className="player-list-item" key={index}>
-              {key}
+              {key.username}
             </div>
           );
         })}
@@ -37,11 +51,28 @@ export default function Lobby() {
         className="start-game-btn"
         variant="contained"
         onClick={() => {
-          startGame();
+          startGame(setGame);
         }}
       >
         Start game
       </Button>
+      <Button
+        className="start-game-btn"
+        variant="contained"
+        onClick={() => {
+          socket.emit('leave-room')
+          props.setLobby(false)
+        }}
+      >
+        Leave
+      </Button>
     </div>
+    }
+    {game &&
+    <GameParent socket={socket}/>
+    }
+    </div>
+    
+    
   );
 }

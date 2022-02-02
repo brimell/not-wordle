@@ -1,13 +1,28 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import "firebase/compat/database";
 import { TextField, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import "./Multiplayer.css";
 import socket from "../socketio";
+import Lobby from './Lobby'
 
 export default function Multiplayer() {
   const nameRef = useRef("");
   const codeRef = useRef("");
+
+  const [lobby, setLobby] = React.useState(false);
+  useEffect(() => {
+    socket.emit('fetchUserList')
+    socket.on('user-list', (userList) => {
+      if (userList !== false) {
+        setLobby(true)
+        console.log('userList: ',userList)
+        
+      }
+    })
+    
+    console.log(lobby)
+  }, [lobby])
 
   const CustomTextField = styled(TextField)({
     "& .MuiInput-underline:after": {
@@ -28,7 +43,9 @@ export default function Multiplayer() {
 
   return (
     <div className="multiplayer">
-      <CustomTextField inputRef={nameRef} className="input-div" label="Name" />
+      {!lobby && 
+      <div className="join">
+        <CustomTextField inputRef={nameRef} className="input-div" label="Name" />
       <CustomTextField inputRef={codeRef} className="input-div" label="Code" />
       <div className="form-container">
         <div className="join-game">
@@ -39,10 +56,9 @@ export default function Multiplayer() {
               if (nameRef.current.value.length > 2 && codeRef.current.value.length > 2) {
                 socket.emit('join-room', {
                   name: nameRef.current.value,
-                  role: 'user',
                   code: codeRef.current.value
                 })
-                window.location.href = `/not-wordle/lobby?code=${codeRef.current.value}`
+                setLobby(true)
               } else {
                 alert("name and code must be at least 3 characters");
               }
@@ -59,10 +75,9 @@ export default function Multiplayer() {
               if (nameRef.current.value.length > 2 && codeRef.current.value.length > 2) {
                 socket.emit('create-room', {
                   name: nameRef.current.value,
-                  role: 'host',
                   code: codeRef.current.value
                 })
-                window.location.href = `/not-wordle/lobby?code=${codeRef.current.value}`
+                setLobby(true)
               } else {
                 alert("name and code must be at least 3 characters");
               }
@@ -72,6 +87,11 @@ export default function Multiplayer() {
           </Button>
         </div>
       </div>
+      </div>
+      }
+      {lobby && 
+      <Lobby setLobby={setLobby}/>}
+      
     </div>
   );
 }

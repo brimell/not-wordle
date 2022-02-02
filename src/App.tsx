@@ -48,8 +48,6 @@ function App() {
           </Route>
           <Route path="/not-wordle/multiplayer" element={<Multiplayer />}>
           </Route>
-          <Route path="/not-wordle/lobby" element={<Lobby />}>
-          </Route>
           <Route path="/not-wordle/game" element={<GameParent settings={settings} maxGuesses={maxGuesses} seedUpdate={seedUpdate} />}>
           </Route>
         </Routes>

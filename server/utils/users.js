@@ -1,10 +1,9 @@
 const users = [];
 
 // Join user to chat
-function userJoin(id, username, role, room) {
-  const user = { id, username, role, room, disconnected: false };
-
-  users.push(user);
+function userJoin(id, username, room, role) {
+  const user = { id, username, room, role };
+  users.push(user)
 
   return user;
 }
@@ -17,21 +16,24 @@ function getCurrentUser(id) {
 // User leaves chat
 function userLeave(id) {
   const index = users.findIndex(user => user.id === id);
-
-  if (index !== -1) {
-    return users.splice(index, 1)[0];
-  }
+  delete users[index];
 }
 
 // Get room users
 function getRoomUsers(room) {
-  console.log(users)
+  console.log('users: ',users)
   return users.filter(user => user.room === room);
+}
+
+function updateGrid(id, grid) {
+  const index = users.findIndex(user => user.id === id);
+  users[index].grid = grid;
 }
 
 module.exports = {
   userJoin,
   getCurrentUser,
   userLeave,
-  getRoomUsers
+  getRoomUsers,
+  updateGrid
 };
