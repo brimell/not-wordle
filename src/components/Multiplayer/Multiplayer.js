@@ -16,8 +16,7 @@ export default function Multiplayer() {
     socket.on('user-list', (userList) => {
       if (userList !== false) {
         setLobby(true)
-        console.log('userList: ',userList)
-        
+        // console.log('userList: ',userList)
       }
     })
     
@@ -54,11 +53,19 @@ export default function Multiplayer() {
             variant="contained"
             onClick={() => {
               if (nameRef.current.value.length > 2 && codeRef.current.value.length > 2) {
-                socket.emit('join-room', {
+                socket.emit('joinRoom', {
                   name: nameRef.current.value,
-                  code: codeRef.current.value
+                  room: codeRef.current.value,
+                  role: 'user'
                 })
-                setLobby(true)
+                socket.on('joinRoomRes', (props) => {
+                  console.log('res: ',props.res)
+                  if (props.res === true) {
+                    setLobby(true)
+                  } else {
+                    alert('that name is taken')
+                  }
+                })
               } else {
                 alert("name and code must be at least 3 characters");
               }
@@ -73,9 +80,10 @@ export default function Multiplayer() {
             variant="contained"
             onClick={() => {
               if (nameRef.current.value.length > 2 && codeRef.current.value.length > 2) {
-                socket.emit('create-room', {
+                socket.emit('joinRoom', {
                   name: nameRef.current.value,
-                  code: codeRef.current.value
+                  room: codeRef.current.value,
+                  role: 'host'
                 })
                 setLobby(true)
               } else {
@@ -90,7 +98,7 @@ export default function Multiplayer() {
       </div>
       }
       {lobby && 
-      <Lobby setLobby={setLobby}/>}
+      <Lobby setLobby={setLobby} room={codeRef.current.value} />}
       
     </div>
   );

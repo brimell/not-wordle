@@ -1,39 +1,45 @@
-const users = [];
+class Users {
+  constructor() {
+    this.users = [];
+  }
 
-// Join user to chat
-function userJoin(id, username, room, role) {
-  const user = { id, username, room, role };
-  users.push(user)
+  addUser(id, name, room, role) {
+    let user = {id, name, room, role};
+    this.users.push(user);
+    return user;
+  }
 
-  return user;
+  getUserList (room) {
+    let users = this.users.filter((user) => user.room === room);
+    let namesArray = users.map((user) => user.name);
+
+    return namesArray;
+  }
+
+  getFullUserList (room) {
+    let users = this.users.filter((user) => user.room === room);
+    return users;
+  }
+
+  getUser(id) {
+    return this.users.filter((user) => user.id === id)[0];
+  }
+
+  removeUser(id) {
+    let user = this.getUser(id);
+
+    if(user){
+      this.users = this.users.filter((user) => user.id !== id);
+    }
+
+    return user;
+  }
+
+  updateGrid(id, grid) {
+  this.users.filter((user) => user.id === id).grid = grid;
 }
-
-// Get current user
-function getCurrentUser(id) {
-  return users.find(user => user.id === id);
-}
-
-// User leaves chat
-function userLeave(id) {
-  const index = users.findIndex(user => user.id === id);
-  delete users[index];
-}
-
-// Get room users
-function getRoomUsers(room) {
-  console.log('users: ',users)
-  return users.filter(user => user.room === room);
-}
-
-function updateGrid(id, grid) {
-  const index = users.findIndex(user => user.id === id);
-  users[index].grid = grid;
 }
 
 module.exports = {
-  userJoin,
-  getCurrentUser,
-  userLeave,
-  getRoomUsers,
-  updateGrid
+  Users
 };

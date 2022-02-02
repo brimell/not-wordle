@@ -3,36 +3,43 @@ import "./Multiplayer.css";
 import { TextField, Button } from "@mui/material";
 import socket from "../socketio";
 import GameParent from '../Game/GameParent'
+import PlayerListItem from './PlayerListItem.js'
 
 async function startGame(setGame) {
-    console.log('start game')
     socket.emit('start-game')
-    await socket.on('game-started', props => {
+    socket.on('game-started', props => {
+      if (props.res) {
         setGame(true)
+      }
     })
     socket.on('update-grid-client', props => {
-      
+      // stuff
     })
 }
 
 export default function Lobby(props) {
   const [users, setUsers] = React.useState([]);
   const [game, setGame] = React.useState(false);
+  const [startHide, setStartHide] = React.useState(false);
 
+  socket.emit('fetchFullUserList')
+  socket.on('updateFullUsersList', (userList) => {
+    setStartHide(userList.find(user => user.id === socket.id))
+  })
+  
   useEffect(() => {
     socket.emit('fetchUserList')
-    socket.on('user-list', (userList) => {
+    socket.on('updateUsersList', (userList) => {
       setUsers(userList)
     })
   },[])
 
-  console.log('player list: ',users)
   return (
     <div className="container">
       {!game &&
       <div className="lobby">
       <h2 className="lobby-title">
-        Game Code: <span className="code-txt">{}</span>
+        Game Code: <span className="code-txt">{props.room}</span>
       </h2>
       <h2
         style={{ fontSize: "1rem", marginTop: "-20px" }}
@@ -41,15 +48,13 @@ export default function Lobby(props) {
         Waiting for players
       </h2>
       <div className="player-list">
-        {Object.values(users).map(function (key, index) {
+        {users.map(function (user,i) {
           return (
-            <div className="player-list-item" key={index}>
-              {key.username}
-            </div>
+            <PlayerListItem user={user} key={i}/>
           );
         })}
       </div>
-      <Button
+      {startHide && <Button
         className="start-game-btn"
         variant="contained"
         onClick={() => {
@@ -57,9 +62,9 @@ export default function Lobby(props) {
         }}
       >
         Start game
-      </Button>
+      </Button>}
       <Button
-        className="start-game-btn"
+        className="leave-room-btn"
         variant="contained"
         onClick={() => {
           socket.emit('leave-room')
