@@ -1,11 +1,13 @@
 import React from "react";
 import "./Multiplayer.css";
-import { supabase } from "../supabaseInit";
-import { Input, TextField, Button } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import socket from "../socketio";
 
 function startGame() {
     console.log('test')
+    socket.emit('start-game', {
+        name: 'test',
+    })
 }
 
 export default function Lobby() {
