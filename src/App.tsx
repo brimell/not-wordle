@@ -3,7 +3,7 @@ import { seed } from "./components/util";
 import { useState, useEffect } from "react";
 import { useModal } from "react-hooks-use-modal";
 
-import MainNav from "./components/MainNav";
+import MainNav from "./components/Nav/MainNav";
 import StatsModal from "./components/Modals/StatsModal";
 import Homepage from "./components/Homepage";
 import Lobby from './components/Multiplayer/Lobby';

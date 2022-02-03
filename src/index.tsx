@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import './components/firebaseInit'
+import './components/rc/rc'
+import './components/rc/rc.scss'
 import App from "./App";
-import 'bulma/css/bulma.css';
 
 ReactDOM.render(
   <React.StrictMode>
