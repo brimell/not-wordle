@@ -5,11 +5,17 @@ import { styled } from "@mui/system";
 import "./Multiplayer.css";
 import socket from "../socketio";
 import Lobby from "./Lobby";
+import ServerBrowser from "./ServerBrowser";
 
 export default function Multiplayer() {
   const nameRef = useRef("");
   const codeRef = useRef("");
   const [lobby, setLobby] = React.useState(false);
+  const [rooms, setRooms] = React.useState([]);
+  useEffect(() => {
+    socket.emit("fetchRooms");
+    socket.on("fetchRoomsRes", (rooms) => { setRooms(rooms) })
+  })
 
   const CustomTextField = styled(TextField)({
     "& .MuiInput-underline:after": {
@@ -127,6 +133,7 @@ export default function Multiplayer() {
               </Button>
             </div>
           </div>
+          <ServerBrowser rooms={rooms}/>
         </div>
       )}
       {lobby && <Lobby setLobby={setLobby} room={codeRef.current.value} />}

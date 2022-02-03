@@ -310,7 +310,7 @@ function Game(props) {
           Give up
         </button>
       </div>
-      <div className="Game card" id="gridKeyboardHint" style={{ display: props.hidden ? "none" : "block" }}>
+      <div className="Game glow-card" id="gridKeyboardHint" style={{ display: props.hidden ? "none" : "block" }}>
       {rowDivs}
       <p id="hint" >{hint || `\u00a0`}</p> {/* no break space / nbsp */}
       <Keyboard letterInfo={letterInfo} onKey={onKey} />

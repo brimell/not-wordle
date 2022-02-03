@@ -61,6 +61,7 @@ body {
   flex-direction: column;
   margin-top: 0.8rem;
   align-items: center;
+  justify-content: center;
   width: 35%;
   height: 100%;
 }
@@ -214,6 +215,8 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 :root {
@@ -228,44 +231,28 @@ a {
 }
 
 .split {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   width: 50%;
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
 }
 
 .split.left {
   left: 0;
-  background: url('https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') center center no-repeat;
-  background-size: cover;
-}
-
-.split.left:before {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  background: var(--left-bg-color);
+  background-color: rgb(54, 54, 54);
 }
 
 .split.right {
   right: 0;
-  background: url('https://images.pexels.com/photos/574077/pexels-photo-574077.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') center center no-repeat;
-  background-size: cover;
-}
-
-.split.right:before {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  background: var(--right-bg-color);
+  background-color: rgb(22, 22, 22);
 }
 
 .split.left,
-.split.right,
-.split.left:before,
-.split.right:before {
+.split.right {
   transition: var(--speed) all ease-in-out;
 }
 
@@ -279,11 +266,6 @@ a {
   width: var(--other-width);
 }
 
-.hover-left .right:before {
-  /* Fade right side */
-  z-index: 2;
-}
-
 /* Mouse Hover Right */
 .hover-right .left {
   width: var(--other-width);
@@ -293,10 +275,6 @@ a {
   width: var(--hover-width);
 }
 
-.hover-right .left:before {
-  /* Fade left side */
-  z-index: 2;
-}
 
 .modalContainer {
   background-color: #0e0f10;
