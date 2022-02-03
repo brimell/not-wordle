@@ -78,15 +78,12 @@ function Game(props) {
   const [hint, setHint] = useState(`Make your first guess!`);
   const [target, setTarget] = useState(() => {
     if (props.target !== false) {
-      console.log('yes')
       return props.target;
     } else {
-      console.log('no',props.target)
       resetRng();
       return randomTarget(wordLength);
     }
   });
-  console.log('target: ', props.target)
   const [gameNumber, setGameNumber] = useState(1);
   const [Modal, open, close, isOpen] = useModal('root', {
     preventScroll: true,

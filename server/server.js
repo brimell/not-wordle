@@ -99,6 +99,13 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on("getUser", (id) => {
+    const user = users.getUser(id);
+    if (user) {
+      io.to(socket.id).emit("getUserRes", user);
+    }
+  })
+
   socket.on("update-grid", (props) => {
     const user = users.getUser(socket.id);
     users.updateGrid(user.id, props.grid);

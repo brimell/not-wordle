@@ -16,7 +16,8 @@ export default function Lobby(props) {
   const [startHide, setStartHide] = React.useState(false);
   const [target, setTarget] = React.useState('');
   const [podium, setPodium] = React.useState(false)
-  var winner = false
+
+  const [winner, setWinner] = React.useState('test')
 
   function gameLost(id) {
     console.log(id,' lost')
@@ -24,18 +25,21 @@ export default function Lobby(props) {
 
   function gameWon(id) {
     console.log(id, ' won')
-    winner = id
+    socket.emit("getUser", id)
     setGame(false)
     setPodium(true)
   }
 
+  
   socket.on('game-started', (props) => {
     if (props.res) {
-      console.log('server target: ',props.target)
       setTarget(props.target)
       setGame(true)
 
     }
+  })
+  socket.on("getUserRes", user => {
+    setWinner(user.name)
   })
   socket.on('gameWon', (id) => {
     gameWon(id)
@@ -56,7 +60,7 @@ export default function Lobby(props) {
   
   return (
     <div className="container">
-      {!game &&
+      {!game && !podium &&
       <div className="lobby">
       <h2 className="lobby-title">
         Game Code: <span className="code-txt">{props.room}</span>
