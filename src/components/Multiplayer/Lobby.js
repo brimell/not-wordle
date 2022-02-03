@@ -4,24 +4,46 @@ import { TextField, Button } from "@mui/material";
 import socket from "../socketio";
 import GameParent from '../Game/GameParent'
 import PlayerListItem from './PlayerListItem.js'
+import Podium from './Podium'
 
 function startGame(setGame) {
     socket.emit('start-game')
-    socket.on('game-started', (res) => {
-      if (res) {
-        setGame(true)
-      }
-    })
-    socket.on('update-grid-client', props => {
-      // stuff
-    })
 }
 
 export default function Lobby(props) {
   const [users, setUsers] = React.useState([]);
   const [game, setGame] = React.useState(false);
   const [startHide, setStartHide] = React.useState(false);
+  const [target, setTarget] = React.useState('');
+  const [podium, setPodium] = React.useState(false)
+  var winner = false
 
+  function gameLost(id) {
+    console.log(id,' lost')
+  }
+
+  function gameWon(id) {
+    console.log(id, ' won')
+    winner = id
+    setGame(false)
+    setPodium(true)
+  }
+
+  socket.on('game-started', (res,target) => {
+    if (res) {
+      setGame(true)
+    }
+    setTarget(target)
+  })
+  socket.on('gameWon', (id) => {
+    gameWon(id)
+  })
+  socket.on('gameLost', (id) => {
+    gameLost(id)
+  })
+  socket.on('update-grid-client', props => {
+    // stuff
+  })
   socket.on('updateUsersList', (userList) => {
     socket.emit('fetchFullUsersList')
     setUsers(userList)
@@ -72,7 +94,10 @@ export default function Lobby(props) {
     </div>
     }
     {game &&
-    <GameParent socket={socket}/>
+    <GameParent socket={socket} target={target} />
+    }
+    {podium &&
+    <Podium socket={socket} target={target} winner={winner} />
     }
     </div>
     

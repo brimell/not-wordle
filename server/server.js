@@ -7,6 +7,7 @@ const { instrument } = require("@socket.io/admin-ui");
 
 const { Users } = require("./utils/users");
 let users = new Users();
+const common = require('../src/Wordlist/common.json')
 
 const app = express();
 const server = http.createServer(app);
@@ -20,6 +21,18 @@ const io = socketio(server, {
   },
 });
 app.use(cors());
+
+const makeRandom = () => Math.random();
+let random = makeRandom();
+function pick(array) {
+  return array[Math.floor(array.length * random)];
+}
+const targets = common
+  .slice(0, 20000) // adjust for max target freakiness
+function randomTarget(wordLength) {
+  const eligible = targets.filter((word) => word.length === wordLength);
+  return pick(eligible);
+}
 
 io.on("connection", (socket) => {
   console.log("new connection", socket.id);
@@ -43,12 +56,21 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on('gameFinish', (gameState) => {
+    const user = users.getUser(socket.id);
+    if (gameState === 'Won') {
+      io.to(user.room).emit('gameWon', user.id)
+    } else if (gameState === "Lost") {
+      io.to(user.room).emit('gameLost', user.id)
+    }
+  })
+
   socket.on("start-game", (props) => {
     const user = users.getUser(socket.id);
     if (users.getUser(socket.id).role === "host") {
       console.log("game started in room: ", user.room);
 
-      io.to(user.room).emit("game-started", true);
+      io.to(user.room).emit("game-started", (true, randomTarget(5)));
     } else {
       io.to(user.room).emit("game-started", false);
     }

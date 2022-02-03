@@ -91,9 +91,9 @@ export default function Multiplayer() {
                   socket.on("fetchRoomsRes", (rooms) => {
                     var dupe = false;
                     if (rooms.length > 0) {
-                      for (var i; i < rooms.length; i++) {
+                      for (var i = 0; i < rooms.length; i++) {
                         var room = rooms[i];
-                        console.log(room)
+                        console.log('room: ',room);
                         if (room === codeRef.current.value) {
                           alert("that room already exists");
                           dupe = true;

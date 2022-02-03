@@ -77,8 +77,12 @@ function Game(props) {
   const [wordLength, setWordLength] = useState(parseInt(localStorage.getItem("wordLength") || "5"));
   const [hint, setHint] = useState(`Make your first guess!`);
   const [target, setTarget] = useState(() => {
-    resetRng();
-    return randomTarget(wordLength);
+    if (props.target) {
+      return props.target;
+    } else {
+      resetRng();
+      return randomTarget(wordLength);
+    }
   });
   const [gameNumber, setGameNumber] = useState(1);
   const [Modal, open, close, isOpen] = useModal('root', {
@@ -93,6 +97,10 @@ function Game(props) {
     setGameState(GameState.Playing);
     setGameNumber((x) => x + 1);
   };
+
+  function handleGameFinish(gameState) {
+    props.handleGameFinish(gameState)
+  }
 
   function disableTodaysWord() {
     if (seed && localStorage.getItem("wordMode") === "todaysWord") {
@@ -131,25 +139,34 @@ function Game(props) {
       setGuesses((guesses) => guesses.concat([currentGuess]));
       setCurrentGuess((guess) => "");
       if (currentGuess === target) {
-        if (seed) {
-          disableTodaysWord()
-          setHint("You won! (Enter to play a random word)");
-        } else {
-          setHint("You won! (Enter to play again)");
-        }
         setGameState(GameState.Won);
         updateStats(true, wordLength, guesses.length);
-      } else if (guesses.length + 1 === props.maxGuesses) {
-        if (seed) {
-          disableTodaysWord()
-          setHint(`You lost! The answer was ${target.toUpperCase()}. (Enter to play a random word)`)
+        if (props.target) {
+          handleGameFinish(gameState)
         } else {
-          setHint(
-            `You lost! The answer was ${target.toUpperCase()}. (Enter to play again)`
-          );
+          if (seed) {
+            disableTodaysWord()
+            setHint("You won! (Enter to play a random word)");
+          } else {
+            setHint("You won! (Enter to play again)");
+          }
         }
+      } else if (guesses.length + 1 === props.maxGuesses) {
         setGameState(GameState.Lost);
         updateStats(false, wordLength, guesses.length);
+
+        if (props.target) {
+          handleGameFinish(gameState)
+        } else {
+          if (seed) {
+            disableTodaysWord()
+            setHint(`You lost! The answer was ${target.toUpperCase()}. (Enter to play a random word)`)
+          } else {
+            setHint(
+              `You lost! The answer was ${target.toUpperCase()}. (Enter to play again)`
+            );
+          }
+        }
       } else {
         setHint("");
       }
