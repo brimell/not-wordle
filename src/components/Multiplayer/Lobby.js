@@ -8,7 +8,8 @@ import PlayerListItem from './PlayerListItem.js'
 async function startGame(setGame) {
     socket.emit('start-game')
     socket.on('game-started', props => {
-      if (props.res) {
+      console.log(props.res)
+      if ('res: ',props.res) {
         setGame(true)
       }
     })
@@ -22,17 +23,18 @@ export default function Lobby(props) {
   const [game, setGame] = React.useState(false);
   const [startHide, setStartHide] = React.useState(false);
 
-  socket.emit('fetchFullUserList')
+  socket.on('updateUsersList', (userList) => {
+    setUsers(userList)
+  })
   socket.on('updateFullUsersList', (userList) => {
+    console.log('updated')
     setStartHide(userList.find(user => user.id === socket.id))
   })
   
-  useEffect(() => {
+  function updateUserList() {
     socket.emit('fetchUserList')
-    socket.on('updateUsersList', (userList) => {
-      setUsers(userList)
-    })
-  },[])
+    socket.emit('fetchFullUserList')
+  }
 
   return (
     <div className="container">

@@ -56,6 +56,7 @@ io.on("connection", (socket) => {
 
   socket.on("fetchFullUsersList", (props) => {
     const user = users.getUser(socket.id);
+    console.log('fetched')
     if (user) {
       io.to(user.room).emit(
         "updateFullUsersList",

@@ -19,8 +19,6 @@ export default function Multiplayer() {
         // console.log('userList: ',userList)
       }
     })
-    
-    console.log(lobby)
   }, [lobby])
 
   const CustomTextField = styled(TextField)({
