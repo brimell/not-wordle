@@ -5,11 +5,10 @@ import socket from "../socketio";
 import GameParent from '../Game/GameParent'
 import PlayerListItem from './PlayerListItem.js'
 
-async function startGame(setGame) {
+function startGame(setGame) {
     socket.emit('start-game')
-    socket.on('game-started', props => {
-      console.log(props.res)
-      if ('res: ',props.res) {
+    socket.on('game-started', (res) => {
+      if (res) {
         setGame(true)
       }
     })
@@ -24,18 +23,13 @@ export default function Lobby(props) {
   const [startHide, setStartHide] = React.useState(false);
 
   socket.on('updateUsersList', (userList) => {
+    socket.emit('fetchFullUsersList')
     setUsers(userList)
   })
   socket.on('updateFullUsersList', (userList) => {
-    console.log('updated')
-    setStartHide(userList.find(user => user.id === socket.id))
+    setStartHide(userList.find(user => user.id === socket.id).role === 'host')
   })
   
-  function updateUserList() {
-    socket.emit('fetchUserList')
-    socket.emit('fetchFullUserList')
-  }
-
   return (
     <div className="container">
       {!game &&

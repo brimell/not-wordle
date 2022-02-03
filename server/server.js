@@ -48,15 +48,19 @@ io.on("connection", (socket) => {
     if (users.getUser(socket.id).role === "host") {
       console.log("game started in room: ", user.room);
 
-      io.to(user.room).emit("game-started", { res: true });
+      io.to(user.room).emit("game-started", true);
     } else {
-      io.to(user.room).emit("game-started", { res: false });
+      io.to(user.room).emit("game-started", false);
     }
   });
 
-  socket.on("fetchFullUsersList", (props) => {
+  socket.on('fetchRooms', () => {
+    var room_list = users.getRoomList()
+    io.to(socket.id).emit('fetchRoomsRes', room_list);
+  })
+
+  socket.on("fetchFullUsersList", () => {
     const user = users.getUser(socket.id);
-    console.log('fetched')
     if (user) {
       io.to(user.room).emit(
         "updateFullUsersList",

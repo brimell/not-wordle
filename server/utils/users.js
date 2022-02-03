@@ -16,6 +16,19 @@ class Users {
     return namesArray;
   }
 
+  getRoomList() {
+    var rooms_list = []
+    console.log('users: ',this.users)
+    for (var i = 0; i < this.users.length; i++) {
+      var user = this.users[i]
+      console.log('user: ',user)
+      if (!(user.room in rooms_list)) {
+        rooms_list.push(user.room)
+      }
+    }
+    return rooms_list
+    }
+
   getFullUserList (room) {
     let users = this.users.filter((user) => user.room === room);
     return users;
