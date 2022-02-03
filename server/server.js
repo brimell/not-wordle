@@ -70,9 +70,9 @@ io.on("connection", (socket) => {
     if (users.getUser(socket.id).role === "host") {
       console.log("game started in room: ", user.room);
 
-      io.to(user.room).emit("game-started", (true, randomTarget(5)));
+      io.to(user.room).emit("game-started", {res: true,target: randomTarget(5)});
     } else {
-      io.to(user.room).emit("game-started", false);
+      io.to(user.room).emit("game-started", {res: false});
     }
   });
 

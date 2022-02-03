@@ -7,7 +7,7 @@ import PlayerListItem from './PlayerListItem.js'
 import Podium from './Podium'
 
 function startGame(setGame) {
-    socket.emit('start-game')
+  socket.emit('start-game')
 }
 
 export default function Lobby(props) {
@@ -29,11 +29,13 @@ export default function Lobby(props) {
     setPodium(true)
   }
 
-  socket.on('game-started', (res,target) => {
-    if (res) {
+  socket.on('game-started', (props) => {
+    if (props.res) {
+      console.log('server target: ',props.target)
+      setTarget(props.target)
       setGame(true)
+
     }
-    setTarget(target)
   })
   socket.on('gameWon', (id) => {
     gameWon(id)

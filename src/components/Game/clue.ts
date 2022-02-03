@@ -11,6 +11,7 @@ export interface CluedLetter {
 
 export function clue(word: string, target: string): CluedLetter[] {
   let elusive: string[] = [];
+  console.log('clue target: ',target, 'word: ',word);
   target.split("").forEach((letter, i) => {
     if (word[i] !== letter) {
       elusive.push(letter);

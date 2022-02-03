@@ -77,13 +77,16 @@ function Game(props) {
   const [wordLength, setWordLength] = useState(parseInt(localStorage.getItem("wordLength") || "5"));
   const [hint, setHint] = useState(`Make your first guess!`);
   const [target, setTarget] = useState(() => {
-    if (props.target) {
+    if (props.target !== false) {
+      console.log('yes')
       return props.target;
     } else {
+      console.log('no',props.target)
       resetRng();
       return randomTarget(wordLength);
     }
   });
+  console.log('target: ', props.target)
   const [gameNumber, setGameNumber] = useState(1);
   const [Modal, open, close, isOpen] = useModal('root', {
     preventScroll: true,
@@ -99,6 +102,7 @@ function Game(props) {
   };
 
   function handleGameFinish(gameState) {
+    console.log('game finished', gameState)
     props.handleGameFinish(gameState)
   }
 
@@ -142,7 +146,7 @@ function Game(props) {
         setGameState(GameState.Won);
         updateStats(true, wordLength, guesses.length);
         if (props.target) {
-          handleGameFinish(gameState)
+          handleGameFinish(GameState.Won)
         } else {
           if (seed) {
             disableTodaysWord()
@@ -156,7 +160,7 @@ function Game(props) {
         updateStats(false, wordLength, guesses.length);
 
         if (props.target) {
-          handleGameFinish(gameState)
+          handleGameFinish(GameState.Lost)
         } else {
           if (seed) {
             disableTodaysWord()

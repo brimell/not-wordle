@@ -17,6 +17,7 @@ export default function GameParent(props) {
     if (socket) {
     socket.emit('update-grid', {grid : currentGrid})
     }
+    console.log('gameparent target: ',props.target)
   }, [currentGrid])
   
   function handleGameFinish(gameState) {
