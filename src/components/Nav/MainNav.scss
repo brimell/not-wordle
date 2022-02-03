@@ -22,13 +22,12 @@ $transition: $timing ease all;
 .navbar {
   $ref: &;
   position: fixed;
-  left: $spacer;
   background: #fff;
   border-radius: $borderRadius;
   padding: $spacer 0;
   box-shadow: 0 0 40px rgba(255, 255, 255, 0.103);
-  top: 50%;
-  margin-top: -128px; /* Negative half of height. */
+  top: $spacer;
+  right: 50%;
   &__link {
     position: relative;
     display: flex;
