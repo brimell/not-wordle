@@ -27,9 +27,6 @@ body {
   height: 100vh;
   overflow: hidden;
 }
-a:-webkit-any-link {
-  color: inherit;
-}
 
 #root {
   width: 100%;

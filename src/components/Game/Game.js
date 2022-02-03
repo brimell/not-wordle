@@ -8,6 +8,8 @@ import $ from "jquery";
 import { useModal } from 'react-hooks-use-modal';
 import CloseIcon from '@mui/icons-material/Close';
 
+import './card.css'
+
 const GameState = {
   Playing: "Playing",
   Won: "Won",
@@ -308,7 +310,7 @@ function Game(props) {
           Give up
         </button>
       </div>
-      <div className="Game" id="gridKeyboardHint" style={{ display: props.hidden ? "none" : "block" }}>
+      <div className="Game card" id="gridKeyboardHint" style={{ display: props.hidden ? "none" : "block" }}>
       {rowDivs}
       <p id="hint" >{hint || `\u00a0`}</p> {/* no break space / nbsp */}
       <Keyboard letterInfo={letterInfo} onKey={onKey} />

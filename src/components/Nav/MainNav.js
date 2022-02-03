@@ -12,13 +12,11 @@ export default function MainNav(props) {
   const setSeedUpdate = props.setSeedUpdate;
 
   return (
-    <div className="navContainer">
-      <h1>not wordle</h1>
       <nav className="navbar">
         <ul className="navbar__menu">
           <li className="navbar__item">
-            <a href className="navbar__link">
               <Link
+                className="navbar__link"
                 to="/not-wordle/"
                 id="homeButton"
                 onClick={() => {
@@ -28,23 +26,22 @@ export default function MainNav(props) {
                 <Home />
                 <span>Home</span>
               </Link>
-            </a>
           </li>
           <li className="navbar__item">
-            <a href className="navbar__link">
+            <a className="navbar__link">
               <MessageSquare />
               <span>Messages</span>
             </a>
           </li>
+          <h1>not wordle</h1>
           <li className="navbar__item">
-            <a href className="navbar__link" onClick={open}>
+            <a className="navbar__link" onClick={open}>
               <User />
               <span>Stats</span>
             </a>
           </li>
           <li className="navbar__item">
             <a
-              href
               className="navbar__link"
               onClick={() => {
                 setSeedUpdate(Number(sessionStorage.getItem("seed")) || false);
@@ -57,6 +54,5 @@ export default function MainNav(props) {
           </li>
         </ul>
       </nav>
-    </div>
   );
 }

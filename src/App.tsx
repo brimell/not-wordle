@@ -34,7 +34,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App-container">
+      <div className="App-container target-light">
         <StatsModal modal={Modal} close={close} />
         <MainNav
           settings={settings}

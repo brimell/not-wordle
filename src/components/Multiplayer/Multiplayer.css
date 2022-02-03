@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 10vh;
 }
 
 .form-container {
@@ -51,7 +50,7 @@
 .lobby-title {
   font-size: 3rem;
   font-weight: normal;
-  margin: 10px;
+  margin: 1rem;
 }
 
 .code-txt {
@@ -63,4 +62,25 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.player-list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10pxpx;
+  background-color: #2a394b;
+}
+
+.player-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  max-width: 50vw;
+  flex-wrap: wrap;
 }
