@@ -9,17 +9,7 @@ import Lobby from "./Lobby";
 export default function Multiplayer() {
   const nameRef = useRef("");
   const codeRef = useRef("");
-
   const [lobby, setLobby] = React.useState(false);
-  useEffect(() => {
-    socket.emit("fetchUserList");
-    socket.on("user-list", (userList) => {
-      if (userList !== false) {
-        setLobby(true);
-        // console.log('userList: ',userList)
-      }
-    });
-  }, [lobby]);
 
   const CustomTextField = styled(TextField)({
     "& .MuiInput-underline:after": {
@@ -58,25 +48,40 @@ export default function Multiplayer() {
                 className="join-game-btn"
                 variant="contained"
                 onClick={() => {
-                  if (
-                    nameRef.current.value.length > 2 &&
-                    codeRef.current.value.length > 2
-                  ) {
-                    socket.emit("joinRoom", {
-                      name: nameRef.current.value,
-                      room: codeRef.current.value,
-                      role: "user",
-                    });
-                    socket.on("joinRoomRes", (props) => {
-                      if (props.res === true) {
-                        setLobby(true);
-                      } else {
-                        alert("that name is taken");
+                  socket.emit("fetchUserListByRoom", codeRef.current.value);
+                  socket.on("fetchUserListByRoomRes", (users) => {
+                    var dupe = false;
+                    if (users.length > 0) {
+                      for (var i = 0; i < users.length; i++) {
+                        var user = users[i];
+                        if (user === nameRef.current.value) {
+                          alert("that name is taken in this room");
+                          dupe = true;
+                          return;
+                        }
                       }
-                    });
-                  } else {
-                    alert("name and code must be at least 3 characters");
-                  }
+                    }
+                    if (
+                      nameRef.current.value.length > 2 &&
+                      codeRef.current.value.length > 2 &&
+                      !dupe
+                    ) {
+                      socket.emit("joinRoom", {
+                        name: nameRef.current.value,
+                        room: codeRef.current.value,
+                        role: "user",
+                      });
+                      socket.on("joinRoomRes", (props) => {
+                        if (props.res === true) {
+                          setLobby(true);
+                        } else {
+                          alert("that name is taken");
+                        }
+                      });
+                    } else {
+                      alert("name and code must be at least 3 characters");
+                    }
+                  });
                 }}
               >
                 Join Game
@@ -93,7 +98,7 @@ export default function Multiplayer() {
                     if (rooms.length > 0) {
                       for (var i = 0; i < rooms.length; i++) {
                         var room = rooms[i];
-                        console.log('room: ',room);
+                        console.log("room: ", room);
                         if (room === codeRef.current.value) {
                           alert("that room already exists");
                           dupe = true;

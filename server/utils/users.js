@@ -18,10 +18,8 @@ class Users {
 
   getRoomList() {
     var rooms_list = []
-    console.log('users: ',this.users)
     for (var i = 0; i < this.users.length; i++) {
       var user = this.users[i]
-      console.log('user: ',user)
       if (!(user.room in rooms_list)) {
         rooms_list.push(user.room)
       }

@@ -90,6 +90,9 @@ io.on("connection", (socket) => {
       );
     }
   });
+  socket.on('fetchUserListByRoom', (room) => {
+    io.to(socket.id).emit('fetchUserListByRoomRes', users.getUserList(room))
+  })
   socket.on("fetchUserList", (props) => {
     const user = users.getUser(socket.id);
     if (user) {
