@@ -6,15 +6,14 @@ export default function ServerBrowser(props) {
   return (
     <div className="server-browser">
       <h2>Server Browser</h2>
-      {rooms.map((room) => {
+      {rooms.map((room,i) => {
         return (
-          <article className="information card">
+          <article key={i} className="information card">
             <span className="tag">Host: {room.host}</span>
-            <h2 className="title">{room.code}</h2>
-            <p className="info">
-              Elemenatary tracks all the events for the day as you scheduled and
-              you will never have to worry.
-            </p>
+            <h2 className="title">{room.room}</h2>
+            {room.users.map((user,j) => {
+              return <p key={j} className="info">{user}</p>;
+            })}
             <button className="button">
               <span>Join Room</span>
               <svg
@@ -33,12 +32,12 @@ export default function ServerBrowser(props) {
             </button>
             <dl className="details">
               <div>
-                <dt>Satisfaction</dt>
-                <dd>100%</dd>
+                <dt>Players</dt>
+                <dd>{room.users.length}</dd>
               </div>
               <div>
-                <dt>Customers</dt>
-                <dd>4.5K</dd>
+                <dt>Game State</dt>
+                <dd>{room.gamestate}</dd>
               </div>
             </dl>
           </article>

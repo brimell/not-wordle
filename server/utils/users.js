@@ -1,15 +1,16 @@
 class Users {
   constructor() {
     this.users = [];
+    this.rooms = [];
   }
 
   addUser(id, name, room, role) {
-    let user = {id, name, room, role};
+    let user = { id, name, room, role };
     this.users.push(user);
     return user;
   }
 
-  getUserList (room) {
+  getUserList(room) {
     let users = this.users.filter((user) => user.room === room);
     let namesArray = users.map((user) => user.name);
 
@@ -17,17 +18,24 @@ class Users {
   }
 
   getRoomList() {
-    var rooms_list = []
     for (var i = 0; i < this.users.length; i++) {
-      var user = this.users[i]
-      if (!(user.room in rooms_list)) {
-        rooms_list.push(user.room)
+      var user = this.users[i];
+      if (user.role === "host") {
+        this.rooms.push({
+          room: user.room,
+          host: user.name,
+          users: this.getUserList(user.room),
+        });
       }
     }
-    return rooms_list
-    }
+    return this.rooms;
+  }
 
-  getFullUserList (room) {
+  updateGameState(roomprop, gameState) {
+    this.rooms.filter((room) => room.room === roomprop).gameState = gameState;
+  }
+
+  getFullUserList(room) {
     let users = this.users.filter((user) => user.room === room);
     return users;
   }
@@ -39,7 +47,7 @@ class Users {
   removeUser(id) {
     let user = this.getUser(id);
 
-    if(user){
+    if (user) {
       this.users = this.users.filter((user) => user.id !== id);
     }
 
@@ -47,10 +55,10 @@ class Users {
   }
 
   updateGrid(id, grid) {
-  this.users.filter((user) => user.id === id).grid = grid;
-}
+    this.users.filter((user) => user.id === id).grid = grid;
+  }
 }
 
 module.exports = {
-  Users
+  Users,
 };

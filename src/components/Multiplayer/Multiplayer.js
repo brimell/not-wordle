@@ -7,31 +7,38 @@ import socket from "../socketio";
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
 
+const CustomTextField = styled(TextField)({
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "white",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "white",
+    },
+    "&:hover fieldset": {
+      borderColor: "white",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "white",
+    },
+  },
+});
+
 export default function Multiplayer() {
   const nameRef = useRef("");
   const codeRef = useRef("");
+  const [code, setCode] = React.useState("");
   const [lobby, setLobby] = React.useState(false);
   const [rooms, setRooms] = React.useState([]);
   useEffect(() => {
     socket.emit("fetchRooms");
-    socket.on("fetchRoomsRes", (rooms) => { setRooms(rooms) })
-  })
-
-  const CustomTextField = styled(TextField)({
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "white",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "white",
-      },
-      "&:hover fieldset": {
-        borderColor: "white",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "white",
-      },
-    },
+  }, []);
+  socket.on("fetchRoomsRes", (rooms) => {
+    setRooms(rooms);
+  });
+  socket.on("updateRooms", (rooms) => {
+    console.log('updated rooms')
+    setRooms(rooms);
   });
 
   return (
@@ -54,13 +61,14 @@ export default function Multiplayer() {
                 className="join-game-btn"
                 variant="contained"
                 onClick={() => {
+                  setCode(codeRef.current.value);
                   socket.emit("fetchUserListByRoom", codeRef.current.value);
                   socket.on("fetchUserListByRoomRes", (users) => {
                     var dupe = false;
                     if (users.length > 0) {
                       for (var i = 0; i < users.length; i++) {
                         var user = users[i];
-                        if (user === nameRef.current.value) {
+                        if (user === code) {
                           alert("that name is taken in this room");
                           dupe = true;
                           return;
@@ -98,14 +106,15 @@ export default function Multiplayer() {
                 className="create-game-btn"
                 variant="contained"
                 onClick={() => {
+                  setCode(codeRef.current.value);
                   socket.emit("fetchRooms");
                   socket.on("fetchRoomsRes", (rooms) => {
                     var dupe = false;
                     if (rooms.length > 0) {
                       for (var i = 0; i < rooms.length; i++) {
-                        var room = rooms[i];
+                        var room = rooms[i].room;
                         console.log("room: ", room);
-                        if (room === codeRef.current.value) {
+                        if (room === code) {
                           alert("that room already exists");
                           dupe = true;
                           return;
@@ -133,10 +142,10 @@ export default function Multiplayer() {
               </Button>
             </div>
           </div>
-          <ServerBrowser rooms={rooms}/>
+          <ServerBrowser rooms={rooms} />
         </div>
       )}
-      {lobby && <Lobby setLobby={setLobby} room={codeRef.current.value} />}
+      {lobby && <Lobby setLobby={setLobby} room={code} />}
     </div>
   );
 }

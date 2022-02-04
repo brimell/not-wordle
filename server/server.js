@@ -54,12 +54,18 @@ io.on("connection", (socket) => {
       io.to(props.room).emit("updateUsersList", users.getUserList(props.room));
       io.to(socket.id).emit("joinRoomRes", { res: true });
     }
+    if (props.role === "host") {
+      users.updateGameState(props.room, 'lobby')
+    }
+    var room_list = users.getRoomList()
+    socket.broadcast.emit('updateRooms', room_list);
   });
 
   socket.on('gameFinish', (gameState) => {
     const user = users.getUser(socket.id);
     if (gameState === 'Won') {
       io.to(user.room).emit('gameWon', user.id)
+      users.updateGameState(user.room, 'finished')
     } else if (gameState === "Lost") {
       io.to(user.room).emit('gameLost', user.id)
     }
@@ -71,6 +77,7 @@ io.on("connection", (socket) => {
       console.log("game started in room: ", user.room);
 
       io.to(user.room).emit("game-started", {res: true,target: randomTarget(5)});
+      users.updateGameState(user.room, 'playing')
     } else {
       io.to(user.room).emit("game-started", {res: false});
     }
