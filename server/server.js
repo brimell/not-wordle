@@ -130,9 +130,9 @@ io.on("connection", (socket) => {
 
   socket.on("leave-room", (props) => {
     let user = users.removeUser(socket.id);
-    users.removeRoom(user.room);
 
     if (user) {
+      users.removeRoom(user.room);
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
       socket.leave(user.room);
     } else {

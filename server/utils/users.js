@@ -18,6 +18,7 @@ class Users {
   }
 
   getRoomList() {
+    this.rooms = []
     for (var i = 0; i < this.users.length; i++) {
       var user = this.users[i];
       if (user.role === "host") {
@@ -28,6 +29,7 @@ class Users {
         });
       }
     }
+    console.log('in users.js: ',this.rooms);
     return this.rooms;
   }
 

@@ -23,6 +23,7 @@ const CustomTextField = styled(TextField)({
     },
   },
 });
+socket.emit("fetchRooms");
 
 export default function Multiplayer() {
   const nameRef = useRef("");
@@ -30,14 +31,13 @@ export default function Multiplayer() {
   const [code, setCode] = React.useState("");
   const [lobby, setLobby] = React.useState(false);
   const [rooms, setRooms] = React.useState([]);
-  // useEffect(() => {
-  //   socket.emit("fetchRooms");
-  // }, []);
-  // socket.on("fetchRoomsRes", (rooms) => {
-  //   setRooms(rooms);
-  // });
+
   socket.on("updateRooms", (rooms) => {
-    console.log('updated rooms')
+    console.log('updated rooms', rooms)
+    setRooms(rooms);
+  });
+  socket.on("fetchRoomsRes", (rooms) => {
+    console.log('updated rooms: ', rooms)
     setRooms(rooms);
   });
 
