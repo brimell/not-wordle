@@ -154,3 +154,23 @@
   position: relative;
   left: -20px;
 }
+.singleplayer-btn {
+  background: var(--s-light);
+  color: var(--s-dark);
+  border-radius: 10px;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  height: auto;
+  width: auto;
+  font-size: 2rem;
+}
+.multiplayer-btn {
+  background: var(--s-dark);
+  color: var(--s-light);
+  border-radius: 10px;
+  border: none;
+  padding: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+}

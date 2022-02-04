@@ -22,7 +22,7 @@ function App() {
   const [statsModal, statsOpen, statsClose, statsIsOpen] = useModal("root", {
     preventScroll: true,
   });
-  const [CreateGameModal, CreateGameOpen, CreateGameClose, CreateGameIsOpen] =
+  const [createGameModal, CreateGameOpen, CreateGameClose, CreateGameIsOpen] =
     useModal("root", {
       preventScroll: true,
     });
@@ -40,7 +40,7 @@ function App() {
   return (
     <Router>
       <div className="App-container target-light">
-        <CreateGameModal close={CreateGameClose} modal={CreateGameModal} />
+        <CreateGameModal close={CreateGameClose} modal={createGameModal} />
         <StatsModal modal={statsModal} close={statsClose} />
         <MainNav
           settings={settings}

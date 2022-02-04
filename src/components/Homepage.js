@@ -29,20 +29,20 @@ export default function Homepage() {
     <div className="homepage">
       <div className="split left">
         <Link to="/not-wordle/multiplayer" className="link">
-          <Button
-            variant="contained"
+          <button
+            className="multiplayer-btn"
             onClick={() => {
               sessionStorage.setItem("multiplayer", "true");
             }}
           >
             Multiplayer
-          </Button>
+          </button>
         </Link>
       </div>
 
       <div className="split right">
         <Link to="/not-wordle/game" className="link">
-          <Button variant="contained">Singleplayer</Button>
+          <button className="singleplayer-btn" >Singleplayer</button>
         </Link>
       </div>
     </div>

@@ -1,15 +1,15 @@
 :root {
   /* --bg: #0e0f10; */
-  --bg: #292F3F;
-  --s-dark: #272A35;
-  --s: #373E4E;
-  --s-light: #7A8194;
-  --pink: #B347EA;
-  --purple: #837DFF;
-  --green: #00AC83;
-  --orange: #F18303;
-  --primary: #03A9F1;
-  --keyboard-key-colour: var(s-light);
+  --bg: #292f3f;
+  --s-dark: #272a35;
+  --s: #373e4e;
+  --s-light: #7a8194;
+  --pink: #b347ea;
+  --purple: #837dff;
+  --green: #00ac83;
+  --orange: #f18303;
+  --primary: #03a9f1;
+  --keyboard-key-colour: var(--s-light);
 }
 
 * {
@@ -46,7 +46,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
 }
 
 .Row {
@@ -72,9 +72,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   width: 100%;
-  height: 100%;
+  height: 90%;
 }
 
 .App-container h1 {
@@ -89,6 +89,8 @@ body {
   display: flex;
   flex-direction: column;
   user-select: none;
+  gap: 1rem;
+  align-items: center;
 }
 
 .Game-keyboard {
@@ -286,7 +288,6 @@ a {
   width: var(--hover-width);
 }
 
-
 .modalContainer {
   background-color: var(--bg);
   border-radius: 0.5rem;
@@ -329,17 +330,15 @@ a {
 }
 
 @media only screen and (max-height: 1070px) {
+  /* 1070px or less*/
   .Row-letter {
     width: 7vh;
     height: 7vh;
     font-size: 3rem;
   }
-  .App-container h1 {
-    font-size: 4rem;
-  }
 }
 
-@media only screen and (max-height: 800px) {
+@media only screen and (max-height: 926px) {
   .Row-letter {
     width: 7vh;
     height: 7vh;
@@ -360,6 +359,12 @@ a {
   }
   .Game-options {
     display: none;
+  }
+
+  @media only screen and (min-width: 470px) {
+    .Game-keyboard {
+      position: relative;
+    }
   }
 }
 
@@ -403,9 +408,14 @@ label {
   color: rgb(153, 153, 153) !important;
 }
 
-@media only screen and (min-width: 470px) {
-  .Game-keyboard {
-    position: relative;
+@media only screen and (max-width: 610px) {
+  .App-container h1 {
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 2rem;
+  }
+  .navbar {
+    width: 98vw !important;
   }
 }
 
@@ -424,5 +434,8 @@ label {
     min-height: 40px;
     display: flex;
     flex: 1;
+  }
+  .navbar {
+    top: 0.2rem;
   }
 }

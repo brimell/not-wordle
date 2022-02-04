@@ -313,14 +313,13 @@ function Game(props) {
       <div className="Game glow-card" id="gridKeyboardHint" style={{ display: props.hidden ? "none" : "block" }}>
       {rowDivs}
       <p id="hint" >{hint || `\u00a0`}</p> {/* no break space / nbsp */}
-      <Keyboard letterInfo={letterInfo} onKey={onKey} />
       {seed ? (
         <div className="Game-seed-info">
           seed {seed}, length {wordLength}, game {gameNumber}
         </div>
       ) : undefined}
       </div>
-      
+      <Keyboard letterInfo={letterInfo} onKey={onKey} />      
     </div>
   );
 }

@@ -7,10 +7,11 @@
 :root {
   --card-height: 62.5vh;
   --card-width: calc(var(--card-height) / 1.5);
+  --rotate: 132deg;
 }
 
 .glow-card {
-  background: #191c29;
+  background: var(--bg);
   width: var(--card-width);
   height: var(--card-height);
   padding: 3px;
@@ -25,17 +26,20 @@
   cursor: pointer;
 }
 
-.glow-card:hover {
-  color: rgb(88 199 250 / 100%);
-  transition: color 1s;
-  /* box-shadow: 0px 0px 20px 10px #191c29; */
-  background-color: var(--bg);
+@media only screen and (min-width: 1070px) {
+  .glow-card:hover {
+    color: rgb(88 199 250 / 100%);
+    transition: color 1s;
+    /* box-shadow: 0px 0px 20px 10px #191c29; */
+    background-color: var(--bg);
+  }
+  .glow-card:hover:before,
+  .glow-card:hover:after {
+    animation: none;
+    opacity: 0;
+  }
 }
-.glow-card:hover:before,
-.glow-card:hover:after {
-  animation: none;
-  opacity: 0;
-}
+
 
 .glow-card::before {
   content: "";
@@ -85,4 +89,8 @@
   100% {
     --rotate: 360deg;
   }
+}
+
+@media only screen and (min-height: 1070px) {
+  
 }
