@@ -20,7 +20,7 @@ if (!localStorage.getItem("wordMode")) {
 function App() {
   const [lobby, setLobby] = useState(false);
   const [code, setCode] = useState("");
-  const nameRef = useRef("");
+  const [name, setName] = useState(localStorage.getItem("name") || "");
   const maxGuesses = 6;
   const [seedUpdate, setSeedUpdate] = useState(seed);
   const [settings, setSettings] = useState(false);
@@ -46,7 +46,7 @@ function App() {
     <Router>
       <div className="App-container target-light">
         <CreateGameModal
-          nameRef={nameRef}
+          name={name}
           code={code}
           setCode={setCode}
           lobby={lobby}
@@ -56,6 +56,7 @@ function App() {
         />
         <StatsModal modal={statsModal} close={statsClose} />
         <MainNav
+          setLobby={setLobby}
           socket={socket}
           settings={settings}
           setSettings={setSettings}
@@ -70,7 +71,8 @@ function App() {
             element={
               <Multiplayer
                 socket={socket}
-                nameRef={nameRef}
+                name={name}
+                setName={setName}
                 code={code}
                 setCode={setCode}
                 CreateGameOpen={CreateGameOpen}

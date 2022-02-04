@@ -10,7 +10,7 @@ export default function MainNav(props) {
   const open = props.open;
   const setSeedUpdate = props.setSeedUpdate;
   const socket = props.socket
-
+  const setLobby = props.setLobby
   return (
       <nav className="navbar">
         <ul className="navbar__menu">
@@ -22,6 +22,7 @@ export default function MainNav(props) {
                 onClick={() => {
                   sessionStorage.setItem("multiplayer", "false");
                   socket.emit('leave-room')
+                  setLobby(false)
                 }}
               >
                 <Home />

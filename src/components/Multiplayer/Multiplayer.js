@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "firebase/compat/database";
 import { TextField, Button } from "@mui/material";
 import { styled } from "@mui/system";
@@ -30,14 +30,21 @@ export default function Multiplayer(props) {
   const code = props.code;
   const nameRef = props.nameRef;
   const socket = props.socket;
-
-  const [rooms, setRooms] = React.useState([]);
+  const [rooms, setRooms] = useState([]);
+  const name = props.name
+  const setName = props.setName
 
   const CreateGameOpen = props.CreateGameOpen;
 
   useEffect(() => {
     socket.emit("fetchRooms");
-  }, [socket])
+  }, [socket]);
+
+  useEffect(() => {
+    if (name !== '') {
+      localStorage.setItem("name", name);
+    }
+  },[name])
 
   socket.on("updateRooms", (rooms) => {
     console.log("updated rooms", rooms);
@@ -48,6 +55,10 @@ export default function Multiplayer(props) {
     setRooms(rooms);
   });
 
+  function handleNameChange(event) {
+    setName(event.target.value)
+  }
+
   return (
     <div className="multiplayer">
       {!lobby && (
@@ -56,8 +67,8 @@ export default function Multiplayer(props) {
             className="neumorphic-input"
             type="text"
             placeholder="Name..."
-            defaultValue={localStorage.getItem('name') || ''}
-            ref={nameRef}
+            value={name}
+            onChange={handleNameChange}
           ></input>
           <div className="join">
             <h2>Server Browser</h2>
@@ -73,15 +84,22 @@ export default function Multiplayer(props) {
                 </button>
               </div>
               <div className="add">
-                <button className="add-btn" onClick={() => {
-                  CreateGameOpen()
-                  localStorage.setItem('name',nameRef.current.value)
-                  }}>
+                <button
+                  className="add-btn"
+                  onClick={() => {
+                    CreateGameOpen();
+                  }}
+                >
                   <Plus color="white" />
                 </button>
               </div>
             </div>
-            <ServerBrowser setLobby={setLobby} name={nameRef.current.value} socket={socket} rooms={rooms} />
+            <ServerBrowser
+              setLobby={setLobby}
+              name={name}
+              socket={socket}
+              rooms={rooms}
+            />
 
             {/* 
           <CustomTextField

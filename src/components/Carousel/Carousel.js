@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./carousel.scss";
@@ -41,7 +41,7 @@ function Item(props) {
             if (users.length > 0) {
               for (var i = 0; i < users.length; i++) {
                 var user = users[i];
-                if (user === room.room) {
+                if (user === name) {
                   alert("that name is taken in this room");
                   dupe = true;
                   return;
@@ -50,7 +50,6 @@ function Item(props) {
             }
             if (
               name.length > 2 &&
-              room.room.length > 2 &&
               !dupe
             ) {
               socket.emit("joinRoom", {
@@ -66,7 +65,7 @@ function Item(props) {
                 }
               });
             } else {
-              alert("name and code must be at least 3 characters");
+              alert("name must be at least 3 characters");
             }
           });
         }}>

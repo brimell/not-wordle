@@ -235,4 +235,6 @@
 	align-items: center;
 	justify-content: start;
 	flex-wrap: wrap;
+	overflow-y: scroll;
+	overflow-x: hidden;
   }

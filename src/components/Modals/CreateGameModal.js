@@ -9,7 +9,7 @@ export default function CreateGameModal(props) {
   const codeRef = useRef("");
   const code = props.code;
   const setCode = props.setCode;
-  const nameRef = props.nameRef
+  const name = props.name
   const setLobby = props.setLobby
 
   return (
@@ -43,12 +43,12 @@ export default function CreateGameModal(props) {
                   }
                 }
                 if (
-                  nameRef.current.value.length > 2 &&
+                  name.length > 2 &&
                   codeRef.current.value.length > 2 &&
                   !dupe
                 ) {
                   socket.emit("joinRoom", {
-                    name: nameRef.current.value,
+                    name: name,
                     room: codeRef.current.value,
                     role: "host",
                   });

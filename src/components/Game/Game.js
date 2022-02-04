@@ -80,6 +80,7 @@ function Game(props) {
   const [hint, setHint] = useState(`Make your first guess!`);
   const [target, setTarget] = useState(() => {
     if (props.target !== false) {
+      console.log(props.target)
       return props.target;
     } else {
       resetRng();
@@ -314,11 +315,11 @@ function Game(props) {
       <div className="Game glow-card" id="gridKeyboardHint" style={{ display: props.hidden ? "none" : "block" }}>
       {rowDivs}
       <p id="hint" >{hint || `\u00a0`}</p> {/* no break space / nbsp */}
-      {seed ? (
+      {seed && !(props.target) && (
         <div className="Game-seed-info">
           seed {seed}, length {wordLength}, game {gameNumber}
         </div>
-      ) : undefined}
+      )}
       </div>
       <Keyboard hidden={props.hidden} letterInfo={letterInfo} onKey={onKey} />      
     </div>

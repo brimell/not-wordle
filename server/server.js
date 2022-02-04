@@ -57,7 +57,11 @@ const common = require("../src/Wordlist/common.json");
 
 const makeRandom = () => Math.random();
 let random = makeRandom();
+function resetRng() {
+  random = makeRandom();
+}
 function pick(array) {
+  resetRng()
   return array[Math.floor(array.length * random)];
 }
 const targets = common.slice(0, 20000); // adjust for max target freakiness
