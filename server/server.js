@@ -135,10 +135,10 @@ io.on("connection", (socket) => {
       users.removeRoom(user.room);
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
       socket.leave(user.room);
+      socket.broadcast.emit("updateRooms", users.getRoomList());
     } else {
       console.log("cannot leave room as user is: ", user);
     }
-    socket.broadcast.emit("updateRooms", users.getRoomList());
   });
 
   socket.on("disconnect", () => {
