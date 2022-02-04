@@ -7,6 +7,9 @@ import socket from "../socketio";
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
 import { Search, Plus } from "react-feather";
+import { useModal } from 'react-hooks-use-modal';
+import CreateGameModal from "../Modals/CreateGameModal";
+
 const CustomTextField = styled(TextField)({
   "& .MuiInput-underline:after": {
     borderBottomColor: "white",
@@ -26,11 +29,16 @@ const CustomTextField = styled(TextField)({
 socket.emit("fetchRooms");
 
 export default function Multiplayer() {
-  const nameRef = useRef("");
+  const nameRef = useRef(localStorage.getItem("name") || "");
   const codeRef = useRef("");
   const [code, setCode] = React.useState("");
   const [lobby, setLobby] = React.useState(false);
   const [rooms, setRooms] = React.useState([]);
+
+  const [CreateGameModal, CreateGameOpen, CreateGameClose, CreateGameIsOpen] = useModal('root', {
+    preventScroll: true,
+    // closeOnOverlayClick: false
+  });
 
   socket.on("updateRooms", (rooms) => {
     console.log("updated rooms", rooms);
@@ -43,34 +51,36 @@ export default function Multiplayer() {
 
   return (
     <div className="multiplayer">
+      <CreateGameModal close={CreateGameClose} modal={CreateGameModal} />
       {!lobby && (
-        <div className="join">
-          <h2>Server Browser</h2>
-          <div className="search-container">
-            <div className="search">
-              <input
-                className="neumorphic-input"
-                type="text"
-                placeholder="Search..."
-              ></input>
-              <button className="search-btn">
-                <Search color="white" />
-              </button>
-            </div>
-            <div className="add">
-              <button className="add-btn">
-                <Plus color="white" />
-
-              </button>
-            </div>
-          </div>
-          <ServerBrowser rooms={rooms} />
-
-          {/* <CustomTextField
+        <div className="join-container">
+          <CustomTextField
             inputRef={nameRef}
             className="input-div"
             label="Name"
           />
+          <div className="join">
+            <h2>Server Browser</h2>
+            <div className="search-container">
+              <div className="search">
+                <input
+                  className="neumorphic-input"
+                  type="text"
+                  placeholder="Search..."
+                ></input>
+                <button className="search-btn">
+                  <Search color="white" />
+                </button>
+              </div>
+              <div className="add">
+                <button className="add-btn" onClick={CreateGameOpen}>
+                  <Plus color="white" />
+                </button>
+              </div>
+            </div>
+            <ServerBrowser rooms={rooms} />
+
+            {/* 
           <CustomTextField
             inputRef={codeRef}
             className="input-div"
@@ -163,6 +173,7 @@ export default function Multiplayer() {
               </Button>
             </div>
           </div> */}
+          </div>
         </div>
       )}
       {lobby && <Lobby setLobby={setLobby} room={code} />}

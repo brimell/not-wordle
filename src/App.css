@@ -71,7 +71,6 @@ body {
 .App-container {
   display: flex;
   flex-direction: column;
-  margin-top: 0.8rem;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -255,12 +254,12 @@ a {
 
 .split.left {
   left: 0;
-  background-color: rgb(54, 54, 54);
+  background-color: var(--s-light);
 }
 
 .split.right {
   right: 0;
-  background-color: rgb(22, 22, 22);
+  background-color: var(--s-dark);
 }
 
 .split.left,
@@ -289,7 +288,7 @@ a {
 
 
 .modalContainer {
-  background-color: #0e0f10;
+  background-color: var(--bg);
   border-radius: 0.5rem;
   padding: 3vh;
   display: flex;
