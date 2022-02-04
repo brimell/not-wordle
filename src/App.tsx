@@ -20,9 +20,11 @@ if (!localStorage.getItem("wordMode")) {
 function App() {
   const [lobby, setLobby] = useState(false);
   const [code, setCode] = useState("");
-  const nameRef = useRef(localStorage.getItem("name") || "");
-
+  const nameRef = useRef("");
+  const maxGuesses = 6;
   const [seedUpdate, setSeedUpdate] = useState(seed);
+  const [settings, setSettings] = useState(false);
+
   const [statsModal, statsOpen, statsClose, statsIsOpen] = useModal("root", {
     preventScroll: true,
   });
@@ -30,8 +32,7 @@ function App() {
     useModal("root", {
       preventScroll: true,
     });
-  const [settings, setSettings] = useState(false);
-  const maxGuesses = 6;
+  
   useEffect(() => {
     if (localStorage.getItem("wordMode") === "todaysWord") {
       sessionStorage.setItem(

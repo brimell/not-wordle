@@ -56,6 +56,7 @@ export default function Multiplayer(props) {
             className="neumorphic-input"
             type="text"
             placeholder="Name..."
+            defaultValue={localStorage.getItem('name') || ''}
             ref={nameRef}
           ></input>
           <div className="join">
@@ -72,7 +73,10 @@ export default function Multiplayer(props) {
                 </button>
               </div>
               <div className="add">
-                <button className="add-btn" onClick={CreateGameOpen}>
+                <button className="add-btn" onClick={() => {
+                  CreateGameOpen()
+                  localStorage.setItem('name',nameRef.current.value)
+                  }}>
                   <Plus color="white" />
                 </button>
               </div>
