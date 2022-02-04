@@ -54,6 +54,10 @@ export default function CreateGameModal(props) {
                   });
                   Close()
                   setLobby(true);
+                } else if (name.length < 3) {
+                  alert("name must be at least 3 characters");
+                  Close()
+                  document.getElementById("name-input").focus();
                 } else {
                   alert("name and code must be at least 3 characters");
                 }

@@ -64,6 +64,7 @@ export default function Multiplayer(props) {
       {!lobby && (
         <div className="join-container">
           <input
+            id="name-input"
             className="neumorphic-input"
             type="text"
             placeholder="Name..."
