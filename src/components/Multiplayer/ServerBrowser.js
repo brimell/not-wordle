@@ -37,7 +37,7 @@ export default function ServerBrowser(props) {
               </div>
               <div>
                 <dt>Game State</dt>
-                <dd>{room.gamestate}</dd>
+                <dd>{room.gameState}</dd>
               </div>
             </dl>
           </article>
