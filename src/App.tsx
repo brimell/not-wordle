@@ -32,7 +32,7 @@ function App() {
     useModal("root", {
       preventScroll: true,
     });
-  
+
   useEffect(() => {
     if (localStorage.getItem("wordMode") === "todaysWord") {
       sessionStorage.setItem(
@@ -64,9 +64,9 @@ function App() {
         />
 
         <Routes>
-          <Route path="/not-wordle" element={<Homepage />}></Route>
+          <Route path="/" element={<Homepage />}></Route>
           <Route
-            path="/not-wordle/multiplayer"
+            path="/multiplayer"
             element={
               <Multiplayer
                 socket={socket}
@@ -80,7 +80,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/not-wordle/game"
+            path="/game"
             element={
               <GameParent
                 settings={settings}
