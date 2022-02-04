@@ -28,7 +28,7 @@ export default function Homepage() {
   return (
     <div className="homepage">
       <div className="split left">
-        <Link to="/not-wordle/multiplayer" className="link">
+        <Link to="/multiplayer" className="link">
           <button
             className="multiplayer-btn"
             onClick={() => {
@@ -41,7 +41,7 @@ export default function Homepage() {
       </div>
 
       <div className="split right">
-        <Link to="/not-wordle/game" className="link">
+        <Link to="/game" className="link">
           <button className="singleplayer-btn" >Singleplayer</button>
         </Link>
       </div>

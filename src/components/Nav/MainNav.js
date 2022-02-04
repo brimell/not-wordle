@@ -17,7 +17,7 @@ export default function MainNav(props) {
           <li className="navbar__item">
               <Link
                 className="navbar__link"
-                to="/not-wordle/"
+                to="/"
                 id="homeButton"
                 onClick={() => {
                   sessionStorage.setItem("multiplayer", "false");
