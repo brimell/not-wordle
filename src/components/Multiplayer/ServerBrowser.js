@@ -1,5 +1,4 @@
 import React from "react";
-import "./serverbrowser.scss";
 
 import Carousel from "../Carousel/Carousel";
 
