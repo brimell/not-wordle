@@ -16,6 +16,7 @@ const io = socketio(server, {
     origin: [
       "http://localhost:3000",
       "http://localhost:5000",
+      "http://rimell.cc:5000",
       "https://admin.socket.io",
     ],
   },
