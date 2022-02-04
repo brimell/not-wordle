@@ -3,13 +3,13 @@ import { Home, Settings, X, User, MessageSquare } from "react-feather";
 import "./MainNav.scss";
 
 import { Link } from "react-router-dom";
-import $ from "jquery";
 
 export default function MainNav(props) {
   const settings = props.settings;
   const setSettings = props.setSettings;
   const open = props.open;
   const setSeedUpdate = props.setSeedUpdate;
+  const socket = props.socket
 
   return (
       <nav className="navbar">
@@ -21,6 +21,7 @@ export default function MainNav(props) {
                 id="homeButton"
                 onClick={() => {
                   sessionStorage.setItem("multiplayer", "false");
+                  socket.emit('leave-room')
                 }}
               >
                 <Home />

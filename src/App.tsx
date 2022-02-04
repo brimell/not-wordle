@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Multiplayer from "./components/Multiplayer/Multiplayer";
 import GameParent from "./components/Game/GameParent";
 import CreateGameModal from "./components/Modals/CreateGameModal";
+import socket from "./components/socketio";
 
 if (!localStorage.getItem("wordMode")) {
   localStorage.setItem("wordMode", "todaysWord");
@@ -20,7 +21,6 @@ function App() {
   const [lobby, setLobby] = useState(false);
   const [code, setCode] = useState("");
   const nameRef = useRef(localStorage.getItem("name") || "");
-
 
   const [seedUpdate, setSeedUpdate] = useState(seed);
   const [statsModal, statsOpen, statsClose, statsIsOpen] = useModal("root", {
@@ -44,9 +44,18 @@ function App() {
   return (
     <Router>
       <div className="App-container target-light">
-        <CreateGameModal nameRef={nameRef} code={code} setCode={setCode} lobby={lobby} setLobby={setLobby} close={CreateGameClose} modal={createGameModal} />
+        <CreateGameModal
+          nameRef={nameRef}
+          code={code}
+          setCode={setCode}
+          lobby={lobby}
+          setLobby={setLobby}
+          close={CreateGameClose}
+          modal={createGameModal}
+        />
         <StatsModal modal={statsModal} close={statsClose} />
         <MainNav
+          socket={socket}
           settings={settings}
           setSettings={setSettings}
           setSeedUpdate={setSeedUpdate}
@@ -57,7 +66,17 @@ function App() {
           <Route path="/not-wordle" element={<Homepage />}></Route>
           <Route
             path="/not-wordle/multiplayer"
-            element={<Multiplayer nameRef={nameRef} code={code} setCode={setCode} CreateGameOpen={CreateGameOpen} lobby={lobby} setLobby={setLobby} />}
+            element={
+              <Multiplayer
+                socket={socket}
+                nameRef={nameRef}
+                code={code}
+                setCode={setCode}
+                CreateGameOpen={CreateGameOpen}
+                lobby={lobby}
+                setLobby={setLobby}
+              />
+            }
           ></Route>
           <Route
             path="/not-wordle/game"

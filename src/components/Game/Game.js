@@ -249,6 +249,7 @@ function Game(props) {
           <p>{(gameState === GameState.Won ? "You have just completed todays word!" : "Unfortunately, you have failed todays word.") + "You can continue playing by closing out of this popup and pressing enter."}</p>
         </div>
       </Modal>
+      {!props.target && 
       <div className="Game-options" id="GameOptions" style={{display: window.screen.width <= 800 ? (props.hidden ? 'flex' : 'none') : 'flex'}}>
         <label htmlFor="wordLength">{wordLength} Letters:</label>
         <input
@@ -309,7 +310,7 @@ function Game(props) {
         >
           Give up
         </button>
-      </div>
+      </div>}
       <div className="Game glow-card" id="gridKeyboardHint" style={{ display: props.hidden ? "none" : "block" }}>
       {rowDivs}
       <p id="hint" >{hint || `\u00a0`}</p> {/* no break space / nbsp */}
@@ -319,7 +320,7 @@ function Game(props) {
         </div>
       ) : undefined}
       </div>
-      <Keyboard letterInfo={letterInfo} onKey={onKey} />      
+      <Keyboard hidden={props.hidden} letterInfo={letterInfo} onKey={onKey} />      
     </div>
   );
 }

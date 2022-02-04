@@ -3,12 +3,9 @@ import "firebase/compat/database";
 import { TextField, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import "./Multiplayer.css";
-import socket from "../socketio";
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
 import { Search, Plus } from "react-feather";
-import { useModal } from "react-hooks-use-modal";
-import CreateGameModal from "../Modals/CreateGameModal";
 
 const CustomTextField = styled(TextField)({
   "& .MuiInput-underline:after": {
@@ -26,18 +23,19 @@ const CustomTextField = styled(TextField)({
     },
   },
 });
-socket.emit("fetchRooms");
 
 export default function Multiplayer(props) {
-  const lobby = props.lobby
-  const setLobby = props.setLobby
-  const code = props.code
-  const nameRef = props.nameRef
+  const lobby = props.lobby;
+  const setLobby = props.setLobby;
+  const code = props.code;
+  const nameRef = props.nameRef;
+  const socket = props.socket;
 
   const [rooms, setRooms] = React.useState([]);
 
-  const CreateGameOpen = props.CreateGameOpen
+  const CreateGameOpen = props.CreateGameOpen;
 
+  socket.emit("fetchRooms");
   socket.on("updateRooms", (rooms) => {
     console.log("updated rooms", rooms);
     setRooms(rooms);

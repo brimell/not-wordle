@@ -1,11 +1,7 @@
 import { Clue, clueClass } from "./clue";
 
-interface KeyboardProps {
-  letterInfo: Map<string, Clue>;
-  onKey: (key: string) => void;
-}
-
-export function Keyboard(props: KeyboardProps) {
+export function Keyboard(props) {
+  const hidden = props.hidden
   const keyboard = [
     "q w e r t y u i o p".split(" "),
     "a s d f g h j k l".split(" "),
@@ -13,7 +9,7 @@ export function Keyboard(props: KeyboardProps) {
   ];
 
   return (
-    <div className="Game-keyboard">
+    <div className="Game-keyboard" style={{ display: props.hidden && "none"}}>
       {keyboard.map((row, i) => (
         <div key={i} className="Game-keyboard-row">
           {row.map((label, j) => {
