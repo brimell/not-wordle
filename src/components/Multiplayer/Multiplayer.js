@@ -29,10 +29,11 @@ const CustomTextField = styled(TextField)({
 socket.emit("fetchRooms");
 
 export default function Multiplayer(props) {
-  const nameRef = useRef(localStorage.getItem("name") || "");
-  const codeRef = useRef("");
-  const [code, setCode] = React.useState("");
-  const [lobby, setLobby] = React.useState(false);
+  const lobby = props.lobby
+  const setLobby = props.setLobby
+  const code = props.code
+  const nameRef = props.nameRef
+
   const [rooms, setRooms] = React.useState([]);
 
   const CreateGameOpen = props.CreateGameOpen
@@ -129,46 +130,7 @@ export default function Multiplayer(props) {
                 Join Game
               </Button>
             </div>
-            <div className="create-game">
-              <Button
-                className="create-game-btn"
-                variant="contained"
-                onClick={() => {
-                  setCode(codeRef.current.value);
-                  socket.emit("fetchRooms");
-                  socket.on("fetchRoomsRes", (rooms) => {
-                    var dupe = false;
-                    if (rooms.length > 0) {
-                      for (var i = 0; i < rooms.length; i++) {
-                        var room = rooms[i].room;
-                        console.log("room: ", room);
-                        if (room === code) {
-                          alert("that room already exists");
-                          dupe = true;
-                          return;
-                        }
-                      }
-                    }
-                    if (
-                      nameRef.current.value.length > 2 &&
-                      codeRef.current.value.length > 2 &&
-                      !dupe
-                    ) {
-                      socket.emit("joinRoom", {
-                        name: nameRef.current.value,
-                        room: codeRef.current.value,
-                        role: "host",
-                      });
-                      setLobby(true);
-                    } else {
-                      alert("name and code must be at least 3 characters");
-                    }
-                  });
-                }}
-              >
-                Create Game
-              </Button>
-            </div>
+            
           </div> */}
           </div>
         </div>

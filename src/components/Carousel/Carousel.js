@@ -25,6 +25,7 @@ export default class Carousel extends React.Component {
         index = i % this.state.rooms.length;
       }
       level = this.state.active - i;
+      console.log(this.state.rooms, index, level)
       items.push(
         <Item key={index} room={this.state.rooms[index]} level={level} />
       );
@@ -75,12 +76,20 @@ class Item extends React.Component {
   }
   render() {
     const className = "item level" + this.props.level;
-    const room = this.props.room
+    var room = this.props.room
+    if (room === undefined) {
+      room = {
+        host: "",
+        room: "",
+        users: [''],
+        gameState: "",
+      }
+    }
     return (
       <article className={`information card ${className}`}>
         <span className="tag">Host: {room.host}</span>
-        <h2 className="title">{room.room}</h2>
         {room.users.map((user, j) => {
+        <h2 className="title">{room.room}</h2>
           return (
             <p key={j} className="info">
               {user}

@@ -1,14 +1,13 @@
 import "./App.css";
 import { seed } from "./components/util";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useModal } from "react-hooks-use-modal";
 
 import MainNav from "./components/Nav/MainNav";
 import StatsModal from "./components/Modals/StatsModal";
 import Homepage from "./components/Homepage";
-import Lobby from "./components/Multiplayer/Lobby";
 
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Multiplayer from "./components/Multiplayer/Multiplayer";
 import GameParent from "./components/Game/GameParent";
 import CreateGameModal from "./components/Modals/CreateGameModal";
@@ -18,6 +17,11 @@ if (!localStorage.getItem("wordMode")) {
 }
 
 function App() {
+  const [lobby, setLobby] = useState(false);
+  const [code, setCode] = useState("");
+  const nameRef = useRef(localStorage.getItem("name") || "");
+
+
   const [seedUpdate, setSeedUpdate] = useState(seed);
   const [statsModal, statsOpen, statsClose, statsIsOpen] = useModal("root", {
     preventScroll: true,
@@ -40,7 +44,7 @@ function App() {
   return (
     <Router>
       <div className="App-container target-light">
-        <CreateGameModal close={CreateGameClose} modal={createGameModal} />
+        <CreateGameModal nameRef={nameRef} code={code} setCode={setCode} lobby={lobby} setLobby={setLobby} close={CreateGameClose} modal={createGameModal} />
         <StatsModal modal={statsModal} close={statsClose} />
         <MainNav
           settings={settings}
@@ -53,7 +57,7 @@ function App() {
           <Route path="/not-wordle" element={<Homepage />}></Route>
           <Route
             path="/not-wordle/multiplayer"
-            element={<Multiplayer CreateGameOpen={CreateGameOpen} />}
+            element={<Multiplayer nameRef={nameRef} code={code} setCode={setCode} CreateGameOpen={CreateGameOpen} lobby={lobby} setLobby={setLobby} />}
           ></Route>
           <Route
             path="/not-wordle/game"
