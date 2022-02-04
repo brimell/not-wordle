@@ -57,8 +57,7 @@ io.on("connection", (socket) => {
     if (props.role === "host") {
       users.updateGameState(props.room, 'lobby')
     }
-    var room_list = users.getRoomList()
-    socket.broadcast.emit('updateRooms', room_list);
+    socket.broadcast.emit('updateRooms', users.getRoomList());
   });
 
   socket.on('gameFinish', (gameState) => {
@@ -66,7 +65,8 @@ io.on("connection", (socket) => {
     if (gameState === 'Won') {
       io.to(user.room).emit('gameWon', user.id)
       users.updateGameState(user.room, 'finished')
-    } else if (gameState === "Lost") {
+    socket.broadcast.emit('updateRooms', users.getRoomList());
+  } else if (gameState === "Lost") {
       io.to(user.room).emit('gameLost', user.id)
     }
   })
@@ -78,7 +78,8 @@ io.on("connection", (socket) => {
 
       io.to(user.room).emit("game-started", {res: true,target: randomTarget(5)});
       users.updateGameState(user.room, 'playing')
-    } else {
+    socket.broadcast.emit('updateRooms', users.getRoomList());
+  } else {
       io.to(user.room).emit("game-started", {res: false});
     }
   });
