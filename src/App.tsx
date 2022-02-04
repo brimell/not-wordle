@@ -7,7 +7,7 @@ import MainNav from "./components/Nav/MainNav";
 import StatsModal from "./components/Modals/StatsModal";
 import Homepage from "./components/Homepage";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Multiplayer from "./components/Multiplayer/Multiplayer";
 import GameParent from "./components/Game/GameParent";
 import CreateGameModal from "./components/Modals/CreateGameModal";
