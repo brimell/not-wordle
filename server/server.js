@@ -48,7 +48,6 @@ io.on("connection", (socket) => {
       }
     }
     if (!dup) {
-      console.log(props.name);
       socket.join(props.room);
       users.removeUser(socket.id);
       users.addUser(socket.id, props.name, props.room, props.role);
@@ -59,6 +58,7 @@ io.on("connection", (socket) => {
     if (props.role === "host") {
       users.updateGameState(props.room, "lobby");
     }
+    console.log(users.getRoomList())
     socket.broadcast.emit("updateRooms", users.getRoomList());
   });
 
