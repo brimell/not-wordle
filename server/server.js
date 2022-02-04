@@ -1,7 +1,23 @@
-const http = require("http");
-const express = require("express");
-const socketio = require("socket.io");
-const cors = require("cors");
+const { readFileSync } = require("fs");
+const { createServer } = require("https");
+const { Server } = require("socket.io");
+const httpServer = createServer({
+  key: readFileSync("/etc/letsencrypt/live/rimell.cc/privkey.pem"),
+  cert: readFileSync("/etc/letsencrypt/live/rimell.cc/cert.pem")
+});
+const io = new Server(httpServer, {
+  cors: {
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5000",
+      "http://rimell.cc:5000",
+      "https://rimell.cc:5000",
+      "https://github.com",
+      "https://raaydon.github.io",
+      "https://admin.socket.io",
+    ],
+  },
+});
 
 const { instrument } = require("@socket.io/admin-ui");
 
@@ -9,21 +25,35 @@ const { Users } = require("./utils/users");
 let users = new Users();
 const common = require("../src/Wordlist/common.json");
 
-const app = express();
-const server = http.createServer(app);
-const io = socketio(server, {
-  cors: {
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:5000",
-      "http://rimell.cc:5000",
-      "https://github.com",
-      "https://raaydon.github.io",
-      "https://admin.socket.io",
-    ],
-  },
-});
-app.use(cors());
+// uncomment to run locally
+
+// const http = require("http");
+// const express = require("express");
+// const socketio = require("socket.io");
+// const cors = require("cors");
+
+// const { instrument } = require("@socket.io/admin-ui");
+
+// const { Users } = require("./utils/users");
+// let users = new Users();
+// const common = require("../src/Wordlist/common.json");
+
+// const app = express();
+// const server = http.createServer(app);
+// const io = socketio(server, {
+//   cors: {
+//     origin: [
+//       "http://localhost:3000",
+//       "http://localhost:5000",
+//       "http://rimell.cc:5000",
+//       "https://github.com",
+//       "https://raaydon.github.io",
+//       "https://admin.socket.io",
+//     ],
+//   },
+// });
+// app.use(cors());
+
 
 const makeRandom = () => Math.random();
 let random = makeRandom();
@@ -157,6 +187,7 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+httpServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 instrument(io, { auth: false }); // go to admin.socket.io for admin panel
