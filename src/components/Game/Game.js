@@ -314,12 +314,12 @@ function Game(props) {
       <div className="Game glow-card" id="gridKeyboardHint" style={{ display: props.hidden ? "none" : "block" }}>
       {rowDivs}
       <p id="hint" >{hint || `\u00a0`}</p> {/* no break space / nbsp */}
+      </div>
       {seed && !(props.target) && (
         <div className="Game-seed-info">
           seed {seed}, length {wordLength}, game {gameNumber}
         </div>
       )}
-      </div>
       <Keyboard hidden={props.hidden} letterInfo={letterInfo} onKey={onKey} />      
     </div>
   );
