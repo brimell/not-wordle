@@ -4,12 +4,12 @@ import CloseIcon from "@mui/icons-material/Close";
 
 export default function CreateGameModal(props) {
   const Modal = props.modal;
-  const close = props.close;
+  const Close = props.close;
 
   return (
     <Modal>
       <div className="modalContainer">
-        <CloseIcon onClick={close} className="modalCloseIcon" />
+        <CloseIcon onClick={Close} className="modalCloseIcon" />
         <h1 className="statsHeader">Create Game</h1>
       </div>
     </Modal>

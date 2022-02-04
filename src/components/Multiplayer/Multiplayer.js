@@ -7,7 +7,7 @@ import socket from "../socketio";
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
 import { Search, Plus } from "react-feather";
-import { useModal } from 'react-hooks-use-modal';
+import { useModal } from "react-hooks-use-modal";
 import CreateGameModal from "../Modals/CreateGameModal";
 
 const CustomTextField = styled(TextField)({
@@ -28,17 +28,14 @@ const CustomTextField = styled(TextField)({
 });
 socket.emit("fetchRooms");
 
-export default function Multiplayer() {
+export default function Multiplayer(props) {
   const nameRef = useRef(localStorage.getItem("name") || "");
   const codeRef = useRef("");
   const [code, setCode] = React.useState("");
   const [lobby, setLobby] = React.useState(false);
   const [rooms, setRooms] = React.useState([]);
 
-  const [CreateGameModal, CreateGameOpen, CreateGameClose, CreateGameIsOpen] = useModal('root', {
-    preventScroll: true,
-    // closeOnOverlayClick: false
-  });
+  const CreateGameOpen = props.CreateGameOpen
 
   socket.on("updateRooms", (rooms) => {
     console.log("updated rooms", rooms);
@@ -51,14 +48,14 @@ export default function Multiplayer() {
 
   return (
     <div className="multiplayer">
-      <CreateGameModal close={CreateGameClose} modal={CreateGameModal} />
       {!lobby && (
         <div className="join-container">
-          <CustomTextField
-            inputRef={nameRef}
-            className="input-div"
-            label="Name"
-          />
+          <input
+            className="neumorphic-input"
+            type="text"
+            placeholder="Name..."
+            ref={nameRef}
+          ></input>
           <div className="join">
             <h2>Server Browser</h2>
             <div className="search-container">
