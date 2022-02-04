@@ -30,12 +30,12 @@ export default function Multiplayer() {
   const [code, setCode] = React.useState("");
   const [lobby, setLobby] = React.useState(false);
   const [rooms, setRooms] = React.useState([]);
-  useEffect(() => {
-    socket.emit("fetchRooms");
-  }, []);
-  socket.on("fetchRoomsRes", (rooms) => {
-    setRooms(rooms);
-  });
+  // useEffect(() => {
+  //   socket.emit("fetchRooms");
+  // }, []);
+  // socket.on("fetchRoomsRes", (rooms) => {
+  //   setRooms(rooms);
+  // });
   socket.on("updateRooms", (rooms) => {
     console.log('updated rooms')
     setRooms(rooms);

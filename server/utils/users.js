@@ -35,6 +35,10 @@ class Users {
     this.rooms.filter((room) => room.room === roomprop).gameState = gameState;
   }
 
+  removeRoom(roomprop) {
+    this.rooms = this.rooms.filter((room) => room.room !== roomprop);
+  }
+
   getFullUserList(room) {
     let users = this.users.filter((user) => user.room === room);
     return users;

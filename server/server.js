@@ -7,7 +7,7 @@ const { instrument } = require("@socket.io/admin-ui");
 
 const { Users } = require("./utils/users");
 let users = new Users();
-const common = require('../src/Wordlist/common.json')
+const common = require("../src/Wordlist/common.json");
 
 const app = express();
 const server = http.createServer(app);
@@ -27,8 +27,7 @@ let random = makeRandom();
 function pick(array) {
   return array[Math.floor(array.length * random)];
 }
-const targets = common
-  .slice(0, 20000) // adjust for max target freakiness
+const targets = common.slice(0, 20000); // adjust for max target freakiness
 function randomTarget(wordLength) {
   const eligible = targets.filter((word) => word.length === wordLength);
   return pick(eligible);
@@ -55,39 +54,42 @@ io.on("connection", (socket) => {
       io.to(socket.id).emit("joinRoomRes", { res: true });
     }
     if (props.role === "host") {
-      users.updateGameState(props.room, 'lobby')
+      users.updateGameState(props.room, "lobby");
     }
-    socket.broadcast.emit('updateRooms', users.getRoomList());
+    socket.broadcast.emit("updateRooms", users.getRoomList());
   });
 
-  socket.on('gameFinish', (gameState) => {
+  socket.on("gameFinish", (gameState) => {
     const user = users.getUser(socket.id);
-    if (gameState === 'Won') {
-      io.to(user.room).emit('gameWon', user.id)
-      users.updateGameState(user.room, 'finished')
-    socket.broadcast.emit('updateRooms', users.getRoomList());
-  } else if (gameState === "Lost") {
-      io.to(user.room).emit('gameLost', user.id)
+    if (gameState === "Won") {
+      io.to(user.room).emit("gameWon", user.id);
+      users.updateGameState(user.room, "finished");
+      socket.broadcast.emit("updateRooms", users.getRoomList());
+    } else if (gameState === "Lost") {
+      io.to(user.room).emit("gameLost", user.id);
     }
-  })
+  });
 
   socket.on("start-game", (props) => {
     const user = users.getUser(socket.id);
     if (users.getUser(socket.id).role === "host") {
       console.log("game started in room: ", user.room);
 
-      io.to(user.room).emit("game-started", {res: true,target: randomTarget(5)});
-      users.updateGameState(user.room, 'playing')
-    socket.broadcast.emit('updateRooms', users.getRoomList());
-  } else {
-      io.to(user.room).emit("game-started", {res: false});
+      io.to(user.room).emit("game-started", {
+        res: true,
+        target: randomTarget(5),
+      });
+      users.updateGameState(user.room, "playing");
+      socket.broadcast.emit("updateRooms", users.getRoomList());
+    } else {
+      io.to(user.room).emit("game-started", { res: false });
     }
   });
 
-  socket.on('fetchRooms', () => {
-    var room_list = users.getRoomList()
-    io.to(socket.id).emit('fetchRoomsRes', room_list);
-  })
+  socket.on("fetchRooms", () => {
+    var room_list = users.getRoomList();
+    io.to(socket.id).emit("fetchRoomsRes", room_list);
+  });
 
   socket.on("fetchFullUsersList", () => {
     const user = users.getUser(socket.id);
@@ -98,9 +100,9 @@ io.on("connection", (socket) => {
       );
     }
   });
-  socket.on('fetchUserListByRoom', (room) => {
-    io.to(socket.id).emit('fetchUserListByRoomRes', users.getUserList(room))
-  })
+  socket.on("fetchUserListByRoom", (room) => {
+    io.to(socket.id).emit("fetchUserListByRoomRes", users.getUserList(room));
+  });
   socket.on("fetchUserList", (props) => {
     const user = users.getUser(socket.id);
     if (user) {
@@ -115,7 +117,7 @@ io.on("connection", (socket) => {
     if (user) {
       io.to(socket.id).emit("getUserRes", user);
     }
-  })
+  });
 
   socket.on("update-grid", (props) => {
     const user = users.getUser(socket.id);
@@ -125,6 +127,7 @@ io.on("connection", (socket) => {
 
   socket.on("leave-room", (props) => {
     let user = users.removeUser(socket.id);
+    users.removeRoom(user.room);
 
     if (user) {
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
@@ -132,6 +135,7 @@ io.on("connection", (socket) => {
     } else {
       console.log("cannot leave room as user is: ", user);
     }
+    socket.broadcast.emit("updateRooms", users.getRoomList());
   });
 
   socket.on("disconnect", () => {
@@ -139,7 +143,12 @@ io.on("connection", (socket) => {
 
     if (user) {
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
-    }
+      if (users.getRoomList.filter((room) => room.room === user.room).length === 1) {
+        users.removeRoom(user.room);
+      }
+      socket.broadcast.emit("updateRooms", users.getRoomList());
+
+      }
   });
 });
 
