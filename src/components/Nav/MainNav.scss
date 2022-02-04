@@ -23,11 +23,12 @@ $transition: $timing ease all;
   z-index: 100;
   $ref: &;
   position: fixed;
-  background: var(--bg-secondary);
+  background: var(--s-dark);
   border-radius: $borderRadius;
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.103);
+  // box-shadow: 0 0 40px rgba(255, 255, 255, 0.103);
   top: $spacer;
   color: white;
+  width: 90vw;
   &__link {
     position: relative;
     display: flex;

@@ -6,7 +6,7 @@ import "./Multiplayer.css";
 import socket from "../socketio";
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
-import { Search } from "react-feather";
+import { Search, Plus } from "react-feather";
 const CustomTextField = styled(TextField)({
   "& .MuiInput-underline:after": {
     borderBottomColor: "white",
@@ -45,10 +45,11 @@ export default function Multiplayer() {
     <div className="multiplayer">
       {!lobby && (
         <div className="join">
+          <h2>Server Browser</h2>
           <div className="search-container">
             <div className="search">
               <input
-                class="neumorphic-input"
+                className="neumorphic-input"
                 type="text"
                 placeholder="Search..."
               ></input>
@@ -56,8 +57,14 @@ export default function Multiplayer() {
                 <Search color="white" />
               </button>
             </div>
-            <div className="add"></div>
+            <div className="add">
+              <button className="add-btn">
+                <Plus color="white" />
+
+              </button>
+            </div>
           </div>
+          <ServerBrowser rooms={rooms} />
 
           {/* <CustomTextField
             inputRef={nameRef}
@@ -156,8 +163,6 @@ export default function Multiplayer() {
               </Button>
             </div>
           </div> */}
-          <h2>Server Browser</h2>
-          <ServerBrowser rooms={rooms} />
         </div>
       )}
       {lobby && <Lobby setLobby={setLobby} room={code} />}

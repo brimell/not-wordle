@@ -63,11 +63,10 @@
   /* margin-top: 10vh; */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: start;
   width: 90%;
   height: 90%;
-  background-color: var(--bg-secondary);
   border-radius: 20px;
 }
 
@@ -100,12 +99,17 @@
   color: #4a5568;
   font-size: 1rem;
   padding: 1rem;
+
+  box-shadow: none;
+  background: var(--s-dark);
+  color: rgba(255, 255, 255, 0.6);
 }
 .search-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  max-width: 300px;
 }
 .search {
   display: flex;
@@ -122,4 +126,18 @@
   cursor: pointer;
   height: 52px;
   width: 52px;
+}
+.add-btn {
+  background: var(--primary);
+  border-radius: 1rem;
+  border: none;
+  padding: 10px;
+  position: relative;
+  cursor: pointer;
+  height: 52px;
+  width: 52px;
+}
+.add {
+  position: relative;
+  left: -20px;
 }
