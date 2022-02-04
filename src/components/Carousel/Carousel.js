@@ -13,7 +13,6 @@ export default class Carousel extends React.Component {
     this.rightClick = this.moveRight.bind(this);
     this.leftClick = this.moveLeft.bind(this);
   }
-
   generateItems() {
     var items = [];
     var level;

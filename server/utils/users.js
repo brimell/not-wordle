@@ -29,6 +29,7 @@ class Users {
         });
       }
     }
+    console.log(this.rooms)
     return this.rooms;
   }
 
