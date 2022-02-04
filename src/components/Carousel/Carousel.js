@@ -2,35 +2,21 @@ import React, { useState } from "react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./carousel.scss";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination } from "swiper";
-
-SwiperCore.use([Navigation, Pagination]);
 
 export default function Carousel(props) {
   const rooms = props.rooms;
   return (
-    <Swiper
-      slidesPerView={3}
-      spaceBetween={30}
-      pagination={{
-        clickable: true,
-      }}
-      modules={[Pagination]}
-      className="mySwiper"
-      navigation
-    >
+    <div className="carousel">
       {rooms.map((room, i) => {
         return <Item key={`slide-${i}`} room={room} />;
       })}
-    </Swiper>
+    </div>
   );
 }
 
 function Item(props) {
   var room = props.room;
   return (
-    <SwiperSlide>
       <article className="information card">
         <span className="tag">Host: {room.host}</span>
         {room.users.map((user, j) => {
@@ -68,6 +54,5 @@ function Item(props) {
           </div>
         </dl>
       </article>
-    </SwiperSlide>
   );
 }
