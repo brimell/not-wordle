@@ -2,7 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
+  width: 100%;
+  height: 100%;
 }
 
 .form-container {
@@ -62,7 +64,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  width: 90%;
+  height: 90%;
+  background-color: var(--bg-secondary);
+  border-radius: 20px;
 }
 
 .player-list-item {
@@ -84,4 +90,36 @@
   margin: 10px;
   max-width: 50vw;
   flex-wrap: wrap;
+}
+
+.neumorphic-input {
+  background: #f7fafc;
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: inset 5px 5px 3px #d2d5d6, inset -5px -5px 3px #ffffff;
+  color: #4a5568;
+  font-size: 1rem;
+  padding: 1rem;
+}
+.search-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.search {
+  display: flex;
+  align-items: center;
+  color: black;
+}
+.search-btn {
+  background: #565E70;
+  border-radius: 1rem;
+  border: none;
+  padding: 10px;
+  left: -51px;
+  position: relative;
+  cursor: pointer;
+  height: 52px;
+  width: 52px;
 }

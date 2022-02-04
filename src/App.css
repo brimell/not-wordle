@@ -1,6 +1,15 @@
 :root {
-  --bg: #0e0f10;
-  --keyboard-key-colour: #5e666a;
+  /* --bg: #0e0f10; */
+  --bg: #292F3F;
+  --s-dark: #272A35;
+  --s: #373E4E;
+  --s-light: #7A8194;
+  --pink: #B347EA;
+  --purple: #837DFF;
+  --green: #00AC83;
+  --orange: #F18303;
+  --primary: #03A9F1;
+  --keyboard-key-colour: var(s-light);
 }
 
 * {
@@ -62,7 +71,7 @@ body {
   margin-top: 0.8rem;
   align-items: center;
   justify-content: center;
-  width: 35%;
+  width: 100%;
   height: 100%;
 }
 
@@ -385,7 +394,7 @@ a {
 }
 
 input {
-  color: white !important;
+  color: white;
 }
 
 label {

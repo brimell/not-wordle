@@ -5,7 +5,6 @@ export default function ServerBrowser(props) {
   const rooms = props.rooms;
   return (
     <div className="server-browser">
-      <h2>Server Browser</h2>
       {rooms.map((room,i) => {
         return (
           <article key={i} className="information card">

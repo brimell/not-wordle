@@ -23,7 +23,7 @@ $transition: $timing ease all;
   z-index: 100;
   $ref: &;
   position: fixed;
-  background: #242629;
+  background: var(--bg-secondary);
   border-radius: $borderRadius;
   box-shadow: 0 0 40px rgba(255, 255, 255, 0.103);
   top: $spacer;

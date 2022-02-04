@@ -6,7 +6,7 @@ import "./Multiplayer.css";
 import socket from "../socketio";
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
-
+import { Search } from "react-feather";
 const CustomTextField = styled(TextField)({
   "& .MuiInput-underline:after": {
     borderBottomColor: "white",
@@ -33,11 +33,11 @@ export default function Multiplayer() {
   const [rooms, setRooms] = React.useState([]);
 
   socket.on("updateRooms", (rooms) => {
-    console.log('updated rooms', rooms)
+    console.log("updated rooms", rooms);
     setRooms(rooms);
   });
   socket.on("fetchRoomsRes", (rooms) => {
-    console.log('updated rooms: ', rooms)
+    console.log("updated rooms: ", rooms);
     setRooms(rooms);
   });
 
@@ -45,7 +45,21 @@ export default function Multiplayer() {
     <div className="multiplayer">
       {!lobby && (
         <div className="join">
-          <CustomTextField
+          <div className="search-container">
+            <div className="search">
+              <input
+                class="neumorphic-input"
+                type="text"
+                placeholder="Search..."
+              ></input>
+              <button className="search-btn">
+                <Search color="white" />
+              </button>
+            </div>
+            <div className="add"></div>
+          </div>
+
+          {/* <CustomTextField
             inputRef={nameRef}
             className="input-div"
             label="Name"
@@ -141,7 +155,8 @@ export default function Multiplayer() {
                 Create Game
               </Button>
             </div>
-          </div>
+          </div> */}
+          <h2>Server Browser</h2>
           <ServerBrowser rooms={rooms} />
         </div>
       )}
