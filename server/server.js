@@ -143,7 +143,7 @@ io.on("connection", (socket) => {
 
     if (user) {
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
-      if (users.getRoomList.filter((room) => room.room === user.room).length === 1) {
+      if (users.getRoomList(user.room).filter((room) => room.room === user.room).length === 1) {
         users.removeRoom(user.room);
       }
       socket.broadcast.emit("updateRooms", users.getRoomList());
