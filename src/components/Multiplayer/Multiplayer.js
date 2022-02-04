@@ -81,7 +81,7 @@ export default function Multiplayer(props) {
                 </button>
               </div>
             </div>
-            <ServerBrowser rooms={rooms} />
+            <ServerBrowser setLobby={setLobby} name={nameRef.current.value} socket={socket} rooms={rooms} />
 
             {/* 
           <CustomTextField
