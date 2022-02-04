@@ -19,6 +19,10 @@ export default function Lobby(props) {
 
   const [winner, setWinner] = React.useState("test");
 
+  useEffect(() => {
+    socket.emit('fetchUserList')
+  }, [])
+
   function gameLost(id) {
     console.log(id, " lost");
   }
