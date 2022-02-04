@@ -80,7 +80,6 @@ function Game(props) {
   const [hint, setHint] = useState(`Make your first guess!`);
   const [target, setTarget] = useState(() => {
     if (props.target !== false) {
-      console.log(props.target)
       return props.target;
     } else {
       resetRng();
