@@ -1,4 +1,4 @@
-# not wordle - multiplayer attempt
+# not wordle multiplayer
 
 All credit to [Wordle](https://www.powerlanguage.co.uk/wordle/)
 
@@ -11,6 +11,7 @@ npm i
 npm start
 ```
 
+then you will need to uncomment the commented lines and remove my https server config
 and in a new terminal:
 
 ```
