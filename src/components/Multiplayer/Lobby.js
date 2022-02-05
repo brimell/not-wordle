@@ -79,8 +79,7 @@ export default function Lobby(props) {
             Waiting for players
           </h2>
           <div className="player-list">
-            {users.map(function (user, i) {
-              console.log(user,i)
+            {users.map((user, i) => {
               return <PlayerListItem user={user} key={i} />;
             })}
           </div>

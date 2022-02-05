@@ -47,11 +47,11 @@ export default function Multiplayer(props) {
   },[name])
 
   socket.on("updateRooms", (rooms) => {
-    console.log("updated rooms", rooms);
+    // console.log("updated rooms", rooms);
     setRooms(rooms);
   });
   socket.on("fetchRoomsRes", (rooms) => {
-    console.log("updated rooms from fetch: ", rooms);
+    // console.log("updated rooms from fetch: ", rooms);
     setRooms(rooms);
   });
 

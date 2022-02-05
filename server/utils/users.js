@@ -68,6 +68,7 @@ class Users {
     let grids = this.users.filter((user) => user.room === room).map((user) => {
         var grid = {}
         grid[user.name] = user.grid
+        console.log(grid)
         return grid
     });
     return grids;
