@@ -144,8 +144,8 @@ io.on("connection", (socket) => {
   socket.on("fetchUserList", (props) => {
     const user = users.getUser(socket.id);
     if (user) {
-      console.log("users fetched in room: ", user.room);
-      console.log(users.getUserList(user.room));
+      // console.log("users fetched in room: ", user.room);
+      // console.log(users.getUserList(user.room));
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
     }
   });
@@ -163,7 +163,7 @@ io.on("connection", (socket) => {
       users.updateGrid(user.id, props.grid);
       io.to(user.room).emit("update-grid-client", users.getGrids(user.room));
     } else {
-      console.log('user not found');
+      console.log('user not found: ', socket.id, props.grid, users);
     }
     
   });

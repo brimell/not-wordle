@@ -62,14 +62,14 @@ class Users {
 
   updateGrid(id, grid) {
     this.users = this.users.filter((user) => user.id === id).grid = grid;
-    console.log(this.users)
+    console.log('users: ',this.users)
   }
 
   getGrids(room) {
     let grids = this.users.filter((user) => user.room === room).map((user) => {
         var grid = {}
         grid[user.name] = user.grid
-        console.log(grid)
+        console.log('grid: ',grid)
         return grid
     });
     return grids;
