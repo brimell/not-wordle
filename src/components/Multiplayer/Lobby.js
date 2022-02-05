@@ -50,6 +50,7 @@ export default function Lobby(props) {
     gameLost(id);
   });
   socket.on("update-grid-client", Grids => {
+    console.log('update grid client: ', Grids)
     setGrids(Grids)
   });
   socket.on("updateUsersList", (userList) => {

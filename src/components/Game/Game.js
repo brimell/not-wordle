@@ -141,6 +141,7 @@ function Game(props) {
       }
       setGuesses((guesses) => guesses.concat([currentGuess]));
       setCurrentGuess((guess) => "");
+      props.setMultiplayerGrid(currGrid)
       if (currentGuess === target) {
         setGameState(GameState.Won);
         updateStats(true, wordLength, guesses.length);
@@ -221,7 +222,6 @@ function Game(props) {
         />
       );
     })
-    const setGrid = props.setCurrentGrid
     function resizeGrid() {
       if (window.screen.width <= 800) {
         if (String($('.Row').children().length / 6) === (localStorage.getItem('wordLength'))) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Game from "./Game";
 import Settings from "../Modals/Settings";
 import { useEffect } from "react";
@@ -10,7 +10,8 @@ export default function GameParent(props) {
   const seedUpdate = props.seedUpdate;
   const username = props.username || null;
   const currentRoom = props.currentRoom || null;
-  const [currentGrid, setCurrentGrid] = React.useState([]);
+  const [currentGrid, setCurrentGrid] = useState([]);
+  const [multiplayerGrid, setMultiplayerGrid] = useState([])
   const target = props.target || false;
   const grids = props.grids;
 
@@ -19,11 +20,11 @@ export default function GameParent(props) {
   },[grids])
 
   useEffect(() => {
-    console.log('curr grid: ',currentGrid)
+    console.log('curr grid: ',multiplayerGrid)
     if (socket) {
-      socket.emit("update-grid", { grid: currentGrid });
+      socket.emit("update-grid", { grid: multiplayerGrid });
     }
-  }, [currentGrid]);
+  }, [multiplayerGrid]);
 
   function handleGameFinish(gameState) {
     socket.emit("gameFinish", gameState);
@@ -33,6 +34,7 @@ export default function GameParent(props) {
     <div className="GameContainer">
       {settings && <Settings seedUpdate={seedUpdate} />}
       <Game
+        setMultiplayerGrid={setMultiplayerGrid}
         target={target}
         maxGuesses={maxGuesses}
         hidden={settings}
@@ -40,7 +42,7 @@ export default function GameParent(props) {
         handleGameFinish={handleGameFinish}
       />
       <div className="gridBar">
-        {grids && Object.keys(grids).map((key, i) => {
+        {/* {grids && Object.keys(grids).map((key, i) => {
           return (
             <div className="gridItem" key={i}>
               <span className="nameTitle">{key}</span>
@@ -59,7 +61,7 @@ export default function GameParent(props) {
               })}
             </div>
           );
-        })}
+        })} */}
       </div>
     </div>
   );
