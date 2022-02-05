@@ -63,6 +63,15 @@ class Users {
   updateGrid(id, grid) {
     this.users.filter((user) => user.id === id).grid = grid;
   }
+
+  getGrids(room) {
+    let grids = this.users.filter((user) => user.room === room).map((user) => {
+        var grid = {}
+        grid[user.name] = user.grid
+        return grid
+    });
+    return grids;
+  }
 }
 
 module.exports = {

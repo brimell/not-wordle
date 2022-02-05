@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Multiplayer.css";
 import { TextField, Button } from "@mui/material";
 import socket from "../socketio";
@@ -11,13 +11,13 @@ function startGame(setGame) {
 }
 
 export default function Lobby(props) {
-  const [users, setUsers] = React.useState([]);
-  const [game, setGame] = React.useState(false);
-  const [startHide, setStartHide] = React.useState(false);
-  const [target, setTarget] = React.useState("");
-  const [podium, setPodium] = React.useState(false);
-
-  const [winner, setWinner] = React.useState("test");
+  const [users, setUsers] = useState([]);
+  const [game, setGame] = useState(false);
+  const [startHide, setStartHide] = useState(false);
+  const [target, setTarget] = useState("");
+  const [podium, setPodium] = useState(false);
+  const [grids, setGrids] = useState([])
+  const [winner, setWinner] = useState("test");
 
   useEffect(() => {
     socket.emit('fetchUserList')
@@ -49,8 +49,8 @@ export default function Lobby(props) {
   socket.on("gameLost", (id) => {
     gameLost(id);
   });
-  socket.on("update-grid-client", (props) => {
-    // stuff
+  socket.on("update-grid-client", Grids => {
+    setGrids(Grids)
   });
   socket.on("updateUsersList", (userList) => {
     socket.emit("fetchFullUsersList");

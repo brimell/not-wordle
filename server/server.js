@@ -24,6 +24,7 @@ const { instrument } = require("@socket.io/admin-ui");
 const { Users } = require("./utils/users");
 let users = new Users();
 const common = require("../src/Wordlist/common.json");
+const { get } = require("jquery");
 
 // uncomment to run locally
 
@@ -159,7 +160,7 @@ io.on("connection", (socket) => {
   socket.on("update-grid", (props) => {
     const user = users.getUser(socket.id);
     users.updateGrid(user.id, props.grid);
-    io.to(user.room).emit("update-grid-client");
+    io.to(user.room).emit("update-grid-client", users.getGrids(user.room));
   });
 
   socket.on("leave-room", (props) => {
