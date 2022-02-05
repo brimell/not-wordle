@@ -7,10 +7,12 @@ class Users {
   addUser(id, name, room, role) {
     let user = { id, name, room, role };
     this.users.push(user);
+    console.log('users: ',this.users)
     return user;
   }
 
   getUserList(room) {
+    console.log('users: ',this.users)
     let users = this.users.filter((user) => user.room === room);
     let namesArray = users.map((user) => user.name);
 
@@ -18,6 +20,7 @@ class Users {
   }
 
   getRoomList() {
+    console.log('users: ',this.users)
     this.rooms = []
     for (var i = 0; i < this.users.length; i++) {
       var user = this.users[i];
@@ -61,7 +64,11 @@ class Users {
   }
 
   updateGrid(id, grid) {
-    this.users = this.users.filter((user) => user.id === id).grid = grid;
+    for (var i = 0; i < this.users.length; i++) {
+      if (this.users[i].id === id) {
+        this.users[i].grid = grid;
+      }
+    }
     console.log('users: ',this.users)
   }
 

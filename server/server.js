@@ -93,7 +93,7 @@ io.on("connection", (socket) => {
     if (props.role === "host") {
       users.updateGameState(props.room, "lobby");
     }
-    console.log(users.getRoomList())
+    // console.log(users.getRoomList())
     socket.broadcast.emit("updateRooms", users.getRoomList());
   });
 
