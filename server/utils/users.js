@@ -2,6 +2,7 @@ class Users {
   constructor() {
     this.users = [];
     this.rooms = [];
+    this.grids = {};
   }
 
   addUser(id, name, room, role) {
@@ -18,7 +19,7 @@ class Users {
   }
 
   getRoomList() {
-    this.rooms = []
+    this.rooms = [];
     for (var i = 0; i < this.users.length; i++) {
       var user = this.users[i];
       if (user.role === "host") {
@@ -29,7 +30,7 @@ class Users {
         });
       }
     }
-    console.log(this.rooms)
+    console.log(this.rooms);
     return this.rooms;
   }
 
@@ -69,12 +70,13 @@ class Users {
   }
 
   getGrids(room) {
-    let grids = this.users.filter((user) => user.room === room).map((user) => {
-        var grid = {}
-        grid[user.name] = user.grid
-        return grid
-    });
-    return grids;
+    this.grids = {};
+    for (var i = 0; i < this.users.length; i++) {
+      if (this.users[i].room === room) {
+        this.grids[this.users[i].name] = this.users[i].grid;
+      }
+    }
+    return this.grids;
   }
 }
 

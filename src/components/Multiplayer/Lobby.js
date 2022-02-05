@@ -16,7 +16,7 @@ export default function Lobby(props) {
   const [startHide, setStartHide] = useState(false);
   const [target, setTarget] = useState("");
   const [podium, setPodium] = useState(false);
-  const [grids, setGrids] = useState([])
+  const [grids, setGrids] = useState({})
   const [winner, setWinner] = useState("test");
 
   useEffect(() => {
@@ -50,7 +50,6 @@ export default function Lobby(props) {
     gameLost(id);
   });
   socket.on("update-grid-client", Grids => {
-    console.log('update grid client: ', Grids)
     setGrids(Grids)
   });
   socket.on("updateUsersList", (userList) => {

@@ -20,7 +20,6 @@ export default function GameParent(props) {
   },[grids])
 
   useEffect(() => {
-    console.log('curr grid: ',multiplayerGrid)
     if (socket) {
       socket.emit("update-grid", { grid: multiplayerGrid });
     }
