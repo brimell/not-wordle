@@ -1,0 +1,64 @@
+:root {
+  --green: #02c39a;
+  --yellow: #fdd85d;
+}
+
+.gridBar {
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  margin-top: 10vh;
+  width: 20vw;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.gridItem {
+  background: var(--s-dark);
+  border-radius: 20px;
+  width: 100%;
+  height: fit-content;
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.nameTitle {
+  font-size: 1.5em;
+  color: var(--s-light);
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.gridRow {
+  width: 95%;
+  height: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.gridLetter {
+  border: .1rem solid linear-gradient(135deg, #48495f 0%, #2d3047 100%);
+  background: linear-gradient(135deg, #2d3047 0%, #48495f 100%);
+  border-radius: 10px;
+  width: 2rem;
+  height: 2rem;
+}
+
+.letter-clue-1 {
+  background: var(--yellow);
+}
+
+.letter-clue-2 {
+  background: var(--green);
+}
