@@ -61,8 +61,8 @@ class Users {
   }
 
   updateGrid(id, grid) {
-    console.log(grid)
     this.users.filter((user) => user.id === id).grid = grid;
+    console.log(this.users)
   }
 
   getGrids(room) {
