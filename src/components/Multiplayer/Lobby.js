@@ -106,7 +106,7 @@ export default function Lobby(props) {
           </Button>
         </div>
       )}
-      {game && <GameParent socket={socket} target={target} />}
+      {game && <GameParent grids={grids} socket={socket} target={target} />}
       {podium && <Podium socket={socket} target={target} winner={winner} />}
     </div>
   );

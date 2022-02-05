@@ -12,13 +12,18 @@ export default function GameParent(props) {
   const currentRoom = props.currentRoom || null;
   const [currentGrid, setCurrentGrid] = React.useState([]);
   const target = props.target || false;
-  const grids = props.grids || false;
+  const grids = props.grids;
 
   useEffect(() => {
+    console.log(grids)
+  },[grids])
+
+  useEffect(() => {
+    console.log('curr grid: ',currentGrid)
     if (socket) {
       socket.emit("update-grid", { grid: currentGrid });
     }
-  }, [currentGrid, socket]);
+  }, [currentGrid]);
 
   function handleGameFinish(gameState) {
     socket.emit("gameFinish", gameState);
@@ -35,7 +40,7 @@ export default function GameParent(props) {
         handleGameFinish={handleGameFinish}
       />
       <div className="gridBar">
-        {Object.keys(grids).map((key, i) => {
+        {grids && Object.keys(grids).map((key, i) => {
           return (
             <div className="gridItem" key={i}>
               <span className="nameTitle">{key}</span>
