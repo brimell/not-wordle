@@ -159,8 +159,13 @@ io.on("connection", (socket) => {
 
   socket.on("update-grid", (props) => {
     const user = users.getUser(socket.id);
-    users.updateGrid(user.id, props.grid);
-    io.to(user.room).emit("update-grid-client", users.getGrids(user.room));
+    if (user) {
+      users.updateGrid(user.id, props.grid);
+      io.to(user.room).emit("update-grid-client", users.getGrids(user.room));
+    } else {
+      console.log('user not found');
+    }
+    
   });
 
   socket.on("leave-room", (props) => {
