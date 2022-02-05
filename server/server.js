@@ -3,7 +3,7 @@ const { createServer } = require("https");
 const { Server } = require("socket.io");
 const httpServer = createServer({
   key: readFileSync("/etc/letsencrypt/live/rimell.cc/privkey.pem"),
-  cert: readFileSync("/etc/letsencrypt/live/rimell.cc/cert.pem")
+  cert: readFileSync("/etc/letsencrypt/live/rimell.cc/fullchain.pem")
 });
 const io = new Server(httpServer, {
   cors: {
