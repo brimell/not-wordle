@@ -224,7 +224,6 @@ function Game(props) {
     })
     function resizeGrid() {
       if (window.screen.width <= 800) {
-        if (String($('.Row').children().length / 6) === (localStorage.getItem('wordLength'))) {
           if (parseInt(localStorage.getItem('wordLength')) <= 5) {
             $('.Row-letter').attr('style','width: 7vh')
           } else if (localStorage.getItem('wordLength') === "6") {
@@ -236,7 +235,6 @@ function Game(props) {
           }
         } else {
           setTimeout(resizeGrid, 100);
-        }
       }
     }
     resizeGrid()
