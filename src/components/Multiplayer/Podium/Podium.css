@@ -1,0 +1,20 @@
+.wordHighlight {
+    color: var(--s-light);
+}
+
+.podium {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.podiumGridItem {
+    max-width: 500px;
+    padding: 2vh;
+}
+
+.podiumGridLetter {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+}

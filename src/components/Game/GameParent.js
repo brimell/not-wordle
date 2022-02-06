@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from "react";
 import Game from "./Game";
 import Settings from "../Modals/Settings";
 import { useEffect } from "react";
 import "./gridBar.css";
+
 
 export default function GameParent(props) {
   const socket = props.socket || null;
@@ -14,16 +16,21 @@ export default function GameParent(props) {
   const [multiplayerGrid, setMultiplayerGrid] = useState([]);
   const target = props.target || false;
   const grids = props.grids;
+  const [username, setusername] = useState('')
 
   useEffect(() => {
-    console.log(grids);
-  }, [grids]);
+    socket.emit("getUser", socket.id);
+  }, []);
 
   useEffect(() => {
     if (socket) {
       socket.emit("update-grid", { grid: multiplayerGrid });
     }
   }, [multiplayerGrid]);
+
+  socket.on("getUserRes", (user) => {
+    setusername(user.name);
+  });
 
   function handleGameFinish(gameState) {
     socket.emit("gameFinish", gameState);
@@ -43,7 +50,7 @@ export default function GameParent(props) {
       <div className="gridBar">
         {grids &&
           Object.keys(grids).map((name, i) => {
-            if (name === localStorage.getItem("name")) {
+            if (name === username) {
               return "";
             } else {
               return (

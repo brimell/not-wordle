@@ -4,7 +4,7 @@ import { TextField, Button } from "@mui/material";
 import socket from "../socketio";
 import GameParent from "../Game/GameParent";
 import PlayerListItem from "./PlayerListItem.js";
-import Podium from "./Podium";
+import Podium from "./Podium/Podium";
 
 function startGame(setGame) {
   socket.emit("start-game");
@@ -28,10 +28,12 @@ export default function Lobby(props) {
   }
 
   function gameWon(id) {
-    console.log(id, " won");
-    socket.emit("getUser", id);
-    setGame(false);
-    setPodium(true);
+    if (game === true || podium === false) {
+      console.log(id, " won");
+      socket.emit("getUser", id);
+      setGame(false);
+      setPodium(true);
+    }
   }
 
   socket.on("game-started", (props) => {
@@ -106,7 +108,7 @@ export default function Lobby(props) {
         </div>
       )}
       {game && <GameParent grids={grids} socket={socket} target={target} />}
-      {podium && <Podium socket={socket} target={target} winner={winner} />}
+      {podium && <Podium grids={grids} socket={socket} target={target} winner={winner} />}
     </div>
   );
 }

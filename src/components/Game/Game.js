@@ -93,6 +93,11 @@ function Game(props) {
     preventScroll: true,
     // closeOnOverlayClick: false
   });
+
+  useEffect(() => {
+    setCurrentGuess(currentGuess.toLowerCase());
+  }, [currentGuess]);
+
   const startNextGame = () => {
     setTarget(randomTarget(wordLength));
     setGuesses([]);
@@ -192,7 +197,7 @@ function Game(props) {
       if (sessionStorage.getItem("multiplayer") === "true") {
         props.setCurrentGrid(currGrid);
       }
-      // console.log(target)
+      console.log(target);
     };
 
     document.addEventListener("keydown", onKeyDown);
@@ -342,7 +347,7 @@ function Game(props) {
       {!props.hidden && (
         <div
           className={`Game ${
-            (Boolean(localStorage.getItem("partytime")) ? "glow-card" : "")
+            Boolean(localStorage.getItem("partytime")) ? "glow-card" : ""
           }`}
           id="gridKeyboardHint"
         >
