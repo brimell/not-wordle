@@ -207,8 +207,10 @@ app.use(express.static(path.resolve(__dirname, '../build')));
 
 app.get('/notwordle', (req, res) => {
   res.send('notwordle');
-  // res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
 });
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+})
 const server = createServer(credentials, app);
 server.listen(3001, () => {
   console.log('express server listening on port 3001');
