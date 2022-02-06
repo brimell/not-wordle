@@ -13,6 +13,7 @@ const io = new Server(socketioServer, {
       "http://localhost:3000",
       "http://localhost:5000",
       "http://rimell.cc:5000",
+      "https://rimell.cc:3001",
       "https://rimell.cc:5000",
       "https://github.com",
       "https://raaydon.github.io",
