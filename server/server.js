@@ -24,7 +24,12 @@ const { instrument } = require("@socket.io/admin-ui");
 const { Users } = require("./utils/users");
 let users = new Users();
 const common = require("../src/Wordlist/common.json");
-const { get } = require("jquery");
+
+const path = require('path')
+const express = require('express')
+
+const app = express();
+
 
 // uncomment to run locally
 
@@ -195,9 +200,17 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
 
+app.use(express.static(path.resolve(__dirname, '../build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+});
+
+instrument(io, { auth: false }); // go to admin.socket.io for admin panel
+
+
+const PORT = process.env.PORT || 5000;
 // server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 httpServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-instrument(io, { auth: false }); // go to admin.socket.io for admin panel
