@@ -1,5 +1,5 @@
 // const { readFileSync } = require("fs");
-const { createServer } = require("https");
+// const { createServer } = require("https");
 // const rateLimit = require("express-rate-limit");
 
 // const credentials = {
@@ -46,6 +46,7 @@ const io = socketio(socketioServer, {
       "http://localhost:5000",
       "http://rimell.cc:5000",
       "https://rimell.cc:3001",
+      "https://notwordle.rimell.cc",
       "https://rimell.cc:5000",
       "https://github.com",
       "https://raaydon.github.io",
@@ -214,8 +215,7 @@ app.get("/notwordle", (req, res) => {
 app.get("/", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../build", "index.html"));
 });
-const server = createServer(app);
-server.listen(3001, () => {
+app.listen(3001, () => {
   console.log("express server listening on port 3001");
 });
 
