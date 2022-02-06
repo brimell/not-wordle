@@ -4,27 +4,6 @@ import AdSense from "react-adsense";
 import "./Homepage.scss";
 
 export default function Homepage() {
-  window.addEventListener("load", () => {
-    const left = document.querySelector(".left");
-    const right = document.querySelector(".right");
-    const container = document.querySelector(".homepage");
-
-    left.addEventListener("mouseenter", () => {
-      container.classList.add("hover-left");
-    });
-
-    left.addEventListener("mouseleave", () => {
-      container.classList.remove("hover-left");
-    });
-
-    right.addEventListener("mouseenter", () => {
-      container.classList.add("hover-right");
-    });
-
-    right.addEventListener("mouseleave", () => {
-      container.classList.remove("hover-right");
-    });
-  });
 
   return (
     <div className="homepage">
@@ -63,12 +42,12 @@ export default function Homepage() {
           <button className="singleplayer-btn">Singleplayer</button>
         </Link>
       </div>
-      <AdSense.Google
-        client="ca-pub-7292810486004926"
-        slot="7806394673"
+      {/* <AdSense.Google
+        client="ca-pub-8576400028620199"
+        // slot="7806394673"
         style={{ width: 500, height: 300, float: "left" }}
         format=""
-      />
+      /> */}
     </div>
   );
 }

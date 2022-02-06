@@ -66,6 +66,7 @@ body {
 .Row {
   display: flex;
   justify-content: center;
+  gap: 2vw;
 }
 
 .Row-letter {
@@ -75,7 +76,7 @@ body {
   align-items: center;
   padding: 0px;
 
-  border-radius: 30px;
+  border-radius: 3vh;
   background: 
     linear-gradient(135deg, #2D3047 0%, #48495F 100%) padding-box, /* this is the background */
     linear-gradient(135deg, #48495F 0%, #2D3047 100%) border-box; /* this is the border*/
@@ -84,7 +85,6 @@ body {
 
   flex: none;
   flex-grow: 0;
-  margin: 10px 10px;
 
   width: 9vh;
   height: 9vh;
@@ -334,6 +334,7 @@ a {
     width: 7vh;
     height: 7vh;
     font-size: 1.6rem;
+
   }
   .App-container h1 {
     font-size: 2rem;
@@ -410,6 +411,13 @@ label {
   }
 }
 
+@media only screen and (max-height: 700px) {
+  #hint {
+    padding: 0;
+    margin: 0;
+  }
+}
+
 @media only screen and (max-height: calc(510px + 100px)) {
   #hint {
     white-space: nowrap;
@@ -427,6 +435,6 @@ label {
     flex: 1;
   }
   .navbar {
-    top: 0.2rem;
+    top: 0.2rem !important;
   }
 }
