@@ -16,22 +16,28 @@ export default function Lobby(props) {
   const [startHide, setStartHide] = useState(false);
   const [target, setTarget] = useState("");
   const [podium, setPodium] = useState(false);
-  const [grids, setGrids] = useState({})
-  const [winner, setWinner] = useState("test");
+  const [grids, setGrids] = useState({});
+  const [winner, setWinner] = useState("winner not changed");
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
-    socket.emit('fetchUserList')
-  }, [])
+    socket.emit("fetchUserList");
+    socket.emit("getUser", socket.id);
+    }, []);
 
   function gameLost(id) {
     console.log(id, " lost");
   }
 
+  useEffect(() => {
+    console.log('winner: ',winner)
+  },[winner])
+
   function gameWon(id) {
     if (game === true || podium === false) {
       console.log(id, " won");
-      socket.emit("getUser", id);
       setGame(false);
+      socket.emit("getUser", id);
       setPodium(true);
     }
   }
@@ -43,7 +49,10 @@ export default function Lobby(props) {
     }
   });
   socket.on("getUserRes", (user) => {
-    setWinner(user.name);
+    if (game === false) {
+      setWinner(user.name);
+    }
+    setUsername(user.name);
   });
   socket.on("gameWon", (id) => {
     gameWon(id);
@@ -51,8 +60,8 @@ export default function Lobby(props) {
   socket.on("gameLost", (id) => {
     gameLost(id);
   });
-  socket.on("update-grid-client", Grids => {
-    setGrids(Grids)
+  socket.on("update-grid-client", (Grids) => {
+    setGrids(Grids);
   });
   socket.on("updateUsersList", (userList) => {
     socket.emit("fetchFullUsersList");
@@ -107,8 +116,40 @@ export default function Lobby(props) {
           </Button>
         </div>
       )}
-      {game && <GameParent grids={grids} socket={socket} target={target} />}
-      {podium && <Podium grids={grids} socket={socket} target={target} winner={winner} />}
+      {game && <GameParent socket={socket} target={target} />}
+      {(game || podium) && (
+        <div className="gridBar">
+          {grids &&
+            Object.keys(grids).map((name, i) => {
+              if (name === username) {
+                return "";
+              } else {
+                return (
+                  <div className="gridItem" key={i}>
+                    <span className="nameTitle">{name}</span>
+                    {grids[name].map((row, j) => {
+                      return (
+                        <div className="gridRow" key={j}>
+                          {row.map((letter, k) => {
+                            return (
+                              <div
+                                className={`gridLetter letter-clue-${letter.clue}`}
+                                key={k}
+                              >{podium && letter.letter}</div>
+                            );
+                          })}
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              }
+            })}
+        </div>
+      )}
+      {podium && (
+        <Podium grids={grids} socket={socket} target={target} winner={winner} />
+      )}
     </div>
   );
 }

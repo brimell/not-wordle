@@ -10,11 +10,21 @@
 }
 
 .podiumGridItem {
-    max-width: 500px;
+    width: fit-content;
     padding: 2vh;
 }
 
 .podiumGridLetter {
-    font-size: 2.5rem;
     text-transform: uppercase;
+}
+
+.podium p {
+    font-size: 3vh;
+}
+
+.gridLetter {
+    font-size: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

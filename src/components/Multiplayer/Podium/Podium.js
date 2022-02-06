@@ -13,10 +13,17 @@ export default function Podium(props) {
       guesses++;
     }
   }
+
+  const classNameDict = {
+      0: "letter-absent",
+      1: "letter-elsewhere",
+      2: "letter-correct"
+  }
+
   return (
     <div className="podium">
       <p>
-        <span className="wordHighlight">{winner}</span> got the word in {guesses} guesses!
+        <span className="wordHighlight">{winner}</span> got the word in <span className="wordHighlight">{guesses}</span> guesses!
       </p>
       <p>
         the word was: <span className="wordHighlight">{target}</span>
@@ -28,13 +35,13 @@ export default function Podium(props) {
               <div className="gridItem podiumGridItem" key={i}>
                 {grids[name].map((row, j) => {
                   return (
-                    <div className="gridRow" key={j}>
+                    <div className="Row" key={j}>
                       {row.map((letter, k) => {
                         return (
                           <div
-                            className={`podiumGridLetter gridLetter letter-clue-${letter.clue}`}
+                            className={`podiumGridLetter Row-letter ${classNameDict[letter.clue]}`}
                             key={k}
-                          ></div>
+                          >{letter.letter}</div>
                         );
                       })}
                     </div>

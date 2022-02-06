@@ -12,7 +12,6 @@ function mulberry32(a: number) {
 }
 
 function seedFunc() {
-  // console.log(Number(sessionStorage.getItem("seed")) || false)
   return Number(sessionStorage.getItem("seed")) || false;
 }
 

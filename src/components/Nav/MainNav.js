@@ -20,7 +20,6 @@ export default function MainNav(props) {
                 to="/"
                 id="homeButton"
                 onClick={() => {
-                  sessionStorage.setItem("multiplayer", "false");
                   socket.emit('leave-room')
                   setLobby(false)
                 }}

@@ -73,6 +73,7 @@ function updateStats(gameState, wordLength, guesses) {
 
 function Game(props) {
   var currGrid = [];
+  const socket = props.socket || null
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState("");
@@ -194,7 +195,7 @@ function Game(props) {
       if (!e.ctrlKey && !e.metaKey) {
         onKey(e.key);
       }
-      if (sessionStorage.getItem("multiplayer") === "true") {
+      if (socket) {
         props.setCurrentGrid(currGrid);
       }
       console.log(target);
@@ -234,7 +235,7 @@ function Game(props) {
       );
     });
   function resizeGrid() {
-    if (window.screen.width <= 800) {
+    if (window.screen.width <= 800 && socket) {
       if (parseInt(localStorage.getItem("wordLength")) <= 5) {
         $(".Row-letter").attr("style", "width: 7vh");
       } else if (localStorage.getItem("wordLength") === "6") {
