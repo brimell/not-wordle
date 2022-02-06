@@ -170,7 +170,7 @@ body {
 }
 
 .letter-correct {
-  border-radius: 30px;
+  border-radius: 3vh;
   background: 
     linear-gradient(135deg, #189D7C 0%, #02C39A 100%) padding-box, /* this is the background */
     linear-gradient(135deg, #02C39A 0%, #189D7C 100%) border-box !important; /* this is the border*/
@@ -179,7 +179,7 @@ body {
 }
 
 .letter-elsewhere {
-  border-radius: 30px;
+  border-radius: 3vh;
   background: 
     linear-gradient(135deg, #d9b952 0%, #fdd85d 100%) padding-box, /* this is the background */
     linear-gradient(135deg, #fdd85d 0%, #d9b952 100%) border-box !important; /* this is the border*/
@@ -188,7 +188,7 @@ body {
 }
 
 .letter-absent {
-  border-radius: 30px;
+  border-radius: 3vh;
   background: 
     linear-gradient(135deg, #2D3047 0%, #48495F 100%) padding-box, /* this is the background */
     linear-gradient(135deg, #48495F 0%, #2D3047 100%) border-box !important; /* this is the border*/
@@ -416,6 +416,12 @@ label {
     padding: 0;
     margin: 0;
   }
+  .navbar {
+    top: 0.4rem !important;
+  }
+  .Game {
+    gap: 1vh;
+  }
 }
 
 @media only screen and (max-height: calc(510px + 100px)) {
@@ -436,5 +442,12 @@ label {
   }
   .navbar {
     top: 0.2rem !important;
+  }
+
+}
+
+@media only screen and (max-height: 500px) {
+  .navbar {
+    height: 0;
   }
 }

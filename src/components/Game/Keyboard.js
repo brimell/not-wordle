@@ -7,7 +7,7 @@ export function Keyboard(props) {
     "a s d f g h j k l".split(" "),
     "Enter z x c v b n m Backspace".split(" "),
   ];
-
+ 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none"}}>
       {keyboard.map((row, i) => (

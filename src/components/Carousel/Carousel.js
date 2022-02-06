@@ -1,7 +1,4 @@
 import React from "react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "./carousel.scss";
 
 export default function Carousel(props) {
   const rooms = props.rooms;
