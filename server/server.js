@@ -1,26 +1,27 @@
-// const { readFileSync } = require("fs");
-// const { createServer } = require("https");
-// const rateLimit = require("express-rate-limit");
+const { readFileSync } = require("fs");
+const { createServer } = require("https");
+const { Server } = require("socket.io");
+const rateLimit = require("express-rate-limit");
 
-// const credentials = {
-//   key: readFileSync("/etc/letsencrypt/live/rimell.cc/privkey.pem"),
-//   cert: readFileSync("/etc/letsencrypt/live/rimell.cc/fullchain.pem"),
-// };
-// const socketioServer = createServer(credentials);
-// const io = new Server(socketioServer, {
-//   cors: {
-//     origin: [
-//       "http://localhost:3000",
-//       "http://localhost:5000",
-//       "http://rimell.cc:5000",
-//       "https://rimell.cc:3001",
-//       "https://rimell.cc:5000",
-//       "https://github.com",
-//       "https://raaydon.github.io",
-//       "https://admin.socket.io",
-//     ],
-//   },
-// });
+const credentials = {
+  key: readFileSync("/etc/letsencrypt/live/rimell.cc/privkey.pem"),
+  cert: readFileSync("/etc/letsencrypt/live/rimell.cc/fullchain.pem"),
+};
+const socketioServer = createServer(credentials);
+const io = new Server(socketioServer, {
+  cors: {
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5000",
+      "http://rimell.cc:5000",
+      "https://rimell.cc:3001",
+      "https://rimell.cc:5000",
+      "https://github.com",
+      "https://raaydon.github.io",
+      "https://admin.socket.io",
+    ],
+  },
+});
 
 const { instrument } = require("@socket.io/admin-ui");
 
@@ -33,28 +34,34 @@ const express = require("express");
 
 const app = express();
 
-const http = require("http");
-const socketio = require("socket.io");
-const cors = require("cors");
+// uncomment to run locally
 
+// const http = require("http");
+// const express = require("express");
+// const socketio = require("socket.io");
+// const cors = require("cors");
 
-const socketioServer = http.createServer(app);
-const io = socketio(socketioServer, {
-  cors: {
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:5000",
-      "http://rimell.cc:5000",
-      "https://rimell.cc:3001",
-      "https://notwordle.rimell.cc",
-      "https://rimell.cc:5000",
-      "https://github.com",
-      "https://raaydon.github.io",
-      "https://admin.socket.io",
-    ],
-  },
-});
-app.use(cors());
+// const { instrument } = require("@socket.io/admin-ui");
+
+// const { Users } = require("./utils/users");
+// let users = new Users();
+// const common = require("../src/Wordlist/common.json");
+
+// const app = express();
+// const server = http.createServer(app);
+// const io = socketio(server, {
+//   cors: {
+//     origin: [
+//       "http://localhost:3000",
+//       "http://localhost:5000",
+//       "http://rimell.cc:5000",
+//       "https://github.com",
+//       "https://raaydon.github.io",
+//       "https://admin.socket.io",
+//     ],
+//   },
+// });
+// app.use(cors());
 
 const makeRandom = () => Math.random();
 let random = makeRandom();
@@ -198,14 +205,14 @@ io.on("connection", (socket) => {
   });
 });
 
-// app.use(
-//   rateLimit({
-//     windowMs: 12 * 60 * 60 * 1000, // 12 hour duration in milliseconds
-//     max: 200, // limit each IP to 200 requests per windowMs
-//     message: "You exceeded the request limit",
-//     headers: true,
-//   })
-// );
+app.use(
+  rateLimit({
+    windowMs: 12 * 60 * 60 * 1000, // 12 hour duration in milliseconds
+    max: 5,
+    message: "You exceeded 100 requests in 12 hour limit!",
+    headers: true,
+  })
+);
 
 app.use(express.static(path.resolve(__dirname, "../build")));
 
@@ -215,13 +222,14 @@ app.get("/notwordle", (req, res) => {
 app.get("/", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../build", "index.html"));
 });
-app.listen(3001, () => {
+const server = createServer(credentials, app);
+server.listen(3001, () => {
   console.log("express server listening on port 3001");
 });
 
 const PORT = process.env.PORT || 5000;
-socketioServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-// socketioServer.listen(PORT, () =>
-//   console.log(`Server running on port ${PORT}`)
-// );
+// server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+socketioServer.listen(PORT, () =>
+  console.log(`Server running on port ${PORT}`)
+);
 instrument(io, { auth: false }); // go to admin.socket.io for admin panel
