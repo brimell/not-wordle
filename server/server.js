@@ -1,11 +1,13 @@
 const { readFileSync } = require("fs");
 const { createServer } = require("https");
 const { Server } = require("socket.io");
-const httpServer = createServer({
+
+const credentials = {
   key: readFileSync("/etc/letsencrypt/live/rimell.cc/privkey.pem"),
   cert: readFileSync("/etc/letsencrypt/live/rimell.cc/fullchain.pem")
-});
-const io = new Server(httpServer, {
+}
+const httpsServer = createServer(credentials);
+const io = new Server(httpsServer, {
   cors: {
     origin: [
       "http://localhost:3000",
@@ -207,13 +209,12 @@ app.get('/notwordle', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
 });
 
-instrument(io, { auth: false }); // go to admin.socket.io for admin panel
 
-app.listen(3001, () => {
-  console.log('express server listening on port 3000');
+app.listen(8443, () => {
+  console.log('express server listening on port 8443');
 })
 
 const PORT = process.env.PORT || 5000;
 // server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-httpServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
+httpsServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+instrument(io, { auth: false }); // go to admin.socket.io for admin panel
