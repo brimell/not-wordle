@@ -6,6 +6,7 @@ export default function Carousel(props) {
   const socket = props.socket
   const name = props.name
   const setLobby = props.setLobby
+  console.log('room: ',rooms)
 
   return (
     <div className="carousel">
@@ -17,15 +18,16 @@ export default function Carousel(props) {
 }
 
 function Item(props) {
-  var room = props.room;
+  const room = props.room;
   const socket = props.socket
   const name = props.name
   const setLobby = props.setLobby
   return (
       <article className="information card">
         <span className="tag">Host: {room.host}</span>
+        <h2 className="title">{room.room}</h2>
+        <span className="subtitle">Players List:</span>
         {room.users.map((user, j) => {
-          <h2 className="title">{room.room}</h2>;
           return (
             <p key={j} className="info">
               {user}

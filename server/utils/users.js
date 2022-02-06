@@ -35,7 +35,11 @@ class Users {
   }
 
   updateGameState(roomprop, gameState) {
-    this.rooms.filter((room) => room.room === roomprop).gameState = gameState;
+    for (var i = 0; i < this.rooms.length; i++) {
+      if (this.rooms[i].room === roomprop) {
+        this.rooms[i].gameState = gameState;
+      }
+    }
   }
 
   removeRoom(roomprop) {
@@ -62,11 +66,7 @@ class Users {
   }
 
   updateGrid(id, grid) {
-    for (var i = 0; i < this.users.length; i++) {
-      if (this.users[i].id === id) {
-        this.users[i].grid = grid;
-      }
-    }
+    
   }
 
   getGrids(room) {

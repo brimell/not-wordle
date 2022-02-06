@@ -19,6 +19,7 @@ export default function Lobby(props) {
   const [grids, setGrids] = useState({});
   const [winner, setWinner] = useState("winner not changed");
   const [username, setUsername] = useState("");
+  const [lobby, setLobby] = useState(true);
 
   useEffect(() => {
     socket.emit("fetchUserList");
@@ -39,6 +40,7 @@ export default function Lobby(props) {
       setGame(false);
       socket.emit("getUser", id);
       setPodium(true);
+      setLobby(true) // for next game
     }
   }
 
@@ -46,10 +48,11 @@ export default function Lobby(props) {
     if (props.res) {
       setTarget(props.target);
       setGame(true);
+      setLobby(false);
     }
   });
   socket.on("getUserRes", (user) => {
-    if (game === false) {
+    if (game === false && lobby === false) {
       setWinner(user.name);
     }
     setUsername(user.name);

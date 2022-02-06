@@ -69,11 +69,18 @@
 		}
 	}
 
+	.subtitle {
+		font-size: 1.125rem;
+		color: #666;
+		line-height: 1.25;
+		& + * {
+			margin-top: 1rem;
+		}
+	}
+
 	.info {
 		color: var(--c-charcoal);
-		& + * {
-			margin-top: 1.25rem;
-		}
+		margin-top: 0.2rem;
 	}
 
 	.button {
