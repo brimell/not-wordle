@@ -1,13 +1,45 @@
-const { readFileSync } = require("fs");
+// const { readFileSync } = require("fs");
 const { createServer } = require("https");
-const { Server } = require("socket.io");
+const rateLimit = require("express-rate-limit");
 
-const credentials = {
-  key: readFileSync("/etc/letsencrypt/live/rimell.cc/privkey.pem"),
-  cert: readFileSync("/etc/letsencrypt/live/rimell.cc/fullchain.pem")
-}
-const socketioServer = createServer(credentials);
-const io = new Server(socketioServer, {
+// const credentials = {
+//   key: readFileSync("/etc/letsencrypt/live/rimell.cc/privkey.pem"),
+//   cert: readFileSync("/etc/letsencrypt/live/rimell.cc/fullchain.pem"),
+// };
+// const socketioServer = createServer(credentials);
+// const io = new Server(socketioServer, {
+//   cors: {
+//     origin: [
+//       "http://localhost:3000",
+//       "http://localhost:5000",
+//       "http://rimell.cc:5000",
+//       "https://rimell.cc:3001",
+//       "https://rimell.cc:5000",
+//       "https://github.com",
+//       "https://raaydon.github.io",
+//       "https://admin.socket.io",
+//     ],
+//   },
+// });
+
+const { instrument } = require("@socket.io/admin-ui");
+
+const { Users } = require("./utils/users");
+let users = new Users();
+const common = require("../src/Wordlist/common.json");
+
+const path = require("path");
+const express = require("express");
+
+const app = express();
+
+const http = require("http");
+const socketio = require("socket.io");
+const cors = require("cors");
+
+
+const server = http.createServer(app);
+const io = socketio(server, {
   cors: {
     origin: [
       "http://localhost:3000",
@@ -21,48 +53,7 @@ const io = new Server(socketioServer, {
     ],
   },
 });
-
-const { instrument } = require("@socket.io/admin-ui");
-
-const { Users } = require("./utils/users");
-let users = new Users();
-const common = require("../src/Wordlist/common.json");
-
-const path = require('path')
-const express = require('express')
-
-const app = express();
-
-
-// uncomment to run locally
-
-// const http = require("http");
-// const express = require("express");
-// const socketio = require("socket.io");
-// const cors = require("cors");
-
-// const { instrument } = require("@socket.io/admin-ui");
-
-// const { Users } = require("./utils/users");
-// let users = new Users();
-// const common = require("../src/Wordlist/common.json");
-
-// const app = express();
-// const server = http.createServer(app);
-// const io = socketio(server, {
-//   cors: {
-//     origin: [
-//       "http://localhost:3000",
-//       "http://localhost:5000",
-//       "http://rimell.cc:5000",
-//       "https://github.com",
-//       "https://raaydon.github.io",
-//       "https://admin.socket.io",
-//     ],
-//   },
-// });
-// app.use(cors());
-
+app.use(cors());
 
 const makeRandom = () => Math.random();
 let random = makeRandom();
@@ -70,7 +61,7 @@ function resetRng() {
   random = makeRandom();
 }
 function pick(array) {
-  resetRng()
+  resetRng();
   return array[Math.floor(array.length * random)];
 }
 const targets = common.slice(0, 20000); // adjust for max target freakiness
@@ -99,9 +90,9 @@ io.on("connection", (socket) => {
       io.to(socket.id).emit("joinRoomRes", { res: true });
     }
     if (props.role === "host") {
-      console.log('was host')
+      console.log("was host");
       users.updateGameState(props.room, "lobby");
-      console.log(this.rooms)
+      console.log(this.rooms);
     }
     // console.log(users.getRoomList())
     socket.broadcast.emit("updateRooms", users.getRoomList());
@@ -173,9 +164,8 @@ io.on("connection", (socket) => {
       users.updateGrid(user.id, props.grid);
       io.to(user.room).emit("update-grid-client", users.getGrids(user.room));
     } else {
-      console.log('user not found: ', socket.id, props.grid, users);
+      console.log("user not found: ", socket.id, props.grid, users);
     }
-    
   });
 
   socket.on("leave-room", (props) => {
@@ -196,30 +186,42 @@ io.on("connection", (socket) => {
 
     if (user) {
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
-      if (users.getRoomList(user.room).filter((room) => room.room === user.room).length === 1) {
+      if (
+        users.getRoomList(user.room).filter((room) => room.room === user.room)
+          .length === 1
+      ) {
         users.removeRoom(user.room);
       }
       socket.broadcast.emit("updateRooms", users.getRoomList());
-
-      }
+    }
   });
 });
 
+app.use(
+  rateLimit({
+    windowMs: 12 * 60 * 60 * 1000, // 12 hour duration in milliseconds
+    max: 200, // limit each IP to 200 requests per windowMs
+    message: "You exceeded the request limit",
+    headers: true,
+  })
+);
 
-app.use(express.static(path.resolve(__dirname, '../build')));
+app.use(express.static(path.resolve(__dirname, "../build")));
 
-app.get('/notwordle', (req, res) => {
-  res.send('notwordle');
+app.get("/notwordle", (req, res) => {
+  res.send("notwordle");
 });
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
-})
-const server = createServer(credentials, app);
+app.get("/", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../build", "index.html"));
+});
+// const server = createServer(credentials, app);
 server.listen(3001, () => {
-  console.log('express server listening on port 3001');
-})
+  console.log("express server listening on port 3001");
+});
 
 const PORT = process.env.PORT || 5000;
-// server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-socketioServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// socketioServer.listen(PORT, () =>
+//   console.log(`Server running on port ${PORT}`)
+// );
 instrument(io, { auth: false }); // go to admin.socket.io for admin panel
