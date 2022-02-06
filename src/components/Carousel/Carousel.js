@@ -90,7 +90,7 @@ function Item(props) {
             <dd>{room.users.length}</dd>
           </div>
           <div>
-            <dt>Game State</dt>
+            <dt>State</dt>
             <dd>{room.gameState}</dd>
           </div>
         </dl>

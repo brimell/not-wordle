@@ -19,17 +19,21 @@ class Users {
   }
 
   getRoomList() {
-    this.rooms = [];
+    var tempRooms = [];
     for (var i = 0; i < this.users.length; i++) {
       var user = this.users[i];
-      if (user.role === "host") {
-        this.rooms.push({
-          room: user.room,
-          host: user.name,
-          users: this.getUserList(user.room),
-        });
+      for (var j = 0; j < this.rooms.length; j++) {
+        if (this.rooms[j].room === user.room && user.role === "host") {
+          tempRooms.push({
+            room: user.room,
+            host: user.name,
+            users: this.getUserList(user.room),
+            gameState: this.rooms[j].gameState || "lobby",
+          });
+        }
       }
     }
+    this.rooms = tempRooms;
     console.log(this.rooms);
     return this.rooms;
   }
@@ -65,9 +69,7 @@ class Users {
     return user;
   }
 
-  updateGrid(id, grid) {
-    
-  }
+  updateGrid(id, grid) {}
 
   getGrids(room) {
     this.grids = {};

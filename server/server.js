@@ -99,7 +99,9 @@ io.on("connection", (socket) => {
       io.to(socket.id).emit("joinRoomRes", { res: true });
     }
     if (props.role === "host") {
+      console.log('was host')
       users.updateGameState(props.room, "lobby");
+      console.log(this.rooms)
     }
     // console.log(users.getRoomList())
     socket.broadcast.emit("updateRooms", users.getRoomList());
