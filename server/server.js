@@ -6,8 +6,8 @@ const credentials = {
   key: readFileSync("/etc/letsencrypt/live/rimell.cc/privkey.pem"),
   cert: readFileSync("/etc/letsencrypt/live/rimell.cc/fullchain.pem")
 }
-const httpsServer = createServer(credentials);
-const io = new Server(httpsServer, {
+const socketioServer = createServer(credentials);
+const io = new Server(socketioServer, {
   cors: {
     origin: [
       "http://localhost:3000",
@@ -209,13 +209,12 @@ app.get('/notwordle', (req, res) => {
   res.send('notwordle');
   // res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
 });
-
-
-app.listen(3001, () => {
-  console.log('express server listening on port 8443');
+const server = createServer(credentials, app);
+server.listen(3001, () => {
+  console.log('express server listening on port 3001');
 })
 
 const PORT = process.env.PORT || 5000;
 // server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-httpsServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+socketioServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 instrument(io, { auth: false }); // go to admin.socket.io for admin panel
