@@ -5,7 +5,7 @@ import { useModal } from "react-hooks-use-modal";
 
 import MainNav from "./components/Nav/MainNav";
 import StatsModal from "./components/Modals/StatsModal";
-import Homepage from "./components/Homepage";
+import Homepage from "./components/Homepage/Homepage";
 
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Multiplayer from "./components/Multiplayer/Multiplayer";

@@ -1,0 +1,52 @@
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.floatingBackground {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: -1;
+}
+
+.floatingIcon {
+  position: absolute;
+  z-index: 1;
+  bottom: -100vh;
+  width: 10vh !important;
+  height: 10vh !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem !important;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+$total: 18;
+
+@for $i from 1 through $total {
+  .floatingIcon:nth-child(#{$i}) {
+    left: random(80) * 1% + 10;
+    animation: bubble 6 + random(30) + s linear infinite;
+    animation-delay: random(10) - 5 + s;
+    transform: rotate(random(360) + deg);
+    z-index: -1;
+    @keyframes bubble {
+      to {
+        bottom: 110vh;
+        transform: rotate(5deg);
+      }
+    }
+  }
+}

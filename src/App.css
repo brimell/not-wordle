@@ -97,9 +97,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   width: 100%;
-  height: 90%;
+  height: 100%;
 }
 
 .App-container h1 {
@@ -126,7 +126,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height: 100%;
+  height: 90%;
   overflow: hidden;
 }
 
@@ -173,7 +173,7 @@ body {
   border-radius: 30px;
   background: 
     linear-gradient(135deg, #189D7C 0%, #02C39A 100%) padding-box, /* this is the background */
-    linear-gradient(135deg, #02C39A 0%, #189D7C 100%) border-box; /* this is the border*/
+    linear-gradient(135deg, #02C39A 0%, #189D7C 100%) border-box !important; /* this is the border*/
   border: 6px solid transparent;
   color: #1D6B55
 }
@@ -182,7 +182,7 @@ body {
   border-radius: 30px;
   background: 
     linear-gradient(135deg, #d9b952 0%, #fdd85d 100%) padding-box, /* this is the background */
-    linear-gradient(135deg, #fdd85d 0%, #d9b952 100%) border-box; /* this is the border*/
+    linear-gradient(135deg, #fdd85d 0%, #d9b952 100%) border-box !important; /* this is the border*/
   border: 6px solid transparent;
   color: #837035;
 }
@@ -191,7 +191,7 @@ body {
   border-radius: 30px;
   background: 
     linear-gradient(135deg, #2D3047 0%, #48495F 100%) padding-box, /* this is the background */
-    linear-gradient(135deg, #48495F 0%, #2D3047 100%) border-box; /* this is the border*/
+    linear-gradient(135deg, #48495F 0%, #2D3047 100%) border-box !important; /* this is the border*/
   border: 6px solid transparent;
   color: #A3A3AE;
 }
@@ -268,16 +268,6 @@ a {
   margin: 20px;
 }
 
-.homepage {
-  margin: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-}
-
 :root {
   --container-bg-color: #333333;
   --left-bg-color: rgba(166, 97, 86, 0.7);
@@ -287,51 +277,6 @@ a {
   --hover-width: 75%;
   --other-width: 25%;
   --speed: 1000ms;
-}
-
-.split {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  width: 50%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.split.left {
-  left: 0;
-  background-color: var(--s-light);
-}
-
-.split.right {
-  right: 0;
-  background-color: var(--s-dark);
-}
-
-.split.left,
-.split.right {
-  transition: var(--speed) all ease-in-out;
-}
-
-/* Mouse Hover Left */
-
-.hover-left .left {
-  width: var(--hover-width);
-}
-
-.hover-left .right {
-  width: var(--other-width);
-}
-
-/* Mouse Hover Right */
-.hover-right .left {
-  width: var(--other-width);
-}
-
-.hover-right .right {
-  width: var(--hover-width);
 }
 
 .modalContainer {
