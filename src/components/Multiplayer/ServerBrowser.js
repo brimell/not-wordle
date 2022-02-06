@@ -11,7 +11,7 @@ export default function ServerBrowser(props) {
     <div className="server-browser">
       {rooms.length > 0 && <Carousel name={name} setLobby={setLobby} rooms={rooms} socket={socket} active={0} />}
       {rooms.length === 0 && 
-        <h2>no games hosted</h2>
+        <h2>no games being hosted</h2>
       }
     </div>
   );

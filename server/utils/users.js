@@ -22,13 +22,23 @@ class Users {
     var tempRooms = [];
     for (var i = 0; i < this.users.length; i++) {
       var user = this.users[i];
-      for (var j = 0; j < this.rooms.length; j++) {
-        if (this.rooms[j].room === user.room && user.role === "host") {
+      if (this.rooms.length !== 0) {
+        for (var j = 0; j < this.rooms.length; j++) {
+          if (this.rooms[j].room === user.room && user.role === "host") {
+            tempRooms.push({
+              room: user.room,
+              host: user.name,
+              users: this.getUserList(user.room),
+              gameState: this.rooms[j].gameState || "lobby",
+            });
+          }
+        }
+      } else {
+        if (user.role === "host") {
           tempRooms.push({
             room: user.room,
             host: user.name,
             users: this.getUserList(user.room),
-            gameState: this.rooms[j].gameState || "lobby",
           });
         }
       }
