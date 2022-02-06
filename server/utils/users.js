@@ -39,6 +39,7 @@ class Users {
             room: user.room,
             host: user.name,
             users: this.getUserList(user.room),
+            gameState: "lobby",
           });
         }
       }

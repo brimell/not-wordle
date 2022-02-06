@@ -112,6 +112,8 @@
 			border-radius: 8px;
 			display: flex;
 			flex-direction: column-reverse;
+			align-items: flex-end;
+			justify-content: center;
 			gap: .125em;
 			flex-basis: 50%;
 		}
@@ -125,6 +127,7 @@
 			color: var(--c-indigo);
 			font-weight: 600;
 			font-size: 1.25rem;
+			margin: 0;
 		}
 	}
 }
