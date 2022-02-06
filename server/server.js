@@ -209,7 +209,7 @@ app.get('/notwordle', (req, res) => {
 
 instrument(io, { auth: false }); // go to admin.socket.io for admin panel
 
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log('express server listening on port 3000');
 })
 
