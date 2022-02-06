@@ -1,6 +1,6 @@
 // const { readFileSync } = require("fs");
 const { createServer } = require("https");
-const rateLimit = require("express-rate-limit");
+// const rateLimit = require("express-rate-limit");
 
 // const credentials = {
 //   key: readFileSync("/etc/letsencrypt/live/rimell.cc/privkey.pem"),
@@ -197,14 +197,14 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(
-  rateLimit({
-    windowMs: 12 * 60 * 60 * 1000, // 12 hour duration in milliseconds
-    max: 200, // limit each IP to 200 requests per windowMs
-    message: "You exceeded the request limit",
-    headers: true,
-  })
-);
+// app.use(
+//   rateLimit({
+//     windowMs: 12 * 60 * 60 * 1000, // 12 hour duration in milliseconds
+//     max: 200, // limit each IP to 200 requests per windowMs
+//     message: "You exceeded the request limit",
+//     headers: true,
+//   })
+// );
 
 app.use(express.static(path.resolve(__dirname, "../build")));
 
