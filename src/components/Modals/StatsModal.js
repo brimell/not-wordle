@@ -1,13 +1,16 @@
 import React from "react";
 import "react-hooks-use-modal";
-import CloseIcon from "@mui/icons-material/Close";
+import { X, User } from "react-feather";
+import "./StatsModal.css";
 
 export default function StatsModal(props) {
   const Modal = props.modal;
   const close = props.close;
+  const socket = props.socket;
+
   var stats =
     JSON.parse(localStorage.getItem("stats") || "{}") || "No Stats Yet...";
-  var wordLength = localStorage.getItem("wordLength");
+  var wordLength = socket ? 5 : localStorage.getItem("wordLength");
   var totalgames = 0;
   var totalwins = 0;
   var totallosses = 0;
@@ -35,14 +38,35 @@ export default function StatsModal(props) {
   return (
     <Modal>
       <div className="modalContainer">
-        <CloseIcon onClick={close} className="modalCloseIcon" />
-        <h1 className="statsHeader">Stats</h1>
-        <p>{"total games: " + totalgames}</p>
-        <p>{"total wins: " + totalwins}</p>
-        <p>{"total losses: " + totallosses}</p>
-        <p>{"average guesses: " + averageGuesses}</p>
-        <br />
-        <h1 className="statsHeader">{wordLength + " Letter Stats"}</h1>
+        <X onClick={close} className="modalCloseIcon" />
+        <div className="profile">
+          <div className="profileIconContainer">
+            <User className="profileIcon" />
+          </div>
+          <h2 className="username">@{localStorage.getItem("name")}</h2>
+        </div>
+        <h1 className="statsHeader">Statistics</h1>
+        <div className="mainStatsContainer">
+          <div className="played">
+            <p>{totalgames}</p>
+            <span>Played</span>
+          </div>
+          <div className="wins">
+            <p>{totalwins}</p>
+            <span>Wins</span>
+          </div>
+          <div className="losses">
+            <p>{totallosses}</p>
+            <span>Losses</span>
+          </div>
+          <div className="average">
+            <p>{averageGuesses}</p>
+            <span>Average Guesses</span>
+          </div>
+        </div>
+        <h1 className="statsHeader">
+          {wordLength + " word Guess Distribution"}
+        </h1>
         {stats[wordLength] ? (
           <p>{"1: " + stats[wordLength].guesses["1"]}</p>
         ) : null}

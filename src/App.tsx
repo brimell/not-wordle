@@ -54,7 +54,7 @@ function App() {
           close={CreateGameClose}
           modal={createGameModal}
         />
-        <StatsModal modal={statsModal} close={statsClose} />
+        <StatsModal socket={socket} modal={statsModal} close={statsClose} />
         <MainNav
           setLobby={setLobby}
           socket={socket}
