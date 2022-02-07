@@ -5,7 +5,7 @@ import $ from 'jquery'
 export default function Mathler() {
 
     useEffect(() => {
-        $('body').css('background-color', 'rgb(237 237 237)')
+        // $('body').css('background-color', 'rgb(237 237 237)')
     }, [])
 
     return (
