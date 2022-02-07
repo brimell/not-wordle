@@ -134,47 +134,6 @@ body {
   height: 90%;
 }
 
-.Game-keyboard {
-  display: flex;
-  flex-direction: column;
-}
-
-.Game-keyboard-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: stretch;
-}
-
-.Game-keyboard-button {
-  margin: 2px;
-  background-color: var(--keyboard-key-colour);
-  padding: 2px;
-  text-transform: capitalize;
-  border-radius: 4px;
-  height: 58px;
-  width: 43px;
-  min-height: 40px;
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  color: inherit;
-  text-decoration: inherit;
-  border: 2px solid transparent;
-  cursor: pointer;
-  font-family: "Nunito", sans-serif;
-  font-weight: 800;
-}
-
-.Game-keyboard-button-wide {
-  flex: 2;
-}
-
-.Game-keyboard-button:focus {
-  outline: none;
-}
-
 .letter-correct {
   border-radius: 3vh;
   background: 
