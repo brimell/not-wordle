@@ -49,7 +49,7 @@
     "server": "nodemon server/server.js",
     "serverprod": "node server/server.js",
     "autoprefixer": "postcss src/*.css --use autoprefixer -d build/",
-    "dura": "dura serve"
+    "dura": "dura watch && dura serve"
   },
   "eslintConfig": {
     "extends": [
