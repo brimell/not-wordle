@@ -9,7 +9,7 @@ export function Keyboard(props) {
   ];
  
   return (
-    { hidden && <div className="Game-keyboard">
+    <div className="Game-keyboard" style={{ display: props.hidden && "none"}}>
       {keyboard.map((row, i) => (
         <div key={i} className="Game-keyboard-row">
           {row.map((label, j) => {
@@ -36,6 +36,6 @@ export function Keyboard(props) {
           })}
         </div>
       ))}
-    </div>}
+    </div>
   );
 }
