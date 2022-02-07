@@ -214,6 +214,8 @@ app.use(
   })
 );
 
+// if you want to host on / then change package.json homepage to /
+
 app.use(express.static(path.resolve(__dirname, "../build")));
 
 app.get("/notwordle", (req, res) => {
