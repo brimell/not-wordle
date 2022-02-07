@@ -10,3 +10,7 @@
     align-items: center;
     justify-content: center;
 }
+
+.pb-6 div div {
+    background-color: blue;
+}
