@@ -7,6 +7,7 @@ export default function Mathler() {
     useEffect(() => {
         $('body').css('transition', '2s all')
         $('body').css('background-color', 'rgb(237 237 237)')
+        $(".pb-6").focus();
     }, [])
 
     return (
