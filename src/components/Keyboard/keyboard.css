@@ -1,42 +1,67 @@
-
 .Game-keyboard {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .Game-keyboard-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: stretch;
-  }
-  
-  .Game-keyboard-button {
-    margin: 2px;
-    background-color: var(--keyboard-key-colour);
-    padding: 2px;
-    text-transform: capitalize;
-    border-radius: 4px;
-    height: 58px;
-    width: 43px;
-    min-height: 40px;
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: inherit;
-    text-decoration: inherit;
-    border: 2px solid transparent;
-    cursor: pointer;
-    font-family: "Nunito", sans-serif;
-    font-weight: 800;
-  }
-  
-  .Game-keyboard-button-wide {
-    flex: 2;
-  }
-  
-  .Game-keyboard-button:focus {
-    outline: none;
-  }
-  
+  display: flex;
+  flex-direction: column;
+}
+
+.Game-keyboard-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+}
+
+.Game-keyboard-button {
+  margin: 2px;
+  background-color: var(--keyboard-key-colour);
+  padding: 2px;
+  text-transform: capitalize;
+  border-radius: 4px;
+  height: 58px;
+  width: 43px;
+  min-height: 40px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: inherit;
+  text-decoration: inherit;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+}
+
+.Game-keyboard-button-wide {
+  flex: 2;
+}
+
+.Game-keyboard-button:focus {
+  outline: none;
+}
+
+.letter-correct {
+  border-radius: 3vh;
+  background: linear-gradient(135deg, #189d7c 0%, #02c39a 100%) padding-box,
+    /* this is the background */
+      linear-gradient(135deg, #02c39a 0%, #189d7c 100%) border-box !important; /* this is the border*/
+  border: 6px solid transparent;
+  color: #1d6b55;
+}
+
+.letter-elsewhere {
+  border-radius: 3vh;
+  background: linear-gradient(135deg, #d9b952 0%, #fdd85d 100%) padding-box,
+    /* this is the background */
+      linear-gradient(135deg, #fdd85d 0%, #d9b952 100%) border-box !important; /* this is the border*/
+  border: 6px solid transparent;
+  color: #837035;
+}
+
+.letter-absent {
+  border-radius: 3vh;
+  background: linear-gradient(135deg, #2d3047 0%, #48495f 100%) padding-box,
+    /* this is the background */
+      linear-gradient(135deg, #48495f 0%, #2d3047 100%) border-box !important; /* this is the border*/
+  border: 6px solid transparent;
+  color: #a3a3ae;
+}

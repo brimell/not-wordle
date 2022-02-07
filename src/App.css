@@ -134,33 +134,6 @@ body {
   height: 90%;
 }
 
-.letter-correct {
-  border-radius: 3vh;
-  background: 
-    linear-gradient(135deg, #189D7C 0%, #02C39A 100%) padding-box, /* this is the background */
-    linear-gradient(135deg, #02C39A 0%, #189D7C 100%) border-box !important; /* this is the border*/
-  border: 6px solid transparent;
-  color: #1D6B55
-}
-
-.letter-elsewhere {
-  border-radius: 3vh;
-  background: 
-    linear-gradient(135deg, #d9b952 0%, #fdd85d 100%) padding-box, /* this is the background */
-    linear-gradient(135deg, #fdd85d 0%, #d9b952 100%) border-box !important; /* this is the border*/
-  border: 6px solid transparent;
-  color: #837035;
-}
-
-.letter-absent {
-  border-radius: 3vh;
-  background: 
-    linear-gradient(135deg, #2D3047 0%, #48495F 100%) padding-box, /* this is the background */
-    linear-gradient(135deg, #48495F 0%, #2D3047 100%) border-box !important; /* this is the border*/
-  border: 6px solid transparent;
-  color: #A3A3AE;
-}
-
 .Game-options {
   display: flex;
   align-items: center;
