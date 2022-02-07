@@ -163,7 +163,9 @@ body {
   text-decoration: inherit;
   border: 2px solid transparent;
   cursor: pointer;
-  font-weight: 800;
+  font-family: "Nunito", sans-serif;
+
+
 }
 
 .Game-keyboard-button-wide {
