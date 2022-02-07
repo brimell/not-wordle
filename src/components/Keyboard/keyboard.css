@@ -1,7 +1,7 @@
 .Game-keyboard {
   display: flex;
   flex-direction: column;
-  border: 1px solid #15171d;
+  /* border: 1px solid #15171d; */
   box-shadow: inset 0px 3px 3px 0px #15171d,
     inset 3px 0px 3px 0px #15171d, inset -3px 3px 3px 0px #15171d,
     inset 0px -3px 3px 0px #15171d;
