@@ -9,7 +9,7 @@ export function Keyboard(props) {
   ];
  
   return (
-    { props.hidden && <div className="Game-keyboard">
+    { hidden && <div className="Game-keyboard">
       {keyboard.map((row, i) => (
         <div key={i} className="Game-keyboard-row">
           {row.map((label, j) => {
