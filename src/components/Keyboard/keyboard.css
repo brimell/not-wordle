@@ -2,9 +2,8 @@
   display: flex;
   flex-direction: column;
   border: 1px solid #20222c;
-  box-shadow: inset 0px 5px 5px 0px #20222c,
-    inset 5px 0px 5px 0px #20222c, inset -5px 5px 5px 0px #20222c,
-    inset 0px -5px 5px 0px #20222c;
+  box-shadow: inset 0px 5px 5px 0px #20222c, inset 5px 0px 5px 0px #20222c,
+    inset -5px 5px 5px 0px #20222c, inset 0px -5px 5px 0px #20222c;
   padding: 1vh;
   border-radius: 12px;
 }
@@ -49,7 +48,8 @@
 }
 
 .Game-keyboard-button:active {
-    box-shadow: inset 7px 7px 15px rgb(66 66 66 / 15%), inset -7px -7px 20px white, 0px 0px 4px rgb(255 255 255 / 20%);
+  box-shadow: inset 7px 7px 15px rgb(66 66 66 / 15%), inset -7px -7px 20px white,
+    0px 0px 4px rgb(255 255 255 / 20%);
 }
 
 .letter-correct {
