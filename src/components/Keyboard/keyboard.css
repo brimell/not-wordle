@@ -3,9 +3,6 @@
   flex-direction: column;
   border: 1px solid var(--bg);
   box-shadow: inset 0px 2px 2px 0px #a87961, inset 2px 0px 2px 0px #a87961, inset -2px 2px 2px 0px #a87961, inset 0px -2px 2px 0px #a87961;
-  width: 780px;
-  height: 330px;
-  margin: 3.5% 0 0 0;
   border-radius: 12px;
 }
 
