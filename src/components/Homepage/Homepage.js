@@ -5,6 +5,7 @@ import "./Homepage.scss";
 
 export default function Homepage() {
 
+  $('body').css('background-color', 'rgb(237 237 237)')
   return (
     <div className="homepage">
       <div className="floatingBackground">
