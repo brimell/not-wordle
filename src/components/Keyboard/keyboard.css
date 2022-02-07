@@ -30,6 +30,9 @@
   font-family: "Nunito", sans-serif;
   font-weight: 800;
   box-shadow:0 1px 2px 1px #000, inset 0 1px 1px 0 #666;
+  cursor:pointer;
+	outline:none;
+	user-select:none;
 }
 
 .Game-keyboard-button-wide {
