@@ -39,6 +39,10 @@
   outline: none;
 }
 
+.Game-keyboard-button:active {
+	box-shadow:inset 0 1px 2px 0 #000, 0 1px 1px 0 #666;
+}
+
 .letter-correct {
   border-radius: 3vh;
   background: linear-gradient(135deg, #189d7c 0%, #02c39a 100%) padding-box,
