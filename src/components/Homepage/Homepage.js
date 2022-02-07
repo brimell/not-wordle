@@ -6,7 +6,7 @@ import $ from 'jquery'
 
 export default function Homepage() {
 
-  // $('body').css('background-color', 'var(--bg)')
+  $('body').css('background-color', 'var(--bg)')
   return (
     <div className="homepage">
       <div className="floatingBackground">
