@@ -76,7 +76,7 @@ export default function StatsModal(props) {
             <div className="bar-graph">
               {Object.keys(stats[wordLength].guesses).map((key, i) => {
                 return (
-                  <div className="barContainer">
+                  <div className="barContainer" key={i}>
                     <span className="label">{key}</span>
                     <div
                       className="bar"

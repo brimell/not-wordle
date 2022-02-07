@@ -38,6 +38,7 @@ $transition: $timing ease all;
     width: $linkHeight;
     color: $text;
     transition: $transition;
+    cursor: pointer;
     span {
       position: absolute;
       top: 120%;
