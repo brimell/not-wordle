@@ -7,7 +7,7 @@ const credentials = {
   cert: readFileSync("/etc/letsencrypt/live/rimell.cc/fullchain.pem"),
 };
 const socketioServer = createServer(credentials);
-const io = require('socketio').listen(socketioServer, {
+const io = require('socket.io').listen(socketioServer, {
   cors: {
     origin: [
       "http://localhost:3000",
