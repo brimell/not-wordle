@@ -208,7 +208,7 @@ io.on("connection", (socket) => {
 app.use(
   rateLimit({
     windowMs: 30000, // 30 seconds
-    max: 100,
+    max: 500,
     message: "You exceeded the rate limit.",
     headers: true,
   })
