@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Row, RowState } from "./Row";
 import { clue } from "./clue";
-import { Keyboard } from "./Keyboard";
+import { Keyboard } from "../Keyboard/Keyboard";
 import common from "../../Wordlist/common.json";
 import { pick, resetRng, seed } from "../util";
 import $ from "jquery";
