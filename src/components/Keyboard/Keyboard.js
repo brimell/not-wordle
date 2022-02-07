@@ -1,4 +1,4 @@
-import { Clue, clueClass } from "./clue";
+import { Clue, clueClass } from "../Game/clue";
 
 export function Keyboard(props) {
   const hidden = props.hidden
