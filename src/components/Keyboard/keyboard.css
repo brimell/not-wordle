@@ -36,13 +36,14 @@
   outline: none;
   user-select: none;
   border: 0;
-  background: #F2F2F2;
+  background: #f2f2f2;
   border-radius: 11px;
-  text-decoration:none;
-  color:#0B0B0B;
-  font-family: 'Open Sans', sans-serif;
-font-size: 22px;
-  box-shadow: inset 0 0 15px rgba(66, 66, 66, 0), inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(58, 58, 58, 0.15), -7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+  color: #0b0b0b;
+  font-family: "Open Sans", sans-serif;
+  box-shadow: inset 0 0 15px rgba(66, 66, 66, 0),
+    inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(58, 58, 58, 0.15),
+    -7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
   transition: box-shadow 399ms ease-in-out;
 }
 
