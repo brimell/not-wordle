@@ -31,6 +31,7 @@
   cursor: pointer;
   outline: none;
   user-select: none;
+  border: 0;
 }
 
 .Game-keyboard-button-wide {
