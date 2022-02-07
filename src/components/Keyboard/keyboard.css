@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   border: 1px solid #20222c;
-  box-shadow: inset 0px 5px 5px 0px #272935,
-    inset 5px 0px 5px 0px #272935, inset -5px 5px 5px 0px #272935,
-    inset 0px -5px 5px 0px #272935;
+  box-shadow: inset 0px 5px 5px 0px #20222c,
+    inset 5px 0px 5px 0px #20222c, inset -5px 5px 5px 0px #20222c,
+    inset 0px -5px 5px 0px #20222c;
   padding: 1vh;
   border-radius: 12px;
 }
