@@ -3,6 +3,7 @@
   flex-direction: column;
   border: 1px solid var(--bg);
   box-shadow: inset 0px 5px 5px 0px var(--s-dark), inset 5px 0px 5px 0px var(--s-dark), inset -5px 5px 5px 0px var(--s-dark), inset 0px -5px 5px 0px var(--s-dark);
+    padding: 1vh;
   border-radius: 12px;
 }
 
