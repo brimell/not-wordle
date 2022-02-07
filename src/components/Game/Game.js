@@ -44,7 +44,7 @@ function updateStats(gameState, wordLength, guesses) {
       games: 0,
       wins: 0,
       losses: 0,
-      guesses: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 },
+      guesses: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 },
     };
   }
 
@@ -59,7 +59,7 @@ function updateStats(gameState, wordLength, guesses) {
     stats[wordLength].losses++;
   }
   if (Number.isInteger(stats[wordLength].guesses)) {
-    stats[wordLength].guesses = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+    stats[wordLength].guesses = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
   }
   if (!stats[wordLength].guesses[guesses]) {
     stats[wordLength].guesses[guesses] = 1;
@@ -73,7 +73,7 @@ function updateStats(gameState, wordLength, guesses) {
 
 function Game(props) {
   var currGrid = [];
-  const socket = props.socket || null
+  const socket = props.socket || null;
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState("");
@@ -315,12 +315,14 @@ function Game(props) {
                   `https://api.dictionaryapi.dev/api/v2/entries/en/${target}`
                 );
                 const data = await response.json();
-                const definition =
-                  data[0].meanings[0].definitions[0].definition;
-                const example = data[0].meanings[0].definitions[0].example;
-                // return [definition, example] || ["none", "none"]
-                console.log(definition);
-                return definition;
+                if (data[0] !== undefined) {
+                  const definition =
+                    data[0].meanings[0].definitions[0].definition;
+                  const example = data[0].meanings[0].definitions[0].example;
+                  // return [definition, example] || ["none", "none"]
+                  console.log(definition);
+                  return definition;
+                }
               }
               if (seed) {
                 disableTodaysWord();

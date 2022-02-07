@@ -1,12 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "react-hooks-use-modal";
 import { X, User } from "react-feather";
-import "./StatsModal.css";
+import "./StatsModal.scss";
+import $ from "jquery";
 
 export default function StatsModal(props) {
   const Modal = props.modal;
   const close = props.close;
   const socket = props.socket;
+  const isOpen = props.isOpen;
+
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(function start() {
+        $(".bar").each(function (i) {
+          var $bar = $(this);
+          $(this).append('<span class="count"></span>');
+
+          setTimeout(function () {
+            $bar.css("width", $bar.attr("data-percent"));
+          }, i * 100);
+        });
+
+        $(".count").each(function () {
+          $(this).text();
+          $(this)
+            .prop("Counter", 0)
+            .animate(
+              {
+                Counter: $(this).parent(".bar").attr("data-percent"),
+              },
+              {
+                duration: 2000,
+                easing: "swing",
+                step: function (now) {
+                  $(this).text(Math.ceil(now/100 * $(this).parent(".bar").attr("data-text")));
+                },
+              }
+            );
+        });
+      }, 500);
+    }
+  }, [isOpen]);
 
   var stats =
     JSON.parse(localStorage.getItem("stats") || "{}") || "No Stats Yet...";
@@ -30,11 +65,11 @@ export default function StatsModal(props) {
   }
 
   // console.log(guessesArray)
-  let sum = 0;
+  let totalGuesses = 0;
   for (let i = 0; i < guessesArray.length; i++) {
-    sum += parseInt(guessesArray[i]);
+    totalGuesses += parseInt(guessesArray[i]);
   }
-  var averageGuesses = Math.round(sum / guessesArray.length);
+  var averageGuesses = Math.round(totalGuesses / guessesArray.length);
   return (
     <Modal>
       <div className="modalContainer">
@@ -43,48 +78,54 @@ export default function StatsModal(props) {
           <div className="profileIconContainer">
             <User className="profileIcon" />
           </div>
-          <h2 className="username">@{localStorage.getItem("name")}</h2>
+          <h2 className="username">
+            @{localStorage.getItem("name") || "user"}
+          </h2>
         </div>
         <h1 className="statsHeader">Statistics</h1>
         <div className="mainStatsContainer">
           <div className="played">
-            <p>{totalgames}</p>
+            <p>{totalgames || 0}</p>
             <span>Played</span>
           </div>
           <div className="wins">
-            <p>{totalwins}</p>
+            <p>{totalwins || 0}</p>
             <span>Wins</span>
           </div>
-          <div className="losses">
-            <p>{totallosses}</p>
-            <span>Losses</span>
+          <div className="streak">
+            <p>{stats.streak || 0}</p>
+            <span>Streak</span>
           </div>
           <div className="average">
             <p>{averageGuesses}</p>
             <span>Average Guesses</span>
           </div>
         </div>
-        <h1 className="statsHeader">
-          {wordLength + " word Guess Distribution"}
-        </h1>
-        {stats[wordLength] ? (
-          <p>{"1: " + stats[wordLength].guesses["1"]}</p>
-        ) : null}
-        {stats[wordLength] ? (
-          <p>{"2: " + stats[wordLength].guesses["2"]}</p>
-        ) : null}
-        {stats[wordLength] ? (
-          <p>{"3: " + stats[wordLength].guesses["3"]}</p>
-        ) : null}
-        {stats[wordLength] ? (
-          <p>{"4: " + stats[wordLength].guesses["4"]}</p>
-        ) : null}
-        {stats[wordLength] ? (
-          <p>{"5: " + stats[wordLength].guesses["5"]}</p>
-        ) : null}
-        {stats[wordLength] ? (
-          <p>{"6: " + stats[wordLength].guesses["6"]}</p>
-        ) : null}
+        {stats[wordLength] && (
+          <div className="distribution">
+            <h1 className="statsHeader">
+              {wordLength + " Letter Guess Distribution"}
+            </h1>
+            <div className="bar-graph">
+              {Object.keys(stats[wordLength].guesses).map((key, i) => {
+                return (
+                  <div className="barContainer">
+                    <span className="label">{key}</span>
+                    <div
+                      className="bar"
+                      data-percent={`${
+                        (stats[wordLength].guesses[key] / totalgames) * 100
+                      }%`}
+                      data-text={stats[wordLength].guesses[key]}
+                      key={i}
+                      id={`bar-${key}`}
+                    ></div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </Modal>
   );

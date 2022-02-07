@@ -20,6 +20,7 @@
     "express-rate-limit": "^6.2.0",
     "firebase": "^9.6.5",
     "follow-redirects": "^1.14.7",
+    "gsap": "^3.9.1",
     "jquery": "^3.6.0",
     "nanoid": "^3.2.0",
     "node-forge": "^1.2.1",
