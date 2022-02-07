@@ -10,39 +10,6 @@ export default function StatsModal(props) {
   const socket = props.socket;
   const isOpen = props.isOpen;
 
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(function start() {
-        $(".bar").each(function (i) {
-          var $bar = $(this);
-          $(this).append('<span class="count"></span>');
-
-          setTimeout(function () {
-            $bar.css("width", $bar.attr("data-percent"));
-          }, i * 100);
-        });
-
-        $(".count").each(function () {
-          $(this).text();
-          $(this)
-            .prop("Counter", 0)
-            .animate(
-              {
-                Counter: $(this).parent(".bar").attr("data-percent"),
-              },
-              {
-                duration: 2000,
-                easing: "swing",
-                step: function (now) {
-                  $(this).text(Math.ceil(now/100 * $(this).parent(".bar").attr("data-text")));
-                },
-              }
-            );
-        });
-      }, 500);
-    }
-  }, [isOpen]);
-
   var stats =
     JSON.parse(localStorage.getItem("stats") || "{}") || "No Stats Yet...";
   var wordLength = socket ? 5 : localStorage.getItem("wordLength");
@@ -113,13 +80,10 @@ export default function StatsModal(props) {
                     <span className="label">{key}</span>
                     <div
                       className="bar"
-                      data-percent={`${
-                        (stats[wordLength].guesses[key] / totalgames) * 100
-                      }%`}
-                      data-text={stats[wordLength].guesses[key]}
                       key={i}
                       id={`bar-${key}`}
-                    ></div>
+                      style={{width: `${stats[wordLength].guesses[key] / totalgames * 100}%`}}
+                    ><span className="count">{stats[wordLength].guesses[key]}</span></div>
                   </div>
                 );
               })}
