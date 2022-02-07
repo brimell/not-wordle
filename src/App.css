@@ -52,7 +52,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  transition: 2s all;
+  /* transition: 2s all; */
 }
 
 #root {
