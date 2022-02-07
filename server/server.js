@@ -1,5 +1,6 @@
 const { readFileSync } = require("fs");
 const { createServer } = require("https");
+const { Server } = require("socket.io");
 const rateLimit = require("express-rate-limit");
 
 const credentials = {
@@ -7,7 +8,7 @@ const credentials = {
   cert: readFileSync("/etc/letsencrypt/live/rimell.cc/fullchain.pem"),
 };
 const socketioServer = createServer(credentials);
-const io = require('socket.io').listen(socketioServer, {
+const io = new Server(socketioServer, {
   cors: {
     origin: [
       "http://localhost:3000",
