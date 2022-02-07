@@ -10,6 +10,7 @@ import Homepage from "./components/Homepage/Homepage";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Multiplayer from "./components/Multiplayer/Multiplayer";
 import GameParent from "./components/Game/GameParent";
+import Mathler from "./components/Mathler/Mathler";
 import CreateGameModal from "./components/Modals/CreateGameModal";
 import socket from "./components/socketio";
 
@@ -54,7 +55,12 @@ function App() {
           close={CreateGameClose}
           modal={createGameModal}
         />
-        <StatsModal isOpen={statsIsOpen} socket={socket} modal={statsModal} close={statsClose} />
+        <StatsModal
+          isOpen={statsIsOpen}
+          socket={socket}
+          modal={statsModal}
+          close={statsClose}
+        />
         <MainNav
           setLobby={setLobby}
           socket={socket}
@@ -91,6 +97,7 @@ function App() {
               />
             }
           ></Route>
+          <Route path="/mathler" element={<Mathler />}></Route>
         </Routes>
       </div>
     </Router>
