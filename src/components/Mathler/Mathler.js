@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './Mathler.css'
 import $ from 'jquery'
 
 export default function Mathler() {
 
-    $('body').css('background-color', 'rgb(237 237 237)')
+    useEffect(() => {
+        $('body').css('background-color', 'rgb(237 237 237)')
+    }, [])
 
     return (
         <div className="mathler">
