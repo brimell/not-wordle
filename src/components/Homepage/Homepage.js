@@ -42,7 +42,7 @@ export default function Homepage() {
           <button className="singleplayer-btn">Singleplayer</button>
         </Link>
         <Link to="/mathler" className="link">
-          <button className="multiplayer-btn">Singleplayer</button>
+          <button className="multiplayer-btn">Mathler</button>
         </Link>
       </div>
       {/* <AdSense.Google
