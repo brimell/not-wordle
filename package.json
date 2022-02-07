@@ -1,7 +1,7 @@
 {
   "name": "not-wordle",
   "version": "0.1.0",
-  "homepage": "/notwordle",
+  "homepage": "https://raaydon.github.io/not-wordle",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.7.1",
