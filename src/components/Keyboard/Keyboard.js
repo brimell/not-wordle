@@ -1,5 +1,6 @@
 import { Clue, clueClass } from "../Game/clue";
-import keyba
+import './keyboard.css'
+
 export function Keyboard(props) {
   const hidden = props.hidden
   const keyboard = [
