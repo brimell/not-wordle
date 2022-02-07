@@ -205,14 +205,14 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(
-  rateLimit({
-    windowMs: 30000, // 30 seconds
-    max: 500,
-    message: "You exceeded the rate limit.",
-    headers: true,
-  })
-);
+// app.use(
+//   rateLimit({
+//     windowMs: 30000, // 30 seconds
+//     max: 500,
+//     message: "You exceeded the rate limit.",
+//     headers: true,
+//   })
+// );
 
 // if you want to host on / then change package.json homepage to /
 
