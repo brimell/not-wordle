@@ -130,13 +130,9 @@ export default function Notification(props) {
           to(mouthPath, {
             keyframes: [
               {
-                morphSVG:
-                  "M6 5.45001C3.4154 5.45001 1.5 5.50001 1.5 5.50001H10.5C10.5 5.50001 8.5846 5.45001 6 5.45001Z",
                 duration: 0.15,
               },
               {
-                morphSVG:
-                  "M6 1.5C3.4154 1.5 1.5 5.5 1.5 5.5H10.5C10.5 5.5 8.5846 1.5 6 1.5Z",
                 duration: 0.15,
                 delay: 0.15,
               },
