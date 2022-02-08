@@ -381,13 +381,6 @@ label {
   .navbar {
     top: 0.2rem !important;
   }
-  .Game-keyboard{
-    border: 0;
-    box-shadow: none;
-  }
-  .Game-keyboard-button {
-    box-shadow: none;
-  }
 }
 
 @media only screen and (max-height: 500px) {
