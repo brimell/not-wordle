@@ -12,7 +12,7 @@ export function Keyboard(props) {
   ];
   function startListeners() {
     console.log('ran')
-    $(".Game-keyboard-button").on("touchstart", function (e) {
+    $(".Game-keyboard-button").on("click", function (e) {
       const letter = e.target.attributes["data-key"].value;
       props.onKey(letter);
     });
