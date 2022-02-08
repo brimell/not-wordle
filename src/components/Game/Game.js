@@ -143,6 +143,7 @@ function Game(props) {
       setHint("");
     } else if (key === "Enter") {
       if (currentGuess.length !== wordLength) {
+        console.log('curr guess: ', currentGuess)
         setHint("Too short");
         return;
       }
