@@ -26,14 +26,9 @@ export default function ServerBrowser(props) {
         tempList.map((room, i) => {
           return (
             <article className="information card" key={i}>
+              <div className="noRooms">
               <span className="tag">{"    "}</span>
-              <span className="tag">{"    "}</span>
-              <span className="tag">{"    "}</span>
-              <span className="tag">{"    "}</span>
-              <span className="tag">{"    "}</span>
-              <span className="tag">{"    "}</span>
-              <span className="tag">{"    "}</span>
-              <span className="tag">{"    "}</span>
+              </div>
             </article>
           );
         })}
