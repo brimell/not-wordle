@@ -137,7 +137,7 @@ function Game(props) {
     }
     if (guesses.length === props.maxGuesses) return;
     if (/^[a-z]$/.test(key)) {
-      console.log('now: ',currentGuess)
+      console.log('now: ',currentGuess, key)
       setCurrentGuess((guess) => (guess + key).slice(0, wordLength));
       setHint("");
     } else if (key === "backspace") {
