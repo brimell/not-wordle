@@ -22,7 +22,7 @@ export function Keyboard(props) {
         });
       });
     });
-  }, [props]);
+  });
 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none" }}>
