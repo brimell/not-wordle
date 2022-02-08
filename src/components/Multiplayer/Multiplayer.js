@@ -6,7 +6,7 @@ import "./Multiplayer.css";
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
 import { Search, Plus } from "react-feather";
-import Notification from '../Notification/Notification'
+import Notification from "../Notification/Notification";
 
 const CustomTextField = styled(TextField)({
   "& .MuiInput-underline:after": {
@@ -32,8 +32,8 @@ export default function Multiplayer(props) {
   const nameRef = props.nameRef;
   const socket = props.socket;
   const [rooms, setRooms] = useState([]);
-  const name = props.name
-  const setName = props.setName
+  const name = props.name;
+  const setName = props.setName;
 
   const CreateGameOpen = props.CreateGameOpen;
 
@@ -42,10 +42,10 @@ export default function Multiplayer(props) {
   }, [socket]);
 
   useEffect(() => {
-    if (name !== '') {
+    if (name !== "") {
       localStorage.setItem("name", name);
     }
-  },[name])
+  }, [name]);
 
   socket.on("updateRooms", (rooms) => {
     // console.log("updated rooms", rooms);
@@ -57,7 +57,7 @@ export default function Multiplayer(props) {
   });
 
   function handleNameChange(event) {
-    setName(event.target.value)
+    setName(event.target.value);
   }
 
   return (
@@ -97,7 +97,7 @@ export default function Multiplayer(props) {
                 </button>
               </div>
             </div>
-      {rooms.length === 0 && <h2>no one is hosting a game right now</h2>}
+            {rooms.length === 0 && <h2>no one is hosting a game right now</h2>}
             <ServerBrowser
               setLobby={setLobby}
               name={name}
