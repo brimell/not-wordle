@@ -1,6 +1,13 @@
 import React from "react";
 
 export default function Notification() {
+    * {
+  box-sizing: inherit;
+  &:before,
+  &:after {
+    box-sizing: inherit;
+  }
+}
   return (
     <div class="banner">
       <div class="cookie">
