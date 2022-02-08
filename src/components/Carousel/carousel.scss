@@ -42,6 +42,10 @@
 	flex-direction: column;
 }
 
+.noRooms span {
+	min-width: 10vw;
+}
+
 .card {
 	border-radius: 16px;
 	box-shadow: 0 30px 30px -25px rgba(#4133B7, .25);
