@@ -359,13 +359,7 @@ label {
   .Game {
     gap: 1vh;
   }
-  .Game-keyboard{
-    border: 0;
-    box-shadow: none;
-  }
-  .Game-keyboard-button {
-    box-shadow: none;
-  }
+
 }
 
 @media only screen and (max-height: calc(510px + 100px)) {
@@ -386,6 +380,13 @@ label {
   }
   .navbar {
     top: 0.2rem !important;
+  }
+  .Game-keyboard{
+    border: 0;
+    box-shadow: none;
+  }
+  .Game-keyboard-button {
+    box-shadow: none;
   }
 }
 
