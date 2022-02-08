@@ -9,34 +9,10 @@ export default function Notification({ variant, ...props }) {
   var classes = useStyles();
   var theme = useTheme();
 
-  const iconWithStyles = React.cloneElement(icon, {
-    classes: {
-      root: classes.notificationIcon,
-    },
-    style: {
-      color:
-        variant !== "contained" &&
-        theme.palette[props.color] &&
-        theme.palette[props.color].main,
-    },
-  });
-
   return (
     <div
       className={'contained'}
     >
-      <div
-        style={{
-          backgroundColor:
-            variant === "rounded" &&
-            theme.palette[props.color] &&
-            tinycolor(theme.palette[props.color].main)
-              .setAlpha(0.15)
-              .toRgbString(),
-        }}
-      >
-        {iconWithStyles}
-      </div>
       <div className={classes.messageContainer}>
         {props.extraButton && props.extraButtonClick && (
           <Button
