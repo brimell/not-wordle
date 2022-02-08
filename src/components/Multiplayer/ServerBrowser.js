@@ -12,7 +12,7 @@ export default function ServerBrowser(props) {
       {rooms.length > 0 && <Carousel name={name} setLobby={setLobby} rooms={rooms} socket={socket} active={0} />}
       {rooms.length === 0 && 
         <article className="information card">
-        <span className="tag">Host: {room.host}</span>
+        <span className="tag">{'    '}</span>
         <h2 className="title">{room.room}</h2>
         <span className="subtitle">Players List:</span>
         {room.users.map((user, j) => {
