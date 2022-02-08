@@ -20,7 +20,7 @@ export function Keyboard(props) {
 
   useEffect(() => {
     startListeners();
-  });
+  },[]);
 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none" }}>
