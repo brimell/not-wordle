@@ -5,7 +5,14 @@ import "./Notification.scss";
 export default function Notification(props) {
   const { to, from, set } = gsap;
 
-  window.on('load', () => {
+  const banner = document.querySelector(".banner");
+    const button = banner.querySelectorAll("button");
+    const cookie = banner.querySelector(".cookie");
+    const eyePath = cookie.querySelectorAll(".eye path");
+    const mouthPath = cookie.querySelector(".mouth path");
+    const pieceLeft = cookie.querySelectorAll(".piece.left");
+    const pieceRight = cookie.querySelectorAll(".piece.right");
+  window.on("load", () => {
     const banner = document.querySelector(".banner");
     const button = banner.querySelectorAll("button");
     const cookie = banner.querySelector(".cookie");
@@ -13,8 +20,7 @@ export default function Notification(props) {
     const mouthPath = cookie.querySelector(".mouth path");
     const pieceLeft = cookie.querySelectorAll(".piece.left");
     const pieceRight = cookie.querySelectorAll(".piece.right");
-  })
-
+  });
 
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
