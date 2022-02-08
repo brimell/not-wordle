@@ -58,7 +58,7 @@ export default function ServerBrowser(props) {
           </dl>
         </article>
           )
-        }}
+        })}
         
       )}
     </div>
