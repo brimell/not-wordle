@@ -9,7 +9,10 @@ export function Keyboard(props) {
     "Enter z x c v b n m Backspace".split(" "),
   ];
 
-  
+  window.addEventListener('load', () => {
+    btn.forEach(function(elm){
+      elm.addEventListener('click', function() {
+  })
 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none" }}>
