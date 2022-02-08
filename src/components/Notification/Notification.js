@@ -5,13 +5,13 @@ import "./Notification.scss";
 export default function Notification(props) {
   const { to, from, set } = gsap;
 
-  const banner 
-  const button 
-  const cookie
-  const eyePath 
-  const mouthPath 
-  const pieceLeft 
-  const pieceRight
+  var banner 
+  var button 
+  var cookie
+  var eyePath 
+  var mouthPath 
+  var pieceLeft 
+  var pieceRight
   window.on("load", () => {
     const banner = document.querySelector(".banner");
     const button = banner.querySelectorAll("button");
