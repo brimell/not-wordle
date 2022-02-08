@@ -5,6 +5,7 @@ import $ from "jquery";
 
 export function Keyboard(props) {
   const hidden = props.hidden;
+  const onKey = props.onKey
   const keyboard = [
     "q w e r t y u i o p".split(" "),
     "a s d f g h j k l".split(" "),
@@ -15,7 +16,7 @@ export function Keyboard(props) {
     $(".Game-keyboard-button").on("click", function (e) {
       const letter = e.target.attributes["data-key"].value;
       console.log(letter)
-      props.onKey(letter);
+      onKey(letter);
     });
   }
 
