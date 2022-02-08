@@ -2,6 +2,8 @@ import React from "react";
 import gsap from "gsap";
 import "./Notification.scss";
 export default function Notification(props) {
+
+buttons = props.buttons
   const { to, from, set } = gsap;
 
   window.addEventListener('load', () => {
