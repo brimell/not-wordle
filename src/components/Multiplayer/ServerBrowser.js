@@ -27,9 +27,6 @@ export default function ServerBrowser(props) {
           return (
             <article className="information card" key={i}>
               <span className="tag">{"    "}</span>
-              <h2 className="title">{"    "}</h2>
-              <span className="subtitle">Players List:</span>
-              {"    "}
               <button className="button">
                 <span>Join Room</span>
                 <svg
