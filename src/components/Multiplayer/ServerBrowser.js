@@ -13,15 +13,9 @@ export default function ServerBrowser(props) {
       {rooms.length === 0 && 
         <article className="information card">
         <span className="tag">{'    '}</span>
-        <h2 className="title">{room.room}</h2>
+        <h2 className="title">{'    '}</h2>
         <span className="subtitle">Players List:</span>
-        {room.users.map((user, j) => {
-          return (
-            <p key={j} className="info">
-              {user}
-            </p>
-          );
-        })}
+        {'    '}
         <button className="button" onClick={() => {
           socket.emit("fetchUserListByRoom", room.room);
           socket.on("fetchUserListByRoomRes", (users) => {
