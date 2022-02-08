@@ -16,7 +16,7 @@ export default function Notification(props) {
             y: 16,
             duration: 0.2,
     });
-  });
+  });});
 
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
