@@ -1,6 +1,7 @@
 import { Clue, clueClass } from "../Game/clue";
 import "./keyboard.css";
 import { useEffect } from "react";
+import $ from 'jquery'
 
 export function Keyboard(props) {
   const hidden = props.hidden;
@@ -11,7 +12,6 @@ export function Keyboard(props) {
   ];
 
   useEffect(() => {
-    console.log('loaded')
     window.addEventListener("load", () => {
       const btn = document.querySelectorAll(".Game-keyboard-button");
       console.log("btn: ", btn);
