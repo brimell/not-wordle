@@ -130,7 +130,7 @@ function Game(props) {
   const onKey = (key) => {
     console.log('key: ',key)
     if (gameState !== GameState.Playing) {
-      if (key === "Enter") {
+      if (key === "enter") {
         startNextGame();
       }
       return;
@@ -139,10 +139,10 @@ function Game(props) {
     if (/^[a-z]$/.test(key)) {
       setCurrentGuess((guess) => (guess + key).slice(0, wordLength));
       setHint("");
-    } else if (key === "Backspace") {
+    } else if (key === "backspace") {
       setCurrentGuess((guess) => guess.slice(0, -1));
       setHint("");
-    } else if (key === "Enter") {
+    } else if (key === "enter") {
       if (currentGuess.length !== wordLength) {
         console.log('curr guess: ', currentGuess)
         setHint("Too short");
