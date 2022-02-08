@@ -19,7 +19,7 @@ export function Keyboard(props) {
   }
 
   useEffect(() => {
-    window.on('load', startListeners())
+    window.addEventListener('load', startListeners())
   },[]);
 
   return (
