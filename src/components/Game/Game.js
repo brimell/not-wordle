@@ -97,7 +97,7 @@ function Game(props) {
 
   useEffect(() => {
     setCurrentGuess(currentGuess.toLowerCase());
-    console.log('current guess: ',currentGuess)
+    console.log("current guess: ", currentGuess);
   }, [currentGuess]);
 
   const startNextGame = () => {
@@ -129,7 +129,8 @@ function Game(props) {
   }
 
   const onKey = (key) => {
-    console.log('key: ',key)
+    console.log("curr guess: ", currentGuess);
+    console.log("key: ", key);
     if (gameState !== GameState.Playing) {
       if (key === "enter") {
         startNextGame();
@@ -145,7 +146,7 @@ function Game(props) {
       setHint("");
     } else if (key === "enter") {
       if (currentGuess.length !== wordLength) {
-        console.log('curr guess: ', currentGuess)
+        console.log("curr guess: ", currentGuess);
         setHint("Too short");
         return;
       }
