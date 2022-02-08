@@ -359,7 +359,7 @@ label {
   .Game {
     gap: 1vh;
   }
-  .Game-keyboard {
+  .Game-keyboard{
     border: 0;
     box-shadow: none;
   }
