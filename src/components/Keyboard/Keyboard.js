@@ -11,6 +11,7 @@ export function Keyboard(props) {
 
   window.addEventListener('load', () => {
     const btn = document.querySelectorAll('.Game-keyboard-button');
+    console.log('btn: ', btn);
     btn.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
