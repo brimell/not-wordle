@@ -15,6 +15,7 @@ export function Keyboard(props) {
       btn.addEventListener('click', (e) => {
         const letter = e.target.innerText;
         letter.replace("⌫", "Backspace");
+        props.onKey(letter);
       });
     });
   }
