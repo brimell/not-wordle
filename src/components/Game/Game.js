@@ -140,8 +140,6 @@ function Game(props) {
     if (/^[a-z]$/.test(key)) {
       setCurrentGuess((guess) => (guess + key).slice(0, wordLength));
       setHint("");
-      console.log('now: ',currentGuess, key)
-
     } else if (key === "backspace") {
       setCurrentGuess((guess) => guess.slice(0, -1));
       setHint("");
