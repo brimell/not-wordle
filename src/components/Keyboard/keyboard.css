@@ -82,10 +82,7 @@
 }
 
 .keyboard-letter-correct {
-  border-radius: 3vh;
-  background: linear-gradient(135deg, #189d7c 0%, #02c39a 100%) padding-box,
-    /* this is the background */
-      linear-gradient(135deg, #02c39a 0%, #189d7c 100%) border-box !important; /* this is the border*/
+  background: linear-gradient(135deg, #189d7c 0%, #02c39a 100%) padding-box;
   border: 6px solid transparent;
   color: #1d6b55;
 }
