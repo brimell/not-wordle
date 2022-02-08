@@ -2,7 +2,8 @@ import React from "react";
 import gsap from "gsap";
 import 'https://assets.codepen.io/16327/MorphSVGPlugin3.min.js'
 import './Notification.scss'
-import ''
+import 'https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css'
+
 export default function Notification() {
   const { to, from, set } = gsap;
 
