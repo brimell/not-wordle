@@ -17,7 +17,7 @@ export function Keyboard(props) {
             let className = "Game-keyboard-button";
             const clue = props.letterInfo.get(label);
             if (clue !== undefined) {
-              className += " keyboard-" +clueClass(clue);
+              className += " " + 'keyboard-'+clueClass(clue);
             }
             if (label.length > 1) {
               className += " Game-keyboard-button-wide";
