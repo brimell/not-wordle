@@ -13,6 +13,7 @@ export function Keyboard(props) {
     const btn = document.querySelectorAll('.Game-keyboard button');
     btn.forEach((btn) => {
       btn.addEventListener('click', (e) => {
+        console.log(e, e.target.innerText)
         const letter = e.target.innerText;
         letter.replace("⌫", "Backspace");
         props.onKey(letter);
