@@ -32,9 +32,6 @@ export default function ServerBrowser(props) {
                 <span className="tag">{"    "}</span>
                 <span className="tag">{"    "}</span>
                 <span className="tag">{"    "}</span>
-                <span className="tag">{"    "}</span>
-                <span className="tag">{"    "}</span>
-                <span className="tag">{"    "}</span>
               </div>
             </article>
           );
