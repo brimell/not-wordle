@@ -22,7 +22,7 @@ export default function ServerBrowser(props) {
           active={0}
         />
       )}
-      {rooms.length === 0 && (
+      {rooms.length === 0 && 
         {tempList.map((room, i) => {
           return (
             <article className="information card" key={i}>
@@ -57,10 +57,9 @@ export default function ServerBrowser(props) {
             </div>
           </dl>
         </article>
-          )
-        })}
+        )})}
         
-      )}
+      }
     </div>
   );
 }
