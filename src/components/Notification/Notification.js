@@ -3,8 +3,9 @@ import gsap from "gsap";
 import "./Notification.scss";
 export default function Notification(props) {
   const openNotif = props.openNotif;
-  const Icon = props.Icon
+  const Icon = props.Icon;
   const buttons = props.buttons;
+  const content = props.content
 
   const { to, from, set } = gsap;
 
@@ -29,12 +30,14 @@ export default function Notification(props) {
 
   return (
     <div className="banner" style={{ display: openNotif ? "flex" : "none" }}>
-        {Icon && <div className="banner-icon"><Icon /></div>}
+      {Icon && (
+        <div className="banner-icon">
+          <Icon />
+        </div>
+      )}
       <div className="content">
         <div>
-          We use cookies to personalize your site
-          <br />
-          experience and analyze the site traffic.
+          {content}
         </div>
         <div className="list">
           <button className="muted">Decline</button>
