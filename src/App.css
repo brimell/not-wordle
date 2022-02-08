@@ -206,6 +206,24 @@ a {
   margin: 20px;
 }
 
+.neumorphic-btn {
+  cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: none;
+    border-radius: 1.2rem;
+    padding: 1rem 3rem;
+    transition: all 260ms ease;
+    text-decoration: none;
+    font-family: inherit;
+    max-width: 100%;
+    color: #9baacf;
+    background: #e0e5ec;
+    box-shadow: 0.3rem 0.3rem 0.5rem rgb(195 193 198 / 90%), -0.2rem -0.2rem 0.4rem #fff;
+}
+
 :root {
   --container-bg-color: #333333;
   --left-bg-color: rgba(166, 97, 86, 0.7);
