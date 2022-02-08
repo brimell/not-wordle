@@ -6,6 +6,7 @@ export default function Notification(props) {
   const { to, from, set } = gsap;
 
   window.addEventListener('load', () => {
+
     gsap.registerPlugin(MorphSVGPlugin);
     const banner = document.querySelector(".banner");
     const button = banner.querySelectorAll("button");
