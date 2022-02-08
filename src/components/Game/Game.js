@@ -128,6 +128,7 @@ function Game(props) {
   }
 
   const onKey = (key) => {
+    console.log(key)
     if (gameState !== GameState.Playing) {
       if (key === "Enter") {
         startNextGame();
