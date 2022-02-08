@@ -13,16 +13,12 @@ export function Keyboard(props) {
 
   useEffect(() => {
     window.addEventListener("load", () => {
-      const btn = document.querySelectorAll(".Game-keyboard-button");
-      console.log("btn: ", btn);
-      btn.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
+        $('.Game-keyboard-button').on("click touchstart", function(e) {
           const letter = e.target.attributes['data-key'].value;
           props.onKey(letter);
         });
       });
     });
-  });
 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none" }}>
