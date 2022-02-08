@@ -27,20 +27,13 @@ export default function ServerBrowser(props) {
           return (
             <article className="information card" key={i}>
               <span className="tag">{"    "}</span>
-              <h2 className="title">{"    "}</h2>
-              <button className="button">
-                <span>{"    "}</span>
-              </button>
-              <dl className="details">
-                <div>
-                  <dt>{"    "}</dt>
-                  <dd>{"    "}</dd>
-                </div>
-                <div>
-                  <dt>{"    "}</dt>
-                  <dd>{"    "}</dd>
-                </div>
-              </dl>
+              <span className="tag">{"    "}</span>
+              <span className="tag">{"    "}</span>
+              <span className="tag">{"    "}</span>
+              <span className="tag">{"    "}</span>
+              <span className="tag">{"    "}</span>
+              <span className="tag">{"    "}</span>
+              <span className="tag">{"    "}</span>
             </article>
           );
         })}
