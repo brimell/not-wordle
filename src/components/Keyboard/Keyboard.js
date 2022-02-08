@@ -15,7 +15,6 @@ export function Keyboard(props) {
     console.log('ran')
     $(".Game-keyboard-button").on("click", function (e) {
       const letter = e.target.attributes["data-key"].value;
-      console.log('here: ',letter)
       onKey(letter.toLowerCase());
     });
   }
