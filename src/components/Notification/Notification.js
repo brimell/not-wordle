@@ -12,11 +12,13 @@ export default function Notification(props) {
     button.forEach((btn) => {
       btn.addEventListener("click", (e) => {
         to(banner, {
-            opacity: 0,
-            y: 16,
-            duration: 0.2,
+          opacity: 0,
+          y: 16,
+          duration: 0.2,
+        });
+      });
     });
-  });});
+  });
 
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
