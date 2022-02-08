@@ -1,5 +1,6 @@
 import { Clue, clueClass } from "../Game/clue";
 import "./keyboard.css";
+import { useEffect } from 'react';
 
 export function Keyboard(props) {
   const hidden = props.hidden;
@@ -9,20 +10,23 @@ export function Keyboard(props) {
     "Enter z x c v b n m Backspace".split(" "),
   ];
 
-  window.addEventListener('load', () => {
-    const btn = document.querySelectorAll('.Game-keyboard-button');
-    console.log('btn: ', btn);
-    btn.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        console.log(e, e.target.innerText)
-        const letter = e.target.innerText;
-        letter.replace("⌫", "Backspace");
-        props.onKey(letter);
+  useEffect(() => {
+    window.addEventListener('load', () => {
+      const btn = document.querySelectorAll('.Game-keyboard-button');
+      console.log('btn: ', btn);
+      btn.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          console.log(e, e.target.innerText)
+          const letter = e.target.innerText;
+          letter.replace("⌫", "Backspace");
+          props.onKey(letter);
+        });
       });
-    });
+    })
   })
+  
 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none" }}>
