@@ -195,7 +195,7 @@ function Game(props) {
   useEffect(() => {
     const onKeyDown = (e) => {
       if (!e.ctrlKey && !e.metaKey) {
-        onKey(e.key);
+        onKey(e.key.toLowerCase());
       }
       if (socket) {
         props.setCurrentGrid(currGrid);
