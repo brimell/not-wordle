@@ -24,7 +24,7 @@ export default function ServerBrowser(props) {
       )}
       {rooms.length === 0 &&
       <h2>no one is hosting a game right now</h2>
-        tempList.map((room, i) => {
+        {tempList.map((room, i) => {
           return (
             <article className="information card" key={i}>
               <div className="noRooms">
@@ -36,7 +36,7 @@ export default function ServerBrowser(props) {
               </div>
             </article>
           );
-        })}
+        })}}
     </div>
   );
 }
