@@ -1,6 +1,6 @@
 import { Clue, clueClass } from "../Game/clue";
 import "./keyboard.css";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export function Keyboard(props) {
   const hidden = props.hidden;
@@ -11,22 +11,21 @@ export function Keyboard(props) {
   ];
 
   useEffect(() => {
-    window.addEventListener('load', () => {
-      const btn = document.querySelectorAll('.Game-keyboard-button');
-      console.log('btn: ', btn);
+    window.addEventListener("load", () => {
+      const btn = document.querySelectorAll(".Game-keyboard-button");
+      console.log("btn: ", btn);
       btn.forEach((btn) => {
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener("click", (e) => {
           e.stopPropagation();
           e.preventDefault();
-          console.log(e, e.target.innerText)
+          console.log(e, e.target.innerText);
           const letter = e.target.innerText;
           letter.replace("⌫", "Backspace");
           props.onKey(letter);
         });
       });
-    })
-  })
-  
+    });
+  });
 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none" }}>
@@ -36,17 +35,13 @@ export function Keyboard(props) {
             let className = "Game-keyboard-button";
             const clue = props.letterInfo.get(label);
             if (clue !== undefined) {
-              className += " " + 'keyboard-'+clueClass(clue);
+              className += " " + "keyboard-" + clueClass(clue);
             }
             if (label.length > 1) {
               className += " Game-keyboard-button-wide";
             }
             return (
-              <button
-                tabIndex={-1}
-                key={j}
-                className={className}
-              >
+              <button tabIndex={-1} key={j} className={className}>
                 {label.replace("Backspace", "⌫")}
               </button>
             );
