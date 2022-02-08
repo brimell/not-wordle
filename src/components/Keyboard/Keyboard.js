@@ -13,6 +13,7 @@ export function Keyboard(props) {
 
   useEffect(() => {
     window.addEventListener("load", () => {
+      console.log('ran')
         $('.Game-keyboard-button').on("click touchstart", function(e) {
           const letter = e.target.attributes['data-key'].value;
           props.onKey(letter);
