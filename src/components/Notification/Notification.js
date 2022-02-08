@@ -4,7 +4,7 @@ import MorphSVGPlugin from "https://assets.codepen.io/16327/MorphSVGPlugin3.min.
 import "./Notification.scss";
 import "https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css";
 
-export default function Notification() {
+export default function Notification(props) {
   const { to, from, set } = gsap;
 
   gsap.registerPlugin(MorphSVGPlugin);
