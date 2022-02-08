@@ -5,7 +5,7 @@ export default function Notification(props) {
   const openNotif = props.openNotif;
   const Icon = props.Icon;
   const buttons = props.buttons;
-  const content = props.content
+  const content = props.content;
 
   const { to, from, set } = gsap;
 
@@ -36,13 +36,12 @@ export default function Notification(props) {
         </div>
       )}
       <div className="content">
-        <div>
-          {content}
-        </div>
-        <div className="list">
+        <div>{content}</div>
+        {buttons ? <div className="list">
           <button className="muted">Decline</button>
           <button>Accept</button>
-        </div>
+        </div> : 
+        <X />}
       </div>
     </div>
   );
