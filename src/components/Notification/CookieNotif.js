@@ -1,7 +1,7 @@
 import React from "react";
 import gsap from "gsap";
 import "./Notification.scss";
-export default function Notification(props) {
+export default function CookieNotif(props) {
   const { to, from, set } = gsap;
 
   window.addEventListener('load', () => {
