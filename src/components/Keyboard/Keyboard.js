@@ -18,9 +18,7 @@ export function Keyboard(props) {
   }
 
   useEffect(() => {
-    window.addEventListener("load", () => {
-      startListeners()
-    });
+    startListeners();
   });
 
   return (
