@@ -174,3 +174,13 @@
   font-size: 2rem;
   cursor: pointer;
 }
+
+.std-btn {
+  background: var(--s-dark);
+  color: var(--s-light);
+  border-radius: 10px;
+  border: none;
+  padding: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
