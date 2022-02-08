@@ -29,7 +29,7 @@ export default function ServerBrowser(props) {
               <span className="tag">{"    "}</span>
               <h2 className="title">{"    "}</h2>
               <button className="button">
-                <span>Join Room</span>
+                <span>{"    "}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="24px"
