@@ -59,7 +59,9 @@
   color: #1565c0;
 }
 
-#server
+#serverBrowserHeader {
+  font-size: 6vh;
+}
 
 .join {
   /* margin-top: 10vh; */
