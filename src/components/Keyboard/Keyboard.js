@@ -11,6 +11,7 @@ export function Keyboard(props) {
     "Enter z x c v b n m Backspace".split(" "),
   ];
   function startListeners() {
+    console.log('ran')
     $(".Game-keyboard-button").on("click touchstart", function (e) {
       const letter = e.target.attributes["data-key"].value;
       props.onKey(letter);
