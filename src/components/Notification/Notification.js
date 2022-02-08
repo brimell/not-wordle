@@ -4,6 +4,7 @@ import "./Notification.scss";
 export default function Notification(props) {
   const openNotif = props.openNotif;
   const buttons = props.buttons;
+  
   const { to, from, set } = gsap;
 
   window.addEventListener("load", () => {
