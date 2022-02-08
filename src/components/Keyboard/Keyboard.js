@@ -14,7 +14,7 @@ export function Keyboard(props) {
     btn.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const letter = e.target.innerText;
-        props.setClue(new Clue(letter, clueClass.CLUE_LETTER));
+        props.onKey(letter)
       });
     });
   }
