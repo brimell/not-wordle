@@ -10,7 +10,7 @@ export function Keyboard(props) {
     "a s d f g h j k l".split(" "),
     "Enter z x c v b n m Backspace".split(" "),
   ];
-  function startListeners(e) {
+  function startListeners() {
     $(".Game-keyboard-button").on("click touchstart", function (e) {
       const letter = e.target.attributes["data-key"].value;
       props.onKey(letter);
@@ -18,8 +18,8 @@ export function Keyboard(props) {
   }
 
   useEffect(() => {
-    window.addEventListener("load", (e) => {
-      startListeners(e)
+    window.addEventListener("load", () => {
+      startListeners()
     });
   });
 
