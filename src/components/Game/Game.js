@@ -129,9 +129,9 @@ function Game(props) {
   }
 
   const onKey = (key) => {
-    console.log("curr guess: ", currentGuess);
     console.log("key: ", key);
     if (gameState !== GameState.Playing) {
+      console.log("game is not playing");
       if (key === "enter") {
         startNextGame();
       }
