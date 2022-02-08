@@ -6,6 +6,7 @@ import "./Multiplayer.css";
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
 import { Search, Plus } from "react-feather";
+import Notification from '../Notification/Notification'
 
 const CustomTextField = styled(TextField)({
   "& .MuiInput-underline:after": {
@@ -61,6 +62,7 @@ export default function Multiplayer(props) {
 
   return (
     <div className="multiplayer">
+      <Notification />
       {!lobby && (
         <div className="join-container">
           <input
