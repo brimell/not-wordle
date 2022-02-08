@@ -1,4 +1,5 @@
 import React from "react";
+import gsap from "gsap";
 
 export default function Notification() {
   const { to, from, set } = gsap;
