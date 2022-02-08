@@ -219,10 +219,10 @@ a {
   text-decoration: none;
   font-family: inherit;
   max-width: 100%;
-  color: #9baacf;
-  background: #e0e5ec;
-  box-shadow: 0.3rem 0.3rem 0.5rem rgb(195 193 198 / 90%),
-    -0.2rem -0.2rem 0.4rem #fff;
+  color: #434958;
+  background: #ced5db;
+  box-shadow: 0.3rem 0.3rem 0.5rem rgb(10 10 10 / 90%),
+    -0.2rem -0.2rem 0.4rem #8f8f8f;
 }
 
 :root {
