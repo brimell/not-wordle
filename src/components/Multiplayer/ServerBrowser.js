@@ -22,7 +22,7 @@ export default function ServerBrowser(props) {
           active={0}
         />
       )}
-      
+
       {rooms.length === 0 && <h2>no one is hosting a game right now</h2>}
       {rooms.length === 0 &&
         tempList.map((room, i) => {
