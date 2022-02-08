@@ -1,55 +1,55 @@
 :root {
-  --stats-orange: #F5793A;
-  --stats-grey: #6F7276;
+  --stats-orange: #f5793a;
+  --stats-grey: #6f7276;
 }
 
 .modalContainer {
-    background-color: #1D1F25;
-    border-radius: 5vh;
-    padding: 4vh;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    height: fit-content;
-    min-width: 150px;
-    gap: 3vh;
-  }
+  background-color: #1d1f25;
+  border-radius: 5vh;
+  padding: 4vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: fit-content;
+  min-width: 150px;
+  gap: 3vh;
+}
 
 .statsHeader {
   font-size: 4vh;
-  color: #CED5DB;
+  color: #ced5db;
   margin: 0;
 }
 
 .username {
-    color: var(--stats-grey);
+  color: var(--stats-grey);
 }
 
 .profile {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: .6rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
 }
 
 .profileIconContainer {
-    background: #A3A3AE;
-    border-radius: 100%;
-    width: 5vh;
-    height: 5vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: #a3a3ae;
+  border-radius: 100%;
+  width: 5vh;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .mainStatsContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 2vh;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 2vh;
 }
 
 .mainStatsContainer p {
