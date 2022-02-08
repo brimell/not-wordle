@@ -33,11 +33,11 @@ export default function ServerBrowser(props) {
               </button>
               <dl className="details">
                 <div>
-                  <dt>Players</dt>
+                  <dt>{"    "}</dt>
                   <dd>{"    "}</dd>
                 </div>
                 <div>
-                  <dt>State</dt>
+                  <dt>{"    "}</dt>
                   <dd>{"    "}</dd>
                 </div>
               </dl>
