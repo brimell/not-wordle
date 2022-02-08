@@ -35,11 +35,11 @@ export default function ServerBrowser(props) {
         <dl className="details">
           <div>
             <dt>Players</dt>
-            <dd>{room.users.length}</dd>
+            <dd>{'    '}</dd>
           </div>
           <div>
             <dt>State</dt>
-            <dd>{room.gameState}</dd>
+            <dd>{'    '}</dd>
           </div>
         </dl>
       </article>
