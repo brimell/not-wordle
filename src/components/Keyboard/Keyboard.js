@@ -16,8 +16,6 @@ export function Keyboard(props) {
       console.log("btn: ", btn);
       btn.forEach((btn) => {
         btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          e.preventDefault();
           console.log(e, e.target.innerText);
           const letter = e.target.innerText;
           letter.replace("⌫", "Backspace");
