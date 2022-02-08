@@ -5,8 +5,6 @@ import "./Notification.scss";
 export default function Notification(props) {
   const { to, from, set } = gsap;
 
-  gsap.registerPlugin(MorphSVGPlugin);
-
   const banner = document.querySelector(".banner");
   const button = banner.querySelectorAll("button");
   const cookie = banner.querySelector(".cookie");
