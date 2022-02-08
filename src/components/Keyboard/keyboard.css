@@ -99,3 +99,12 @@
   color: #a3a3ae;
 }
 
+@media only screen and (max-height: 700px) {
+  .Game-keyboard{
+    border: 0;
+    box-shadow: none;
+  }
+  .Game-keyboard-button {
+    box-shadow: none;
+  }
+}
