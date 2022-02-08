@@ -6,6 +6,7 @@
     inset -5px 5px 5px 0px #20222c, inset 0px -5px 5px 0px #20222c;
   padding: 1vh;
   border-radius: 12px;
+  user-select: none;
 }
 
 .Game-keyboard-row {
@@ -13,6 +14,7 @@
   flex-direction: row;
   justify-content: stretch;
   gap: .5vw;
+  user-select: none;
 }
 
 .Game-keyboard-button {
