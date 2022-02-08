@@ -10,14 +10,16 @@ export function Keyboard(props) {
     "a s d f g h j k l".split(" "),
     "Enter z x c v b n m Backspace".split(" "),
   ];
+  function startListeners(e) {
+    $(".Game-keyboard-button").on("click touchstart", function (e) {
+      const letter = e.target.attributes["data-key"].value;
+      props.onKey(letter);
+    });
+  }
 
   useEffect(() => {
-    window.addEventListener("load", () => {
-      console.log("ran");
-      $(".Game-keyboard-button").on("click touchstart", function (e) {
-        const letter = e.target.attributes["data-key"].value;
-        props.onKey(letter);
-      });
+    window.addEventListener("load", (e) => {
+      startListeners(e)
     });
   });
 
