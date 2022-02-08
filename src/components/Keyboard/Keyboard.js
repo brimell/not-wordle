@@ -11,7 +11,7 @@ export function Keyboard(props) {
   ];
 
   useEffect(() => {
-    console.log(loaded)
+    console.log('loaded')
     window.addEventListener("load", () => {
       const btn = document.querySelectorAll(".Game-keyboard-button");
       console.log("btn: ", btn);
