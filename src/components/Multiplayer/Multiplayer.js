@@ -97,7 +97,7 @@ export default function Multiplayer(props) {
                 </button>
               </div>
             </div>
-            {rooms.length === 0 && <h2>no one is hosting a game right now</h2>}
+            {rooms.length === 0 && <h2>no one is hosting a game right now...</h2>}
             <ServerBrowser
               setLobby={setLobby}
               name={name}
