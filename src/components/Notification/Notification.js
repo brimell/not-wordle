@@ -38,11 +38,14 @@ export default function Notification(props) {
       )}
       <div className="content">
         <div>{content}</div>
-        {buttons ? <div className="list">
-          <button className="muted">Decline</button>
-          <button>Accept</button>
-        </div> : 
-        <CloseIcon />}
+        {buttons ? (
+          <div className="list">
+            <button className="muted">Decline</button>
+            <button>Accept</button>
+          </div>
+        ) : (
+          <CloseIcon />
+        )}
       </div>
     </div>
   );
