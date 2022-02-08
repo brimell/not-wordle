@@ -136,7 +136,7 @@ function Game(props) {
       return;
     }
     if (guesses.length === props.maxGuesses) return;
-    if (/^[a-z]$/.test(key.toLowerCase())) {
+    if (/^[a-z]$/.test(key)) {
       setCurrentGuess((guess) => (guess + key).slice(0, wordLength));
       setHint("");
     } else if (key === "Backspace") {
