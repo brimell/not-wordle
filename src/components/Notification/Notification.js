@@ -5,13 +5,6 @@ import "./Notification.scss";
 export default function Notification(props) {
   const { to, from, set } = gsap;
 
-  var banner 
-  var button 
-  var cookie
-  var eyePath 
-  var mouthPath 
-  var pieceLeft 
-  var pieceRight
   window.addEventListener('load', () => {
     const banner = document.querySelector(".banner");
     const button = banner.querySelectorAll("button");
@@ -20,6 +13,7 @@ export default function Notification(props) {
     const mouthPath = cookie.querySelector(".mouth path");
     const pieceLeft = cookie.querySelectorAll(".piece.left");
     const pieceRight = cookie.querySelectorAll(".piece.right");
+
     button.forEach((btn) => {
         btn.addEventListener("click", (e) => {
           to(cookie, {
