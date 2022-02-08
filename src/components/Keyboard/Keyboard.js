@@ -18,7 +18,7 @@ export function Keyboard(props) {
         props.onKey(letter);
       });
     });
-  }
+  })
 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none" }}>
