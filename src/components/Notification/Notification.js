@@ -16,7 +16,6 @@ import {
   Publish as UploadIcon,
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
-import classnames from "classnames";
 import tinycolor from "tinycolor2";
 
 import useStyles from "./styles";
@@ -56,10 +55,7 @@ export default function Notification({ variant, ...props }) {
 
   return (
     <div
-      className={classnames(classes.notificationContainer, props.className, {
-        [classes.notificationContained]: variant === "contained",
-        [classes.notificationContainedShadowless]: props.shadowless,
-      })}
+      className={'contained'}
       style={{
         backgroundColor:
           variant === "contained" &&
