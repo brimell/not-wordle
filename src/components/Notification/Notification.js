@@ -1,5 +1,6 @@
 import React from "react";
 import gsap from "gsap";
+import MorphSVGPlugin from "gsap/MorphSVGPlugin";
 import "./Notification.scss";
 export default function Notification(props) {
   const { to, from, set } = gsap;
