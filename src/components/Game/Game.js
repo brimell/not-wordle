@@ -97,7 +97,7 @@ function Game(props) {
 
   useEffect(() => {
     setCurrentGuess(currentGuess.toLowerCase());
-    console.log(currentGuess)
+    console.log('current guess: ',currentGuess)
   }, [currentGuess]);
 
   const startNextGame = () => {
