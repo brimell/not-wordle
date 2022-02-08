@@ -9,16 +9,16 @@ export function Keyboard(props) {
     "Enter z x c v b n m Backspace".split(" "),
   ];
 
-  window.addEventListener('load', () => {
-    const btn = document.querySelectorAll('.Game-keyboard button');
-    btn.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        const letter = e.target.innerText;
-        letter.replace("⌫", "Backspace");
-        props.onKey(letter);
-      });
-    });
-  })
+  // window.addEventListener('load', () => {
+  //   const btn = document.querySelectorAll('.Game-keyboard button');
+  //   btn.forEach((btn) => {
+  //     btn.addEventListener('click', (e) => {
+  //       const letter = e.target.innerText;
+  //       letter.replace("⌫", "Backspace");
+  //       props.onKey(letter);
+  //     });
+  //   });
+  // })
 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none" }}>
