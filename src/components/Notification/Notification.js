@@ -12,7 +12,7 @@ export default function Notification(props) {
   var mouthPath 
   var pieceLeft 
   var pieceRight
-  window.on("load", () => {
+  window.addEventListener('load', () => {
     const banner = document.querySelector(".banner");
     const button = banner.querySelectorAll("button");
     const cookie = banner.querySelector(".cookie");
