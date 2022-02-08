@@ -16,41 +16,7 @@ export default function ServerBrowser(props) {
         <h2 className="title">{'    '}</h2>
         <span className="subtitle">Players List:</span>
         {'    '}
-        <button className="button" onClick={() => {
-          socket.emit("fetchUserListByRoom", room.room);
-          socket.on("fetchUserListByRoomRes", (users) => {
-            var dupe = false;
-            if (users.length > 0) {
-              for (var i = 0; i < users.length; i++) {
-                var user = users[i];
-                if (user === name) {
-                  alert("that name is taken in this room");
-                  dupe = true;
-                  return;
-                }
-              }
-            }
-            if (
-              name.length > 2 &&
-              !dupe
-            ) {
-              socket.emit("joinRoom", {
-                name: name,
-                room: room.room,
-                role: "user",
-              });
-              socket.on("joinRoomRes", (props) => {
-                if (props.res === true) {
-                  setLobby(true);
-                } else {
-                  alert("that name is taken");
-                }
-              });
-            } else {
-              alert("name must be at least 3 characters");
-            }
-          });
-        }}>
+        <button className="button">
           <span>Join Room</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
