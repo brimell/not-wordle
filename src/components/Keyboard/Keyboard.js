@@ -21,7 +21,7 @@ export function Keyboard(props) {
       });
     }
     startListeners();
-  }, []);
+  }, [props]);
 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none" }}>
