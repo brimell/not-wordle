@@ -88,15 +88,6 @@ export default function Notification({ variant, ...props }) {
         {iconWithStyles}
       </div>
       <div className={classes.messageContainer}>
-        <Typography
-          className={classnames({
-            [classes.containedTypography]: variant === "contained",
-          })}
-          variant={props.typographyVariant}
-          size={variant !== "contained" && !props.typographyVariant && "md"}
-        >
-          {props.message}
-        </Typography>
         {props.extraButton && props.extraButtonClick && (
           <Button
             onClick={props.extraButtonClick}
