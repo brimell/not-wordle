@@ -43,7 +43,7 @@
 }
 
 .Game-keyboard-button-wide {
-  flex: 2;
+  flex: 1.5;
 }
 
 .Game-keyboard-button:focus {
