@@ -56,18 +56,8 @@ export default function Notification({ variant, ...props }) {
   return (
     <div
       className={'contained'}
-      style={{
-        backgroundColor:
-          variant === "contained" &&
-          theme.palette[props.color] &&
-          theme.palette[props.color].main,
-      }}
     >
       <div
-        className={classnames(classes.notificationIconContainer, {
-          [classes.notificationIconContainerContained]: variant === "contained",
-          [classes.notificationIconContainerRounded]: variant === "rounded",
-        })}
         style={{
           backgroundColor:
             variant === "rounded" &&
