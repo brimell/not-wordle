@@ -7,6 +7,10 @@ export default function ServerBrowser(props) {
   const socket = props.socket;
   const name = props.name;
   const setLobby = props.setLobby;
+  var tempList = []
+  for (var i = 0; i < 3; i++) {
+    templist.push('x')
+  }
   return (
     <div className="server-browser">
       {rooms.length > 0 && (
