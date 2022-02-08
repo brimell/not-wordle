@@ -10,9 +10,14 @@ export function Keyboard(props) {
   ];
 
   window.addEventListener('load', () => {
-    btn.forEach(function(elm){
-      elm.addEventListener('click', function() {
-  })
+    const btn = document.querySelectorAll('.Game-keyboard button');
+    btn.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const letter = e.target.innerText;
+        props.setClue(new Clue(letter, clueClass.CLUE_LETTER));
+      });
+    });
+  }
 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none" }}>
@@ -32,9 +37,6 @@ export function Keyboard(props) {
                 tabIndex={-1}
                 key={j}
                 className={className}
-                onClick={() => {
-                  props.onKey(label);
-                }}
               >
                 {label.replace("Backspace", "⌫")}
               </button>
