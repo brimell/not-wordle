@@ -1,46 +1,14 @@
 import React from "react";
 import { Button } from "@material-ui/core";
-import {
-  NotificationsNone as NotificationsIcon,
-  ThumbUp as ThumbUpIcon,
-  ShoppingCart as ShoppingCartIcon,
-  LocalOffer as TicketIcon,
-  BusinessCenter as DeliveredIcon,
-  SmsFailed as FeedbackIcon,
-  DiscFull as DiscIcon,
-  Email as MessageIcon,
-  Report as ReportIcon,
-  Error as DefenceIcon,
-  AccountBox as CustomerIcon,
-  Done as ShippedIcon,
-  Publish as UploadIcon,
-} from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import tinycolor from "tinycolor2";
 
 import useStyles from "./styles";
 
-const typesIcons = {
-  "e-commerce": <ShoppingCartIcon />,
-  notification: <NotificationsIcon />,
-  offer: <TicketIcon />,
-  info: <ThumbUpIcon />,
-  message: <MessageIcon />,
-  feedback: <FeedbackIcon />,
-  customer: <CustomerIcon />,
-  shipped: <ShippedIcon />,
-  delivered: <DeliveredIcon />,
-  defence: <DefenceIcon />,
-  report: <ReportIcon />,
-  upload: <UploadIcon />,
-  disc: <DiscIcon />,
-};
-
 export default function Notification({ variant, ...props }) {
   var classes = useStyles();
   var theme = useTheme();
 
-  const icon = getIconByType(props.type);
   const iconWithStyles = React.cloneElement(icon, {
     classes: {
       root: classes.notificationIcon,
@@ -82,9 +50,4 @@ export default function Notification({ variant, ...props }) {
       </div>
     </div>
   );
-}
-
-// ####################################################################
-function getIconByType(type = "offer") {
-  return typesIcons[type];
 }
