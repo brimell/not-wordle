@@ -6,7 +6,6 @@ export default function Notification(props) {
 
   window.addEventListener('load', () => {
 
-    gsap.registerPlugin(MorphSVGPlugin);
     const banner = document.querySelector(".banner");
     const button = banner.querySelectorAll("button");
     const cookie = banner.querySelector(".cookie");
@@ -69,13 +68,6 @@ export default function Notification(props) {
           to(eyePath, {
             keyframes: [
               {
-                morphSVG:
-                  "M8.99929 4.99965C8.99929 7.20859 7.20894 7.5 5 7.5C2.79106 7.5 1 7.20859 1 4.99965C1 2.7907 2.7907 2.5 4.99964 2.5C7.20859 2.5 8.99929 2.7907 8.99929 4.99965Z",
-                duration: 0.15,
-              },
-              {
-                morphSVG:
-                  "M8.99929 4.99965C7.99929 10.2086 7.20894 7 5 7C2.79106 7 2 10.2086 1 4.99965C1 2.7907 2.79106 1 5 1C7.20894 1 8.99929 2.7907 8.99929 4.99965Z",
                 duration: 0.15,
                 delay: 0.15,
                 onStart: () => {
