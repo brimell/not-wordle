@@ -23,9 +23,9 @@ export default function ServerBrowser(props) {
         />
       )}
       {rooms.length === 0 && (
-        {for (var i = 0; i < 3; i++) {
+        {tempList.map((room, i) => {
           return (
-            <article className="information card">
+            <article className="information card" key={i}>
           <span className="tag">{"    "}</span>
           <h2 className="title">{"    "}</h2>
           <span className="subtitle">Players List:</span>
