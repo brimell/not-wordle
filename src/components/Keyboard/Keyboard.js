@@ -10,7 +10,7 @@ export function Keyboard(props) {
   ];
 
   window.addEventListener('load', () => {
-    const btn = document.querySelectorAll('.Game-keyboard button');
+    const btn = document.querySelectorAll('.Game-keyboard-button');
     btn.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const letter = e.target.innerText;
