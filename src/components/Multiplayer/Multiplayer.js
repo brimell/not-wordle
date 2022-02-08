@@ -74,7 +74,7 @@ export default function Multiplayer(props) {
             onChange={handleNameChange}
           ></input>
           <div className="join">
-            <h2>Server Browser</h2>
+            <h2 id="serverBrowserHeader">Server Browser</h2>
             <div className="search-container">
               <div className="search">
                 <input
