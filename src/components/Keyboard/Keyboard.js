@@ -1,7 +1,7 @@
 import { Clue, clueClass } from "../Game/clue";
 import "./keyboard.css";
 import { useEffect } from "react";
-import $ from 'jquery'
+import $ from "jquery";
 
 export function Keyboard(props) {
   const hidden = props.hidden;
@@ -13,13 +13,13 @@ export function Keyboard(props) {
 
   useEffect(() => {
     window.addEventListener("load", () => {
-      console.log('ran')
-        $('.Game-keyboard-button').on("click touchstart", function(e) {
-          const letter = e.target.attributes['data-key'].value;
-          props.onKey(letter);
-        });
+      console.log("ran");
+      $(".Game-keyboard-button").on("click touchstart", function (e) {
+        const letter = e.target.attributes["data-key"].value;
+        props.onKey(letter);
       });
     });
+  });
 
   return (
     <div className="Game-keyboard" style={{ display: props.hidden && "none" }}>
@@ -35,7 +35,12 @@ export function Keyboard(props) {
               className += " Game-keyboard-button-wide";
             }
             return (
-              <button data-key={label} tabIndex={-1} key={j} className={className}>
+              <button
+                data-key={label}
+                tabIndex={-1}
+                key={j}
+                className={className}
+              >
                 {label.replace("Backspace", "⌫")}
               </button>
             );
