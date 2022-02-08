@@ -17,7 +17,7 @@ export function Keyboard(props) {
       btn.forEach((btn) => {
         btn.addEventListener("click", (e) => {
           console.log(e)
-          const letter = e.target.innerText;
+          const letter = e.target.attributes['data-key'].value;
           console.log(letter)
           props.onKey(letter);
         });
