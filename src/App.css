@@ -77,9 +77,9 @@ body {
   padding: 0px;
 
   border-radius: 3vh;
-  background: 
-    linear-gradient(135deg, #2D3047 0%, #48495F 100%) padding-box, /* this is the background */
-    linear-gradient(135deg, #48495F 0%, #2D3047 100%) border-box; /* this is the border*/
+  background: linear-gradient(135deg, #2d3047 0%, #48495f 100%) padding-box,
+    /* this is the background */
+      linear-gradient(135deg, #48495f 0%, #2d3047 100%) border-box; /* this is the border*/
   border: 6px solid transparent;
   color: white;
 
@@ -208,20 +208,21 @@ a {
 
 .neumorphic-btn {
   cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border: none;
-    border-radius: 1.2rem;
-    padding: 1rem 3rem;
-    transition: all 260ms ease;
-    text-decoration: none;
-    font-family: inherit;
-    max-width: 100%;
-    color: #9baacf;
-    background: #e0e5ec;
-    box-shadow: 0.3rem 0.3rem 0.5rem rgb(195 193 198 / 90%), -0.2rem -0.2rem 0.4rem #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: none;
+  border-radius: 1.2rem;
+  padding: 1rem 3rem;
+  transition: all 260ms ease;
+  text-decoration: none;
+  font-family: inherit;
+  max-width: 100%;
+  color: #9baacf;
+  background: #e0e5ec;
+  box-shadow: 0.3rem 0.3rem 0.5rem rgb(195 193 198 / 90%),
+    -0.2rem -0.2rem 0.4rem #fff;
 }
 
 :root {
@@ -266,7 +267,6 @@ a {
     width: 7vh;
     height: 7vh;
     font-size: 1.6rem;
-
   }
   .App-container h1 {
     font-size: 2rem;
@@ -375,7 +375,6 @@ label {
   .navbar {
     top: 0.2rem !important;
   }
-
 }
 
 @media only screen and (max-height: 500px) {
