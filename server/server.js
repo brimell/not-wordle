@@ -127,7 +127,7 @@ io.on("connection", (socket) => {
         target: randomTarget(5),
       });
       users.updateGameState(user.room, "playing");
-      socket.broadcast.to(user.room).emit("updateRooms", users.getRoomList());
+      socket.broadcast.emit("updateRooms", users.getRoomList());
     } else {
       io.to(user.room).emit("game-started", { res: false });
     }
@@ -170,7 +170,7 @@ io.on("connection", (socket) => {
     const user = users.getUser(socket.id);
     if (user) {
       users.updateGrid(user.id, grid);
-      socket.broadcast.emit(user.room).emit("update-grid-client", users.getGrids(user.room));
+      socket.broadcast.to(user.room).emit("update-grid-client", users.getGrids(user.room));
     } else {
       console.log("user not found: ", socket.id, grid, users);
     }
