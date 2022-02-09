@@ -97,7 +97,7 @@ function Game(props) {
 
   useEffect(() => {
     setCurrentGuess(currentGuess.toLowerCase());
-    console.log("current guess: ", currentGuess);
+    console.log("effect: ", currentGuess);
   }, [currentGuess]);
 
   const startNextGame = () => {
@@ -129,7 +129,7 @@ function Game(props) {
   }
 
   const onKey = (key) => {
-    console.log("key: ", key);
+    console.log("1: ", currentGuess);
     if (gameState !== GameState.Playing) {
       console.log("game is not playing");
       if (key === "enter") {
@@ -139,13 +139,15 @@ function Game(props) {
     }
     if (guesses.length === props.maxGuesses) return;
     if (/^[a-z]$/.test(key)) {
-      console.log(currentGuess)
+      console.log("2: ", currentGuess, key);
       setCurrentGuess((guess) => (guess + key).slice(0, wordLength));
+      console.log("3: ", currentGuess);
       setHint("");
     } else if (key === "backspace") {
       setCurrentGuess((guess) => guess.slice(0, -1));
       setHint("");
     } else if (key === "enter") {
+      console.log("4: ", currentGuess);
       if (currentGuess.length !== wordLength) {
         console.log("curr guess: ", currentGuess);
         setHint("Too short");
@@ -368,7 +370,7 @@ function Game(props) {
           seed {seed}, length {wordLength}, game {gameNumber}
         </div>
       )}
-      <Keyboard hidden={props.hidden} letterInfo={letterInfo} onKey={onKey} />
+      <Keyboard currentGuess={currentGuess} hidden={props.hidden} letterInfo={letterInfo} onKey={onKey} />
     </div>
   );
 }
