@@ -45,7 +45,6 @@ class Users {
       }
     }
     this.rooms = tempRooms;
-    console.log(this.rooms);
     return this.rooms;
   }
 
