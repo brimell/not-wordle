@@ -89,6 +89,7 @@ class Users {
         this.grids[this.users[i].name] = this.users[i].grid;
       }
     }
+    console.log('users grids: ',this.grids)
     return this.grids;
   }
 }
