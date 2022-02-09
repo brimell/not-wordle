@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Podium.css";
 
 export default function Podium(props) {
@@ -7,13 +7,13 @@ export default function Podium(props) {
   const target = props.target;
   const winner = props.winner;
   const grids = props.grids;
-  var guesses = 0;
+  const [guesses, setGuesses] = useState(0);
 
   useEffect(() => {
     if (winner) {
       for (var i = 0; i < grids[winner].length; i++) {
         if (grids[winner][i].length !== 0) {
-          guesses++;
+          setGuesses(i + 1);
         }
       }
     }
