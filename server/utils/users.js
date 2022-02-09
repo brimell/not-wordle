@@ -80,7 +80,13 @@ class Users {
     return user;
   }
 
-  updateGrid(id, grid) {}
+  updateGrid(id, grid) {
+    for (var i = 0; i < this.users.length; i++) {
+      if (this.users[i].id === id) {
+        this.users[i].grid = grid;
+      }
+    }
+  }
 
   getGrids(room) {
     this.grids = {};
@@ -89,7 +95,6 @@ class Users {
         this.grids[this.users[i].name] = this.users[i].grid;
       }
     }
-    console.log('users grids: ',this.grids)
     return this.grids;
   }
 }
