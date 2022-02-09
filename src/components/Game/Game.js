@@ -153,7 +153,9 @@ function Game(props) {
       }
       setGuesses((guesses) => guesses.concat([currentGuess]));
       setCurrentGuess((guess) => "");
-      props.setMultiplayerGrid(currGrid);
+      if (socket && props.multiplayerGrid !== currGrid) {
+        props.setMultiplayerGrid(currGrid);
+      }
       if (currentGuess === target) {
         setGameState(GameState.Won);
         updateStats(true, wordLength, guesses.length);

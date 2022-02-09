@@ -15,8 +15,8 @@ export default function GameParent(props) {
   const target = props.target || false;
 
   useEffect(() => {
-    if (socket) {
-      socket.emit("update-grid", { grid: multiplayerGrid });
+    if (socket && multiplayerGrid.length !== 0) {
+      socket.emit("update-grid", multiplayerGrid);
     }
   }, [multiplayerGrid]);
 
@@ -30,6 +30,7 @@ export default function GameParent(props) {
       <Game
         socket={socket}
         setMultiplayerGrid={setMultiplayerGrid}
+        multiplayerGrid={multiplayerGrid}
         target={target}
         maxGuesses={maxGuesses}
         hidden={settings}

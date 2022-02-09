@@ -1,4 +1,5 @@
-import { Clue, clueClass } from "../Game/clue";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { clueClass } from "../Game/clue";
 import "./keyboard.css";
 import { useEffect } from "react";
 import $ from "jquery";
