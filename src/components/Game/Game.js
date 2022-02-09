@@ -97,7 +97,6 @@ function Game(props) {
 
   useEffect(() => {
     setCurrentGuess(currentGuess.toLowerCase());
-    console.log("effect: ", currentGuess);
   }, [currentGuess]);
 
   const startNextGame = () => {
@@ -129,7 +128,6 @@ function Game(props) {
   }
 
   const onKey = (key) => {
-    console.log("1: ", currentGuess);
     if (gameState !== GameState.Playing) {
       console.log("game is not playing");
       if (key === "enter") {
@@ -139,17 +137,13 @@ function Game(props) {
     }
     if (guesses.length === props.maxGuesses) return;
     if (/^[a-z]$/.test(key)) {
-      console.log("2: ", currentGuess, key);
       setCurrentGuess((guess) => (guess + key).slice(0, wordLength));
-      console.log("3: ", currentGuess);
       setHint("");
     } else if (key === "backspace") {
       setCurrentGuess((guess) => guess.slice(0, -1));
       setHint("");
     } else if (key === "enter") {
-      console.log("4: ", currentGuess);
       if (currentGuess.length !== wordLength) {
-        console.log("curr guess: ", currentGuess);
         setHint("Too short");
         return;
       }
@@ -317,6 +311,16 @@ function Game(props) {
             style={{ flex: "0" }}
             disabled={gameState !== GameState.Playing || guesses.length === 0}
             onClick={async () => {
+              if (seed) {
+                disableTodaysWord();
+                setHint(
+                  `The answer was ${target.toUpperCase()}. (Enter to play a random word)`
+                );
+              } else {
+                setHint(
+                  `The answer was ${target.toUpperCase()}. (Enter to play again)`
+                );
+              }
               async function getData() {
                 const response = await fetch(
                   `https://api.dictionaryapi.dev/api/v2/entries/en/${target}`
