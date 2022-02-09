@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/notwordle/static/css/main.22203f14.css",
-    "main.js": "/notwordle/static/js/main.e149ce9a.js",
+    "main.css": "/notwordle/static/css/main.2940127a.css",
+    "main.js": "/notwordle/static/js/main.f128d7c7.js",
     "index.html": "/notwordle/index.html",
-    "main.22203f14.css.map": "/notwordle/static/css/main.22203f14.css.map",
-    "main.e149ce9a.js.map": "/notwordle/static/js/main.e149ce9a.js.map"
+    "main.2940127a.css.map": "/notwordle/static/css/main.2940127a.css.map",
+    "main.f128d7c7.js.map": "/notwordle/static/js/main.f128d7c7.js.map"
   },
   "entrypoints": [
-    "static/css/main.22203f14.css",
-    "static/js/main.e149ce9a.js"
+    "static/css/main.2940127a.css",
+    "static/js/main.f128d7c7.js"
   ]
 }
