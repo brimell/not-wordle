@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Multiplayer.css";
-import { TextField, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import socket from "../socketio";
 import GameParent from "../Game/GameParent";
 import PlayerListItem from "./PlayerListItem.js";
@@ -17,7 +17,7 @@ export default function Lobby(props) {
   const [target, setTarget] = useState("");
   const [podium, setPodium] = useState(false);
   const [grids, setGrids] = useState({});
-  const [winner, setWinner] = useState("winner not changed");
+  const [winner, setWinner] = useState(false);
   const [username, setUsername] = useState("");
   const [lobby, setLobby] = useState(true);
 
