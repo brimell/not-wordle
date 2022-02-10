@@ -8,7 +8,7 @@ import Podium from "./Podium/Podium";
 import { useModal } from "react-hooks-use-modal";
 import GridViewModal from "../Modals/GridViewModal";
 import $ from "jquery";
-import Peer from 'simple-peer'
+import Peer from "simple-peer";
 
 function startGame(setGame) {
   socket.emit("start-game");
@@ -91,10 +91,10 @@ export default function Lobby(props) {
 
   const myPeer = new Peer(undefined, {
     host: "https://rimell.cc:5000",
-    port: "5000",
+    port: "5001",
   });
   const myVideo = document.createElement("video");
-  // myVideo.muted = true;
+  myVideo.muted = true;
   const peers = {};
   navigator.mediaDevices
     .getUserMedia({
@@ -113,25 +113,37 @@ export default function Lobby(props) {
       });
 
       socket.on("user-connected", (userId) => {
-        connectToNewUser(userId, stream);
+        if (userId !== socket.id) {
+          connectToNewUser(userId, stream);
+        }
       });
     });
 
   socket.on("user-disconnected", (userId) => {
-    if (peers[userId]) peers[userId].close();
+    if (peers[userId] && userId !== socket.id) peers[userId].close();
   });
 
   function connectToNewUser(userId, stream) {
     const call = myPeer.call(userId, stream);
-    // call.on("stream", (userVideoStream) => {});
-    // call.on("close", () => {});
+    const video = document.createElement("video");
+    call.on("stream", (userVideoStream) => {
+      window.addEventListener('load', () => {
+        addVideoStream(video, userVideoStream);
+      })
+    });
+    call.on("close", () => {
+      video.remove();
+    });
 
     peers[userId] = call;
   }
 
   function addVideoStream(video, stream) {
     video.srcObject = stream;
-    // video.addEventListener("loadedmetadata", () => {});
+    video.addEventListener("loadedmetadata", () => {
+      video.play();
+    });
+    $('.join-container').append(video);
   }
 
   return (

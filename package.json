@@ -49,7 +49,7 @@
     "serverprod": "node server/server.js",
     "autoprefixer": "postcss src/*.css --use autoprefixer -d build/",
     "dura": "dura watch && dura serve",
-    "peer": "peerjs --port 3002"
+    "peer": "peerjs --port 5001"
   },
   "eslintConfig": {
     "extends": [
