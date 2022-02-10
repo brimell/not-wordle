@@ -96,12 +96,13 @@ io.on("connection", (socket) => {
 
       io.to(props.room).emit("updateUsersList", users.getUserList(props.room));
       io.to(socket.id).emit("joinRoomRes", { res: true });
-      socket.to(props.room).broadcast.emit('user-connected', socket.id) // for voice call
     }
     if (props.role === "host") {
       console.log("was host");
       users.updateGameState(props.room, "lobby");
       console.log(this.rooms);
+    } else {
+      socket.to(props.room).broadcast.emit('user-connected', socket.id) // for voice call
     }
     // console.log(users.getRoomList())
     socket.broadcast.emit("updateRooms", users.getRoomList());
