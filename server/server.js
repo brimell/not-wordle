@@ -195,7 +195,7 @@ io.on("connection", (socket) => {
     let user = users.removeUser(socket.id);
 
     if (user) {
-      io.to(user.room).broadcast.emit('user-disconnected', user.id) // for voice call
+      io.to(user.room).emit('user-disconnected', user.id) // for voice call
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
       console.log('user room on dc: ',user.room)
       if (
