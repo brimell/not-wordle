@@ -100,7 +100,6 @@ io.on("connection", (socket) => {
     if (props.role === "host") {
       console.log("was host");
       users.updateGameState(props.room, "lobby");
-      console.log(this.rooms);
     } else {
       io.to(props.room).broadcast.emit('user-connected', socket.id) // for voice call
     }
@@ -196,9 +195,9 @@ io.on("connection", (socket) => {
     let user = users.removeUser(socket.id);
 
     if (user) {
+      io.to(user.room).broadcast.emit('user-disconnected', user.id) // for voice call
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
       console.log('user room on dc: ',user.room)
-      io.to(user.room).broadcast.emit('user-disconnected', user.id) // for voice call
       if (
         users.getRoomList(user.room).filter((room) => room.room === user.room)
           .length === 1
