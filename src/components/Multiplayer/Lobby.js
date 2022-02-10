@@ -5,10 +5,10 @@ import socket from "../socketio";
 import GameParent from "../Game/GameParent";
 import PlayerListItem from "./PlayerListItem.js";
 import Podium from "./Podium/Podium";
-import { ArrowLeft, ArrowRight } from "react-feather";
 import { useModal } from "react-hooks-use-modal";
 import GridViewModal from "../Modals/GridViewModal";
 import $ from "jquery";
+import Peer from 'simple-peer'
 
 function startGame(setGame) {
   socket.emit("start-game");
@@ -86,6 +86,53 @@ export default function Lobby(props) {
       userList.find((user) => user.id === socket.id).role === "host"
     );
   });
+
+  // voice call
+
+  const myPeer = new Peer(undefined, {
+    host: "https://rimell.cc:5000",
+    port: "5000",
+  });
+  const myVideo = document.createElement("video");
+  // myVideo.muted = true;
+  const peers = {};
+  navigator.mediaDevices
+    .getUserMedia({
+      video: false,
+      audio: true,
+    })
+    .then((stream) => {
+      addVideoStream(myVideo, stream);
+
+      myPeer.on("call", (call) => {
+        call.answer(stream);
+        const video = document.createElement("video");
+        call.on("stream", (userVideoStream) => {
+          addVideoStream(video, userVideoStream);
+        });
+      });
+
+      socket.on("user-connected", (userId) => {
+        connectToNewUser(userId, stream);
+      });
+    });
+
+  socket.on("user-disconnected", (userId) => {
+    if (peers[userId]) peers[userId].close();
+  });
+
+  function connectToNewUser(userId, stream) {
+    const call = myPeer.call(userId, stream);
+    // call.on("stream", (userVideoStream) => {});
+    // call.on("close", () => {});
+
+    peers[userId] = call;
+  }
+
+  function addVideoStream(video, stream) {
+    video.srcObject = stream;
+    // video.addEventListener("loadedmetadata", () => {});
+  }
 
   return (
     <div className="container">

@@ -96,6 +96,7 @@ io.on("connection", (socket) => {
 
       io.to(props.room).emit("updateUsersList", users.getUserList(props.room));
       io.to(socket.id).emit("joinRoomRes", { res: true });
+      socket.to(props.room).broadcast.emit('user-connected', socket.id) // for voice call
     }
     if (props.role === "host") {
       console.log("was host");
@@ -195,6 +196,7 @@ io.on("connection", (socket) => {
 
     if (user) {
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
+      socket.to(user.room).broadcast.emit('user-disconnected', user.id) // for voice call
       if (
         users.getRoomList(user.room).filter((room) => room.room === user.room)
           .length === 1
