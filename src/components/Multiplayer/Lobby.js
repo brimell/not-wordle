@@ -138,8 +138,6 @@ export default function Lobby(props) {
     <div className="container">
       {!game && !podium && (
         <div className="lobby back-row-toggle splat-toggle">
-          <div className="rain front-row"></div>
-          <div className="rain back-row"></div>
           <h2 className="lobby-title">
             Game Code: <span className="code-txt">{props.room}</span>
           </h2>
