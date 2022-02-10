@@ -48,7 +48,7 @@
 }
 
 .gridLetter {
-  border: .1rem solid linear-gradient(135deg, #48495f 0%, #2d3047 100%);
+  border: 0.1rem solid linear-gradient(135deg, #48495f 0%, #2d3047 100%);
   background: linear-gradient(135deg, #2d3047 0%, #48495f 100%);
   border-radius: 10px;
   width: 2rem;

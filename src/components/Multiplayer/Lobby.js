@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./Multiplayer.css";
-import { TextField, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import socket from "../socketio";
 import GameParent from "../Game/GameParent";
 import PlayerListItem from "./PlayerListItem.js";
 import Podium from "./Podium/Podium";
+import { ArrowLeft, ArrowRight } from "react-feather";
+import { useModal } from "react-hooks-use-modal";
+import GridViewModal from "../Modals/GridViewModal";
+import $ from "jquery";
 
 function startGame(setGame) {
   socket.emit("start-game");
@@ -20,19 +24,25 @@ export default function Lobby(props) {
   const [winner, setWinner] = useState("winner not changed");
   const [username, setUsername] = useState("");
   const [lobby, setLobby] = useState(true);
+  const [gridViewModal, gridViewOpen, gridViewClose, gridViewIsOpen] = useModal(
+    "root",
+    {
+      preventScroll: true,
+    }
+  );
 
   useEffect(() => {
     socket.emit("fetchUserList");
     socket.emit("getUser", socket.id);
-    }, []);
+  }, []);
 
   function gameLost(id) {
     console.log(id, " lost");
   }
 
   useEffect(() => {
-    console.log('winner: ',winner)
-  },[winner])
+    console.log("winner: ", winner);
+  }, [winner]);
 
   function gameWon(id) {
     if (game === true || podium === false) {
@@ -40,7 +50,7 @@ export default function Lobby(props) {
       setGame(false);
       socket.emit("getUser", id);
       setPodium(true);
-      setLobby(true) // for next game
+      setLobby(true); // for next game
     }
   }
 
@@ -64,7 +74,7 @@ export default function Lobby(props) {
     gameLost(id);
   });
   socket.on("update-grid-client", (Grids) => {
-    console.log('got grids', Grids)
+    // console.log("got grids", Grids);
     setGrids(Grids);
   });
   socket.on("updateUsersList", (userList) => {
@@ -121,7 +131,7 @@ export default function Lobby(props) {
         </div>
       )}
       {game && <GameParent socket={socket} target={target} />}
-      {(game || podium) && (
+      {(game || podium) && $(window).width() >= 1100 && (
         <div className="gridBar">
           {grids &&
             Object.keys(grids).map((name, i) => {
@@ -139,7 +149,9 @@ export default function Lobby(props) {
                               <div
                                 className={`gridLetter letter-clue-${letter.clue}`}
                                 key={k}
-                              >{podium && letter.letter}</div>
+                              >
+                                {podium && letter.letter}
+                              </div>
                             );
                           })}
                         </div>
@@ -151,6 +163,18 @@ export default function Lobby(props) {
             })}
         </div>
       )}
+      {(game || podium) && $(window).width() < 1100 && (
+        <GridViewModal
+          close={gridViewClose}
+          modal={gridViewModal}
+          game={game}
+          podium={podium}
+          grids={grids}
+          username={username}
+          isOpen={gridViewIsOpen}
+        />
+      )}
+
       {podium && (
         <Podium grids={grids} socket={socket} target={target} winner={winner} />
       )}

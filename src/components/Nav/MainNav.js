@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Home, Settings, X, User, MessageSquare } from "react-feather";
 import "./MainNav.scss";
@@ -42,6 +43,7 @@ export default function MainNav(props) {
             </a>
           </li>
           <li className="navbar__item">
+            
             <a
               className="navbar__link"
               onClick={() => {
