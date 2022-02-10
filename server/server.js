@@ -101,7 +101,7 @@ io.on("connection", (socket) => {
       console.log("was host");
       users.updateGameState(props.room, "lobby");
     } else {
-      io.to(props.room).emit('user-connected', socket.id) // for voice call
+      io.to(props.room).emit("user-connected", socket.id); // for voice call
     }
     // console.log(users.getRoomList())
     socket.broadcast.emit("updateRooms", users.getRoomList());
@@ -139,9 +139,14 @@ io.on("connection", (socket) => {
     io.to(socket.id).emit("fetchRoomsRes", room_list);
   });
 
-  socket.on("fetchFullUsersList", () => {
+  socket.on("fetchFullUsersList", (props) => {
     const user = users.getUser(socket.id);
-    if (user) {
+    if (user && props.private) {
+      io.to(socket.id).emit(
+        "updateFullUsersList",
+        users.getFullUserList(user.room)
+      );
+    } else if (user) {
       io.to(user.room).emit(
         "updateFullUsersList",
         users.getFullUserList(user.room)
@@ -153,9 +158,9 @@ io.on("connection", (socket) => {
   });
   socket.on("fetchUserList", (props) => {
     const user = users.getUser(socket.id);
-    if (user) {
-      // console.log("users fetched in room: ", user.room);
-      // console.log(users.getUserList(user.room));
+    if (user && props.private) {
+      io.to(socket.id).emit("updateUsersList", users.getUserList(user.room));
+    } else if (user) {
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
     }
   });
@@ -171,7 +176,7 @@ io.on("connection", (socket) => {
     const user = users.getUser(socket.id);
     if (user) {
       users.updateGrid(user.id, grid);
-      console.log('grids: ',users.getGrids(user.room))
+      console.log("grids: ", users.getGrids(user.room));
       io.to(user.room).emit("update-grid-client", users.getGrids(user.room));
     } else {
       console.log("user not found: ", socket.id, grid, users);
@@ -195,7 +200,7 @@ io.on("connection", (socket) => {
     let user = users.removeUser(socket.id);
 
     if (user) {
-      io.to(user.room).emit('user-disconnected', user.id) // for voice call
+      io.to(user.room).emit("user-disconnected", user.id); // for voice call
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
       if (
         users.getRoomList(user.room).filter((room) => room.room === user.room)

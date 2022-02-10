@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Multiplayer.css";
 import { Button } from "@mui/material";
 import socket from "../socketio";
@@ -89,61 +89,80 @@ export default function Lobby(props) {
 
   // voice call
 
-  const myPeer = new Peer(undefined, {
-    host: "https://rimell.cc:5000",
-    port: "5001",
-  });
-  const myVideo = document.createElement("video");
-  myVideo.muted = true;
-  const peers = {};
-  navigator.mediaDevices
-    .getUserMedia({
-      video: false,
-      audio: true,
-    })
-    .then((stream) => {
-      addVideoStream(myVideo, stream);
+  const peersRef = useRef([]);
+  const userVideo = useRef();
+  const [peers, setPeers] = useState([]);
 
-      myPeer.on("call", (call) => {
-        call.answer(stream);
-        const video = document.createElement("video");
-        call.on("stream", (userVideoStream) => {
-          addVideoStream(video, userVideoStream);
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ video: false, audio: true })
+      .then((stream) => {
+        // userVideo.current.srcObject = stream;
+        // userVideo.current.muted = false;
+        socket.emit('fetchFullUsersList', {private: true});
+        socket.on("updateFullUsersList", (users) => {
+          const peers = [];
+          console.log('users: ', users)
+          users.forEach((user) => {
+            const peer = createPeer(user.id, socket.id, stream);
+            peersRef.current.push({
+              peerID: user.id,
+              peer,
+            });
+            peers.push(peer);
+          });
+          setPeers(peers);
+        });
+
+        socket.on("user joined", (payload) => {
+          const peer = addPeer(payload.signal, payload.callerID, stream);
+          peersRef.current.push({
+            peerID: payload.callerID,
+            peer,
+          });
+
+          setPeers((users) => [...users, peer]);
+        });
+
+        socket.on("receiving returned signal", (payload) => {
+          const item = peersRef.current.find((p) => p.peerID === payload.id);
+          item.peer.signal(payload.signal);
         });
       });
+  }, []);
 
-      socket.on("user-connected", (userId) => {
-        if (userId !== socket.id) {
-          connectToNewUser(userId, stream);
-        }
+  function createPeer(userToSignal, callerID, stream) {
+    const peer = new Peer({
+      initiator: true,
+      trickle: false,
+      stream,
+    });
+
+    peer.on("signal", (signal) => {
+      socket.emit("sending signal", {
+        userToSignal,
+        callerID,
+        signal,
       });
     });
 
-  socket.on("user-disconnected", (userId) => {
-    if (peers[userId] && userId !== socket.id) peers[userId].close();
-  });
-
-  function connectToNewUser(userId, stream) {
-    const call = myPeer.call(userId, stream);
-    const video = document.createElement("video");
-    call.on("stream", (userVideoStream) => {
-      window.addEventListener('load', () => {
-        addVideoStream(video, userVideoStream);
-      })
-    });
-    call.on("close", () => {
-      video.remove();
-    });
-
-    peers[userId] = call;
+    return peer;
   }
 
-  function addVideoStream(video, stream) {
-    video.srcObject = stream;
-    video.addEventListener("loadedmetadata", () => {
-      video.play();
+  function addPeer(incomingSignal, callerID, stream) {
+    const peer = new Peer({
+      initiator: false,
+      trickle: false,
+      stream,
     });
-    $('.join-container').append(video);
+
+    peer.on("signal", (signal) => {
+      socket.emit("returning signal", { signal, callerID });
+    });
+
+    peer.signal(incomingSignal);
+
+    return peer;
   }
 
   return (
