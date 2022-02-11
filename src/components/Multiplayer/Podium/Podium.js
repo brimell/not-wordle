@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Podium.css";
 
 export default function Podium(props) {
@@ -7,34 +6,29 @@ export default function Podium(props) {
   const target = props.target;
   const winner = props.winner;
   const grids = props.grids;
-  const [guesses, setGuesses] = useState(0);
 
-  useEffect(() => {
-    if (winner) {
-      for (var i = 0; i < grids[winner].length; i++) {
-        if (grids[winner][i].length !== 0) {
-          setGuesses(i + 1);
-        }
-      }
+  var guesses = 0;
+  for (var i = 0; i < grids[winner].length; i++) {
+    if (grids[winner][i].length !== 0) {
+      guesses++;
     }
-  }, [winner]);
+  }
 
   const classNameDict = {
-    0: "letter-absent",
-    1: "letter-elsewhere",
-    2: "letter-correct",
-  };
+      0: "letter-absent",
+      1: "letter-elsewhere",
+      2: "letter-correct"
+  }
 
   return (
     <div className="podium">
       <p>
-        <span className="wordHighlight">{winner ? winner : 'loading...'}</span> got the word in{" "}
-        <span className="wordHighlight">{guesses}</span> guesses!
+        <span className="wordHighlight">{winner}</span> got the word in <span className="wordHighlight">{guesses}</span> guesses!
       </p>
       <p>
         the word was: <span className="wordHighlight">{target}</span>
       </p>
-      {grids && winner &&
+      {grids &&
         Object.keys(grids).map((name, i) => {
           if (name === winner) {
             return (
@@ -45,13 +39,9 @@ export default function Podium(props) {
                       {row.map((letter, k) => {
                         return (
                           <div
-                            className={`podiumGridLetter Row-letter ${
-                              classNameDict[letter.clue]
-                            }`}
+                            className={`podiumGridLetter Row-letter ${classNameDict[letter.clue]}`}
                             key={k}
-                          >
-                            {letter.letter}
-                          </div>
+                          >{letter.letter}</div>
                         );
                       })}
                     </div>
@@ -60,7 +50,7 @@ export default function Podium(props) {
               </div>
             );
           } else {
-            return "";
+            return ''
           }
         })}
     </div>

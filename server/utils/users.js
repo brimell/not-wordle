@@ -45,6 +45,7 @@ class Users {
       }
     }
     this.rooms = tempRooms;
+    console.log(this.rooms);
     return this.rooms;
   }
 
@@ -79,13 +80,7 @@ class Users {
     return user;
   }
 
-  updateGrid(id, grid) {
-    for (var i = 0; i < this.users.length; i++) {
-      if (this.users[i].id === id) {
-        this.users[i].grid = grid;
-      }
-    }
-  }
+  updateGrid(id, grid) {}
 
   getGrids(room) {
     this.grids = {};
