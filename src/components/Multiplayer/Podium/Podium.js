@@ -33,7 +33,7 @@ export default function Podium(props) {
       <p>
         the word was: <span className="wordHighlight">{target}</span>
       </p>
-      {grids &&
+      {grids && winner &&
         Object.keys(grids).map((name, i) => {
           if (name === winner) {
             return (
