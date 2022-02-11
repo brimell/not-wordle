@@ -6,7 +6,7 @@ export default function Podium(props) {
   const target = props.target;
   const winner = props.winner;
   const grids = props.grids;
-  const [guesses, setGuesses] = useState(0)
+  const [guesses, setGuesses] = useState(0);
 
   useEffect(() => {
     if (winner) {
@@ -16,17 +16,18 @@ export default function Podium(props) {
         }
       }
     }
-  }, [])
+  }, []);
   const classNameDict = {
-      0: "letter-absent",
-      1: "letter-elsewhere",
-      2: "letter-correct"
-  }
+    0: "letter-absent",
+    1: "letter-elsewhere",
+    2: "letter-correct",
+  };
 
   return (
     <div className="podium">
       <p>
-        <span className="wordHighlight">{winner}</span> got the word in <span className="wordHighlight">{guesses}</span> guesses!
+        <span className="wordHighlight">{winner}</span> got the word in{" "}
+        <span className="wordHighlight">{guesses}</span> guesses!
       </p>
       <p>
         the word was: <span className="wordHighlight">{target}</span>
@@ -42,9 +43,13 @@ export default function Podium(props) {
                       {row.map((letter, k) => {
                         return (
                           <div
-                            className={`podiumGridLetter Row-letter ${classNameDict[letter.clue]}`}
+                            className={`podiumGridLetter Row-letter ${
+                              classNameDict[letter.clue]
+                            }`}
                             key={k}
-                          >{letter.letter}</div>
+                          >
+                            {letter.letter}
+                          </div>
                         );
                       })}
                     </div>
@@ -53,7 +58,7 @@ export default function Podium(props) {
               </div>
             );
           } else {
-            return ''
+            return "";
           }
         })}
     </div>
