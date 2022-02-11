@@ -8,11 +8,13 @@ export default function Podium(props) {
   const grids = props.grids;
   const [guesses, setGuesses] = useState(0)
 
-  for (var i = 0; i < grids[winner].length; i++) {
-    if (grids[winner][i].length !== 0) {
-      guesses++;
-    }
-  }
+  useEffect(() => {
+    if (winner) {
+      for (var i = 0; i < grids[winner].length; i++) {
+        if (grids[winner][i].length !== 0) {
+          setGuesses(i + 1);
+        }
+      }
 
   const classNameDict = {
       0: "letter-absent",
