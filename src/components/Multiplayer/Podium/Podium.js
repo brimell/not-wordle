@@ -17,7 +17,7 @@ export default function Podium(props) {
       }
     }
   }, [winner]);
-  
+
   const classNameDict = {
     0: "letter-absent",
     1: "letter-elsewhere",
@@ -27,7 +27,7 @@ export default function Podium(props) {
   return (
     <div className="podium">
       <p>
-        <span className="wordHighlight">{winner}</span> got the word in{" "}
+        <span className="wordHighlight">{winner ? winner : 'loading...'}</span> got the word in{" "}
         <span className="wordHighlight">{guesses}</span> guesses!
       </p>
       <p>
