@@ -141,7 +141,7 @@ io.on("connection", (socket) => {
 
   socket.on("fetchFullUsersList", (props) => {
     const user = users.getUser(socket.id);
-    if (user && props.private !== undefined) {
+    if (user && 'private' in props) {
       io.to(socket.id).emit(
         "updateFullUsersList",
         users.getFullUserList(user.room)
@@ -158,7 +158,7 @@ io.on("connection", (socket) => {
   });
   socket.on("fetchUserList", (props) => {
     const user = users.getUser(socket.id);
-    if (user && props.private !== undefined) {
+    if (user && 'private' in props) {
       io.to(socket.id).emit("updateUsersList", users.getUserList(user.room));
     } else if (user) {
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
