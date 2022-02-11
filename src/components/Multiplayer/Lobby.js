@@ -21,7 +21,7 @@ export default function Lobby(props) {
   const [target, setTarget] = useState("");
   const [podium, setPodium] = useState(false);
   const [grids, setGrids] = useState({});
-  const [winner, setWinner] = useState("winner not changed");
+  const [winner, setWinner] = useState(false);
   const [username, setUsername] = useState("");
   const [lobby, setLobby] = useState(true);
   const [gridViewModal, gridViewOpen, gridViewClose, gridViewIsOpen] = useModal(
