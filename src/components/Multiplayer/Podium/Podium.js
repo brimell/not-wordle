@@ -6,8 +6,8 @@ export default function Podium(props) {
   const target = props.target;
   const winner = props.winner;
   const grids = props.grids;
-  const [guesses, setGuesses] = useState(0);
-  var guesses = 0;
+  const [guesses, setGuesses] = useState(0)
+
   for (var i = 0; i < grids[winner].length; i++) {
     if (grids[winner][i].length !== 0) {
       guesses++;
