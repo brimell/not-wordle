@@ -17,6 +17,7 @@ export default function Podium(props) {
       }
     }
   }, [winner]);
+  
   const classNameDict = {
     0: "letter-absent",
     1: "letter-elsewhere",
