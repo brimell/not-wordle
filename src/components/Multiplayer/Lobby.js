@@ -100,7 +100,7 @@ export default function Lobby(props) {
         // userVideo.current.srcObject = stream;
         // userVideo.current.muted = false;
         socket.emit('fetchFullUsersList', {private: true});
-        socket.on("updateFullUsersList", (users) => {
+        socket.on("all users", (users) => {
           const peers = [];
           console.log('users: ', users)
           users.forEach((user) => {

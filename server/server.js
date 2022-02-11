@@ -101,7 +101,7 @@ io.on("connection", (socket) => {
       console.log("was host");
       users.updateGameState(props.room, "lobby");
     } else {
-      io.to(props.room).emit("user-connected", socket.id); // for voice call
+      io.to(socket.id).emit("all users", users.getUserList(props.room)); // for voice call
     }
     // console.log(users.getRoomList())
     socket.broadcast.emit("updateRooms", users.getRoomList());
@@ -197,7 +197,6 @@ io.on("connection", (socket) => {
   });
 
   // voice chat
-
   socket.on("sending signal", (payload) => {
     io.to(payload.userToSignal).emit("user joined", {
       signal: payload.signal,
@@ -216,7 +215,6 @@ io.on("connection", (socket) => {
     let user = users.removeUser(socket.id);
 
     if (user) {
-      io.to(user.room).emit("user-disconnected", user.id); // for voice call
       io.to(user.room).emit("updateUsersList", users.getUserList(user.room));
       if (
         users.getRoomList(user.room).filter((room) => room.room === user.room)
