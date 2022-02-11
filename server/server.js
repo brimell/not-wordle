@@ -176,8 +176,8 @@ io.on("connection", (socket) => {
     const user = users.getUser(socket.id);
     if (user) {
       users.updateGrid(user.id, grid);
-      console.log("grids: ", users.getGrids(user.room));
-      io.to(user.room).emit("update-grid-client", users.getGrids(user.room));
+      console.log('grids: ',users.getGrids(user.room))
+      socket.broadcast.to(user.room).emit("update-grid-client", users.getGrids(user.room));
     } else {
       console.log("user not found: ", socket.id, grid, users);
     }
