@@ -8,7 +8,6 @@ import Podium from "./Podium/Podium";
 import { useModal } from "react-hooks-use-modal";
 import GridViewModal from "../Modals/GridViewModal";
 import $ from "jquery";
-import Peer from "simple-peer";
 
 function startGame(setGame) {
   socket.emit("start-game");
@@ -86,83 +85,6 @@ export default function Lobby(props) {
       userList.find((user) => user.id === socket.id).role === "host"
     );
   });
-
-  // voice call
-
-  const peersRef = useRef([]);
-  const userVideo = useRef();
-  const [peers, setPeers] = useState([]);
-
-  useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: false, audio: true })
-      .then((stream) => {
-        // userVideo.current.srcObject = stream;
-        // userVideo.current.muted = false;
-        socket.on("all users", (users) => {
-          const peers = [];
-          console.log('users: ', users)
-          users.forEach((user) => {
-            const peer = createPeer(user.id, socket.id, stream);
-            peersRef.current.push({
-              peerID: user.id,
-              peer,
-            });
-            peers.push(peer);
-          });
-          setPeers(peers);
-        });
-
-        socket.on("user joined", (payload) => {
-          const peer = addPeer(payload.signal, payload.callerID, stream);
-          peersRef.current.push({
-            peerID: payload.callerID,
-            peer,
-          });
-
-          setPeers((users) => [...users, peer]);
-        });
-
-        socket.on("receiving returned signal", (payload) => {
-          const item = peersRef.current.find((p) => p.peerID === payload.id);
-          item.peer.signal(payload.signal);
-        });
-      });
-  }, []);
-
-  function createPeer(userToSignal, callerID, stream) {
-    const peer = new Peer({
-      initiator: true,
-      trickle: false,
-      stream,
-    });
-
-    peer.on("signal", (signal) => {
-      socket.emit("sending signal", {
-        userToSignal,
-        callerID,
-        signal,
-      });
-    });
-
-    return peer;
-  }
-
-  function addPeer(incomingSignal, callerID, stream) {
-    const peer = new Peer({
-      initiator: false,
-      trickle: false,
-      stream,
-    });
-
-    peer.on("signal", (signal) => {
-      socket.emit("returning signal", { signal, callerID });
-    });
-
-    peer.signal(incomingSignal);
-
-    return peer;
-  }
 
   return (
     <div className="container">
