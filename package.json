@@ -1,7 +1,7 @@
 {
   "name": "not-wordle",
   "version": "0.1.0",
-  "homepage": "https://raaydon.github.io/not-wordle/",
+  "homepage": "/not-wordle",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.7.1",
@@ -46,7 +46,7 @@
     "server": "nodemon server/server.js",
     "serverprod": "node server/server.js",
     "autoprefixer": "postcss src/*.css --use autoprefixer -d build/",
-    "dura": "dura watch && dura serve",
+    "dura": "dura watch && dura serve"
   },
   "eslintConfig": {
     "extends": [
