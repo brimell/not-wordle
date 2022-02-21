@@ -9,14 +9,14 @@ export default function Podium(props) {
   const [guesses, setGuesses] = useState(0);
 
   useEffect(() => {
-    if (winner) {
+    if (winner && grids[winner]) {
       for (var i = 0; i < grids[winner].length; i++) {
         if (grids[winner][i].length !== 0) {
           setGuesses(i + 1);
         }
       }
     }
-  }, [winner]);
+  }, [winner, grids]);
 
   const classNameDict = {
     0: "letter-absent",
@@ -27,8 +27,7 @@ export default function Podium(props) {
   return (
     <div className="podium">
       <p>
-        <span className="wordHighlight">{winner ? winner : 'loading...'}</span> got the word in{" "}
-        <span className="wordHighlight">{guesses}</span> guesses!
+        <span className="wordHighlight">{winner ? winner : 'loading...'}</span> got the word in <span className="wordHighlight">{guesses}</span> guesses!
       </p>
       <p>
         the word was: <span className="wordHighlight">{target}</span>
