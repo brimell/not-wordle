@@ -1,7 +1,7 @@
 {
   "name": "not-wordle",
   "version": "0.1.0",
-  "homepage": "/not-wordle",
+  "homepage": "https://raaydon.github.io/not-wordle/",
   "private": false,
   "dependencies": {
     "@mui/icons-material": "^5.2.5",
