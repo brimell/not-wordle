@@ -81,7 +81,7 @@ export default function Multiplayer(props) {
                   type="text"
                   placeholder="Search..."
                 ></input>
-                <button className="search-btn">f
+                <button className="search-btn">
                   <Search color="white" />
                 </button>
               </div>
