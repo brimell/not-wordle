@@ -76,6 +76,7 @@
   padding: 2rem;
   gap: 3vh;
   overflow: auto;
+  padding-bottom: 0;
 }
 
 .join-container {
