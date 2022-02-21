@@ -24,7 +24,7 @@
 ::-webkit-scrollbar {
   width: 1rem;
   height: 10%;
-  background-color: white;
+  background-color: black;
 }
 ::-webkit-scrollbar-track {
   background-color: transparent;
