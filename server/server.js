@@ -189,16 +189,17 @@ io.on("connection", (socket) => {
 		if (user) {
 			users.updateGrid(user.id, grid);
 			console.log("grids: ", users.getGrids(user.room));
-			socket.broadcast
-				.to(user.room)
-				.emit("update-grid-client", users.getGrids(user.room));
+			io.to(user.room).emit(
+				"update-grid-client",
+				users.getGrids(user.room)
+			);
 		} else {
 			console.log("user not found: ", socket.id, grid, users);
 		}
 	});
 
-  // socket.on('getGrids', () => {
-  //   const user = users.getUser(socket.id);
+	// socket.on('getGrids', () => {
+	//   const user = users.getUser(socket.id);
 	// 	if (user) {
 	// 		users.getGrids(user.room);
 	// 		socket.broadcast
@@ -207,7 +208,7 @@ io.on("connection", (socket) => {
 	// 	} else {
 	// 		console.log("user not found: ", socket.id, grid, users);
 	// 	}
-  // })
+	// })
 
 	socket.on("leave-room", (props) => {
 		let user = users.removeUser(socket.id);
