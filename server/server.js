@@ -115,7 +115,7 @@ io.on("connection", (socket) => {
 		if (gameState === "Won") {
 			io.to(user.room).emit("gameWon", user.id);
 			users.updateGameState(user.room, "finished");
-			socket.broadcast.emit("updateRooms", users.getRoomList());
+			io.to(user.room).emit("updateRooms", users.getRoomList());
 		} else if (gameState === "Lost") {
 			io.to(user.room).emit("gameLost", user.id);
 		}
