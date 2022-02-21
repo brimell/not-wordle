@@ -75,6 +75,7 @@
   border-radius: 20px;
   padding: 2rem;
   gap: 3vh;
+  overflow: auto;
 }
 
 .join-container {
