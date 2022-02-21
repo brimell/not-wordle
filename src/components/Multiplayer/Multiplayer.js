@@ -92,7 +92,8 @@ export default function Multiplayer(props) {
                     CreateGameOpen();
                   }}
                 >
-                  <Plus color="white" />
+                  {/* <Plus color="white" /> */}
+                  Create Game
                 </button>
               </div>
             </div>

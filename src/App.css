@@ -119,7 +119,7 @@ body {
   display: flex;
   flex-direction: column;
   user-select: none;
-  gap: 1rem;
+  gap: 0.5rem;
   align-items: center;
   width: fit-content;
   height: fit-content;
@@ -380,6 +380,18 @@ label {
   }
   .navbar {
     top: 0.2rem !important;
+  }
+  h2 {
+    font-size: 0.6rem;
+  }
+  .search {
+    display: none !important;
+  }
+  .search-container {
+    width: 100%;
+  }
+  .add {
+    left: 0 !important;
   }
 }
 

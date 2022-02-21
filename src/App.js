@@ -3,7 +3,7 @@ import { seed } from "./components/util";
 import React, { useState, useEffect, useRef } from "react";
 import { useModal } from "react-hooks-use-modal";
 
-import MainNav from "./components/Nav/MainNav";
+import Nav from "./components/Nav/Nav";
 import StatsModal from "./components/Modals/StatsModal";
 import Homepage from "./components/Homepage/Homepage";
 
@@ -61,7 +61,7 @@ function App() {
 					modal={statsModal}
 					close={statsClose}
 				/>
-				<MainNav
+				<Nav
 					setLobby={setLobby}
 					socket={socket}
 					settings={settings}
