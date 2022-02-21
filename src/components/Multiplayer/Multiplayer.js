@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "firebase/compat/database";
 import { TextField, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import "./Multiplayer.css";
