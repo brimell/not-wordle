@@ -74,6 +74,7 @@ function App() {
 					socket={socket}
 					modal={messagesModal}
 					close={messagesClose}
+					name={name}
 				/>
 				<Nav
 					setLobby={setLobby}
