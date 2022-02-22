@@ -89,7 +89,7 @@ export default function StatsModal(props) {
 		<Modal>
 			<div className="modalContainer">
 				<X onClick={close} className="modalCloseIcon" />
-				<div className="messagesContainer">messages</div>
+				<div className="messagesContainer"><ChatRoom /></div>
 			</div>
 		</Modal>
 	);

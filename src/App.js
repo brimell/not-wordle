@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./App.css";
+import "./styles/__main.scss";
 
 import { seed } from "./components/util";
 import './components/firebaseInit'
 
 import { useModal } from "react-hooks-use-modal";
 
-import Nav from "./components/Nav/Nav";
+import Nav from "./components/Nav";
 import StatsModal from "./components/Modals/StatsModal";
 import MessagesModal from "./components/Modals/MessagesModal";
-import Homepage from "./components/Homepage/Homepage";
+import Homepage from "./components/Homepage";
 
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Multiplayer from "./components/Multiplayer/Multiplayer";
 import GameParent from "./components/Game/GameParent";
-import Mathler from "./components/Mathler/Mathler";
+import Mathler from "./components/Mathler";
 import CreateGameModal from "./components/Modals/CreateGameModal";
 import socket from "./components/socketio";
 

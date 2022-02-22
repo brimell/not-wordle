@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Podium.css";
 
 export default function Podium(props) {
   const socket = props.socket;

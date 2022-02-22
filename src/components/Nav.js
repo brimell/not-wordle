@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Home, Settings, X, User, MessageSquare } from "react-feather";
-import "./Nav.scss";
 
 import { Link } from "react-router-dom";
 

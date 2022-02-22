@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "react-hooks-use-modal";
 import { X, User } from "react-feather";
-import "./StatsModal.scss";
 
 export default function StatsModal(props) {
   const Modal = props.modal;

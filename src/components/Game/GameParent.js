@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Game from "./Game";
 import Settings from "../Modals/Settings";
 import { useEffect } from "react";
-import "./gridBar.css";
 
 export default function GameParent(props) {
 	const socket = props.socket || null;

@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { Row, RowState } from "./Row";
 import { clue } from "./clue";
-import { Keyboard } from "../Keyboard/Keyboard";
+import { Keyboard } from "../Keyboard";
 import common from "../../Wordlist/common.json";
 import { pick, resetRng, seed } from "../util";
 import $ from "jquery";
 import { useModal } from "react-hooks-use-modal";
 import CloseIcon from "@mui/icons-material/Close";
-
-import "./card.css";
 
 const GameState = {
   Playing: "Playing",

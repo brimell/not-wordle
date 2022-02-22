@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { clueClass } from "../Game/clue";
-import "./keyboard.css";
+import { clueClass } from "./Game/clue";
 import { useEffect } from "react";
 import $ from "jquery";
 

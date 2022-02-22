@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import './Mathler.css'
 import $ from 'jquery'
 
 export default function Mathler() {

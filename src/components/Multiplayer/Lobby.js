@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import "./Multiplayer.css";
 import { Button } from "@mui/material";
 import socket from "../socketio";
 import GameParent from "../Game/GameParent";
 import PlayerListItem from "./PlayerListItem.js";
-import Podium from "./Podium/Podium";
+import Podium from "./Podium";
 import { useModal } from "react-hooks-use-modal";
 import GridViewModal from "../Modals/GridViewModal";
 import $ from "jquery";

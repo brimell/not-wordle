@@ -1,6 +1,6 @@
 import React from "react";
 
-import Carousel from "../Carousel/Carousel";
+import Carousel from "../Carousel";
 
 export default function ServerBrowser(props) {
   const rooms = props.rooms;

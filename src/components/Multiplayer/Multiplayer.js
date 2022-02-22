@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import { styled } from "@mui/system";
-import "./Multiplayer.css";
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
 import { Search, Plus } from "react-feather";

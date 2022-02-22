@@ -1,7 +1,6 @@
 import React from "react";
 import gsap from "gsap";
 import CloseIcon from "@mui/icons-material/Close";
-import "./Notification.scss";
 export default function Notification(props) {
   const openNotif = props.openNotif;
   const Icon = props.Icon;

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AdSense from "react-adsense";
-import "./Homepage.scss";
 import $ from 'jquery'
 
 export default function Homepage() {
