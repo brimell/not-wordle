@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 export default function MainNav(props) {
   const settings = props.settings;
   const setSettings = props.setSettings;
-  const open = props.open;
+  const statsOpen = props.statsOpen;
+  const messagesOpen = props.messagesOpen
   const setSeedUpdate = props.setSeedUpdate;
   const socket = props.socket
   const setLobby = props.setLobby
@@ -30,14 +31,14 @@ export default function MainNav(props) {
               </Link>
           </li>
           <li className="navbar__item">
-            <a className="navbar__link">
+            <a className="navbar__link" onClick={messagesOpen}>
               <MessageSquare />
               <span>Messages</span>
             </a>
           </li>
           <h1>not wordle</h1>
           <li className="navbar__item">
-            <a className="navbar__link" onClick={open}>
+            <a className="navbar__link" onClick={statsOpen}>
               <User />
               <span>Stats</span>
             </a>

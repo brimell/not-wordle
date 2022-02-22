@@ -1,10 +1,14 @@
-import "./App.css";
-import { seed } from "./components/util";
 import React, { useState, useEffect, useRef } from "react";
+import "./App.css";
+
+import { seed } from "./components/util";
+import './components/firebaseInit'
+
 import { useModal } from "react-hooks-use-modal";
 
 import Nav from "./components/Nav/Nav";
 import StatsModal from "./components/Modals/StatsModal";
+import MessagesModal from "./components/Modals/MessagesModal";
 import Homepage from "./components/Homepage/Homepage";
 
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
@@ -29,6 +33,10 @@ function App() {
 	const [statsModal, statsOpen, statsClose, statsIsOpen] = useModal("root", {
 		preventScroll: true,
 	});
+	const [messagesModal, messagesOpen, messagesClose, messagesIsOpen] =
+		useModal("root", {
+			preventScroll: true,
+		});
 	const [createGameModal, CreateGameOpen, CreateGameClose, CreateGameIsOpen] =
 		useModal("root", {
 			preventScroll: true,
@@ -61,13 +69,20 @@ function App() {
 					modal={statsModal}
 					close={statsClose}
 				/>
+				<MessagesModal
+					isOpen={messagesIsOpen}
+					socket={socket}
+					modal={messagesModal}
+					close={messagesClose}
+				/>
 				<Nav
 					setLobby={setLobby}
 					socket={socket}
 					settings={settings}
 					setSettings={setSettings}
 					setSeedUpdate={setSeedUpdate}
-					open={statsOpen}
+					statsOpen={statsOpen}
+					messagesOpen={messagesOpen}
 				/>
 
 				<Routes>
