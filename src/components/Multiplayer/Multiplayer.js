@@ -5,96 +5,94 @@ import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
 import { Search, Plus } from "react-feather";
 import Notification from "../Notification/Notification";
-import Login from './Login';
+import Login from "./Login";
 
 const CustomTextField = styled(TextField)({
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "white",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "white",
-    },
-    "&:hover fieldset": {
-      borderColor: "white",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "white",
-    },
-  },
+	"& .MuiInput-underline:after": {
+		borderBottomColor: "white",
+	},
+	"& .MuiOutlinedInput-root": {
+		"& fieldset": {
+			borderColor: "white",
+		},
+		"&:hover fieldset": {
+			borderColor: "white",
+		},
+		"&.Mui-focused fieldset": {
+			borderColor: "white",
+		},
+	},
 });
 
 export default function Multiplayer(props) {
-  const lobby = props.lobby;
-  const setLobby = props.setLobby;
-  const code = props.code;
-  const nameRef = props.nameRef;
-  const socket = props.socket;
-  const [rooms, setRooms] = useState([]);
-  const name = props.name;
-  const setName = props.setName;
+	const lobby = props.lobby;
+	const setLobby = props.setLobby;
+	const code = props.code;
+	const nameRef = props.nameRef;
+	const socket = props.socket;
+	const [rooms, setRooms] = useState([]);
+	const name = props.name;
+	const setName = props.setName;
 
-  const CreateGameOpen = props.CreateGameOpen;
+	const CreateGameOpen = props.CreateGameOpen;
 
-  useEffect(() => {
-    socket.emit("fetchRooms");
-  }, [socket]);
+	useEffect(() => {
+		socket.emit("fetchRooms");
+	}, [socket]);
 
+	socket.on("updateRooms", (rooms) => {
+		// console.log("updated rooms", rooms);
+		setRooms(rooms);
+	});
+	socket.on("fetchRoomsRes", (rooms) => {
+		// console.log("updated rooms from fetch: ", rooms);
+		setRooms(rooms);
+	});
 
-  socket.on("updateRooms", (rooms) => {
-    // console.log("updated rooms", rooms);
-    setRooms(rooms);
-  });
-  socket.on("fetchRoomsRes", (rooms) => {
-    // console.log("updated rooms from fetch: ", rooms);
-    setRooms(rooms);
-  });
+	return (
+		<div className="multiplayer">
+			<Notification />
+			{!lobby && name === "" && <Login setName={setName} name={name} />}
+			{!lobby &&
+				(name !== "") && (
+					<div className="join-container">
+						<div className="join">
+							<button className="changeName">Change Name</button>
+							<h2 id="serverBrowserHeader">Server Browser</h2>
+							<div className="search-container">
+								<div className="search">
+									<input
+										className="neumorphic-input"
+										type="text"
+										placeholder="Search..."
+									></input>
+									<button className="search-btn">
+										<Search color="white" />
+									</button>
+								</div>
+								<div className="add">
+									<button
+										className="add-btn"
+										onClick={() => {
+											CreateGameOpen();
+										}}
+									>
+										{/* <Plus color="white" /> */}
+										Create Game
+									</button>
+								</div>
+							</div>
+							{rooms.length === 0 && (
+								<h2>no one is hosting a game right now...</h2>
+							)}
+							<ServerBrowser
+								setLobby={setLobby}
+								name={name}
+								socket={socket}
+								rooms={rooms}
+							/>
 
-  
-
-  return (
-    <div className="multiplayer">
-      <Notification />
-      {!lobby && name === '' && (
-        <Login setName={setName} name={name} />
-      )}
-      {!lobby && name !== '' (
-        <div className="join-container">
-          <div className="join">
-            <button className="changeName">Change Name</button>
-            <h2 id="serverBrowserHeader">Server Browser</h2>
-            <div className="search-container">
-              <div className="search">
-                <input
-                  className="neumorphic-input"
-                  type="text"
-                  placeholder="Search..."
-                ></input>
-                <button className="search-btn">
-                  <Search color="white" />
-                </button>
-              </div>
-              <div className="add">
-                <button
-                  className="add-btn"
-                  onClick={() => {
-                    CreateGameOpen();
-                  }}
-                >
-                  {/* <Plus color="white" /> */}
-                  Create Game
-                </button>
-              </div>
-            </div>
-            {rooms.length === 0 && <h2>no one is hosting a game right now...</h2>}
-            <ServerBrowser
-              setLobby={setLobby}
-              name={name}
-              socket={socket}
-              rooms={rooms}
-            />
-
-            {/* 
+							{/* 
           <CustomTextField
             inputRef={codeRef}
             className="input-div"
@@ -148,10 +146,10 @@ export default function Multiplayer(props) {
             </div>
             
           </div> */}
-          </div>
-        </div>
-      )}
-      {lobby && <Lobby setLobby={setLobby} room={code} />}
-    </div>
-  );
+						</div>
+					</div>
+				)}
+			{lobby && <Lobby setLobby={setLobby} room={code} />}
+		</div>
+	);
 }

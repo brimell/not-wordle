@@ -54,7 +54,7 @@ export default function StatsModal(props) {
       const messageClass = username === (name === '' ? 'Anonymous' : name) ? 'sent' : 'received';
     
       return (<>
-        <div className={`message ${messageClass}`}>
+        <div className={`message ${messageClass}`} key={props.key}>
           <p>{text}</p>
         </div>
       </>)
