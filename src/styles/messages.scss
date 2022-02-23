@@ -2,19 +2,24 @@
 	min-width: 30vw;
 	min-height: 50vh;
 	form {
-		height: 10vh;
-		position: fixed;
+		height: fit-content;
+		min-height: 5vh;
 		bottom: 0;
-		background-color: rgb(24, 23, 23);
+		background-color: rgb(26, 26, 26);
 		width: 100%;
 		max-width: 728px;
 		display: flex;
 		font-size: 1.5rem;
+		border-radius: 10px;
+		overflow: hidden;
 	}
 
 	form button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		width: 20%;
-		background-color: rgb(56, 56, 143);
+		background-color: var(--primary);
 	}
 
 	input {

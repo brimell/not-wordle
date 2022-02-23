@@ -5,6 +5,7 @@ import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
 import { Search, Plus } from "react-feather";
 import Notification from "../Notification/Notification";
+import Login from './Login';
 
 const CustomTextField = styled(TextField)({
   "& .MuiInput-underline:after": {
@@ -39,11 +40,6 @@ export default function Multiplayer(props) {
     socket.emit("fetchRooms");
   }, [socket]);
 
-  useEffect(() => {
-    if (name !== "") {
-      localStorage.setItem("name", name);
-    }
-  }, [name]);
 
   socket.on("updateRooms", (rooms) => {
     // console.log("updated rooms", rooms);
@@ -54,24 +50,18 @@ export default function Multiplayer(props) {
     setRooms(rooms);
   });
 
-  function handleNameChange(event) {
-    setName(event.target.value);
-  }
+  
 
   return (
     <div className="multiplayer">
       <Notification />
-      {!lobby && (
+      {!lobby && name === '' && (
+        <Login setName={setName} name={name} />
+      )}
+      {!lobby && name !== '' (
         <div className="join-container">
-          <input
-            id="name-input"
-            className="neumorphic-input"
-            type="text"
-            placeholder="Name..."
-            value={name}
-            onChange={handleNameChange}
-          ></input>
           <div className="join">
+            <button className="changeName">Change Name</button>
             <h2 id="serverBrowserHeader">Server Browser</h2>
             <div className="search-container">
               <div className="search">

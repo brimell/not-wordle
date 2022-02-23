@@ -41,7 +41,7 @@ export default function StatsModal(props) {
 			await messagesRef.add({
 				text: formValue,
 				createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-				user: name,
+				user: name === '' ? 'Anonymous' : name,
 			});
 
 			setFormValue("");
@@ -51,7 +51,7 @@ export default function StatsModal(props) {
     function ChatMessage(props) {
       const { text, username } = props.message;
     
-      const messageClass = username === name ? 'sent' : 'received';
+      const messageClass = username === (name === '' ? 'Anonymous' : name) ? 'sent' : 'received';
     
       return (<>
         <div className={`message ${messageClass}`}>
