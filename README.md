@@ -2,7 +2,7 @@
 
 All credit to [Wordle](https://www.powerlanguage.co.uk/wordle/)
 
-play my version [on my website](https://notwordle.rimell.cc)
+play my version [on my website](https://rimell.cc/notwordle)
 
 or older versions: [on netlify](https://notwordle.netlify.app) or [on github](https://raaydon.github.io/not-wordle/)
 

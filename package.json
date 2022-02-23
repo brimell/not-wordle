@@ -1,13 +1,11 @@
 {
   "name": "not-wordle",
   "version": "0.1.0",
-  "homepage": "https://raaydon.github.io/not-wordle/",
+  "homepage": "/",
   "private": false,
   "dependencies": {
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.3.1",
-    "@socket.io/admin-ui": "^0.2.0",
-    "express-rate-limit": "^6.2.0",
     "firebase": "^9.6.7",
     "gsap": "^3.9.1",
     "jquery": "^3.6.0",
@@ -21,7 +19,6 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "sass": "^1.49.7",
-    "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1",
     "typescript": "^4.5.4"
   },

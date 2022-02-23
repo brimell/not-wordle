@@ -91,6 +91,15 @@
   gap: 2%;
 }
 
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 90%;
+}
+
 .player-list-item {
   display: flex;
   flex-direction: row;
