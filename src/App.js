@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import "./styles/__main.scss";
 
 import { seed } from "./components/util";
@@ -6,17 +6,19 @@ import './components/firebaseInit'
 
 import { useModal } from "react-hooks-use-modal";
 
+import Loading from './components/Loading'
 import Nav from "./components/Nav";
-import StatsModal from "./components/Modals/StatsModal";
-import MessagesModal from "./components/Modals/MessagesModal";
-import Homepage from "./components/Homepage";
 
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import Multiplayer from "./components/Multiplayer/Multiplayer";
-import GameParent from "./components/Game/GameParent";
-import Mathler from "./components/Mathler";
-import CreateGameModal from "./components/Modals/CreateGameModal";
 import socket from "./components/socketio";
+
+const Multiplayer = lazy(() => import("./components/Multiplayer/Multiplayer"));
+const GameParent = lazy(() => import("./components/Game/GameParent"));
+const Mathler = lazy(() => import("./components/Mathler"));
+const CreateGameModal = lazy(() => import("./components/Modals/CreateGameModal"));
+const Homepage = lazy(() => import("./components/Homepage"));
+const MessagesModal = lazy(() => import("./components/Modals/MessagesModal"));
+const StatsModal = lazy(() => import("./components/Modals/StatsModal"));
 
 if (!localStorage.getItem("wordMode")) {
 	localStorage.setItem("wordMode", "todaysWord");
@@ -53,6 +55,7 @@ function App() {
 
 	return (
 		<Router>
+			<Suspense fallback={<Loading />}>
 			<div className="App-container target-light">
 				<CreateGameModal
 					name={name}
@@ -116,6 +119,7 @@ function App() {
 					<Route path="/mathler" element={<Mathler />}></Route>
 				</Routes>
 			</div>
+			</Suspense>
 		</Router>
 	);
 }
