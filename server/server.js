@@ -8,7 +8,7 @@ const { instrument } = require("@socket.io/admin-ui");
 
 const { Users } = require("./utils/users");
 let users = new Users();
-const SocketManager = require("./utils/socketManager");
+const SocketManager = require("./utils/SocketManager");
 
 const app = express();
 const server = require("http").Server(app);
@@ -66,7 +66,7 @@ app.get("/not-wordle", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-	console.log(`express server listening on port ${PORT}`);
+	console.log(`server listening on port ${PORT}`);
 });
 
 var auth = {
