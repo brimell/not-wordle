@@ -33,8 +33,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "server": "node server/server.js",
-    "serverdev": "nodemon server/server.js",
+    "server": "nodemon server/server.js",
     "heroku": "git add . && git commit -m 'heroku' && git push heroku master",
     "autoprefixer": "postcss src/*.css --use autoprefixer -d build/",
     "dura": "dura watch && dura serve"
