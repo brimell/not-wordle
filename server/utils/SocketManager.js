@@ -1,67 +1,4 @@
-const { readFileSync } = require("fs");
-const { createServer } = require("https");
-const { Server } = require("socket.io");
-const rateLimit = require("express-rate-limit");
-
-const credentials = {
-	key: readFileSync("/etc/letsencrypt/live/rimell.cc/privkey.pem"),
-	cert: readFileSync("/etc/letsencrypt/live/rimell.cc/fullchain.pem"),
-};
-const socketioServer = createServer(credentials);
-const io = new Server(socketioServer, {
-	cors: {
-		origin: [
-			"http://localhost:3000",
-			"http://localhost:5000",
-			"http://rimell.cc:5000",
-			"https://rimell.cc:3001",
-			"https://rimell.cc:5000",
-			"https://github.com",
-			"https://raaydon.github.io",
-			"https://admin.socket.io",
-		],
-	},
-});
-
-const { instrument } = require("@socket.io/admin-ui");
-
-const { Users } = require("./utils/users");
-let users = new Users();
-const common = require("./utils/common.json");
-
-const path = require("path");
-const express = require("express");
-
-const app = express();
-
-// uncomment to run locally
-
-// const http = require("http");
-// const express = require("express");
-// const socketio = require("socket.io");
-// const cors = require("cors");
-
-// const { instrument } = require("@socket.io/admin-ui");
-
-// const { Users } = require("./utils/users");
-// let users = new Users();
-// const common = require("../src/Wordlist/common.json");
-
-// const app = express();
-// const server = http.createServer(app);
-// const io = socketio(server, {
-//   cors: {
-//     origin: [
-//       "http://localhost:3000",
-//       "http://localhost:5000",
-//       "http://rimell.cc:5000",
-//       "https://github.com",
-//       "https://raaydon.github.io",
-//       "https://admin.socket.io",
-//     ],
-//   },
-// });
-// app.use(cors());
+const common = require("./common.json");
 
 const makeRandom = () => Math.random();
 let random = makeRandom();
@@ -78,7 +15,7 @@ function randomTarget(wordLength) {
 	return pick(eligible);
 }
 
-io.on("connection", (socket) => {
+const SocketManager = (socket, io, users) => {
 	console.log("new connection", socket.id);
 
 	socket.on("joinRoom", (props) => {
@@ -144,12 +81,7 @@ io.on("connection", (socket) => {
 
 	socket.on("fetchFullUsersList", (props) => {
 		const user = users.getUser(socket.id);
-		if (user && props) {
-			io.to(socket.id).emit(
-				"updateFullUsersList",
-				users.getFullUserList(user.room)
-			);
-		} else if (user) {
+		if (user) {
 			io.to(user.room).emit(
 				"updateFullUsersList",
 				users.getFullUserList(user.room)
@@ -182,6 +114,12 @@ io.on("connection", (socket) => {
 		if (user) {
 			io.to(socket.id).emit("getUserRes", user);
 		}
+	});
+
+	socket.on("getAllUsers", (props) => {
+		console.log("test");
+		const all_users = users.getAllUsers();
+		io.to(socket.id).emit("getAllUsersRes", all_users);
 	});
 
 	socket.on("update-grid", (grid) => {
@@ -259,41 +197,6 @@ io.on("connection", (socket) => {
 			socket.broadcast.emit("updateRooms", users.getRoomList());
 		}
 	});
-});
+};
 
-// app.use(
-//   rateLimit({
-//     windowMs: 30000, // 30 seconds
-//     max: 500,
-//     message: "You exceeded the rate limit.",
-//     headers: true,
-//   })
-// );
-
-// if you want to host on / then change package.json homepage to /
-
-app.use(express.static(path.resolve(__dirname, "../build")));
-
-app.get("/notwordle", (req, res) => {
-	res.send("notwordle");
-});
-app.get("/", (req, res) => {
-	res.sendFile(path.resolve(__dirname, "../build", "index.html"));
-});
-
-// wordle app server
-
-const server = createServer(credentials, app);
-server.listen(3001, () => {
-	console.log("express server listening on port 3001");
-});
-
-const PORT = process.env.PORT || 5000;
-// server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
-// socketio server
-socketioServer.listen(PORT, () => 
-	console.log(`Server running on port ${PORT}`)
-);
-instrument(io, { auth: false }); // go to admin.socket.io for admin panel
+module.exports = SocketManager;
