@@ -2,8 +2,10 @@ import io from "socket.io-client";
 import axios from 'axios';
 
 function getPort() {
-    console.log(window.location)
-    axios.get('/port')
+    if (window.location.host.startsWith('localhost')) {
+        return 3000;
+    }
+    axios.get(window.location.origin + "/port")
 
 }
 
