@@ -8,12 +8,6 @@ import $ from "jquery";
 import { useModal } from "react-hooks-use-modal";
 import CloseIcon from "@mui/icons-material/Close";
 
-const GameState = {
-  Playing: "Playing",
-  Won: "Won",
-  Lost: "Lost",
-};
-
 const targets = common.slice(0, 20000); // adjust for max target freakiness
 
 function randomTarget(wordLength) {
