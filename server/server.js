@@ -28,7 +28,6 @@ const io = socketio(server, {
 			"https://github.com",
 			"https://raaydon.github.io",
 			"https://admin.socket.io",
-			"https://notwordle.herokuapp.com:5000/",
 			"https://notwordle.herokuapp.com:3000/",
 			"https://notwordle.herokuapp.com:*",
 			"https://notwordle.herokuapp.com",
