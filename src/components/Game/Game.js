@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Row, RowState } from "./Row";
+import { Row } from "./Row";
 import { clue } from "./clue";
 import { Keyboard } from "../Keyboard";
 import common from "../../Wordlist/common.json";
