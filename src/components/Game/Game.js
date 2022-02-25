@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Row } from "./Row";
+import { Row, RowState } from "./Row";
 import { clue } from "./clue";
 import { Keyboard } from "../Keyboard";
 import common from "../../Wordlist/common.json";
@@ -7,6 +7,12 @@ import { pick, resetRng, seed } from "../util";
 import $ from "jquery";
 import { useModal } from "react-hooks-use-modal";
 import CloseIcon from "@mui/icons-material/Close";
+
+const GameState = {
+  Playing: "Playing",
+  Won: "Won",
+  Lost: "Lost",
+};
 
 const targets = common.slice(0, 20000); // adjust for max target freakiness
 
@@ -66,7 +72,7 @@ function updateStats(gameState, wordLength, guesses) {
 function Game(props) {
   var currGrid = [];
   const socket = props.socket || null;
-  const [gameState, setGameState] = useState("Playing");
+  const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState("");
   const [wordLength, setWordLength] = useState(
@@ -96,7 +102,7 @@ function Game(props) {
     setGuesses([]);
     setCurrentGuess("");
     setHint("");
-    setGameState("Playing");
+    setGameState(GameState.Playing);
     setGameNumber((x) => x + 1);
   };
 
@@ -120,7 +126,7 @@ function Game(props) {
   }
 
   const onKey = (key) => {
-    if (gameState !== "Playing") {
+    if (gameState !== GameState.Playing) {
       console.log("game is not playing");
       if (key === "enter") {
         startNextGame();
@@ -149,10 +155,10 @@ function Game(props) {
         props.setMultiplayerGrid(currGrid);
       }
       if (currentGuess === target) {
-        setGameState("Won");
+        setGameState(GameState.Won);
         updateStats(true, wordLength, guesses.length);
         if (props.target) {
-          handleGameFinish("Won");
+          handleGameFinish(GameState.Won);
         } else {
           if (seed) {
             disableTodaysWord();
@@ -162,11 +168,11 @@ function Game(props) {
           }
         }
       } else if (guesses.length + 1 === props.maxGuesses) {
-        setGameState("Lost");
+        setGameState(GameState.Lost);
         updateStats(false, wordLength, guesses.length);
 
         if (props.target) {
-          handleGameFinish("Lost");
+          handleGameFinish(GameState.Lost);
         } else {
           if (seed) {
             disableTodaysWord();
@@ -224,7 +230,7 @@ function Game(props) {
         <Row
           key={i}
           wordLength={wordLength}
-          rowState={lockedIn ? "LockedIn" : "Pending"}
+          rowState={lockedIn ? RowState.LockedIn : RowState.Pending}
           cluedLetters={cluedLetters}
         />
       );
@@ -251,10 +257,10 @@ function Game(props) {
         <div className="modalContainer">
           <CloseIcon onClick={close} className="modalCloseIcon" />
           <h1 className="statsHeader">
-            {gameState === "Won" ? "Well Done!" : "Nice Try!"}
+            {gameState === GameState.Won ? "Well Done!" : "Nice Try!"}
           </h1>
           <p>
-            {(gameState === "Won"
+            {(gameState === GameState.Won
               ? "You have just completed todays word!"
               : "Unfortunately, you have failed todays word.") +
               "You can continue playing by closing out of this popup and pressing enter."}
@@ -282,7 +288,7 @@ function Game(props) {
             max="8"
             id="wordLength"
             disabled={
-              gameState === "Playing" &&
+              gameState === GameState.Playing &&
               (guesses.length > 0 || currentGuess !== "")
             }
             value={wordLength}
@@ -290,7 +296,7 @@ function Game(props) {
               const length = Number(e.target.value);
               resetRng();
               setGameNumber(1);
-              setGameState("Playing");
+              setGameState(GameState.Playing);
               setGuesses([]);
               setTarget(randomTarget(length));
               setWordLength(length);
@@ -303,7 +309,7 @@ function Game(props) {
           <button
             className="button is-primary is-outlined"
             style={{ flex: "0" }}
-            disabled={gameState !== "Playing" || guesses.length === 0}
+            disabled={gameState !== GameState.Playing || guesses.length === 0}
             onClick={async () => {
               if (seed) {
                 disableTodaysWord();
@@ -340,7 +346,7 @@ function Game(props) {
                 );
               }
 
-              setGameState("Lost");
+              setGameState(GameState.Lost);
               if (seed) {
                 disableTodaysWord();
               }

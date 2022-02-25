@@ -19,10 +19,18 @@ const io = socketio(server, {
 	cors: {
 		origin: [
 			"http://localhost:*",
-			"https://rimell.cc:*",
+			"http://localhost:3001",
+			"http://localhost:3000",
+			"http://localhost:5000",
+			"http://rimell.cc:5000",
+			"https://rimell.cc:3001",
+			"https://rimell.cc:5000",
+			"https://github.com",
 			"https://raaydon.github.io",
 			"https://admin.socket.io",
+			"https://notwordle.herokuapp.com:3000/",
 			"https://notwordle.herokuapp.com:*",
+			"https://notwordle.herokuapp.com",
 		],
 	},
 });
@@ -49,8 +57,8 @@ app.use(express.static(path.resolve(__dirname, "../build")));
 app.get("/notwordle", (req, res) => {
 	res.send("notwordle");
 });
-app.get("/port", (req, res) => {
-	res.send(process.env.PORT);
+app.get("/path", (req, res) => {
+	res.send(__dirname);
 });
 app.get("/not-wordle", (req, res) => {
 	res.sendFile(path.resolve(__dirname, "../build/index.html"));
