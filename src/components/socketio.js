@@ -4,8 +4,9 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
+const firestore = firebase.firestore();
+
 function getPort() {
-    const firestore = firebase.firestore();
     
 }
 
