@@ -156,8 +156,9 @@ io.on("connection", (socket) => {
 		}
 	});
 
-	socket.on("getAllUsers", () => {
-		all_users = users.getAllUsers();
+	socket.on("getAllUsers", (props) => {
+		console.log('test')
+		const all_users = users.getAllUsers();
 		io.to(socket.id).emit("getAllUsersRes", all_users);
 	});
 

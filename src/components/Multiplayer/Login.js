@@ -28,9 +28,9 @@ export default function Login(props) {
 			></input>
 			<button
 				className="nameSubmit"
-				onClick={async () => {
-					socket.emit("fetchFullUsersList", {private: true}); // private is true
-					await socket.on("updateFullUsersList", (users) => {
+				onClick={() => {
+					socket.emit("getAllUsers");
+					socket.on("getAllUsersRes", (users) => {
 						var dupe = false;
 						// if (users.length > 0) {
 						// 	for (var i = 0; i < users.length; i++) {
