@@ -230,7 +230,7 @@ function Game(props) {
         <Row
           key={i}
           wordLength={wordLength}
-          rowState={lockedIn ? RowState.LockedIn : RowState.Pending}
+          rowState={lockedIn ? "LockedIn" : "Pending"}
           cluedLetters={cluedLetters}
         />
       );
