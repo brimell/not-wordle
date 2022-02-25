@@ -69,16 +69,16 @@ server.listen(PORT, () => {
 	console.log(`server listening on port ${PORT}`);
 });
 
-var auth = {
-	auth: {
-		type: "basic",
-		username: process.env.USERNAME,
-		password: process.env.PASSWORD,
-	},
-};
+var auth = { auth: false };
 
 if (process.env.USERNAME && process.env.PASSWORD) {
-	auth = { auth: false}
+	auth = {
+		auth: {
+			type: "basic",
+			username: process.env.USERNAME,
+			password: process.env.PASSWORD,
+		},
+	};
 }
 
 instrument(io, auth); // go to admin.socket.io for admin panel
