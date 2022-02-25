@@ -19,10 +19,10 @@ export function clue(word, target) {
 	});
 }
 
-export function clueClass(clue: Clue): string {
-	if (clue === Clue.Absent) {
+export function clueClass(clue) {
+	if (clue === "Absent") {
 		return "letter-absent";
-	} else if (clue === Clue.Elsewhere) {
+	} else if (clue === "Elsewhere") {
 		return "letter-elsewhere";
 	} else {
 		return "letter-correct";
