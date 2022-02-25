@@ -36,7 +36,7 @@ const io = socketio(server, {
 });
 
 io.on("connection", (socket) => {
-	SocketManager(socket, io, users)
+	SocketManager(socket, io, users);
 });
 
 // app.use(
@@ -58,8 +58,8 @@ app.get("/notwordle", (req, res) => {
 	res.send("notwordle");
 });
 app.get("/path", (req, res) => {
-	res.send(__dirname)
-})
+	res.send(__dirname);
+});
 app.get("/not-wordle", (req, res) => {
 	res.sendFile(path.resolve(__dirname, "../build/index.html"));
 });
@@ -69,4 +69,16 @@ server.listen(PORT, () => {
 	console.log(`express server listening on port ${PORT}`);
 });
 
-instrument(io, { auth: false }); // go to admin.socket.io for admin panel
+var auth = {
+	auth: {
+		type: "basic",
+		username: process.env.USERNAME,
+		password: process.env.PASSWORD,
+	},
+};
+
+if (process.env.USERNAME && process.env.PASSWORD) {
+	auth = { auth: false}
+}
+
+instrument(io, auth); // go to admin.socket.io for admin panel
