@@ -1,15 +1,5 @@
 import { clueClass } from "./clue";
 
-export enum RowState {
-	Pending,
-}
-
-interface RowProps {
-	rowState: RowState;
-	wordLength: number;
-	cluedLetters: CluedLetter[];
-}
-
 export function Row(props) {
 	const isLockedIn = props.rowState === "LockedIn";
 	const letterDivs = props.cluedLetters
