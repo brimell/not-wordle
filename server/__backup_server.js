@@ -2,6 +2,8 @@
 const http = require("http");
 const express = require("express");
 const socketio = require("socket.io");
+const cors = require("cors");
+const path = require("path");
 
 const { instrument } = require("@socket.io/admin-ui");
 
@@ -21,6 +23,7 @@ const io = socketio(server, {
 			"http://rimell.cc:5000",
 			"https://rimell.cc:3001",
 			"https://rimell.cc:5000",
+			"https://github.com",
 			"https://raaydon.github.io",
 			"https://admin.socket.io",
 			"https://notwordle.herokuapp.com:5000/",
@@ -30,6 +33,7 @@ const io = socketio(server, {
 		],
 	},
 });
+app.use(cors());
 
 const makeRandom = () => Math.random();
 let random = makeRandom();
@@ -230,8 +234,33 @@ io.on("connection", (socket) => {
 	});
 });
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () =>
-	console.log(`SocketIO server running on port ${PORT}`)
+// app.use(
+//   rateLimit({
+//     windowMs: 30000, // 30 seconds
+//     max: 500,
+//     message: "You exceeded the rate limit.",
+//     headers: true,
+//   })
+// );
+
+// if you want to host on / then change package.json homepage to /
+
+app.use(express.static(path.resolve(__dirname, "../build")));
+
+app.get("/notwordle", (req, res) => {
+	res.send("notwordle");
+});
+app.get("/", (req, res) => {
+	res.sendFile(path.resolve(__dirname, "../build", "index.html"));
+});
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+	console.log(`express server listening on port ${PORT}`);
+});
+
+const SOCKETIO_PORT = process.env.SOCKETIO_PORT || 5000;
+server.listen(SOCKETIO_PORT, () =>
+	console.log(`SocketIO server running on port ${SOCKETIO_PORT}`)
 );
 instrument(io, { auth: false }); // go to admin.socket.io for admin panel
