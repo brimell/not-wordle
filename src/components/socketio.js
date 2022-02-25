@@ -2,7 +2,7 @@ import io from "socket.io-client";
 import axios from 'axios';
 
 function getPort() {
-
+    axios.get('http://localhost:3000/port')
 }
 
 const socket = io.connect(`https://notwordle.herokuapp.com:${getPort()}`);
