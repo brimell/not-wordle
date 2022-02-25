@@ -1,14 +1,3 @@
-export enum Clue {
-	Absent,
-	Elsewhere,
-	Correct,
-}
-
-export interface CluedLetter {
-	clue?: Clue;
-	letter: string;
-}
-
 export function clue(word: string, target: string): CluedLetter[] {
 	let elusive: string[] = [];
 	target.split("").forEach((letter, i) => {
