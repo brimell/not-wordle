@@ -56,16 +56,24 @@ export default function Multiplayer(props) {
 		}
 	}, []);
 
+	useEffect(() => {
+		console.log("login: ", login);
+	}, [login]);
+
 	return (
 		<div className="multiplayer">
 			<Notification />
-			{!lobby && login && <Login socket={socket} setLogin={setLogin} setName={setName} name={name} />}
+			{!lobby && login && (
+				<Login
+					socket={socket}
+					setLogin={setLogin}
+					setName={setName}
+					name={name}
+				/>
+			)}
 			{!lobby && !login && (
 				<div className="join-container">
 					<div className="join">
-						<button className="changeName" onClick={setLogin(true)}>
-							Change Name
-						</button>
 						<h2 id="serverBrowserHeader">Server Browser</h2>
 						<div className="search-container">
 							<div className="search">
@@ -89,6 +97,14 @@ export default function Multiplayer(props) {
 									Create Game
 								</button>
 							</div>
+							<button
+								className="changeNameBtn"
+								onClick={() => {
+									setLogin(true);
+								}}
+							>
+								Change Name
+							</button>
 						</div>
 						{rooms.length === 0 && (
 							<h2>no one is hosting a game right now...</h2>
