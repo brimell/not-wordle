@@ -49,6 +49,7 @@ io.on("connection", (socket) => {
 // );
 
 // if you want to host on / then change package.json homepage to /
+
 app.use(cors());
 
 app.use(express.static(path.resolve(__dirname, "../build")));
