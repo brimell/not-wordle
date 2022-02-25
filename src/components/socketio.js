@@ -2,15 +2,17 @@ import io from "socket.io-client";
 import axios from "axios";
 
 function getPort() {
-	if (window.location.host.startsWith("localhost")) {
-		return 3000;
-	}
-	axios.get(window.location.origin + "/port").then((res) => {
+	axios.get("https://notwordle.herokuapp.com/port").then((res) => {
 		return res.data;
 	});
 }
+var socket;
 
-const socket = io.connect(`https://notwordle.herokuapp.com:${getPort()}`);
+if (window.location.host.startsWith("localhost")) {
+	socket = io.connect("http://localhost:3000");
+} else {
+	socket = io.connect(`https://notwordle.herokuapp.com:${getPort()}`);
+}
 // const socket = io('https://rimell.cc:5000')
 // const socket = io('http://localhost:3000')
 // const socket = io('http://localhost:5000')
