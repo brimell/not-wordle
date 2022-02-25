@@ -1,20 +1,20 @@
-export function clue(word, target): CluedLetter[] {
-	let elusive: string[] = [];
+export function clue(word, target) {
+	let elusive = [];
 	target.split("").forEach((letter, i) => {
 		if (word[i] !== letter) {
 			elusive.push(letter);
 		}
 	});
 	return word.split("").map((letter, i) => {
-		let j: number;
+		let j;
 		if (target[i] === letter) {
-			return { clue: Clue.Correct, letter };
+			return { clue, letter };
 		} else if ((j = elusive.indexOf(letter)) > -1) {
 			// "use it up" so we don't clue at it twice
 			elusive[j] = "";
-			return { clue: Clue.Elsewhere, letter };
+			return { clue, letter };
 		} else {
-			return { clue: Clue.Absent, letter };
+			return { clue, letter };
 		}
 	});
 }
