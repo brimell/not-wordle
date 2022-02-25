@@ -97,32 +97,34 @@ export default function Lobby(props) {
 					>
 						Waiting for players
 					</h2>
-					<div className="player-list">
-						{users.map((user, i) => {
-							return <PlayerListItem user={user} key={i} />;
-						})}
-					</div>
-					{startHide && (
+					<div className="lobby-body">
+						<div className="player-list">
+							{users.map((user, i) => {
+								return <PlayerListItem user={user} key={i} />;
+							})}
+						</div>
+						{startHide && (
+							<Button
+								className="start-game-btn"
+								variant="contained"
+								onClick={() => {
+									startGame(setGame);
+								}}
+							>
+								Start game
+							</Button>
+						)}
 						<Button
-							className="start-game-btn"
+							className="leave-room-btn"
 							variant="contained"
 							onClick={() => {
-								startGame(setGame);
+								socket.emit("leave-room");
+								props.setLobby(false);
 							}}
 						>
-							Start game
+							Leave
 						</Button>
-					)}
-					<Button
-						className="leave-room-btn"
-						variant="contained"
-						onClick={() => {
-							socket.emit("leave-room");
-							props.setLobby(false);
-						}}
-					>
-						Leave
-					</Button>
+					</div>
 				</div>
 			)}
 			{game && <GameParent socket={socket} target={target} />}
