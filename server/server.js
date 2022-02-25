@@ -28,6 +28,7 @@ const io = socketio(server, {
 			"https://admin.socket.io",
 			"https://not-wordle-server.herokuapp.com:5000/",
 			"https://not-wordle-server.herokuapp.com:3000/",
+			"https://not-wordle-server.herokuapp.com:*",
 			"https://not-wordle-server.herokuapp.com",
 		],
 	},
