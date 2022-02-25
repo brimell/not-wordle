@@ -1,4 +1,4 @@
-export function clue(word: string, target: string): CluedLetter[] {
+export function clue(word, target): CluedLetter[] {
 	let elusive: string[] = [];
 	target.split("").forEach((letter, i) => {
 		if (word[i] !== letter) {
