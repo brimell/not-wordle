@@ -116,12 +116,7 @@ io.on("connection", (socket) => {
 
 	socket.on("fetchFullUsersList", (props) => {
 		const user = users.getUser(socket.id);
-		if (user && props.private !== undefined) {
-			io.to(socket.id).emit(
-				"updateFullUsersList",
-				users.getFullUserList(user.room)
-			);
-		} else if (user) {
+		if (user) {
 			io.to(user.room).emit(
 				"updateFullUsersList",
 				users.getFullUserList(user.room)
