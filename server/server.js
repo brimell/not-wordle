@@ -19,18 +19,10 @@ const io = socketio(server, {
 	cors: {
 		origin: [
 			"http://localhost:*",
-			"http://localhost:3001",
-			"http://localhost:3000",
-			"http://localhost:5000",
-			"http://rimell.cc:5000",
-			"https://rimell.cc:3001",
-			"https://rimell.cc:5000",
-			"https://github.com",
+			"https://rimell.cc:*",
 			"https://raaydon.github.io",
 			"https://admin.socket.io",
-			"https://notwordle.herokuapp.com:3000/",
 			"https://notwordle.herokuapp.com:*",
-			"https://notwordle.herokuapp.com",
 		],
 	},
 });
