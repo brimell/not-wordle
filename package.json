@@ -20,17 +20,24 @@
     "react-scripts": "5.0.0",
     "sass": "^1.49.7",
     "socket.io-client": "^4.4.1",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "@socket.io/admin-ui": "^0.2.0",
+    "express": "^4.17.3",
+    "express-rate-limit": "^6.2.0",
+    "firebase": "^9.6.7",
+    "socket.io": "^4.4.1"
   },
   "scripts": {
     "predeploy": "npm run build",
     "githubdeploy": "npm run build && gh-pages -d build",
     "netlifydeploy": "npm run build && netlify deploy --prod",
-    "start": "react-scripts start",
+    "start": "node server/server.js",
+    "reactstart": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "server": "nodemon server/server.js",
     "serverprod": "node server/server.js",
+    "heroku": "git add . && git commit -m 'heroku' && git push heroku master",
     "autoprefixer": "postcss src/*.css --use autoprefixer -d build/",
     "dura": "dura watch && dura serve"
   },
