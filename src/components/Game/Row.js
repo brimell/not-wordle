@@ -1,7 +1,6 @@
-import {  clueClass, CluedLetter } from "./clue";
+import { clueClass } from "./clue";
 
 export enum RowState {
-	LockedIn,
 	Pending,
 }
 
@@ -11,10 +10,10 @@ interface RowProps {
 	cluedLetters: CluedLetter[];
 }
 
-export function Row(props: RowProps) {
-	const isLockedIn = props.rowState === RowState.LockedIn;
+export function Row(props) {
+	const isLockedIn = props.rowState === "LockedIn";
 	const letterDivs = props.cluedLetters
-		.concat(Array(props.wordLength).fill({ clue: Clue.Absent, letter: "" }))
+		.concat(Array(props.wordLength).fill({ clue: "Absent", letter: "" }))
 		.slice(0, props.wordLength)
 		.map(({ clue, letter }, i) => {
 			let letterClass = "Row-letter";
