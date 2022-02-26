@@ -18,7 +18,7 @@ const server = require("http").Server(app);
 const io = socketio(server, {
 	cors: {
 		origin: [
-			"http://localhost:*",
+			"http://localhost:3000",
 			"https://rimell.cc",
 			"https://raaydon.github.io",
 			"https://admin.socket.io",
@@ -56,7 +56,7 @@ app.get("/not-wordle", (req, res) => {
 	res.sendFile(path.resolve(__dirname, "../build/index.html"));
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
 	console.log(`server listening on port ${PORT}`);
 });

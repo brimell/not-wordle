@@ -17,11 +17,13 @@
 	margin: 10px !important;
 }
 
-.loading-text:after {
-	content: " .";
-	animation: dots 1s steps(5, end) infinite;
+.loading-text {
+	color: var(--body);
+	&:after {
+		content: " .";
+		animation: dots 1s steps(5, end) infinite;
+	}
 }
-
 @keyframes dots {
 	0%,
 	20% {
@@ -29,20 +31,16 @@
 		text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
 	}
 	40% {
-		color: white;
+		color: var(--body);
 		text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
 	}
 	60% {
-		text-shadow: 0.25em 0 0 white, 0.5em 0 0 rgba(0, 0, 0, 0);
+		text-shadow: 0.25em 0 0 var(--body), 0.5em 0 0 rgba(0, 0, 0, 0);
 	}
 	80%,
 	100% {
-		text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
+		text-shadow: 0.25em 0 0 var(--body), 0.5em 0 0 var(--body);
 	}
-}
-
-.code-txt {
-	color: #1565c0;
 }
 
 #serverBrowserHeader {
@@ -56,7 +54,7 @@
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
-	width: 90%;
+	width: 100%;
 	height: auto;
 	border-radius: 20px;
 	padding: 2rem;
@@ -64,6 +62,18 @@
 	overflow: auto;
 	padding-bottom: 0;
 	overflow-x: hidden;
+}
+
+@media only screen and (min-width: 900px) {
+	.join {
+		width: 90%;
+	}
+}
+@media only screen and (max-height: 610px) {
+	.join {
+		padding-top: 0;
+		align-items: center;
+	}
 }
 
 .join-container {
@@ -87,32 +97,6 @@
 	gap: 5vh;
 }
 
-.player-list-item {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	margin: 10px;
-	padding: 10px;
-	border-radius: 10pxpx;
-	background-color: #2a394b;
-}
-
-.player-list {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	margin: 10px;
-	max-width: 50vw;
-	flex-wrap: wrap;
-}
-
-.add-btn {
-	color: white;
-	font-size: 2.5vh;
-}
-
 .changeNameBtn {
 	background-color: grey;
 }
@@ -125,12 +109,18 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-around;
 }
 .search {
 	display: flex;
 	align-items: center;
 	color: black;
+}
+
+@media only screen and (max-width: 700px) {
+	.search {
+		display: none;
+	}
 }
 .search-btn {
 	background: #565e70;
@@ -144,12 +134,7 @@
 	width: 52px;
 }
 .add-btn {
-	background: var(--btn-primary);
-	border-radius: 1rem;
-	border: none;
-	padding: 10px;
 	position: relative;
-	cursor: pointer;
 	white-space: nowrap;
 	/* height: 52px; for smaller btn
   width: 52px; */

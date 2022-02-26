@@ -190,7 +190,6 @@ a {
 }
 
 @media only screen and (max-height: 1070px) {
-	/* 1070px or less*/
 	.Row-letter {
 		width: 7vh;
 		height: 7vh;

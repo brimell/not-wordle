@@ -10,7 +10,7 @@ function getPort() {
 var socket;
 
 if (window.location.host.startsWith("localhost")) {
-	socket = io.connect("http://localhost:3000");
+	socket = io.connect("http://localhost:3001");
 } else if (window.location.host.startsWith("rimell")) {
 	socket = io.connect(`https://rimell.cc/notwordle`);
 } else {

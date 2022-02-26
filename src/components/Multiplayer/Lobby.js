@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Button } from "@mui/material";
 import socket from "../socketio";
 import GameParent from "../Game/GameParent";
 import PlayerListItem from "./PlayerListItem.js";
@@ -91,39 +90,42 @@ export default function Lobby(props) {
 						Game Code:{" "}
 						<span className="code-txt">{props.room}</span>
 					</h2>
-					<h2
-						style={{ fontSize: "1rem", marginTop: "-20px" }}
-						className="loading-text"
-					>
-						Waiting for players
-					</h2>
+					{users.length === 1 && (
+						<h2
+							style={{ fontSize: "1rem", marginTop: "-20px" }}
+							className="loading-text"
+						>
+							Waiting for players
+						</h2>
+					)}
+
 					<div className="lobby-body">
 						<div className="player-list">
 							{users.map((user, i) => {
 								return <PlayerListItem user={user} key={i} />;
 							})}
 						</div>
-						{startHide && (
-							<Button
-								className="start-game-btn"
-								variant="contained"
+						<div className="lobby-btns">
+							{startHide && users.length > 1 && (
+								<button
+									className="primary start-game-btn"
+									onClick={() => {
+										startGame(setGame);
+									}}
+								>
+									Start game
+								</button>
+							)}
+							<button
+								className="secondary leave-room-btn"
 								onClick={() => {
-									startGame(setGame);
+									socket.emit("leave-room");
+									props.setLobby(false);
 								}}
 							>
-								Start game
-							</Button>
-						)}
-						<Button
-							className="leave-room-btn"
-							variant="contained"
-							onClick={() => {
-								socket.emit("leave-room");
-								props.setLobby(false);
-							}}
-						>
-							Leave
-						</Button>
+								Leave
+							</button>
+						</div>
 					</div>
 				</div>
 			)}

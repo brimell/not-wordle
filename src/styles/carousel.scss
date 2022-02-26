@@ -1,29 +1,3 @@
-:root {
-	// Basic
-	--c-white: #fff;
-	--c-black: #000;
-
-	// Greys
-	--c-ash: #eaeef6;
-	--c-charcoal: #a0a0a0;
-	--c-void: #141b22;
-
-	// Beige/Browns
-	--c-fair-pink: #ffedec;
-	--c-apricot: #fbc8be;
-	--c-coffee: #754d42;
-	--c-del-rio: #917072;
-
-	// Greens
-	--c-java: #1fcac5;
-
-	// Purples
-	--c-titan-white: #f1eeff;
-	--c-cold-purple: #a69fd6;
-	--c-indigo: #6558d3;
-	--c-governor: #4133b7;
-}
-
 .server-browser {
 	display: flex;
 	flex-direction: row;
@@ -31,9 +5,15 @@
 	align-items: center;
 	justify-content: flex-start;
 	gap: 2.5rem;
-	width: 90%;
+	width: 100%;
 	max-width: 80%;
 	overflow-y: scroll;
+}
+
+@media only screen and (max-width: 1000px) {
+	.server-browser {
+		max-width: 100%;
+	}
 }
 
 .noRooms {
@@ -57,8 +37,8 @@
 
 	.tag {
 		display: inline-block;
-		background-color: var(--c-titan-white);
-		color: var(--c-indigo);
+		background-color: var(--highlight);
+		color: var(--headlines);
 		font-weight: 600;
 		font-size: 0.875rem;
 		padding: 0.5em 0.75em;
@@ -74,7 +54,7 @@
 
 	.title {
 		font-size: 1.5rem;
-		color: var(--c-void);
+		color: var(--headlines);
 		line-height: 1.25;
 		& + * {
 			margin-top: 1rem;
@@ -83,7 +63,7 @@
 
 	.subtitle {
 		font-size: 1.125rem;
-		color: #666;
+		color: var(--body);
 		line-height: 1.25;
 		& + * {
 			margin-top: 1rem;
@@ -91,15 +71,13 @@
 	}
 
 	.info {
-		color: var(--c-charcoal);
+		// userlist
+		color: var(--body);
 		margin-top: 0.2rem;
 	}
 
 	.button {
-		font: inherit;
-		line-height: 1;
-		background-color: var(--c-white);
-		border: 2px solid var(--c-indigo);
+		background-color: var(--primary);
 		color: var(--c-indigo);
 		padding: 0.5em 1em;
 		border-radius: 6px;
@@ -108,11 +86,6 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: 0.5rem;
-		&:hover,
-		&:focus {
-			background-color: var(--c-indigo);
-			color: var(--c-white);
-		}
 	}
 
 	.details {
@@ -120,7 +93,7 @@
 		gap: 1rem;
 		div {
 			padding: 0.75em 1em;
-			background-color: var(--c-titan-white);
+			// background-color: var(--bg);
 			border-radius: 8px;
 			display: flex;
 			flex-direction: column-reverse;
@@ -131,12 +104,14 @@
 		}
 
 		dt {
+			// labels
 			font-size: 0.875rem;
-			color: var(--c-cold-purple);
+			color: var(--body);
 		}
 
 		dd {
-			color: var(--c-indigo);
+			// values
+			color: var(--headlines);
 			font-weight: 600;
 			font-size: 1.25rem;
 			margin: 0;

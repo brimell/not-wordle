@@ -15,6 +15,7 @@
 @import "./lobby.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap");
+// @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 
 :root {
 	// bg
@@ -146,13 +147,15 @@ p {
 // global styles
 
 button {
-	border-radius: 8px;
+	font-family: inherit;
+	border-radius: 10px;
 	border: none;
-	padding: 10px;
 	position: relative;
 	cursor: pointer;
 	white-space: nowrap;
-	font-size: 2.5vh;
+	font-size: 1.3vh;
+	font-weight: 400;
+	padding: 12px 30px 12px;
 
 	color: var(--headlines);
 	&.primary {
@@ -166,17 +169,39 @@ button {
 		color: var(--body);
 		cursor: not-allowed;
 	}
+	&:hover {
+		opacity: 0.9;
+		transition: all 0.2s;
+	}
+}
+
+@media only screen and (max-height: 1000px) {
+	button {
+		font-size: 20px;
+	}
+}
+@media only screen and (max-width: 500px) {
+	button {
+		font-size: 16px;
+	}
+}
+@media only screen and (max-width: 400px) {
+	button {
+		font-size: 13px;
+	}
 }
 
 input {
+	font-family: inherit;
 	background: transparent;
 	border: 2px solid rgba(255, 255, 255, 0.1);
-	border-radius: 8px;
+	border-radius: 1rem;
 	color: #4a5568;
 	font-size: 1rem;
-	padding: 1rem;
+	padding: 0.9rem;
 	color: var(--headlines);
 	&.slider {
 		padding: 0;
 	}
 }
+

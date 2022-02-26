@@ -1,28 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button } from "@mui/material";
-import { styled } from "@mui/system";
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
-import { Search, Plus } from "react-feather";
+import { Search } from "react-feather";
 import Notification from "../Notification/Notification";
 import Login from "./Login";
-
-const CustomTextField = styled(TextField)({
-	"& .MuiInput-underline:after": {
-		borderBottomColor: "white",
-	},
-	"& .MuiOutlinedInput-root": {
-		"& fieldset": {
-			borderColor: "white",
-		},
-		"&:hover fieldset": {
-			borderColor: "white",
-		},
-		"&.Mui-focused fieldset": {
-			borderColor: "white",
-		},
-	},
-});
 
 export default function Multiplayer(props) {
 	const lobby = props.lobby;
