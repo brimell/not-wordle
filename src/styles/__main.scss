@@ -176,4 +176,7 @@ input {
 	font-size: 1rem;
 	padding: 1rem;
 	color: var(--headlines);
+	&.slider {
+		padding: 0;
+	}
 }
