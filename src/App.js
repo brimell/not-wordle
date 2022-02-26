@@ -2,11 +2,11 @@ import React, { useState, useEffect, Suspense, lazy } from "react";
 import "./styles/__main.scss";
 
 import { seed } from "./components/util";
-import './components/firebaseInit'
+import "./components/firebaseInit";
 
 import { useModal } from "react-hooks-use-modal";
 
-import Loading from './components/Loading'
+import Loading from "./components/Loading";
 import Nav from "./components/Nav";
 
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
@@ -15,7 +15,9 @@ import socket from "./components/socketio";
 const Multiplayer = lazy(() => import("./components/Multiplayer/Multiplayer"));
 const GameParent = lazy(() => import("./components/Game/GameParent"));
 const Mathler = lazy(() => import("./components/Mathler"));
-const CreateGameModal = lazy(() => import("./components/Modals/CreateGameModal"));
+const CreateGameModal = lazy(() =>
+	import("./components/Modals/CreateGameModal")
+);
 const Homepage = lazy(() => import("./components/Homepage"));
 const MessagesModal = lazy(() => import("./components/Modals/MessagesModal"));
 const StatsModal = lazy(() => import("./components/Modals/StatsModal"));
@@ -56,69 +58,70 @@ function App() {
 	return (
 		<Router>
 			<Suspense fallback={<Loading />}>
-			<div className="App-container target-light">
-				<CreateGameModal
-					name={name}
-					code={code}
-					setCode={setCode}
-					lobby={lobby}
-					setLobby={setLobby}
-					close={CreateGameClose}
-					modal={createGameModal}
-				/>
-				<StatsModal
-					isOpen={statsIsOpen}
-					socket={socket}
-					modal={statsModal}
-					close={statsClose}
-				/>
-				<MessagesModal
-					isOpen={messagesIsOpen}
-					socket={socket}
-					modal={messagesModal}
-					close={messagesClose}
-					name={name}
-				/>
-				<Nav
-					setLobby={setLobby}
-					socket={socket}
-					settings={settings}
-					setSettings={setSettings}
-					setSeedUpdate={setSeedUpdate}
-					statsOpen={statsOpen}
-					messagesOpen={messagesOpen}
-				/>
+				<div className="App-container target-light">
+					<CreateGameModal
+						name={name}
+						code={code}
+						setCode={setCode}
+						lobby={lobby}
+						setLobby={setLobby}
+						close={CreateGameClose}
+						modal={createGameModal}
+					/>
+					<StatsModal
+						isOpen={statsIsOpen}
+						socket={socket}
+						modal={statsModal}
+						close={statsClose}
+					/>
+					<MessagesModal
+						isOpen={messagesIsOpen}
+						socket={socket}
+						modal={messagesModal}
+						close={messagesClose}
+						name={name}
+					/>
+					<Nav
+						setLobby={setLobby}
+						socket={socket}
+						settings={settings}
+						setSettings={setSettings}
+						setSeedUpdate={setSeedUpdate}
+						statsOpen={statsOpen}
+						messagesOpen={messagesOpen}
+					/>
 
-				<Routes>
-					<Route path="/" element={<Homepage />}></Route>
-					<Route
-						path="/multiplayer"
-						element={
-							<Multiplayer
-								socket={socket}
-								name={name}
-								setName={setName}
-								code={code}
-								setCode={setCode}
-								CreateGameOpen={CreateGameOpen}
-								lobby={lobby}
-								setLobby={setLobby}
-							/>
-						}
-					></Route>
-					<Route
-						path="/game"
-						element={
-							<GameParent
-								settings={settings}
-								maxGuesses={maxGuesses}
-								seedUpdate={seedUpdate}
-							/>
-						}
-					></Route>
-					<Route path="/mathler" element={<Mathler />}></Route>
-				</Routes>
-			</div>
+					<Routes>
+						<Route path="/" element={<Homepage />}></Route>
+						<Route
+							path="/multiplayer"
+							element={
+								<Multiplayer
+									socket={socket}
+									name={name}
+									setName={setName}
+									code={code}
+									setCode={setCode}
+									CreateGameOpen={CreateGameOpen}
+									lobby={lobby}
+									setLobby={setLobby}
+								/>
+							}
+						></Route>
+						<Route
+							path="/game"
+							element={
+								<GameParent
+									setSettings={setSettings}
+									settings={settings}
+									maxGuesses={maxGuesses}
+									seedUpdate={seedUpdate}
+								/>
+							}
+						></Route>
+						<Route path="/mathler" element={<Mathler />}></Route>
+					</Routes>
+				</div>
 			</Suspense>
 		</Router>
 	);

@@ -78,7 +78,6 @@ export default function Multiplayer(props) {
 						<div className="search-container">
 							<div className="search">
 								<input
-									className="neumorphic-input"
 									type="text"
 									placeholder="Search..."
 								></input>
@@ -88,7 +87,7 @@ export default function Multiplayer(props) {
 							</div>
 							<div className="add">
 								<button
-									className="add-btn"
+									className="primary add-btn"
 									onClick={() => {
 										CreateGameOpen();
 									}}
@@ -98,7 +97,7 @@ export default function Multiplayer(props) {
 								</button>
 							</div>
 							<button
-								className="changeNameBtn"
+								className="changeNameBtn secondary"
 								onClick={() => {
 									setLogin(true);
 								}}
@@ -107,7 +106,7 @@ export default function Multiplayer(props) {
 							</button>
 						</div>
 						{rooms.length === 0 && (
-							<h2>no one is hosting a game right now...</h2>
+							<h5>no one is hosting a game right now...</h5>
 						)}
 						<ServerBrowser
 							setLobby={setLobby}

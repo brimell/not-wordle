@@ -18,7 +18,6 @@ export default function CreateGameModal(props) {
         <CloseIcon onClick={Close} className="modalCloseIcon" />
         <h1 className="statsHeader">Create Game</h1>
         <input
-          className="neumorphic-input"
           type="text"
           placeholder="Game Code..."
           ref={codeRef}

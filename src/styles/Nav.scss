@@ -1,7 +1,5 @@
 $borderRadius: 10px;
 $spacer: 1rem;
-$primary: #406ff3;
-$text: #6a778e;
 $linkHeight: 3rem;
 $timing: 250ms;
 $transition: $timing ease all;
@@ -23,7 +21,7 @@ $transition: $timing ease all;
   z-index: 100;
   $ref: &;
   position: fixed;
-  background: var(--s-dark);
+  background: var(--bg-s);
   border-radius: $borderRadius;
   // box-shadow: 0 0 40px rgba(255, 255, 255, 0.103);
   top: $spacer;
@@ -36,7 +34,7 @@ $transition: $timing ease all;
     justify-content: center;
     height: $linkHeight;
     width: $linkHeight;
-    color: $text;
+    color: var(--body);
     transition: $transition;
     cursor: pointer;
     span {

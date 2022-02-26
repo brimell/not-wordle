@@ -7,8 +7,10 @@ export default function ServerBrowser(props) {
   const socket = props.socket;
   const name = props.name;
   const setLobby = props.setLobby;
+
+  const placeholder_num = 8
   var tempList = [];
-  for (var i = 0; i < 3; i++) {
+  for (var i = 0; i < placeholder_num; i++) {
     tempList.push("x");
   }
   return (
@@ -28,11 +30,11 @@ export default function ServerBrowser(props) {
           return (
             <article className="information card" key={i}>
               <div className="noRooms">
-                <span className="tag">{"    "}</span>
-                <span className="tag">{"    "}</span>
-                <span className="tag">{"    "}</span>
-                <span className="tag">{"    "}</span>
-                <span className="tag">{"    "}</span>
+                <span className="tag temp">{"    "}</span>
+                <span className="tag temp">{"    "}</span>
+                <span className="tag temp">{"    "}</span>
+                <span className="tag temp">{"    "}</span>
+                <span className="tag temp">{"    "}</span>
               </div>
             </article>
           );

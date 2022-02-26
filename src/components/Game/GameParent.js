@@ -25,7 +25,7 @@ export default function GameParent(props) {
 
 	return (
 		<div className="GameContainer">
-			{settings && <Settings seedUpdate={seedUpdate} />}
+			{settings && <Settings setSettings={props.setSettings} seedUpdate={seedUpdate} />}
 			<Game
 				socket={socket}
 				setMultiplayerGrid={setMultiplayerGrid}

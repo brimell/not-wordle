@@ -20,7 +20,6 @@ export default function Login(props) {
 		<div className="loginContainer">
 			<input
 				id="name-input"
-				className="neumorphic-input"
 				type="text"
 				placeholder="Name..."
 				value={name}
@@ -28,7 +27,7 @@ export default function Login(props) {
 			></input>
 			<button
 				type="button"
-				className="nameSubmit"
+				className="primary nameSubmit"
 				onClick={() => {
 					socket.emit("getAllUsers");
 					socket.on("getAllUsersRes", (users) => {

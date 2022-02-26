@@ -17,17 +17,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap");
 
 :root {
-	/* --bg: #0e0f10; */
-	--bg: #292f3f;
+	// bg
+
+	--bg: #10151c;
+	--bg-s: #141a25;
+
+	// buttons
+
+	--primary: #2663ff;
+	--secondary: rgba(255, 255, 255, 0.1);
+	--highlight: #fa0369;
+
+	// text
+
+	--headlines: white;
+	--body: #7e8597;
+
+	// other
+
 	--s-dark: #272a35;
 	--s: #373e4e;
 	--s-light: #7a8194;
-    --font-color: white;
-	--pink: #b347ea;
-	--purple: #837dff;
-	--green: #00ac83;
-	--orange: #f18303;
-	--primary: #03a9f1;
+
 	--keyboard-key-colour: var(--s-light);
 }
 
@@ -80,14 +91,89 @@ body {
 	justify-content: flex-end;
 }
 
+// typography
+
+h1 {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 48px;
+	line-height: 62px;
+}
+
+h2 {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 42px;
+	line-height: 55px;
+}
+
+h3 {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 32px;
+	line-height: 42px;
+}
+
+h4 {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 26px;
+}
+
+h5 {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 21px;
+	/* identical to box height */
+
+	letter-spacing: 0.4px;
+	text-transform: uppercase;
+
+	color: rgba(255, 255, 255, 0.8);
+}
+
+p {
+	font-style: normal;
+	font-weight: normal;
+	font-size: 18px;
+	line-height: 23px;
+
+	color: var(--body);
+}
+
+// global styles
+
 button {
-	background: var(--primary);
-	border-radius: 1rem;
+	border-radius: 8px;
 	border: none;
 	padding: 10px;
 	position: relative;
 	cursor: pointer;
 	white-space: nowrap;
-    font-size: 2.5vh;
-    color: var(--font-color);
+	font-size: 2.5vh;
+
+	color: var(--headlines);
+	&.primary {
+		background: var(--primary);
+	}
+	&.secondary {
+		background: var(--secondary);
+	}
+	&:disabled {
+		background: var(--secondary);
+		color: var(--body);
+		cursor: not-allowed;
+	}
+}
+
+input {
+	background: transparent;
+	border: 2px solid rgba(255, 255, 255, 0.1);
+	border-radius: 8px;
+	color: #4a5568;
+	font-size: 1rem;
+	padding: 1rem;
+	color: var(--headlines);
 }

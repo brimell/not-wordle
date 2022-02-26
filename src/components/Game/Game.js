@@ -301,7 +301,7 @@ function Game(props) {
             }}
           ></input>
           <button
-            className="button is-primary is-outlined"
+            className="button primary"
             style={{ flex: "0" }}
             disabled={gameState !== "Playing" || guesses.length === 0}
             onClick={async () => {
