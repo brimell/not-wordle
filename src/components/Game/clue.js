@@ -1,5 +1,4 @@
 export function clue(guess, target) {
-	console.log("word: ", guess, target);
 	var target_list = [];
 	target.split("").forEach((letter, i) => {
 		if (guess[i] !== letter) {
