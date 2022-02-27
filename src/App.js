@@ -1,15 +1,15 @@
 import React, { useState, useEffect, Suspense, lazy, useContext } from "react";
 import "./styles/__main.scss";
 
-import { MainContext, ContextProvider } from "./context/context";
+import { ContextProvider } from "./context/context";
 
 import "./components/firebaseInit";
 
 import Loading from "./components/Loading";
 import Nav from "./components/Nav";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import { HashRouter as Router, Routes, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 const Multiplayer = lazy(() => import("./components/Multiplayer/Multiplayer"));
 const GameParent = lazy(() => import("./components/Game/GameParent"));
