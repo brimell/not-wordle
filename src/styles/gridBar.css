@@ -1,6 +1,9 @@
 :root {
   --green: #02c39a;
+  --green-d: #1D6B55;
   --yellow: #fdd85d;
+  --yellow-d: #837035;
+  --absent-d: #A3A3AE;
 }
 
 .gridBar {
@@ -56,10 +59,10 @@
   height: 2rem;
 }
 
-.letter-clue-Elsewhere {
+.letter-clue-elsewhere {
   background: var(--yellow);
 }
 
-.letter-clue-Correct {
+.letter-clue-correct {
   background: var(--green);
 }

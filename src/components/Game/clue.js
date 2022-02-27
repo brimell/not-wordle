@@ -8,21 +8,21 @@ export function clue(guess, target) {
 	return guess.split("").map((letter, i) => {
 		let j;
 		if (target[i] === letter) {
-			return { clue: "Correct", letter: letter };
+			return { clue: "correct", letter: letter };
 		} else if ((j = target_list.indexOf(letter)) > -1) {
 			// "use it up" so we don't clue at it twice
 			target_list[j] = "";
-			return { clue: "Elsewhere", letter };
+			return { clue: "elsewhere", letter };
 		} else {
-			return { clue: "Absent", letter };
+			return { clue: "absent", letter };
 		}
 	});
 }
 
 export function clueClass(clue) {
-	if (clue === "Absent") {
+	if (clue === "absent") {
 		return "letter-absent";
-	} else if (clue === "Elsewhere") {
+	} else if (clue === "elsewhere") {
 		return "letter-elsewhere";
 	} else {
 		return "letter-correct";

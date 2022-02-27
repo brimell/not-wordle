@@ -60,30 +60,27 @@
 }
 
 .letter-correct {
-  border-radius: 3vh;
   background: linear-gradient(135deg, #189d7c 0%, #02c39a 100%) padding-box,
     /* this is the background */
       linear-gradient(135deg, #02c39a 0%, #189d7c 100%) border-box !important; /* this is the border*/
   border: 6px solid transparent;
-  color: #1d6b55;
+  color: #1d6b55 !important;
 }
 
 .letter-elsewhere {
-  border-radius: 3vh;
   background: linear-gradient(135deg, #d9b952 0%, #fdd85d 100%) padding-box,
     /* this is the background */
       linear-gradient(135deg, #fdd85d 0%, #d9b952 100%) border-box !important; /* this is the border*/
   border: 6px solid transparent;
-  color: #837035;
+  color: #837035 !important;
 }
 
 .letter-absent {
-  border-radius: 3vh;
   background: linear-gradient(135deg, #2d3047 0%, #48495f 100%) padding-box,
     /* this is the background */
       linear-gradient(135deg, #48495f 0%, #2d3047 100%) border-box !important; /* this is the border*/
   border: 6px solid transparent;
-  color: #a3a3ae;
+  color: #a3a3ae !important;
 }
 
 .keyboard-letter-correct {

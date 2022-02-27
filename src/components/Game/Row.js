@@ -3,7 +3,7 @@ import { clueClass } from "./clue";
 export function Row(props) {
 	const isLockedIn = props.rowState === "LockedIn";
 	const letterDivs = props.cluedLetters
-		.concat(Array(props.wordLength).fill({ clue: "Absent", letter: "" }))
+		.concat(Array(props.wordLength).fill({ clue: "absent", letter: "" }))
 		.slice(0, props.wordLength)
 		.map(({ clue, letter }, i) => {
 			let letterClass = "Row-letter";
