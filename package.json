@@ -54,9 +54,6 @@
       "last 1 safari version"
     ]
   },
-  "engines": {
-    "node": ">=16.0.0"
-  },
   "devDependencies": {
     "@types/jquery": "^3.5.11",
     "autoprefixer": "^10.4.2",
