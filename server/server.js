@@ -23,6 +23,7 @@ const io = socketio(server, {
 			"https://raaydon.github.io",
 			"https://admin.socket.io",
 			"https://notwordle.herokuapp.com:*",
+			"https://notwordle-raaydon.vercel.app"
 		],
 	},
 });
