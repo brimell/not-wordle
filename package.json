@@ -55,8 +55,8 @@
     ]
   },
   "engines": {
-    "npm": ">=7.19.1",
-    "node": ">=16.4.2"
+    "npm": ">=7.0.0",
+    "node": ">=16.0.0"
   },
   "devDependencies": {
     "@types/jquery": "^3.5.11",
