@@ -1,5 +1,8 @@
 .wordHighlight {
-    color: var(--s-light);
+    color: var(--highlight);
+}
+.wordPrimary {
+    color: var(--primary);
 }
 
 .podium {

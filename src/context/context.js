@@ -12,7 +12,9 @@ export function ContextProvider(props) {
 	const maxGuesses = 6;
 	const [seedUpdate, setSeedUpdate] = useState(seed);
 	const [settings, setSettings] = useState(false);
-
+	const [wordLength, setWordLength] = useState(
+		parseInt(localStorage.getItem("wordLength") || 5)
+	);
 	const [users, setUsers] = useState([]);
 	const [game, setGame] = useState(false);
 	const [startHide, setStartHide] = useState(false);
@@ -91,6 +93,8 @@ export function ContextProvider(props) {
 				setWinner,
 				username,
 				setUsername,
+				wordLength,
+				setWordLength,
 			}}
 		>
 			{props.children}

@@ -28,7 +28,10 @@ export default function Lobby() {
 		setWinner,
 		username,
 		setUsername,
+		setWordLength,
 	} = useContext(MainContext);
+
+	setWordLength(5);
 
 	useEffect(() => {
 		socket.emit("fetchUserList");
@@ -45,11 +48,14 @@ export default function Lobby() {
 		console.log(id, " lost");
 	}
 
-	function gameWon(id) {
+	async function gameWon(id) {
 		if (game === true || podium === false) {
 			console.log(id, " won");
 			setGame(false);
 			socket.emit("getUser", id);
+			await socket.on("getUserRes", (user) => {
+				setWinner(user.name);
+			});
 			setPodium(true);
 		}
 	}
@@ -61,9 +67,6 @@ export default function Lobby() {
 		}
 	});
 	socket.on("getUserRes", (user) => {
-		if (game === false && lobby === false) {
-			setWinner(user.name);
-		}
 		setUsername(user.name);
 	});
 	socket.on("gameWon", (id) => {

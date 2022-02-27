@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { MainContext } from "../../context/context";
 
-export default function Podium(props) {
-	const socket = props.socket;
-	const target = props.target;
-	const winner = props.winner;
-	const grids = props.grids;
+export default function Podium() {
+	const { socket, grids, winner, target, setWordLength } =
+		useContext(MainContext);
+
+	setWordLength(localStorage.getItem("wordLength")); // set word length to previous value before multiplayer game
 	const [guesses, setGuesses] = useState(0);
 
 	useEffect(() => {
@@ -27,7 +28,7 @@ export default function Podium(props) {
 				guesses!
 			</p>
 			<p>
-				the word was: <span className="wordHighlight">{target}</span>
+				the word was: <span className="wordPrimary">{target}</span>
 			</p>
 			{grids &&
 				winner &&
@@ -41,7 +42,7 @@ export default function Podium(props) {
 											{row.map((letter, k) => {
 												return (
 													<div
-														className={`podiumGridLetter Row-letter ${letter.clue}`}
+														className={`podiumGridLetter Row-letter letter-${letter.clue}`}
 														key={k}
 													>
 														{letter.letter}

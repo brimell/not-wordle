@@ -68,15 +68,14 @@ function updateStats(gameState, wordLength, guesses) {
 }
 
 function Game(props) {
-	const { maxGuesses, settings } = useContext(MainContext);
+	const { maxGuesses, settings, wordLength, setWordLength } =
+		useContext(MainContext);
 	var currGrid = [];
 	const socket = props.socket || null;
 	const [gameState, setGameState] = useState("Playing");
 	const [guesses, setGuesses] = useState([]);
 	const [currentGuess, setCurrentGuess] = useState("");
-	const [wordLength, setWordLength] = useState(
-		parseInt(localStorage.getItem("wordLength") || "5")
-	);
+
 	const [hint, setHint] = useState(`Make your first guess!`);
 	const [target, setTarget] = useState(() => {
 		if (props.target !== false) {
@@ -198,7 +197,7 @@ function Game(props) {
 			if (socket) {
 				props.setCurrentGrid(currGrid);
 			}
-			// console.log('target: ',target);
+			console.log('target: ',target);
 		};
 
 		document.addEventListener("keydown", onKeyDown);

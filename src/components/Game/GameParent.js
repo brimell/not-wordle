@@ -12,10 +12,6 @@ export default function GameParent(props) {
 	const [multiplayerGrid, setMultiplayerGrid] = useState([]);
 
 	useEffect(() => {
-		setTarget(target || false);
-	}, [target]);
-
-	useEffect(() => {
 		if (socket && multiplayerGrid.length !== 0) {
 			socket.emit("update-grid", multiplayerGrid);
 		}
@@ -32,7 +28,7 @@ export default function GameParent(props) {
 				socket={socket}
 				setMultiplayerGrid={setMultiplayerGrid}
 				multiplayerGrid={multiplayerGrid}
-				target={target}
+				target={target || false}
 				setCurrentGrid={setCurrentGrid}
 				handleGameFinish={handleGameFinish}
 			/>

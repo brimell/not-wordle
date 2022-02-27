@@ -3,6 +3,7 @@
   --green-d: #1D6B55;
   --yellow: #fdd85d;
   --yellow-d: #837035;
+  --absent: #2d3047;
   --absent-d: #A3A3AE;
 }
 
@@ -22,7 +23,7 @@
 }
 
 .gridItem {
-  background: var(--s-dark);
+  background: var(--bg-s);
   border-radius: 20px;
   width: 100%;
   height: fit-content;
@@ -61,8 +62,15 @@
 
 .letter-clue-elsewhere {
   background: var(--yellow);
+  color: var(--yellow-d);
 }
 
 .letter-clue-correct {
   background: var(--green);
+  color: var(--green-d);
+}
+
+.letter-clue-absent {
+  background: var(--absent);
+  color: var(--absent-d);
 }

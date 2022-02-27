@@ -3,13 +3,13 @@ import { MainContext } from "../../context/context";
 import { X, User } from "react-feather";
 
 export default function StatsModal() {
-	const { socket, statsModal, statsClose } = useContext(MainContext);
+	const { socket, statsModal, statsClose, wordLength } = useContext(MainContext);
 
 	const Modal = statsModal;
 	const close = statsClose;
 
-	var stats = JSON.parse(localStorage.getItem("stats") || "{}") || "No Stats Yet...";
-	var wordLength = socket ? 5 : localStorage.getItem("wordLength");
+	var stats =
+		JSON.parse(localStorage.getItem("stats") || "{}") || "No Stats Yet...";
 	var totalgames = 0;
 	var totalwins = 0;
 	// var totallosses = 0;
