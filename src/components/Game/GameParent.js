@@ -1,17 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { MainContext } from "../../context/context";
 import Game from "./Game";
 import Settings from "../Modals/Settings";
 import { useEffect } from "react";
 
 export default function GameParent(props) {
-	const socket = props.socket || null;
-	const settings = props.settings;
-	const maxGuesses = 6;
-	const seedUpdate = props.seedUpdate;
+	const {
+		socket,
+		maxGuesses,
+		seedUpdate,
+		settings,
+		target,
+		setTarget,
+	} = useContext(MainContext);
 	const [currentGrid, setCurrentGrid] = useState([]);
 	const [multiplayerGrid, setMultiplayerGrid] = useState([]);
-	const target = props.target || false;
+
+	useEffect(() => {
+		setTarget(target || false);
+	}, [target]);
 
 	useEffect(() => {
 		if (socket && multiplayerGrid.length !== 0) {
@@ -25,7 +33,12 @@ export default function GameParent(props) {
 
 	return (
 		<div className="GameContainer">
-			{settings && <Settings setSettings={props.setSettings} seedUpdate={seedUpdate} />}
+			{settings && (
+				<Settings
+					setSettings={props.setSettings}
+					seedUpdate={seedUpdate}
+				/>
+			)}
 			<Game
 				socket={socket}
 				setMultiplayerGrid={setMultiplayerGrid}

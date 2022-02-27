@@ -1,12 +1,7 @@
-import React from "react";
-
 import Carousel from "../Carousel";
 
 export default function ServerBrowser(props) {
   const rooms = props.rooms;
-  const socket = props.socket;
-  const name = props.name;
-  const setLobby = props.setLobby;
 
   const placeholder_num = 8
   var tempList = [];
@@ -17,10 +12,7 @@ export default function ServerBrowser(props) {
     <div className="server-browser">
       {rooms.length > 0 && (
         <Carousel
-          name={name}
-          setLobby={setLobby}
           rooms={rooms}
-          socket={socket}
           active={0}
         />
       )}

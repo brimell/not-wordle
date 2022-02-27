@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
+import { MainContext } from "../../context/context";
 
 export default function Login(props) {
-	const name = props.name;
-	const setName = props.setName;
-	const socket = props.socket;
+	const { socket, name, setName } = useContext(MainContext);
 	const setLogin = props.setLogin;
 
 	useEffect(() => {

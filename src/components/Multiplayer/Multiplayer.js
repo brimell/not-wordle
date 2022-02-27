@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { MainContext } from "./context/context";
+
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
-import { Search } from "react-feather";
-import Notification from "../Notification/Notification";
 import Login from "./Login";
 
+import { Search } from "react-feather";
+import Notification from "../Notification/Notification";
+
 export default function Multiplayer(props) {
-	const lobby = props.lobby;
-	const setLobby = props.setLobby;
-	const code = props.code;
-	const nameRef = props.nameRef;
-	const socket = props.socket;
+	const { socket, lobby, setLobby, code, name, CreateGameOpen } =
+		useContext(MainContext);
+
 	const [rooms, setRooms] = useState([]);
 	const [login, setLogin] = useState(false);
-	const name = props.name;
-	const setName = props.setName;
-
-	const CreateGameOpen = props.CreateGameOpen;
 
 	useEffect(() => {
 		socket.emit("fetchRooms");
@@ -44,14 +41,7 @@ export default function Multiplayer(props) {
 	return (
 		<div className="multiplayer">
 			<Notification />
-			{!lobby && login && (
-				<Login
-					socket={socket}
-					setLogin={setLogin}
-					setName={setName}
-					name={name}
-				/>
-			)}
+			{!lobby && login && <Login setLogin={setLogin} />}
 			{!lobby && !login && (
 				<div className="join-container">
 					<div className="join">
@@ -89,12 +79,7 @@ export default function Multiplayer(props) {
 						{rooms.length === 0 && (
 							<h5>no one is hosting a game right now...</h5>
 						)}
-						<ServerBrowser
-							setLobby={setLobby}
-							name={name}
-							socket={socket}
-							rooms={rooms}
-						/>
+						<ServerBrowser rooms={rooms} />
 
 						{/* 
           <CustomTextField
@@ -153,7 +138,7 @@ export default function Multiplayer(props) {
 					</div>
 				</div>
 			)}
-			{lobby && <Lobby setLobby={setLobby} room={code} />}
+			{lobby && <Lobby />}
 		</div>
 	);
 }

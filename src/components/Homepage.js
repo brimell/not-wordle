@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import AdSense from "react-adsense";
+// import AdSense from "react-adsense";
 import $ from 'jquery'
 
 export default function Homepage() {
 
   $('body').css('background-color', 'var(--bg)')
+  
   return (
     <div className="homepage">
       <div className="floatingBackground">

@@ -1,16 +1,24 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import "react-hooks-use-modal";
 import CloseIcon from "@mui/icons-material/Close";
 import socket from '../socketio'
+import { MainContext } from '../../context/context'
 
-export default function CreateGameModal(props) {
-  const Modal = props.modal;
-  const Close = props.close;
+export default function CreateGameModal() {
+  const {
+		setLobby,
+		code,
+		setCode,
+		name,
+		createGameModal,
+		CreateGameOpen,
+		CreateGameClose,
+		CreateGameIsOpen,
+	} = useContext(MainContext);
+
+  const Modal = createGameModal;
+  const Close = CreateGameClose;
   const codeRef = useRef("");
-  const code = props.code;
-  const setCode = props.setCode;
-  const name = props.name
-  const setLobby = props.setLobby
 
   return (
     <Modal>

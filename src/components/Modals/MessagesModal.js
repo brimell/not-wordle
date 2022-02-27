@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useContext, useState, useRef } from "react";
+import { MainContext } from "../../context/context";
 import "react-hooks-use-modal";
-import { X, ArrowLeft, ArrowRight } from "react-feather";
-import $ from "jquery";
+import { X } from "react-feather";
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -11,20 +11,16 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 const firestore = firebase.firestore();
 
 export default function StatsModal(props) {
-	const Modal = props.modal;
-	const close = props.close;
-	const socket = props.socket;
-	const isOpen = props.isOpen;
-	const game = props.game;
-	const grids = props.grids;
-	const name = props.name;
+	const {
+		name,
+		messagesModal,
+		// messagesOpen,
+		messagesClose,
+		// messagesIsOpen,
+	} = useContext(MainContext);
 
-	const messagesRef = firestore.collection("messages");
-	const query = messagesRef.orderBy("createdAt").limit(25);
-
-	const [messages] = useCollectionData(query, { idField: "id" });
-
-	const [formValue, setFormValue] = useState("");
+	const Modal = messagesModal;
+	const close = messagesClose;
 
 	function ChatRoom() {
 		const dummy = useRef();

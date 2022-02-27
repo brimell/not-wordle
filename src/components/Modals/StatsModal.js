@@ -1,25 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
+import { MainContext } from "../../context/context";
 import "react-hooks-use-modal";
 import { X, User } from "react-feather";
 
 export default function StatsModal(props) {
-  const Modal = props.modal;
-  const close = props.close;
-  const socket = props.socket;
-  const isOpen = props.isOpen;
+
+  const {
+    socket,
+		statsModal,
+		// statsOpen,
+		statsClose,
+		// statsIsOpen,
+	} = useContext(MainContext);
+
+  const Modal = statsModal;
+  const close = statsClose;
 
   var stats =
     JSON.parse(localStorage.getItem("stats") || "{}") || "No Stats Yet...";
   var wordLength = socket ? 5 : localStorage.getItem("wordLength");
   var totalgames = 0;
   var totalwins = 0;
-  var totallosses = 0;
+  // var totallosses = 0;
   var guessesArray = [];
   for (var key in stats) {
     if (parseInt(key)) {
       totalgames += stats[key].games;
       totalwins += stats[key].wins;
-      totallosses += stats[key].losses;
+      // totallosses += stats[key].losses;
 
       for (var key2 in stats[key].guesses) {
         for (var i = 0; i < stats[key].guesses[key2]; i++) {

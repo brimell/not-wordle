@@ -1,35 +1,48 @@
-import React, { useEffect, useState, useRef } from "react";
-import socket from "../socketio";
+import { useEffect, useContext } from "react";
+import { MainContext } from "../../context/context";
+
 import GameParent from "../Game/GameParent";
 import PlayerListItem from "./PlayerListItem.js";
 import Podium from "./Podium";
-import { useModal } from "react-hooks-use-modal";
 import GridViewModal from "../Modals/GridViewModal";
 import $ from "jquery";
 
-function startGame(setGame) {
-	socket.emit("start-game");
-}
-
-export default function Lobby(props) {
-	const [users, setUsers] = useState([]);
-	const [game, setGame] = useState(false);
-	const [startHide, setStartHide] = useState(false);
-	const [target, setTarget] = useState("");
-	const [podium, setPodium] = useState(false);
-	const [grids, setGrids] = useState({});
-	const [winner, setWinner] = useState(false);
-	const [username, setUsername] = useState("");
-	const [lobby, setLobby] = useState(true);
-	const [gridViewModal, gridViewOpen, gridViewClose, gridViewIsOpen] =
-		useModal("root", {
-			preventScroll: true,
-		});
+export default function Lobby() {
+	const {
+		socket,
+		lobby,
+		setLobby,
+		code,
+		gridViewModal,
+		// gridViewOpen,
+		gridViewClose,
+		gridViewIsOpen,
+		users,
+		setUsers,
+		game,
+		setGame,
+		startHide,
+		setStartHide,
+		target,
+		setTarget,
+		podium,
+		setPodium,
+		grids,
+		setGrids,
+		winner,
+		setWinner,
+		username,
+		setUsername,
+	} = useContext(MainContext);
 
 	useEffect(() => {
 		socket.emit("fetchUserList");
 		socket.emit("getUser", socket.id);
 	}, []);
+
+	function startGame(setGame) {
+		socket.emit("start-game");
+	}
 
 	function allLost() {}
 
@@ -88,8 +101,7 @@ export default function Lobby(props) {
 			{!game && !podium && (
 				<div className="lobby back-row-toggle splat-toggle">
 					<h2 className="lobby-title">
-						Game Code:{" "}
-						<span className="code-txt">{props.room}</span>
+						Game Code: <span className="code-txt">{code}</span>
 					</h2>
 					{users.length === 1 && (
 						<h2
@@ -121,7 +133,7 @@ export default function Lobby(props) {
 								className="secondary leave-room-btn"
 								onClick={() => {
 									socket.emit("leave-room");
-									props.setLobby(false);
+									setLobby(false);
 								}}
 							>
 								Leave
@@ -130,7 +142,7 @@ export default function Lobby(props) {
 					</div>
 				</div>
 			)}
-			{game && <GameParent socket={socket} target={target} />}
+			{game && <GameParent />}
 			{(game || podium) && $(window).width() >= 1100 && (
 				<div className="gridBar">
 					{grids &&
@@ -169,26 +181,9 @@ export default function Lobby(props) {
 						})}
 				</div>
 			)}
-			{(game || podium) && $(window).width() < 1100 && (
-				<GridViewModal
-					close={gridViewClose}
-					modal={gridViewModal}
-					game={game}
-					podium={podium}
-					grids={grids}
-					username={username}
-					isOpen={gridViewIsOpen}
-				/>
-			)}
+			{(game || podium) && $(window).width() < 1100 && <GridViewModal />}
 
-			{podium && (
-				<Podium
-					grids={grids}
-					socket={socket}
-					target={target}
-					winner={winner}
-				/>
-			)}
+			{podium && <Podium />}
 		</div>
 	);
 }
