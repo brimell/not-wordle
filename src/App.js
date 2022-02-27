@@ -9,7 +9,8 @@ import { useModal } from "react-hooks-use-modal";
 import Loading from "./components/Loading";
 import Nav from "./components/Nav";
 
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { Router, Routes, Route } from "react-router-dom";
+// import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import socket from "./components/socketio";
 
 const Multiplayer = lazy(() => import("./components/Multiplayer/Multiplayer"));
