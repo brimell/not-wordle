@@ -6,8 +6,9 @@ class Users {
 	}
 
 	addUser(id, name, room, role) {
-		let user = { id, name, room, role };
+		let user = { id, name, room, role, lost: false };
 		this.users.push(user);
+		this.getRoomList(); // gives this.rooms the updated list of rooms
 		return user;
 	}
 
@@ -27,6 +28,7 @@ class Users {
 		for (var i = 0; i < this.users.length; i++) {
 			var user = this.users[i];
 			if (this.rooms.length !== 0) {
+				// if there are already rooms, add a new room for each host in users
 				for (var j = 0; j < this.rooms.length; j++) {
 					if (
 						this.rooms[j].room === user.room &&
@@ -37,18 +39,19 @@ class Users {
 							host: user.name,
 							users: this.getUserList(user.room),
 							gameState: this.rooms[j].gameState || "lobby",
+							lostCount: this.getLostCount(user.room),
 						});
 					}
 				}
-			} else {
-				if (user.role === "host") {
-					tempRooms.push({
-						room: user.room,
-						host: user.name,
-						users: this.getUserList(user.room),
-						gameState: "lobby",
-					});
-				}
+			} else if (user.role === "host") {
+				// if there are no rooms, create a new room
+				tempRooms.push({
+					room: user.room,
+					host: user.name,
+					users: this.getUserList(user.room),
+					gameState: "lobby",
+					lostCount: this.getLostCount(user.room),
+				});
 			}
 		}
 		this.rooms = tempRooms;
@@ -68,6 +71,18 @@ class Users {
 		this.rooms = this.rooms.filter((room) => room.room !== roomprop);
 	}
 
+	getLostCount(room) {
+		let lostCount = 0;
+		for (var i = 0; i < this.users.length; i++) {
+			if (this.users[i].room === room) {
+				if (this.users[i].lost) {
+					lostCount++;
+				}
+			}
+		}
+		return lostCount;
+	}
+
 	getFullUserList(room) {
 		let users = this.users.filter((user) => user.room === room);
 		return users;
@@ -75,6 +90,14 @@ class Users {
 
 	getUser(id) {
 		return this.users.filter((user) => user.id === id)[0];
+	}
+
+	userLost(id) {
+		for (var i = 0; i < this.users.length; i++) {
+			if (this.users[i].id === id) {
+				this.users[i].lost = true;
+			}
+		}
 	}
 
 	removeUser(id) {

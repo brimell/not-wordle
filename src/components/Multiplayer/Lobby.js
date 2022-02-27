@@ -31,13 +31,11 @@ export default function Lobby(props) {
 		socket.emit("getUser", socket.id);
 	}, []);
 
+	function allLost() {}
+
 	function gameLost(id) {
 		console.log(id, " lost");
 	}
-
-	useEffect(() => {
-		console.log("winner: ", winner);
-	}, [winner]);
 
 	function gameWon(id) {
 		if (game === true || podium === false) {
@@ -67,6 +65,9 @@ export default function Lobby(props) {
 	});
 	socket.on("gameLost", (id) => {
 		gameLost(id);
+	});
+	socket.on("allLost", () => {
+		allLost();
 	});
 	socket.on("update-grid-client", (Grids) => {
 		// console.log("got grids", Grids);

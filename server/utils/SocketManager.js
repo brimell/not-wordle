@@ -51,10 +51,16 @@ const SocketManager = (socket, io, users) => {
 		const user = users.getUser(socket.id);
 		if (gameState === "Won") {
 			io.to(user.room).emit("gameWon", user.id);
-			users.updateGameState(user.room, "finished");
+			users.updateGameState(user.room, "Podium");
 			io.to(user.room).emit("updateRooms", users.getRoomList());
 		} else if (gameState === "Lost") {
+			users.userLost(user.id);
 			io.to(user.room).emit("gameLost", user.id);
+			if (users.getLostCount(user.room) === users.getUserList(user.room).length) {
+				users.updateGameState(user.room, "Podium");
+				io.to(user.room).emit("updateRooms", users.getRoomList());
+				io.to(user.room).emit("allLost");
+			}
 		}
 	});
 
