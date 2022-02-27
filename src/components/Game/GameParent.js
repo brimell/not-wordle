@@ -6,8 +6,8 @@ import Settings from "../Modals/Settings";
 import { useEffect } from "react";
 
 export default function GameParent(props) {
+	const socket = props.socket
 	const {
-		socket,
 		maxGuesses,
 		seedUpdate,
 		settings,
@@ -44,8 +44,6 @@ export default function GameParent(props) {
 				setMultiplayerGrid={setMultiplayerGrid}
 				multiplayerGrid={multiplayerGrid}
 				target={target}
-				maxGuesses={maxGuesses}
-				hidden={settings}
 				setCurrentGrid={setCurrentGrid}
 				handleGameFinish={handleGameFinish}
 			/>

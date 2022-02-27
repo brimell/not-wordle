@@ -135,7 +135,7 @@ export default function Lobby() {
 					</div>
 				</div>
 			)}
-			{game && <GameParent />}
+			{game && <GameParent socket={socket} />}
 			{(game || podium) && $(window).width() >= 1000 && (
 				<div className="gridBar">
 					{grids &&
