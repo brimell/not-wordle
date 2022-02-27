@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MainContext } from "../../context/context";
 import $ from "jquery";
 
-export default function Settings(props) {
-	const seedUpdate = props.seedUpdate;
-	const setSettings = props.setSettings;
+export default function Settings() {
+	const { seedUpdate, setSettings } = useContext(MainContext);
+
 	return (
 		<div className="App-settings">
 			<p>

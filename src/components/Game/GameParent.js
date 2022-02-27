@@ -6,14 +6,8 @@ import Settings from "../Modals/Settings";
 import { useEffect } from "react";
 
 export default function GameParent(props) {
-	const socket = props.socket
-	const {
-		maxGuesses,
-		seedUpdate,
-		settings,
-		target,
-		setTarget,
-	} = useContext(MainContext);
+	const socket = props.socket;
+	const { settings, target, setTarget } = useContext(MainContext);
 	const [currentGrid, setCurrentGrid] = useState([]);
 	const [multiplayerGrid, setMultiplayerGrid] = useState([]);
 
@@ -33,12 +27,7 @@ export default function GameParent(props) {
 
 	return (
 		<div className="GameContainer">
-			{settings && (
-				<Settings
-					setSettings={props.setSettings}
-					seedUpdate={seedUpdate}
-				/>
-			)}
+			{settings && <Settings />}
 			<Game
 				socket={socket}
 				setMultiplayerGrid={setMultiplayerGrid}
