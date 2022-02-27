@@ -56,10 +56,10 @@
   height: 2rem;
 }
 
-.letter-clue-1 {
+.letter-clue-Elsewhere {
   background: var(--yellow);
 }
 
-.letter-clue-2 {
+.letter-clue-Correct {
   background: var(--green);
 }

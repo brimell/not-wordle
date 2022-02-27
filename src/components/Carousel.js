@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MainContext } from "../../context/context";
+import { MainContext } from "../context/context";
 
 export default function Carousel(props) {
 	const rooms = props.rooms;

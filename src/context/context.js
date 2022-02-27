@@ -1,12 +1,12 @@
-import { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { useModal } from "react-hooks-use-modal";
-import { seed } from "./components/util";
-import socket from "./components/socketio";
+import { seed } from "../components/util";
+import socket from "../components/socketio";
 
 export const MainContext = createContext();
 
-export function ContextProvider({ children }) {
-	const [lobby, setLobby] = useState(true);
+export function ContextProvider(props) {
+	const [lobby, setLobby] = useState(false);
 	const [code, setCode] = useState("");
 	const [name, setName] = useState(localStorage.getItem("name") || "");
 	const maxGuesses = 6;
@@ -22,7 +22,7 @@ export function ContextProvider({ children }) {
 	const [winner, setWinner] = useState(false);
 	const [username, setUsername] = useState("");
 
-	// modals 
+	// modals
 
 	const [gridViewModal, gridViewOpen, gridViewClose, gridViewIsOpen] =
 		useModal("root", {
@@ -39,6 +39,11 @@ export function ContextProvider({ children }) {
 		useModal("root", {
 			preventScroll: true,
 		});
+
+	useEffect(() => {
+		console.log('lobby: ',lobby);
+	}, [lobby]);
+
 	return (
 		<MainContext.Provider
 			value={{
@@ -88,7 +93,7 @@ export function ContextProvider({ children }) {
 				setUsername,
 			}}
 		>
-			{children}
+			{props.children}
 		</MainContext.Provider>
 	);
 }

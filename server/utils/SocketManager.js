@@ -19,14 +19,14 @@ const SocketManager = (socket, io, users) => {
 	console.log("new connection", socket.id);
 
 	socket.on("joinRoom", (props) => {
-		let dup = false;
+		let dupe = false;
 		for (let username in users.getUserList(props.room)) {
 			if (username === props.name) {
 				io.to(socket.id).emit("joinRoomRes", { res: false });
-				dup = true;
+				dupe = true;
 			}
 		}
-		if (!dup) {
+		if (!dupe) {
 			socket.join(props.room);
 			users.removeUser(socket.id);
 			users.addUser(socket.id, props.name, props.room, props.role);
@@ -36,15 +36,18 @@ const SocketManager = (socket, io, users) => {
 				users.getUserList(props.room)
 			);
 			io.to(socket.id).emit("joinRoomRes", { res: true });
-		}
-		if (props.role === "host") {
-			console.log("was host");
-			users.updateGameState(props.room, "lobby");
-		} else {
-			io.to(socket.id).emit("all users", users.getUserList(props.room)); // for voice call
+			if (props.role === "host") {
+				console.log("was host");
+				users.updateGameState(props.room, "lobby");
+			} else {
+				io.to(socket.id).emit(
+					"all users",
+					users.getUserList(props.room)
+				); // for voice call
+			}
+			socket.broadcast.emit("updateRooms", users.getRoomList());
 		}
 		// console.log(users.getRoomList())
-		socket.broadcast.emit("updateRooms", users.getRoomList());
 	});
 
 	socket.on("gameFinish", (gameState) => {
@@ -56,7 +59,10 @@ const SocketManager = (socket, io, users) => {
 		} else if (gameState === "Lost") {
 			users.userLost(user.id);
 			io.to(user.room).emit("gameLost", user.id);
-			if (users.getLostCount(user.room) === users.getUserList(user.room).length) {
+			if (
+				users.getLostCount(user.room) ===
+				users.getUserList(user.room).length
+			) {
 				users.updateGameState(user.room, "Podium");
 				io.to(user.room).emit("updateRooms", users.getRoomList());
 				io.to(user.room).emit("allLost");

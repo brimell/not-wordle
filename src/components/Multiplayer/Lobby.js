@@ -1,4 +1,5 @@
-import { useEffect, useContext } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useContext } from "react";
 import { MainContext } from "../../context/context";
 
 import GameParent from "../Game/GameParent";
@@ -13,23 +14,17 @@ export default function Lobby() {
 		lobby,
 		setLobby,
 		code,
-		gridViewModal,
-		// gridViewOpen,
-		gridViewClose,
-		gridViewIsOpen,
 		users,
 		setUsers,
 		game,
 		setGame,
 		startHide,
 		setStartHide,
-		target,
 		setTarget,
 		podium,
 		setPodium,
 		grids,
 		setGrids,
-		winner,
 		setWinner,
 		username,
 		setUsername,
@@ -40,7 +35,7 @@ export default function Lobby() {
 		socket.emit("getUser", socket.id);
 	}, []);
 
-	function startGame(setGame) {
+	function startGame() {
 		socket.emit("start-game");
 	}
 
@@ -56,7 +51,6 @@ export default function Lobby() {
 			setGame(false);
 			socket.emit("getUser", id);
 			setPodium(true);
-			setLobby(true); // for next game
 		}
 	}
 
@@ -64,7 +58,6 @@ export default function Lobby() {
 		if (props.res) {
 			setTarget(props.target);
 			setGame(true);
-			setLobby(false);
 		}
 	});
 	socket.on("getUserRes", (user) => {
@@ -123,7 +116,7 @@ export default function Lobby() {
 								<button
 									className="primary start-game-btn"
 									onClick={() => {
-										startGame(setGame);
+										startGame();
 									}}
 								>
 									Start game
@@ -143,7 +136,7 @@ export default function Lobby() {
 				</div>
 			)}
 			{game && <GameParent />}
-			{(game || podium) && $(window).width() >= 1100 && (
+			{(game || podium) && $(window).width() >= 1000 && (
 				<div className="gridBar">
 					{grids &&
 						Object.keys(grids).map((name, i) => {
@@ -181,7 +174,7 @@ export default function Lobby() {
 						})}
 				</div>
 			)}
-			{(game || podium) && $(window).width() < 1100 && <GridViewModal />}
+			{/* {(game || podium) && $(window).width() < 1000 && <GridViewModal />} */}
 
 			{podium && <Podium />}
 		</div>

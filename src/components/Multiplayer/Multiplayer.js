@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { MainContext } from "./context/context";
+import { MainContext } from "../../context/context";
 
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
@@ -9,7 +9,7 @@ import { Search } from "react-feather";
 import Notification from "../Notification/Notification";
 
 export default function Multiplayer(props) {
-	const { socket, lobby, setLobby, code, name, CreateGameOpen } =
+	const { socket, lobby, code, name, CreateGameOpen } =
 		useContext(MainContext);
 
 	const [rooms, setRooms] = useState([]);
@@ -33,10 +33,6 @@ export default function Multiplayer(props) {
 			setLogin(true);
 		}
 	}, []);
-
-	useEffect(() => {
-		console.log("login: ", login);
-	}, [login]);
 
 	return (
 		<div className="multiplayer">

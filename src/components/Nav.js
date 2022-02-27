@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useContext } from "react";
-import { MainContext } from "../../context/context";
+import { MainContext } from "../context/context";
 import { Home, Settings, X, User, MessageSquare } from "react-feather";
 
 import { Link } from "react-router-dom";

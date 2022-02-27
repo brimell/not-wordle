@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy, useContext } from "react";
+import React, { useEffect, Suspense, lazy} from "react";
 import "./styles/__main.scss";
 
 import { ContextProvider } from "./context/context";
