@@ -49,11 +49,14 @@ app.use(express.static(path.resolve(__dirname, "../build")));
 app.get("/notwordle", (req, res) => {
 	res.send("notwordle");
 });
+app.get("/", (req, res) => {
+	res.sendFile(path.resolve(__dirname, "../build/index.html"));
+});
 app.get("/port", (req, res) => {
 	res.send(process.env.PORT);
 });
-app.get("/not-wordle", (req, res) => {
-	res.sendFile(path.resolve(__dirname, "../build/index.html"));
+app.get("/public", (req, res) => {
+	res.sendFile(path.resolve(__dirname, "../public"));
 });
 
 const PORT = process.env.PORT || 3001;
