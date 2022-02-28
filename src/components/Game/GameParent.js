@@ -9,11 +9,15 @@ export default function GameParent(props) {
 	const socket = props.socket;
 	const { settings, target, setTarget } = useContext(MainContext);
 	const [currentGrid, setCurrentGrid] = useState([]);
-	const [multiplayerGrid, setMultiplayerGrid] = useState([]);
+	const multiplayerGrid = props.multiplayerGrid
+	const setMultiplayerGrid = props.setMultiplayerGrid;
+	const [prevMGrid, setprevMGrid] = useState([]);
 
 	useEffect(() => {
-		if (socket && multiplayerGrid.length !== 0) {
+		if (socket && multiplayerGrid.length !== 0 && prevMGrid !== multiplayerGrid) {
 			socket.emit("update-grid", multiplayerGrid);
+			setprevMGrid(multiplayerGrid);
+			console.log('ran')
 		}
 	}, [multiplayerGrid]);
 

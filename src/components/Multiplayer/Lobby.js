@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { MainContext } from "../../context/context";
 
 import GameParent from "../Game/GameParent";
@@ -30,8 +30,13 @@ export default function Lobby() {
 		setUsername,
 		setWordLength,
 	} = useContext(MainContext);
+	const [multiplayerGrid, setMultiplayerGrid] = useState([]);
 
 	setWordLength(5);
+
+	useEffect(() => {
+		console.log(grids)
+	}, [grids])
 
 	useEffect(() => {
 		socket.emit("fetchUserList");
@@ -42,7 +47,11 @@ export default function Lobby() {
 		socket.emit("start-game");
 	}
 
-	function allLost() {}
+	function allLost() {
+		setGame(false)
+		setWinner(false)
+		setPodium(true)
+	}
 
 	function gameLost(id) {
 		console.log(id, " lost");
@@ -61,7 +70,8 @@ export default function Lobby() {
 	}
 
 	socket.on("game-started", (props) => {
-		if (props.res) {
+		if (props.res) { // check if game started was initialised by a host
+			setMultiplayerGrid({}) // reset local grid for new game
 			setTarget(props.target);
 			setGame(true);
 		}
@@ -138,20 +148,20 @@ export default function Lobby() {
 					</div>
 				</div>
 			)}
-			{game && <GameParent socket={socket} />}
+			{game && <GameParent socket={socket} multiplayerGrid={multiplayerGrid} setMultiplayerGrid={setMultiplayerGrid} />}
 			{(game || podium) && $(window).width() >= 1000 && (
 				<div className="gridBar">
-					{grids &&
-						Object.keys(grids).map((name, i) => {
-							if (name === username) {
+					{grids && grids !== {} &&
+						Object.keys(grids).map((nameProp, i) => {
+							if (nameProp === username) {
 								return "";
 							} else {
 								return (
 									<div className="gridItem" key={i}>
 										<span className="nameTitle">
-											{name}
+											{nameProp}
 										</span>
-										{grids[name].map((row, j) => {
+										{grids[nameProp].map((row, j) => {
 											return (
 												<div
 													className="gridRow"

@@ -14,6 +14,8 @@ export default function MainNav() {
 		setSettings,
 		statsOpen,
 		messagesOpen,
+		setPodium,
+		setGame,
 	} = useContext(MainContext);
 
 	return (
@@ -27,6 +29,8 @@ export default function MainNav() {
 						onClick={() => {
 							socket.emit("leave-room");
 							setLobby(false);
+							setPodium(false);
+							setGame(false)
 						}}
 					>
 						<Home />

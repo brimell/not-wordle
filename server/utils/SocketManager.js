@@ -1,4 +1,4 @@
-const common = require("./common.json");
+const wordList = require("./wordList.json");
 
 const makeRandom = () => Math.random();
 let random = makeRandom();
@@ -9,7 +9,7 @@ function pick(array) {
 	resetRng();
 	return array[Math.floor(array.length * random)];
 }
-const targets = common.slice(0, 20000); // adjust for max target freakiness
+const targets = wordList.slice(0, 20000); // adjust for max target freakiness
 function randomTarget(wordLength) {
 	const eligible = targets.filter((word) => word.length === wordLength);
 	return pick(eligible);
@@ -74,7 +74,7 @@ const SocketManager = (socket, io, users) => {
 		const user = users.getUser(socket.id);
 		if (users.getUser(socket.id).role === "host") {
 			console.log("game started in room: ", user.room);
-
+			resetRng();
 			io.to(user.room).emit("game-started", {
 				res: true,
 				target: randomTarget(5),
@@ -84,6 +84,11 @@ const SocketManager = (socket, io, users) => {
 		} else {
 			io.to(user.room).emit("game-started", { res: false });
 		}
+	});
+
+	socket.on("playAgain", () => {
+		const user = users.getUser(socket.id);
+		io.to(user.room).emit("playAgainRes");
 	});
 
 	socket.on("fetchRooms", () => {

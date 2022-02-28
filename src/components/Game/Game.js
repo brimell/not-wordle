@@ -2,14 +2,14 @@ import { useEffect, useState, useContext } from "react";
 import { Row } from "./Row";
 import { clue } from "./clue";
 import { Keyboard } from "../Keyboard";
-import common from "../../Wordlist/common.json";
+import wordList from "../../Wordlist/wordList.json";
 import { pick, resetRng, seed } from "../util";
 import $ from "jquery";
 import { useModal } from "react-hooks-use-modal";
 import CloseIcon from "@mui/icons-material/Close";
 import { MainContext } from "../../context/context";
 
-const targets = common.slice(0, 20000); // adjust for max target freakiness
+const targets = wordList.slice(0, 20000); // adjust for max target freakiness
 
 function randomTarget(wordLength) {
 	const eligible = targets.filter((word) => word.length === wordLength);
@@ -126,7 +126,7 @@ function Game(props) {
 	const onKey = (key) => {
 		if (gameState !== "Playing") {
 			console.log("game is not playing");
-			if (key === "enter") {
+			if (key === "enter" && !socket) {
 				startNextGame();
 			}
 			return;
@@ -143,7 +143,7 @@ function Game(props) {
 				setHint("Too short");
 				return;
 			}
-			if (!common.includes(currentGuess)) {
+			if (!wordList.includes(currentGuess)) {
 				setHint("Not a valid word");
 				return;
 			}
@@ -197,7 +197,7 @@ function Game(props) {
 			if (socket) {
 				props.setCurrentGrid(currGrid);
 			}
-			console.log('target: ',target);
+			// console.log('target: ',target);
 		};
 
 		document.addEventListener("keydown", onKeyDown);
