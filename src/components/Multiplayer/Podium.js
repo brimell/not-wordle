@@ -37,7 +37,7 @@ export default function Podium() {
 			setLobby(true);
 			setPodium(false);
 		});
-	});
+	},[setGrids, setLobby, setPodium, socket]);
 
 	return (
 		<div className="podium">

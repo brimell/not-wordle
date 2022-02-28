@@ -7,6 +7,7 @@ import PlayerListItem from "./PlayerListItem.js";
 import Podium from "./Podium";
 import GridViewModal from "../Modals/GridViewModal";
 import $ from "jquery";
+import { Socket } from "socket.io-client";
 
 export default function Lobby() {
 	const {
@@ -69,7 +70,8 @@ export default function Lobby() {
 		}
 	}
 
-	useEffect(() => { //? need to be inside useEffect otherwise will be rendered multiple times and multiple listeners will be added
+	useEffect(() => {
+		//? need to be inside useEffect otherwise will be rendered multiple times and multiple listeners will be added
 		socket.on("game-started", (props) => {
 			if (props.res) {
 				// check if game started was initialised by a host
@@ -85,7 +87,6 @@ export default function Lobby() {
 			gameWon(id);
 		});
 		socket.on("gameLost", (id) => {
-			console.log("test");
 			gameLost(id);
 		});
 		socket.on("allLost", () => {
@@ -105,7 +106,7 @@ export default function Lobby() {
 				userList.find((user) => user.id === socket.id).role === "host"
 			);
 		});
-	});
+	}, [socket]);
 
 	return (
 		<div className="container">

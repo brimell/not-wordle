@@ -28,7 +28,7 @@ export default function Multiplayer(props) {
 			// console.log("updated rooms from fetch: ", rooms);
 			setRooms(rooms);
 		});
-	});
+	},[socket]);
 
 	useEffect(() => {
 		if (name === "") {
