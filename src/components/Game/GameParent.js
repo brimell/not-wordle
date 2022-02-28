@@ -23,6 +23,7 @@ export default function GameParent(props) {
 
 	function handleGameFinish(gameState) {
 		socket.emit("gameFinish", gameState);
+		setMultiplayerGrid([]);
 	}
 
 	return (

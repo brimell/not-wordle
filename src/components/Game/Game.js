@@ -112,7 +112,7 @@ function Game(props) {
 	};
 
 	function handleGameFinish(gameState) {
-		console.log("game finished", gameState);
+		console.log("game finished with state: ", gameState);
 		props.handleGameFinish(gameState);
 	}
 

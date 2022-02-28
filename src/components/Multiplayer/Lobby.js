@@ -35,8 +35,8 @@ export default function Lobby() {
 	setWordLength(5);
 
 	useEffect(() => {
-		console.log(grids)
-	}, [grids])
+		console.log(grids);
+	}, [grids]);
 
 	useEffect(() => {
 		socket.emit("fetchUserList");
@@ -48,9 +48,9 @@ export default function Lobby() {
 	}
 
 	function allLost() {
-		setGame(false)
-		setWinner(false)
-		setPodium(true)
+		setGame(false);
+		setWinner(false);
+		setPodium(true);
 	}
 
 	function gameLost(id) {
@@ -69,38 +69,42 @@ export default function Lobby() {
 		}
 	}
 
-	socket.on("game-started", (props) => {
-		if (props.res) { // check if game started was initialised by a host
-			setMultiplayerGrid([]) // reset local grid for new game
-			setGrids({})	// reset all grids for new game
-			setTarget(props.target);
-			setGame(true);
-		}
-	});
-	socket.on("getUserRes", (user) => {
-		setUsername(user.name);
-	});
-	socket.on("gameWon", (id) => {
-		gameWon(id);
-	});
-	socket.on("gameLost", (id) => {
-		gameLost(id);
-	});
-	socket.on("allLost", () => {
-		allLost();
-	});
-	socket.on("update-grid-client", (Grids) => {
-		// console.log("got grids", Grids);
-		setGrids(Grids);
-	});
-	socket.on("updateUsersList", (userList) => {
-		socket.emit("fetchFullUsersList");
-		setUsers(userList);
-	});
-	socket.on("updateFullUsersList", (userList) => {
-		setStartHide(
-			userList.find((user) => user.id === socket.id).role === "host"
-		);
+	useEffect(() => { //? need to be inside useEffect otherwise will be rendered multiple times and multiple listeners will be added
+		socket.on("game-started", (props) => {
+			if (props.res) {
+				// check if game started was initialised by a host
+				// setGrids({})	// reset all grids for new game
+				setTarget(props.target);
+				setGame(true);
+			}
+		});
+		socket.on("getUserRes", (user) => {
+			setUsername(user.name);
+		});
+		socket.on("gameWon", (id) => {
+			gameWon(id);
+		});
+		socket.on("gameLost", (id) => {
+			console.log("test");
+			gameLost(id);
+		});
+		socket.on("allLost", () => {
+			allLost();
+		});
+		socket.on("update-grid-client", (Grids) => {
+			// console.log("got grids", Grids);
+			//! this gets updated too much need to fix
+			setGrids(Grids);
+		});
+		socket.on("updateUsersList", (userList) => {
+			socket.emit("fetchFullUsersList");
+			setUsers(userList);
+		});
+		socket.on("updateFullUsersList", (userList) => {
+			setStartHide(
+				userList.find((user) => user.id === socket.id).role === "host"
+			);
+		});
 	});
 
 	return (
@@ -149,7 +153,13 @@ export default function Lobby() {
 					</div>
 				</div>
 			)}
-			{game && <GameParent socket={socket} multiplayerGrid={multiplayerGrid} setMultiplayerGrid={setMultiplayerGrid} />}
+			{game && (
+				<GameParent
+					socket={socket}
+					multiplayerGrid={multiplayerGrid}
+					setMultiplayerGrid={setMultiplayerGrid}
+				/>
+			)}
 			{(game || podium) && $(window).width() >= 1000 && (
 				<div className="gridBar">
 					{grids &&

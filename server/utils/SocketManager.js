@@ -76,6 +76,8 @@ const SocketManager = (socket, io, utils) => {
 		if (utils.getUser(socket.id).role === "host") {
 			console.log("game started in room: ", user.room);
 			resetRng();
+			utils.resetGrids(user.room);
+			utils.resetLost(user.room);
 			io.to(user.room).emit("game-started", {
 				res: true,
 				target: randomTarget(5),
@@ -135,7 +137,6 @@ const SocketManager = (socket, io, utils) => {
 	});
 
 	socket.on("getAllUsers", (props) => {
-		console.log("test");
 		const all_users = utils.getAllUsers();
 		io.to(socket.id).emit("getAllUsersRes", all_users);
 	});
@@ -144,7 +145,7 @@ const SocketManager = (socket, io, utils) => {
 		const user = utils.getUser(socket.id);
 		if (user) {
 			utils.updateGrid(user.id, grid);
-			console.log("grids: ", utils.getGrids(user.room));
+			// console.log("grids: ", utils.getGrids(user.room));
 			io.to(user.room).emit(
 				"update-grid-client",
 				utils.getGrids(user.room)

@@ -19,7 +19,7 @@
 // {
 // room
 // host
-// users
+// users: [user1, user2]
 // gameState
 // lostCount
 // grids
@@ -38,7 +38,7 @@ class Users {
 		this.users.push(user);
 		for (var i = 0; i < this.rooms.length; i++) {
 			if (this.rooms[i].room === room) {
-				this.rooms[i].users.push(user); // add user to room
+				this.rooms[i].users.push(name); // add user name to room
 			}
 		}
 
@@ -84,6 +84,7 @@ class Users {
 	}
 
 	getLostCount(room) {
+		//? get lost count
 		let lostCount = 0;
 		for (var i = 0; i < this.users.length; i++) {
 			if (this.users[i].room === room) {
@@ -92,6 +93,13 @@ class Users {
 				}
 			}
 		}
+		//? update lost count
+		for (i = 0; i < this.rooms.length; i++) {
+			if (this.rooms[i].room === room) {
+				this.rooms[i].lostCount = lostCount;
+			}
+		}
+
 		return lostCount;
 	}
 
@@ -123,22 +131,57 @@ class Users {
 		return user;
 	}
 
-	updateGrid(id, grid) {
+	updateGrid(id, grid) { // updates grid for user with id
+		//? updates grid in user object
 		for (var i = 0; i < this.users.length; i++) {
 			if (this.users[i].id === id) {
 				this.users[i].grid = grid;
 			}
 		}
+		//? updates grid in room object
+		for (i = 0; i < this.rooms.length; i++) {
+			if (this.rooms[i].room === this.getUser(id).room) {
+				for (var user in Object.keys(this.rooms[i].grids)) {
+					if (user === this.getUser(id).name) {
+						this.rooms[i].grids[user] = grid;
+					}
+				}
+			}
+		}
 	}
 
 	getGrids(room) {
-		this.grids = {};
+		var grids = {};
 		for (var i = 0; i < this.users.length; i++) {
 			if (this.users[i].room === room) {
-				this.grids[this.users[i].name] = this.users[i].grid;
+				grids[this.users[i].name] = this.users[i].grid;
 			}
 		}
-		return this.grids;
+		return grids;
+	}
+	resetGrids(room) {
+		for (var i = 0; i < this.users.length; i++) {
+			if (this.users[i].room === room) {
+				this.users[i].grid = [];
+			}
+		}
+		for (i = 0; i < this.rooms.length; i++) {
+			if (this.rooms[i].room === room) {
+				this.rooms[i].grids = {};
+			}
+		}
+	}
+	resetLost(room) {
+		for (var i = 0; i < this.users.length; i++) {
+			if (this.users[i].room === room) {
+				this.users[i].lost = false;
+			}
+		}
+		for (i = 0; i < this.rooms.length; i++) {
+			if (this.rooms[i].room === room) {
+				this.rooms[i].lostCount = 0;
+			}
+		}
 	}
 }
 
