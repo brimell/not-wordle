@@ -14,9 +14,11 @@ if (window.location.host.startsWith("localhost")) {
 } else if (window.location.host.startsWith("rimell")) {
 	socket = io.connect(`https://rimell.cc/notwordle`);
 } else if (window.location.host.endsWith("vercel.app")) {
-	socket = io.connect(`https://notwordle-raaydon.vercel.app`);
+	// socket = io.connect(`https://notwordle-raaydon.vercel.app`);
+	socket = io.connect(`https://notwordle.herokuapp.com`);
 } else if (window.location.host.endsWith("netlify.app")) {
-	socket = io.connect(`https://notwordle.netlify.app`);
+	// socket = io.connect(`https://notwordle.netlify.app`);
+	socket = io.connect(`https://notwordle.herokuapp.com`);
 } else {
 	socket = io.connect(`https://notwordle.herokuapp.com`);
 }
