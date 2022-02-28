@@ -19,13 +19,15 @@ export default function Multiplayer(props) {
 		socket.emit("fetchRooms");
 	}, [socket]);
 
-	socket.on("updateRooms", (rooms) => {
-		// console.log("updated rooms", rooms);
-		setRooms(rooms); //? returns utils.rooms
-	});
-	socket.on("fetchRoomsRes", (rooms) => {
-		// console.log("updated rooms from fetch: ", rooms);
-		setRooms(rooms);
+	useEffect(() => { //? need to be inside useEffect otherwise will be rendered multiple times and multiple listeners will be added
+		socket.on("updateRooms", (rooms) => {
+			// console.log("updated rooms", rooms);
+			setRooms(rooms); //? returns utils.rooms
+		});
+		socket.on("fetchRoomsRes", (rooms) => {
+			// console.log("updated rooms from fetch: ", rooms);
+			setRooms(rooms);
+		});
 	});
 
 	useEffect(() => {

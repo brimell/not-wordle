@@ -30,10 +30,13 @@ export default function Podium() {
 	function playAgain() {
 		socket.emit("playAgain");
 	}
-	socket.on("playAgainRes", () => {
-		setGrids({});
-		setLobby(true);
-		setPodium(false);
+	//? need to be inside useEffect otherwise will be rendered multiple times and multiple listeners will be added
+	useEffect(() => {
+		socket.on("playAgainRes", () => {
+			setGrids({});
+			setLobby(true);
+			setPodium(false);
+		});
 	});
 
 	return (
