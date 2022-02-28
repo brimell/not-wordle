@@ -15,119 +15,119 @@ function randomTarget(wordLength) {
 	return pick(eligible);
 }
 
-const SocketManager = (socket, io, users) => {
-	console.log("new connection", socket.id);
+const SocketManager = (socket, io, utils) => {
+	console.log("New connection: ", socket.id);
 
-	socket.on("joinRoom", (props) => {
+	function checkDuplicateName(name, room) {
 		let dupe = false;
-		for (let username in users.getUserList(props.room)) {
-			if (username === props.name) {
+		for (let username in utils.getUserList(room)) {
+			if (username === name) {
 				io.to(socket.id).emit("joinRoomRes", { res: false });
 				dupe = true;
 			}
 		}
-		if (!dupe) {
+		return dupe; // return true if name is taken
+	}
+
+	socket.on("joinRoom", (props) => {
+		if (!checkDuplicateName(props.name, props.room)) {
+			if (props.role === "host") {
+				utils.newRoom(props.room, props.name);
+			}
+			
+			utils.removeUser(socket.id);
+			utils.addUser(socket.id, props.name, props.room, props.role);
+
 			socket.join(props.room);
-			users.removeUser(socket.id);
-			users.addUser(socket.id, props.name, props.room, props.role);
 
 			io.to(props.room).emit(
 				"updateUsersList",
-				users.getUserList(props.room)
+				utils.getUserList(props.room)
 			);
 			io.to(socket.id).emit("joinRoomRes", { res: true });
-			if (props.role === "host") {
-				console.log("was host");
-				users.updateGameState(props.room, "lobby");
-			} else {
-				io.to(socket.id).emit(
-					"all users",
-					users.getUserList(props.room)
-				); // for voice call
-			}
-			socket.broadcast.emit("updateRooms", users.getRoomList());
+			socket.broadcast.emit("updateRooms", utils.getRoomList());
 		}
 		// console.log(users.getRoomList())
 	});
 
 	socket.on("gameFinish", (gameState) => {
-		const user = users.getUser(socket.id);
+		const user = utils.getUser(socket.id);
 		if (gameState === "Won") {
+			utils.updateGameState(user.room, "Podium");
 			io.to(user.room).emit("gameWon", user.id);
-			users.updateGameState(user.room, "Podium");
-			io.to(user.room).emit("updateRooms", users.getRoomList());
+			io.to(user.room).emit("updateRooms", utils.getRoomList());
 		} else if (gameState === "Lost") {
-			users.userLost(user.id);
+			utils.userLost(user.id);
 			io.to(user.room).emit("gameLost", user.id);
 			if (
-				users.getLostCount(user.room) ===
-				users.getUserList(user.room).length
+				utils.getLostCount(user.room) ===
+				utils.getUserList(user.room).length
 			) {
-				users.updateGameState(user.room, "Podium");
-				io.to(user.room).emit("updateRooms", users.getRoomList());
+				utils.updateGameState(user.room, "Podium");
+				io.to(user.room).emit("updateRooms", utils.getRoomList());
 				io.to(user.room).emit("allLost");
 			}
 		}
 	});
 
 	socket.on("start-game", (props) => {
-		const user = users.getUser(socket.id);
-		if (users.getUser(socket.id).role === "host") {
+		const user = utils.getUser(socket.id);
+		if (utils.getUser(socket.id).role === "host") {
 			console.log("game started in room: ", user.room);
 			resetRng();
 			io.to(user.room).emit("game-started", {
 				res: true,
 				target: randomTarget(5),
 			});
-			users.updateGameState(user.room, "playing");
-			socket.broadcast.emit("updateRooms", users.getRoomList());
+			utils.updateGameState(user.room, "playing");
+			socket.broadcast.emit("updateRooms", utils.getRoomList());
 		} else {
 			io.to(user.room).emit("game-started", { res: false });
 		}
 	});
 
 	socket.on("playAgain", () => {
-		const user = users.getUser(socket.id);
+		const user = utils.getUser(socket.id);
 		io.to(user.room).emit("playAgainRes");
 	});
 
 	socket.on("fetchRooms", () => {
-		var room_list = users.getRoomList();
+		var room_list = utils.getRoomList();
 		io.to(socket.id).emit("fetchRoomsRes", room_list);
 	});
 
 	socket.on("fetchFullUsersList", (props) => {
-		const user = users.getUser(socket.id);
+		const user = utils.getUser(socket.id);
 		if (user) {
 			io.to(user.room).emit(
 				"updateFullUsersList",
-				users.getFullUserList(user.room)
+				utils.getFullUserList(user.room)
 			);
 		}
 	});
 	socket.on("fetchUserListByRoom", (room) => {
 		io.to(socket.id).emit(
 			"fetchUserListByRoomRes",
-			users.getUserList(room)
+			utils.getUserList(room)
 		);
 	});
 	socket.on("fetchUserList", (props) => {
-		const user = users.getUser(socket.id);
+		const user = utils.getUser(socket.id);
 		if (user && props) {
 			io.to(socket.id).emit(
 				"updateUsersList",
-				users.getUserList(user.room)
+				utils.getUserList(user.room)
 			);
 		} else if (user) {
 			io.to(user.room).emit(
 				"updateUsersList",
-				users.getUserList(user.room)
+				utils.getUserList(user.room)
 			);
 		}
 	});
 
 	socket.on("getUser", (id) => {
-		const user = users.getUser(id);
+		const user = utils.getUser(id);
 		if (user) {
 			io.to(socket.id).emit("getUserRes", user);
 		}
@@ -135,21 +135,21 @@ const SocketManager = (socket, io, users) => {
 
 	socket.on("getAllUsers", (props) => {
 		console.log("test");
-		const all_users = users.getAllUsers();
+		const all_users = utils.getAllUsers();
 		io.to(socket.id).emit("getAllUsersRes", all_users);
 	});
 
 	socket.on("update-grid", (grid) => {
-		const user = users.getUser(socket.id);
+		const user = utils.getUser(socket.id);
 		if (user) {
-			users.updateGrid(user.id, grid);
-			console.log("grids: ", users.getGrids(user.room));
+			utils.updateGrid(user.id, grid);
+			console.log("grids: ", utils.getGrids(user.room));
 			io.to(user.room).emit(
 				"update-grid-client",
-				users.getGrids(user.room)
+				utils.getGrids(user.room)
 			);
 		} else {
-			console.log("user not found: ", socket.id, grid, users);
+			console.log("user not found: ", socket.id, grid, utils);
 		}
 	});
 
@@ -166,16 +166,16 @@ const SocketManager = (socket, io, users) => {
 	// })
 
 	socket.on("leave-room", (props) => {
-		let user = users.removeUser(socket.id);
+		let user = utils.removeUser(socket.id);
 
 		if (user) {
-			users.removeRoom(user.room);
+			utils.removeRoom(user.room);
 			io.to(user.room).emit(
 				"updateUsersList",
-				users.getUserList(user.room)
+				utils.getUserList(user.room)
 			);
 			socket.leave(user.room);
-			socket.broadcast.emit("updateRooms", users.getRoomList());
+			socket.broadcast.emit("updateRooms", utils.getRoomList());
 		} else {
 			console.log("cannot leave room as user is: ", user);
 		}
@@ -197,21 +197,21 @@ const SocketManager = (socket, io, users) => {
 	});
 
 	socket.on("disconnect", () => {
-		let user = users.removeUser(socket.id);
+		let user = utils.removeUser(socket.id);
 
 		if (user) {
 			io.to(user.room).emit(
 				"updateUsersList",
-				users.getUserList(user.room)
+				utils.getUserList(user.room)
 			);
 			if (
-				users
+				utils
 					.getRoomList(user.room)
 					.filter((room) => room.room === user.room).length === 1
 			) {
-				users.removeRoom(user.room);
+				utils.removeRoom(user.room);
 			}
-			socket.broadcast.emit("updateRooms", users.getRoomList());
+			socket.broadcast.emit("updateRooms", utils.getRoomList());
 		}
 	});
 };

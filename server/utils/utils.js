@@ -1,15 +1,55 @@
+// data strcuture
+
+// users
+
+// [
+// {
+// id
+// name
+// room
+// role
+// lost
+// grid
+// }
+// ]
+
+// rooms
+
+// [
+// {
+// room
+// host
+// users
+// gameState
+// lostCount
+// grids
+// }
+// ]
+
 class Users {
 	constructor() {
 		this.users = [];
 		this.rooms = [];
-		this.grids = {};
 	}
 
 	addUser(id, name, room, role) {
-		let user = { id, name, room, role, lost: false };
+		let user = { id, name, room, role, grid: [], lost: false };
+
 		this.users.push(user);
-		this.getRoomList(); // gives this.rooms the updated list of rooms
+		this.rooms.filter((room) => room.room === user.room).users.push(user);
+
 		return user;
+	}
+
+	newRoom(room, host) {
+		this.rooms.push({
+			room,
+			host,
+			users: [],
+			gameState: "lobby",
+			lostCount: 0,
+			grids: {},
+		});
 	}
 
 	getUserList(room) {
@@ -22,40 +62,8 @@ class Users {
 	getAllUsers() {
 		return this.users.map((user) => user.name);
 	}
-
+	
 	getRoomList() {
-		var tempRooms = [];
-		for (var i = 0; i < this.users.length; i++) {
-			var user = this.users[i];
-			if (this.rooms.length !== 0) {
-				// if there are already rooms, add a new room for each host in users
-				for (var j = 0; j < this.rooms.length; j++) {
-					if (
-						this.rooms[j].room === user.room &&
-						user.role === "host"
-					) {
-						tempRooms.push({
-							room: user.room,
-							host: user.name,
-							users: this.getUserList(user.room),
-							gameState: this.rooms[j].gameState || "lobby",
-							lostCount: this.getLostCount(user.room),
-						});
-					}
-				}
-			} else if (user.role === "host") {
-				// if there are no rooms, create a new room
-				tempRooms.push({
-					room: user.room,
-					host: user.name,
-					users: this.getUserList(user.room),
-					gameState: "lobby",
-					lostCount: this.getLostCount(user.room),
-				});
-			}
-		}
-		this.rooms = tempRooms;
-		console.log(this.rooms);
 		return this.rooms;
 	}
 
@@ -105,6 +113,7 @@ class Users {
 
 		if (user) {
 			this.users = this.users.filter((user) => user.id !== id);
+			this.rooms = this.rooms.filter((room) => room.room !== user.room);
 		}
 
 		return user;

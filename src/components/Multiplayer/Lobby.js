@@ -71,7 +71,8 @@ export default function Lobby() {
 
 	socket.on("game-started", (props) => {
 		if (props.res) { // check if game started was initialised by a host
-			setMultiplayerGrid({}) // reset local grid for new game
+			setMultiplayerGrid([]) // reset local grid for new game
+			setGrids({})	// reset all grids for new game
 			setTarget(props.target);
 			setGame(true);
 		}
@@ -151,7 +152,7 @@ export default function Lobby() {
 			{game && <GameParent socket={socket} multiplayerGrid={multiplayerGrid} setMultiplayerGrid={setMultiplayerGrid} />}
 			{(game || podium) && $(window).width() >= 1000 && (
 				<div className="gridBar">
-					{grids && grids !== {} &&
+					{grids &&
 						Object.keys(grids).map((nameProp, i) => {
 							if (nameProp === username) {
 								return "";

@@ -6,7 +6,7 @@ const path = require("path");
 
 const { instrument } = require("@socket.io/admin-ui");
 
-const { Users } = require("./utils/users");
+const { Users } = require("./utils/utils");
 let users = new Users();
 const SocketManager = require("./utils/SocketManager");
 
