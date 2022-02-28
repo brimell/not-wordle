@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { Row } from "./Row";
 import { clue } from "./clue";
 import { Keyboard } from "../Keyboard";
+import nonFiveWords from "../../Wordlist/common.json";
 import wordList from "../../Wordlist/wordList.json";
 import { pick, resetRng, seed } from "../util";
 import $ from "jquery";
@@ -10,9 +11,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import { MainContext } from "../../context/context";
 
 const targets = wordList.slice(0, 20000); // adjust for max target freakiness
+const notFiveTargets = nonFiveWords.slice(0, 20000);
 
 function randomTarget(wordLength) {
-	const eligible = targets.filter((word) => word.length === wordLength);
+	var eligible;
+	if (wordLength === 5) {
+		eligible = targets.filter((word) => word.length === wordLength);
+	} else {
+		eligible = notFiveTargets.filter((word) => word.length === wordLength);
+	}
 	return pick(eligible);
 }
 

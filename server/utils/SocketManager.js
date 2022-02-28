@@ -32,6 +32,7 @@ const SocketManager = (socket, io, utils) => {
 	socket.on("joinRoom", (props) => {
 		if (!checkDuplicateName(props.name, props.room)) {
 			if (props.role === "host") {
+				//! need to check if room already exists
 				utils.newRoom(props.room, props.name);
 			}
 			

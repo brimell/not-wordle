@@ -36,7 +36,11 @@ class Users {
 		let user = { id, name, room, role, grid: [], lost: false };
 
 		this.users.push(user);
-		this.rooms.filter((room) => room.room === user.room).users.push(user);
+		for (var i = 0; i < this.rooms.length; i++) {
+			if (this.rooms[i].room === room) {
+				this.rooms[i].users.push(user); // add user to room
+			}
+		}
 
 		return user;
 	}
@@ -62,7 +66,7 @@ class Users {
 	getAllUsers() {
 		return this.users.map((user) => user.name);
 	}
-	
+
 	getRoomList() {
 		return this.rooms;
 	}
