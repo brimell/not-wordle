@@ -15,6 +15,8 @@ if (window.location.host.startsWith("localhost")) {
 	socket = io.connect(`https://rimell.cc/notwordle`);
 } else if (window.location.host.endsWith("vercel.app")) {
 	socket = io.connect(`https://notwordle-raaydon.vercel.app`);
+} else if (window.location.host.endsWith("netlify.app")) {
+	socket = io.connect(`https://notwordle.netlify.app`);
 } else {
 	socket = io.connect(`https://notwordle.herokuapp.com`);
 }
