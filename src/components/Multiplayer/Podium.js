@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { MainContext } from "../../context/context";
+import axios from 'axios'
 
 export default function Podium() {
 	const {
@@ -16,6 +17,7 @@ export default function Podium() {
 
 	setWordLength(localStorage.getItem("wordLength")); // set word length to previous value before multiplayer game
 	const [guesses, setGuesses] = useState(0);
+	const [definition, setDefinition] = useState("Loading...");
 
 	useEffect(() => {
 		if (winner && grids[winner]) {
@@ -37,7 +39,30 @@ export default function Podium() {
 			setLobby(true);
 			setPodium(false);
 		});
-	},[setGrids, setLobby, setPodium, socket]);
+	}, [setGrids, setLobby, setPodium, socket]);
+
+	async function getDefinition(target) {
+		axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${target}`).then(
+			(res) => {
+				const data = res.data;
+
+				if (data.title === "No Definitions Found") {
+					return "No definition found";
+				} else if (data[0] !== undefined) {
+					const def = data[0].meanings[0].definitions[0].definition;
+					const example = data[0].meanings[0].definitions[0].example;
+					// return [definition, example] || ["none", "none"]
+					console.log('def: ',def)
+					setDefinition(def);
+					return def
+				}
+			}
+		);
+	}
+
+	useEffect(() => {
+		getDefinition(target);
+	}, [target]);
 
 	return (
 		<div className="podium">
@@ -55,6 +80,7 @@ export default function Podium() {
 			<p>
 				the word was: <span className="wordPrimary">{target}</span>
 			</p>
+			<p style={{maxWidth: "70%", lineHeight: "normal", fontSize: "20px", margin: 0}}>{`Definition: ${String(definition).slice(0,48)}...`}</p>
 			{grids &&
 				winner &&
 				Object.keys(grids).map((name, i) => {

@@ -17,7 +17,6 @@ export default function GameParent(props) {
 		if (socket && multiplayerGrid.length !== 0 && prevMGrid !== multiplayerGrid) {
 			socket.emit("update-grid", multiplayerGrid);
 			setprevMGrid(multiplayerGrid);
-			console.log('ran')
 		}
 	}, [multiplayerGrid]);
 

@@ -9,7 +9,7 @@ function pick(array) {
 	resetRng();
 	return array[Math.floor(array.length * random)];
 }
-const targets = wordList.slice(0, 20000); // adjust for max target freakiness
+const targets = wordList.slice(0, 2000); // adjust for max target freakiness
 function randomTarget(wordLength) {
 	const eligible = targets.filter((word) => word.length === wordLength);
 	return pick(eligible);
@@ -101,6 +101,7 @@ const SocketManager = (socket, io, utils) => {
 
 	socket.on("playAgain", () => {
 		const user = utils.getUser(socket.id);
+		utils.updateGameState(user.room, "lobby");
 		io.to(user.room).emit("playAgainRes");
 	});
 

@@ -10,7 +10,7 @@ import { useModal } from "react-hooks-use-modal";
 import CloseIcon from "@mui/icons-material/Close";
 import { MainContext } from "../../context/context";
 
-const targets = wordList.slice(0, 20000); // adjust for max target freakiness
+const targets = wordList.slice(0, 2000); // adjust for max target freakiness
 const notFiveTargets = nonFiveWords.slice(0, 20000);
 
 function randomTarget(wordLength) {
@@ -204,7 +204,7 @@ function Game(props) {
 			if (socket) {
 				props.setCurrentGrid(currGrid);
 			}
-			// console.log('target: ',target);
+			console.log('target: ',target);
 		};
 
 		document.addEventListener("keydown", onKeyDown);

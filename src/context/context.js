@@ -27,23 +27,20 @@ export function ContextProvider(props) {
 	// modals
 
 	const [gridViewModal, gridViewOpen, gridViewClose, gridViewIsOpen] =
-		useModal("root", {
-			preventScroll: true,
-		});
-	const [statsModal, statsOpen, statsClose, statsIsOpen] = useModal("root", {
-		preventScroll: true,
-	});
+		useModal("root", {});
+	const [statsModal, statsOpen, statsClose, statsIsOpen] = useModal(
+		"root",
+		{}
+	);
 	const [messagesModal, messagesOpen, messagesClose, messagesIsOpen] =
-		useModal("root", {
-			preventScroll: true,
-		});
+		useModal("root", {});
 	const [createGameModal, CreateGameOpen, CreateGameClose, CreateGameIsOpen] =
 		useModal("root", {
 			preventScroll: true,
 		});
 
 	useEffect(() => {
-		console.log('lobby: ',lobby);
+		console.log("lobby: ", lobby);
 	}, [lobby]);
 
 	return (
