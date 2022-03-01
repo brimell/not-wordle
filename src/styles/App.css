@@ -11,7 +11,7 @@
 	align-items: center;
 	padding: 0px;
 
-	border-radius: 3vh;
+	border-radius: 30%;
 	background: linear-gradient(135deg, #2d3047 0%, #48495f 100%) padding-box,
 		/* this is the background */
 			linear-gradient(135deg, #48495f 0%, #2d3047 100%) border-box; /* this is the border*/
@@ -189,7 +189,7 @@ a {
 	padding: 20px;
 }
 
-@media only screen and (max-height: 1070px) {
+@media only screen and (max-height: 1250px) {
 	.Row-letter {
 		width: 7vh;
 		height: 7vh;
@@ -220,7 +220,7 @@ a {
 		display: none;
 	}
 
-	@media only screen and (min-width: 470px) {
+	@media only screen and (min-width: 530px) and (min-height: 900px) {
 		.Game-keyboard {
 			position: relative;
 		}
@@ -274,7 +274,7 @@ label {
 	}
 }
 
-@media only screen and (max-height: 700px) {
+@media only screen and (max-height: 800px) {
 	#hint {
 		padding: 0;
 		margin: 0;
