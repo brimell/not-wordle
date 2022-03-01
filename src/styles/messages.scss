@@ -2,8 +2,14 @@
 	min-width: 30vw;
 	min-height: 50vh;
 	max-height: 80vh;
-	overflow-y: scroll;
-	overflow-x: hidden;
+
+	main {
+		overflow-y: scroll;
+		overflow-x: hidden;
+		height: fit-content;
+		max-height: inherit;
+	}
+
 	form {
 		height: fit-content;
 		min-height: 5vh;

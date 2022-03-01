@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { MainContext } from "../../context/context";
 import "react-hooks-use-modal";
 import { X } from "react-feather";
@@ -23,12 +23,16 @@ export default function StatsModal(props) {
 	const close = messagesClose;
 
 	function ChatRoom() {
+		useEffect(() => {
+			console.log('ran')
+			dummy.current.scrollIntoView({ behavior: "smooth" });
+		}, [])
 		const dummy = useRef();
 		const messagesRef = firestore.collection("messages");
 		const query = messagesRef.orderBy("createdAt").limit(25);
 
 		const [messages] = useCollectionData(query, { idField: "id" });
-
+		//TODO: need to change this to use document id
 		const [formValue, setFormValue] = useState("");
 
 		const sendMessage = async (e) => {
@@ -37,24 +41,29 @@ export default function StatsModal(props) {
 			await messagesRef.add({
 				text: formValue,
 				createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-				user: name === '' ? 'Anonymous' : name,
+				user: name === "" ? "Anonymous" : name,
 			});
 
 			setFormValue("");
 			dummy.current.scrollIntoView({ behavior: "smooth" });
 		};
 
-    function ChatMessage(props) {
-      const { text, username } = props.message;
-    
-      const messageClass = username === (name === '' ? 'Anonymous' : name) ? 'sent' : 'received';
-    
-      return (<>
-        <div className={`message ${messageClass}`} key={props.key}>
-          <p>{text}</p>
-        </div>
-      </>)
-    }
+		function ChatMessage(props) {
+			const { text, username } = props.message;
+
+			const messageClass =
+				username === (name === "" ? "Anonymous" : name)
+					? "sent"
+					: "received";
+
+			return (
+				<>
+					<div className={`message ${messageClass}`} key={props.key}>
+						<p>{text}</p>
+					</div>
+				</>
+			);
+		}
 
 		return (
 			<>
@@ -64,7 +73,7 @@ export default function StatsModal(props) {
 							<ChatMessage key={msg.id} message={msg} />
 						))}
 
-					<span ref={dummy}></span>
+					<span id="dummy" ref={dummy}></span>
 				</main>
 
 				<form onSubmit={sendMessage}>
@@ -85,7 +94,9 @@ export default function StatsModal(props) {
 		<Modal>
 			<div className="modalContainer">
 				<X onClick={close} className="modalCloseIcon" />
-				<div className="messagesContainer"><ChatRoom /></div>
+				<div className="messagesContainer">
+					<ChatRoom />
+				</div>
 			</div>
 		</Modal>
 	);
