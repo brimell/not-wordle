@@ -125,13 +125,20 @@ class Users {
 
 		if (user) {
 			this.users = this.users.filter((user) => user.id !== id);
-			this.rooms = this.rooms.filter((room) => room.room !== user.room);
+			for (var i = 0; i < this.rooms.length; i++) {
+				if (this.rooms[i].room === user.room) {
+					this.rooms[i].users = this.rooms[i].users.filter(
+						(userprop) => userprop !== user.name
+					);
+				}
+			}
 		}
 
 		return user;
 	}
 
-	updateGrid(id, grid) { // updates grid for user with id
+	updateGrid(id, grid) {
+		// updates grid for user with id
 		//? updates grid in user object
 		for (var i = 0; i < this.users.length; i++) {
 			if (this.users[i].id === id) {

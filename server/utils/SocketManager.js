@@ -35,7 +35,7 @@ const SocketManager = (socket, io, utils) => {
 				//! need to check if room already exists
 				utils.newRoom(props.room, props.name);
 			}
-			
+
 			utils.removeUser(socket.id);
 			utils.addUser(socket.id, props.name, props.room, props.role);
 
@@ -171,16 +171,22 @@ const SocketManager = (socket, io, utils) => {
 		let user = utils.removeUser(socket.id);
 
 		if (user) {
-			utils.removeRoom(user.room);
+			// if user is last user
+			for (let room in utils.getRoomList()) {
+				if (room.room === user.room && room.users.length === 0) {
+					utils.removeRoom(user.room);
+				}
+			}
 			io.to(user.room).emit(
 				"updateUsersList",
 				utils.getUserList(user.room)
 			);
 			socket.leave(user.room);
-			socket.broadcast.emit("updateRooms", utils.getRoomList());
 		} else {
 			console.log("cannot leave room as user is: ", user);
 		}
+
+		socket.emit("updateRooms", utils.getRoomList());
 	});
 
 	// voice chat
@@ -202,19 +208,22 @@ const SocketManager = (socket, io, utils) => {
 		let user = utils.removeUser(socket.id);
 
 		if (user) {
+			// if user is last user
+			for (let room in utils.getRoomList()) {
+				if (room.room === user.room && room.users.length === 0) {
+					utils.removeRoom(user.room);
+				}
+			}
 			io.to(user.room).emit(
 				"updateUsersList",
 				utils.getUserList(user.room)
 			);
-			if (
-				utils
-					.getRoomList(user.room)
-					.filter((room) => room.room === user.room).length === 1
-			) {
-				utils.removeRoom(user.room);
-			}
-			socket.broadcast.emit("updateRooms", utils.getRoomList());
+			socket.leave(user.room);
+		} else {
+			console.log("cannot leave room as user is: ", user);
 		}
+
+		socket.emit("updateRooms", utils.getRoomList());
 	});
 };
 
