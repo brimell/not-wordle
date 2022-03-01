@@ -13,10 +13,14 @@ npm i
 npm run build
 npm run server
 ```
-and both the server and webpage are served from [localhost:3000](http://localhost:3000/)
+and both the server and webpage are served from [localhost:3001](http://localhost:3001/)
 
 or for development:
 
 ```
+npm i
 npm start
+npm run server
 ```
+
+and go to [localhost:3000](http://localhost:3000) (you should be taken there automatically by react scripts though)
