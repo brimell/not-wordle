@@ -150,10 +150,18 @@ function Game(props) {
 				setHint("Too short");
 				return;
 			}
-			if (!wordList.includes(currentGuess)) {
-				setHint("Not a valid word");
-				return;
+			if (wordLength === 5) {
+				if (!wordList.includes(currentGuess)) {
+					setHint("Not a valid word");
+					return;
+				}
+			} else {
+				if (!nonFiveWords.includes(currentGuess)) {
+					setHint("Not a valid word");
+					return;
+				}
 			}
+			
 			setGuesses((guesses) => guesses.concat([currentGuess]));
 			setCurrentGuess((guess) => "");
 			if (socket && props.multiplayerGrid !== currGrid) {
@@ -204,7 +212,7 @@ function Game(props) {
 			if (socket) {
 				props.setCurrentGrid(currGrid);
 			}
-			console.log('target: ',target);
+			console.log("target: ", target);
 		};
 
 		document.addEventListener("keydown", onKeyDown);
