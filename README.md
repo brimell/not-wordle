@@ -1,6 +1,8 @@
-# not wordle multiplayer
-
-All credit to [Wordle](https://www.powerlanguage.co.uk/wordle/)
+<h1 align="center">
+  <img alt="notwordle-logo" src="https://raw.githubusercontent.com/Raaydon/not-wordle/master/public/ogImage.jpg" width="224px"/><br/>
+  Notwordle
+</h1>
+<p align="center">Play [Wordle](https://www.powerlanguage.co.uk/wordle/) <b>without limits</b> on <b>Notwordle</b>.<br/>With<b> multiplayer functionality</b>
 
 play my version [on heroku](https://notwordle.herokuapp.com/) or [on my website](https://rimell.cc/notwordle) 
 
@@ -26,3 +28,4 @@ npm run server
 and go to [localhost:3000](http://localhost:3000) (you should be taken there automatically by react scripts though)
 
 ![Homepage](./public/notwordleHomepage.png)
+

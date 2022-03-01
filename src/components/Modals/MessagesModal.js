@@ -28,9 +28,13 @@ export default function StatsModal(props) {
 		});
 		const dummy = useRef();
 		const messagesRef = firestore.collection("messages");
-		const query = messagesRef.orderBy("createdAt").limit(25);
+		const query = messagesRef.orderBy("createdAt", "desc").limit(25)
 
 		const [messages] = useCollectionData(query, { idField: "id" });
+		// const messagesCopy = messages
+		// messagesCopy.sort((a, b, c) => (a.createdAt > b.createdAt > c.createdAt) ? 1 : -1)
+
+		console.log('messages: ',messages)
 		const [formValue, setFormValue] = useState("");
 
 		const sendMessage = async (e) => {
