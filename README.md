@@ -24,3 +24,5 @@ npm run server
 ```
 
 and go to [localhost:3000](http://localhost:3000) (you should be taken there automatically by react scripts though)
+
+![Homepage](./public/notwordleHomepage.png)
