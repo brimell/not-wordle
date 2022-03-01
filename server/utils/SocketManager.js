@@ -32,14 +32,24 @@ const SocketManager = (socket, io, utils) => {
 	socket.on("joinRoom", (props) => {
 		if (!checkDuplicateName(props.name, props.room)) {
 			if (props.role === "host") {
-				//! need to check if room already exists
+				//? check if room already exists
+				for (room in utils.getRoomList()) {
+					if (room.room === props.room) {
+						io.to(socket.id).emit("joinRoomRes", { res: false });
+						return;
+					}
+				}
 				utils.newRoom(props.room, props.name);
+				utils.removeUser(socket.id);
+				utils.addUser(socket.id, props.name, props.room, props.role);
+
+				socket.join(props.room);
+			} else {
+				utils.removeUser(socket.id);
+				utils.addUser(socket.id, props.name, props.room, props.role);
+
+				socket.join(props.room);
 			}
-
-			utils.removeUser(socket.id);
-			utils.addUser(socket.id, props.name, props.room, props.role);
-
-			socket.join(props.room);
 
 			io.to(props.room).emit(
 				"updateUsersList",
@@ -95,8 +105,7 @@ const SocketManager = (socket, io, utils) => {
 	});
 
 	socket.on("fetchRooms", () => {
-		var room_list = utils.getRoomList();
-		io.to(socket.id).emit("fetchRoomsRes", room_list);
+		io.to(socket.id).emit("fetchRoomsRes", utils.getRoomList());
 	});
 
 	socket.on("fetchFullUsersList", (props) => {
@@ -171,12 +180,6 @@ const SocketManager = (socket, io, utils) => {
 		let user = utils.removeUser(socket.id);
 
 		if (user) {
-			// if user is last user
-			for (let room in utils.getRoomList()) {
-				if (room.room === user.room && room.users.length === 0) {
-					utils.removeRoom(user.room);
-				}
-			}
 			io.to(user.room).emit(
 				"updateUsersList",
 				utils.getUserList(user.room)
@@ -184,6 +187,14 @@ const SocketManager = (socket, io, utils) => {
 			socket.leave(user.room);
 		} else {
 			console.log("cannot leave room as user is: ", user);
+		}
+		//? check for empty rooms and remove them
+		if (utils.getRoomList().length !== 0) {
+			for (let room in utils.getRoomList()) {
+				if (utils.getRoomList()[room].users.length === 0) {
+					utils.removeRoom(utils.getRoomList()[room].room);
+				}
+			}
 		}
 
 		socket.emit("updateRooms", utils.getRoomList());
@@ -210,8 +221,8 @@ const SocketManager = (socket, io, utils) => {
 		if (user) {
 			// if user is last user
 			for (let room in utils.getRoomList()) {
-				if (room.room === user.room && room.users.length === 0) {
-					utils.removeRoom(user.room);
+				if (utils.getRoomList()[room].users.length === 0) {
+					utils.removeRoom(utils.getRoomList()[room].room);
 				}
 			}
 			io.to(user.room).emit(
@@ -221,6 +232,12 @@ const SocketManager = (socket, io, utils) => {
 			socket.leave(user.room);
 		} else {
 			console.log("cannot leave room as user is: ", user);
+			//? check for empty rooms and remove them
+			for (let room in utils.getRoomList()) {
+				if (utils.getRoomList()[room].users.length === 0) {
+					utils.removeRoom(utils.getRoomList()[room].room);
+				}
+			}
 		}
 
 		socket.emit("updateRooms", utils.getRoomList());
