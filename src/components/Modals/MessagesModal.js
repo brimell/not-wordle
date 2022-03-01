@@ -24,15 +24,13 @@ export default function StatsModal(props) {
 
 	function ChatRoom() {
 		useEffect(() => {
-			console.log('ran')
 			dummy.current.scrollIntoView({ behavior: "smooth" });
-		}, [])
+		});
 		const dummy = useRef();
 		const messagesRef = firestore.collection("messages");
 		const query = messagesRef.orderBy("createdAt").limit(25);
 
 		const [messages] = useCollectionData(query, { idField: "id" });
-		//TODO: need to change this to use document id
 		const [formValue, setFormValue] = useState("");
 
 		const sendMessage = async (e) => {
@@ -49,10 +47,10 @@ export default function StatsModal(props) {
 		};
 
 		function ChatMessage(props) {
-			const { text, username } = props.message;
+			const { text, user } = props.message;
 
 			const messageClass =
-				username === (name === "" ? "Anonymous" : name)
+				user === (name === "" ? "Anonymous" : name)
 					? "sent"
 					: "received";
 
@@ -67,7 +65,7 @@ export default function StatsModal(props) {
 
 		return (
 			<>
-				<main>
+				<main id="messages">
 					{messages &&
 						messages.map((msg) => (
 							<ChatMessage key={msg.id} message={msg} />

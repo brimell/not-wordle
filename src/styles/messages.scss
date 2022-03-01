@@ -1,13 +1,12 @@
 .messagesContainer {
 	min-width: 30vw;
-	min-height: 50vh;
-	max-height: 80vh;
 
 	main {
 		overflow-y: scroll;
 		overflow-x: hidden;
 		height: fit-content;
-		max-height: inherit;
+		min-height: 50vh;
+		max-height: 80vh;
 	}
 
 	form {
@@ -28,14 +27,14 @@
 		align-items: center;
 		justify-content: center;
 		width: 20%;
-		background-color: var(--btn-primary);
+		background-color: var(--primary);
 	}
 
 	input {
 		line-height: 1.5;
 		width: 100%;
 		font-size: 1.5rem;
-		background: rgb(58, 58, 58);
+		background: var(--bg);
 		color: white;
 		outline: none;
 		border: none;
