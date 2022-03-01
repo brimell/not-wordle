@@ -78,61 +78,6 @@ export default function Multiplayer(props) {
 							<h5>no one is hosting a game right now...</h5>
 						)}
 						<ServerBrowser rooms={rooms} />
-
-						{/* 
-          <CustomTextField
-            inputRef={codeRef}
-            className="input-div"
-            label="Code"
-          />
-          <div className="form-container">
-            <div className="join-game">
-              <Button
-                className="join-game-btn"
-                variant="contained"
-                onClick={() => {
-                  setCode(codeRef.current.value);
-                  socket.emit("fetchUserListByRoom", codeRef.current.value);
-                  socket.on("fetchUserListByRoomRes", (users) => {
-                    var dupe = false;
-                    if (users.length > 0) {
-                      for (var i = 0; i < users.length; i++) {
-                        var user = users[i];
-                        if (user === code) {
-                          alert("that name is taken in this room");
-                          dupe = true;
-                          return;
-                        }
-                      }
-                    }
-                    if (
-                      nameRef.current.value.length > 2 &&
-                      codeRef.current.value.length > 2 &&
-                      !dupe
-                    ) {
-                      socket.emit("joinRoom", {
-                        name: nameRef.current.value,
-                        room: codeRef.current.value,
-                        role: "user",
-                      });
-                      socket.on("joinRoomRes", (props) => {
-                        if (props.res === true) {
-                          setLobby(true);
-                        } else {
-                          alert("that name is taken");
-                        }
-                      });
-                    } else {
-                      alert("name and code must be at least 3 characters");
-                    }
-                  });
-                }}
-              >
-                Join Game
-              </Button>
-            </div>
-            
-          </div> */}
 					</div>
 				</div>
 			)}
