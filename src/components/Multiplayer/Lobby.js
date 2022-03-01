@@ -94,7 +94,6 @@ export default function Lobby() {
 		});
 		socket.on("update-grid-client", (Grids) => {
 			// console.log("got grids", Grids);
-			//! this gets updated too much need to fix
 			setGrids(Grids);
 		});
 		socket.on("updateUsersList", (userList) => {

@@ -138,6 +138,7 @@ function Game(props) {
 			}
 			return;
 		}
+    // if game has started
 		if (guesses.length === maxGuesses) return;
 		if (/^[a-z]$/.test(key)) {
 			setCurrentGuess((guess) => (guess + key).slice(0, wordLength));
@@ -146,6 +147,8 @@ function Game(props) {
 			setCurrentGuess((guess) => guess.slice(0, -1));
 			setHint("");
 		} else if (key === "enter") {
+
+            //? check invalids
 			if (currentGuess.length !== wordLength) {
 				setHint("Too short");
 				return;
@@ -161,7 +164,9 @@ function Game(props) {
 					return;
 				}
 			}
-			
+
+            //? guess logic
+
 			setGuesses((guesses) => guesses.concat([currentGuess]));
 			setCurrentGuess((guess) => "");
 			if (socket && props.multiplayerGrid !== currGrid) {

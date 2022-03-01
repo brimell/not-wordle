@@ -102,6 +102,7 @@ const SocketManager = (socket, io, utils) => {
 	socket.on("playAgain", () => {
 		const user = utils.getUser(socket.id);
 		utils.updateGameState(user.room, "lobby");
+		utils.resetRoom(user.room); // rests grids and lost count
 		io.to(user.room).emit("playAgainRes");
 	});
 

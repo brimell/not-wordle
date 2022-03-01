@@ -190,6 +190,10 @@ class Users {
 			}
 		}
 	}
+	resetRoom(room) {
+		this.resetGrids(room);
+		this.resetLost(room);
+	}
 }
 
 module.exports = {
