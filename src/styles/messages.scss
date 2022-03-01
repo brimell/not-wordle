@@ -73,6 +73,7 @@
 		position: relative;
 		color: white;
 		text-align: center;
+		overflow-wrap: break-word;
 	}
 
 	// for potential user img
@@ -104,8 +105,11 @@
 	color: white;
 	background: #0b93f6;
 	align-self: flex-end;
+	text-align: end;
 }
 .received p {
 	background: #e5e5ea;
 	color: black;
+	align-self: flex-start;
+	text-align: start;
 }

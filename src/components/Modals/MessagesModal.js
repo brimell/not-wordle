@@ -28,13 +28,17 @@ export default function StatsModal(props) {
 		});
 		const dummy = useRef();
 		const messagesRef = firestore.collection("messages");
-		const query = messagesRef.orderBy("createdAt", "desc").limit(25)
 
+		const [yesterday, setYesterday] = useState(String(new Date() - 86400)); // todays date - 1 day in seconds
+
+		console.log("yesterday: ", yesterday);
+
+		const query = messagesRef
+			.orderBy("createdAt", "asc")
+			// .where("createdAt", ">", String(yesterday)); // messages from the last day;
 		const [messages] = useCollectionData(query, { idField: "id" });
-		// const messagesCopy = messages
-		// messagesCopy.sort((a, b, c) => (a.createdAt > b.createdAt > c.createdAt) ? 1 : -1)
 
-		console.log('messages: ',messages)
+		console.log("messages: ", messages);
 		const [formValue, setFormValue] = useState("");
 
 		const sendMessage = async (e) => {
