@@ -63,11 +63,11 @@ const SocketManager = (socket, io, utils) => {
 
 	socket.on("gameFinish", (gameState) => {
 		const user = utils.getUser(socket.id);
-		if (gameState === "Won") {
+		if (gameState === "Won" && user) {
 			utils.updateGameState(user.room, "Podium");
 			io.to(user.room).emit("gameWon", user.id);
 			io.to(user.room).emit("updateRooms", utils.getRoomList());
-		} else if (gameState === "Lost") {
+		} else if (gameState === "Lost" && user) {
 			utils.userLost(user.id);
 			io.to(user.room).emit("gameLost", user.id);
 			if (
