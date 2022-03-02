@@ -39,10 +39,6 @@ export function ContextProvider(props) {
 			preventScroll: true,
 		});
 
-	useEffect(() => {
-		console.log("lobby: ", lobby);
-	}, [lobby]);
-
 	return (
 		<MainContext.Provider
 			value={{
