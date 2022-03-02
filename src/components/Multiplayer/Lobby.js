@@ -35,9 +35,9 @@ export default function Lobby() {
 
 	setWordLength(5);
 
-	useEffect(() => {
-		console.log(grids);
-	}, [grids]);
+	// useEffect(() => {
+	// 	console.log(grids);
+	// }, [grids]);
 
 	useEffect(() => {
 		socket.emit("fetchUserList");

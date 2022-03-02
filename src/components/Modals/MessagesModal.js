@@ -62,15 +62,16 @@ function ChatRoom() {
 	const dummy = useRef();
 	const messagesRef = firestore.collection("messages");
 
-	const [yesterday, setYesterday] = useState(String(new Date() - 86400)); // todays date - 1 day in seconds
+	const yesterday = new Date() - 86400; // todays date - 1 day in seconds
+	const my_date = firebase.firestore.Timestamp.fromDate(new Date(yesterday));
 
-	console.log("yesterday: ", yesterday);
-
-	const query = messagesRef.orderBy("createdAt", "asc");
-	// .where("createdAt", ">", String(yesterday)); // messages from the last day;
+	const query = messagesRef.orderBy("createdAt", "asc")
+	// .where("createdAt", ">", my_date); // messages from the last day;
 	const [messages] = useCollectionData(query, { idField: "id" });
 
-	console.log("messages: ", messages);
+	// console.log("messages: ", messages);
+	// console.log("yesterday: ", yesterday);
+	// console.log('today: ', String(new Date() - 1));
 
 	return (
 		<>
@@ -117,7 +118,7 @@ function ChatForm(props) {
 }
 
 function ChatMessage(props) {
-	const { text, user } = props.message;
+	const { text, user, createdAt } = props.message;
 
 	const messageClass =
 		user === (props.name === "" ? "Anonymous" : props.name)
