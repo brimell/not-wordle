@@ -70,6 +70,7 @@ export default function CreateGameModal() {
 									);
 								}
 							});
+                            socket.off("fetchRoomsRes"); // otherwise another listener is created after button clicked
 						}}
 					>
 						Create Game

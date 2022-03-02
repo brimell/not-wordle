@@ -46,6 +46,7 @@ export default function Login(props) {
 							setLogin(false);
 						}
 					});
+					socket.off('getAllUsersRes');
 				}}
 			>
 				Submit
