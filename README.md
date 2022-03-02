@@ -1,9 +1,11 @@
 <h1 align="center">
-  <img alt="notwordle-logo" src="https://raw.githubusercontent.com/Raaydon/not-wordle/master/public/ogImage.jpg" width="224px"/><br/>
+  <img alt="notwordle-logo" src="https://raw.githubusercontent.com/Raaydon/not-wordle/master/public/ogImage.jpg"/><br/>
   Notwordle
 </h1>
-<p align="center">Play [Wordle](https://www.powerlanguage.co.uk/wordle/) <b>without limits</b> on <b>Notwordle</b>.<br/>With<b> multiplayer functionality</b>
+<p align="center">Play <a href="https://www.powerlanguage.co.uk/wordle/" >Wordle</a> <b>without limits</b> on <b>Notwordle</b>.<br/>With<b> multiplayer functionality</b>
 
+<br>
+<br>
 play my version [on heroku](https://notwordle.herokuapp.com/) or [on my website](https://rimell.cc/notwordle) 
 
 or older versions: [on netlify](https://notwordle.netlify.app) or [on github](https://raaydon.github.io/not-wordle/)
@@ -25,7 +27,7 @@ npm start
 npm run server
 ```
 
-and go to [localhost:3000](http://localhost:3000) (you should be taken there automatically by react scripts though)
+and go to [localhost:3000](http://localhost:3000) (react scripts will redirect you)
 
 ![Homepage](./public/notwordleHomepage.png)
 
