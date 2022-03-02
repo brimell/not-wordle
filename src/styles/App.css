@@ -197,7 +197,7 @@ a {
 	}
 }
 
-@media only screen and (max-height: 926px) {
+@media only screen and (max-height: 750px) {
 	.Row-letter {
 		width: 7vh;
 		height: 7vh;
@@ -292,7 +292,7 @@ label {
   }
 }
 
-@media only screen and (max-height: calc(510px + 100px)) {
+@media only screen and (max-height: 610px) {
 	#hint {
 		white-space: nowrap;
 	}
