@@ -4,11 +4,6 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [react()],
-	publicDir: "./public",
-	base: "/",
-	esbuild: {
-		loader: "jsx",
-		include: /src\/.*\.jsx?$/,
-		exclude: [],
-	},
+	// publicDir: "./public",
+	// base: "/",
 });

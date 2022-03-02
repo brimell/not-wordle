@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-//  unccomment to use custom right click
+//  uncomment to use custom right click
 // import './components/rc/rc'
 import App from "./App";
 
