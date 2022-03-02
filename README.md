@@ -6,7 +6,10 @@
 
 <br>
 <br>
-play my version [on heroku](https://notwordle.herokuapp.com/) or [on my website](https://rimell.cc/notwordle) 
+
+
+<p>play my version <a href="https://notwordle.herokuapp.com/">on heroku</a> or <a href="https://rimell.cc/notwordle">on my website</a></p>
+
 
 or older versions: [on netlify](https://notwordle.netlify.app) or [on github](https://raaydon.github.io/not-wordle/)
 
