@@ -33,7 +33,9 @@ export default function Lobby() {
 	} = useContext(MainContext);
 	const [multiplayerGrid, setMultiplayerGrid] = useState([]);
 
-	setWordLength(5);
+	useEffect(() => {
+		setWordLength(5);
+	});
 
 	// useEffect(() => {
 	// 	console.log(grids);

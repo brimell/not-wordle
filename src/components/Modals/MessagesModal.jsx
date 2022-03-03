@@ -65,7 +65,7 @@ function ChatRoom() {
 	const yesterday = new Date() - 86400; // todays date - 1 day in seconds
 	const my_date = firebase.firestore.Timestamp.fromDate(new Date(yesterday));
 
-	const query = messagesRef.orderBy("createdAt", "asc")
+	const query = messagesRef.orderBy("createdAt", "asc");
 	// .where("createdAt", ">", my_date); // messages from the last day;
 	const [messages] = useCollectionData(query, { idField: "id" });
 
@@ -78,7 +78,11 @@ function ChatRoom() {
 			<main id="messages">
 				{messages &&
 					messages.map((msg) => (
-						<ChatMessage name={name} key={msg.id} message={msg} />
+						<ChatMessage
+							name={name}
+							message={msg}
+							key={msg.createdAt}
+						/>
 					))}
 
 				<span id="dummy" ref={dummy}></span>
@@ -127,7 +131,7 @@ function ChatMessage(props) {
 
 	return (
 		<>
-			<div className={`message ${messageClass}`} key={props.key}>
+			<div className={`message ${messageClass}`} key={createdAt}>
 				<p>{text}</p>
 			</div>
 		</>

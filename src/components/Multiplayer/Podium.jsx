@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { MainContext } from "../../context/context";
-import axios from 'axios'
+import axios from "axios";
 
 export default function Podium() {
 	const {
@@ -15,7 +15,9 @@ export default function Podium() {
 		setWordLength,
 	} = useContext(MainContext);
 
-	setWordLength(localStorage.getItem("wordLength")); // set word length to previous value before multiplayer game
+	useEffect(() => {
+		setWordLength(localStorage.getItem("wordLength")); // set word length to previous value before multiplayer game
+	});
 	const [guesses, setGuesses] = useState(0);
 	const [definition, setDefinition] = useState("Loading...");
 
@@ -42,8 +44,9 @@ export default function Podium() {
 	}, [setGrids, setLobby, setPodium, socket]);
 
 	async function getDefinition(target) {
-		axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${target}`).then(
-			(res) => {
+		axios
+			.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${target}`)
+			.then((res) => {
 				const data = res.data;
 
 				if (data.title === "No Definitions Found") {
@@ -52,12 +55,11 @@ export default function Podium() {
 					const def = data[0].meanings[0].definitions[0].definition;
 					const example = data[0].meanings[0].definitions[0].example;
 					// return [definition, example] || ["none", "none"]
-					console.log('def: ',def)
+					console.log("def: ", def);
 					setDefinition(def);
-					return def
+					return def;
 				}
-			}
-		);
+			});
 	}
 
 	useEffect(() => {
@@ -80,7 +82,14 @@ export default function Podium() {
 			<p>
 				the word was: <span className="wordPrimary">{target}</span>
 			</p>
-			<p style={{maxWidth: "70%", lineHeight: "normal", fontSize: "20px", margin: 0}}>{`Definition: ${String(definition).slice(0,48)}...`}</p>
+			<p
+				style={{
+					maxWidth: "70%",
+					lineHeight: "normal",
+					fontSize: "20px",
+					margin: 0,
+				}}
+			>{`Definition: ${String(definition).slice(0, 48)}...`}</p>
 			{grids &&
 				winner &&
 				Object.keys(grids).map((name, i) => {

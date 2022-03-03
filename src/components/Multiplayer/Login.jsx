@@ -45,8 +45,8 @@ export default function Login(props) {
 						if (name.length > 2 && !dupe) {
 							setLogin(false);
 						}
+						socket.off("getAllUsersRes"); // needs to be inside the socket.on
 					});
-					socket.off('getAllUsersRes');
 				}}
 			>
 				Submit

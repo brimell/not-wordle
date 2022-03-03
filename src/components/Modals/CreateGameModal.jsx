@@ -69,8 +69,8 @@ export default function CreateGameModal() {
 										"name and code must be at least 3 characters"
 									);
 								}
+								socket.off("fetchRoomsRes"); // otherwise another listener is created after button clicked - needs to be inside the socket.on
 							});
-                            socket.off("fetchRoomsRes"); // otherwise another listener is created after button clicked
 						}}
 					>
 						Create Game

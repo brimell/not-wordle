@@ -23,6 +23,7 @@ export default function Multiplayer(props) {
 		socket.on("updateRooms", (rooms) => {
 			// console.log("updated rooms", rooms);
 			setRooms(rooms); //? returns utils.rooms
+			// this may cause an error if component is unmounted
 		});
 		socket.on("fetchRoomsRes", (rooms) => {
 			// console.log("updated rooms from fetch: ", rooms);
