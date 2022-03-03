@@ -121,6 +121,7 @@ export default function Podium() {
 			{startHide && (
 				<button
 					className="primary"
+					id="playAgainBtn"
 					onClick={() => {
 						playAgain();
 					}}
