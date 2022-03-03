@@ -1,37 +1,37 @@
 .podium {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: column;
 
-    #playAgainBtn {
-        margin-top: 20px;
-    }
+	#playAgainBtn {
+		margin-top: 20px;
+	}
 }
 
 .wordHighlight {
-    color: var(--highlight);
+	color: var(--highlight);
 }
 .wordPrimary {
-    color: var(--primary);
+	color: var(--primary);
 }
 
 .podiumGridItem {
-    width: fit-content;
-    padding: 2vh;
+	width: fit-content;
+	padding: 2vh;
 }
 
 .podiumGridLetter {
-    text-transform: uppercase;
+	text-transform: uppercase;
 }
 
 .podium p {
-    font-size: 3vh;
+	font-size: 3vh;
 }
 
 .gridLetter {
-    font-size: 2vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	font-size: 2vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
