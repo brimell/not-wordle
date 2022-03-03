@@ -40,7 +40,7 @@ export default function CreateGameModal() {
 								var dupe = false;
 								if (rooms.length > 0) {
 									for (var i = 0; i < rooms.length; i++) {
-										if (rooms[i].room === code) {
+										if (rooms[i].room === codeRef.current.value) {
 											alert("that room already exists");
 											dupe = true;
 											return;
