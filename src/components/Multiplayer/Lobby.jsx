@@ -3,7 +3,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { MainContext } from "../../context/context";
 
 import GameParent from "../Game/GameParent";
-import PlayerListItem from "./PlayerListItem.js";
+import PlayerListItem from "./PlayerListItem";
 import Podium from "./Podium";
 import GridViewModal from "../Modals/GridViewModal";
 import $ from "jquery";
