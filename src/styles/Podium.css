@@ -1,15 +1,16 @@
-.wordHighlight {
-    color: var(--highlight);
-}
-.wordPrimary {
-    color: var(--primary);
-}
-
 .podium {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    gap: 10px;
+}
+
+.wordHighlight {
+    color: var(--highlight);
+}
+.wordPrimary {
+    color: var(--primary);
 }
 
 .podiumGridItem {
