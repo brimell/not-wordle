@@ -32,6 +32,11 @@ if (!localStorage.getItem("wordLength")) {
 function Game(props) {
 	const { maxGuesses, settings, wordLength, setWordLength } =
 		useContext(MainContext);
+	useEffect(() => {
+		if (wordLength < 3){
+			setWordLength(5);
+		}
+	})
 	var currGrid = [];
 	const socket = props.socket || null;
 	const [gameState, setGameState] = useState("Playing");
