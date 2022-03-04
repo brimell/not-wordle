@@ -1,4 +1,6 @@
+import { useRef, useEffect } from "react";
 import { clueClass } from "./clue";
+import { gsap } from "gsap";
 
 export function Row(props) {
 	const isLockedIn = props.rowState === "LockedIn";
@@ -6,12 +8,19 @@ export function Row(props) {
 		.concat(Array(props.wordLength).fill({ clue: "absent", letter: "" }))
 		.slice(0, props.wordLength)
 		.map(({ clue, letter }, i) => {
+			let letterRef = useRef();
+			useEffect(() => {
+				if (isLockedIn && clue !== undefined) {
+					gsap.to(letterRef.current, {rotationY:'360'});
+				}
+			});
+
 			let letterClass = "Row-letter";
 			if (isLockedIn && clue !== undefined) {
 				letterClass += " " + clueClass(clue);
 			}
 			return (
-				<div key={i} className={letterClass}>
+				<div key={i} ref={letterRef} className={letterClass}>
 					{letter}
 				</div>
 			);

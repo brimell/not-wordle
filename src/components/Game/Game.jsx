@@ -11,7 +11,6 @@ import { useModal } from "react-hooks-use-modal";
 import { MainContext } from "../../context/context";
 import { GameOptions } from "./GameOptions";
 import { GameFinishedModalComponent } from "./GameFinishedModal";
-import { gsap } from "gsap";
 
 const targets = wordList.slice(0, 2000); // adjust for max target freakiness
 const notFiveTargets = nonFiveWords.slice(0, 20000);
@@ -129,7 +128,7 @@ function Game(props) {
 			const cluedLetters = clue(guess, gameTarget);
 			currGrid.push(cluedLetters);
 			const lockedIn = i < guesses.length;
-			if (lockedIn) {
+			if (lockedIn) { // sets letterinfo for keyboard
 				for (const { clue, letter } of cluedLetters) {
 					if (clue === undefined) break;
 					const old = letterInfo.get(letter);
@@ -138,7 +137,7 @@ function Game(props) {
 					}
 				}
 			}
-			return (
+			return ( // returns rows for grid
 				<Row
 					key={i}
 					wordLength={wordLength}
