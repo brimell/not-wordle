@@ -11,6 +11,7 @@ import { useModal } from "react-hooks-use-modal";
 import { MainContext } from "../../context/context";
 import { GameOptions } from "./GameOptions";
 import { GameFinishedModalComponent } from "./GameFinishedModal";
+import { gsap } from "gsap";
 
 const targets = wordList.slice(0, 2000); // adjust for max target freakiness
 const notFiveTargets = nonFiveWords.slice(0, 20000);
@@ -33,10 +34,10 @@ function Game(props) {
 	const { maxGuesses, settings, wordLength, setWordLength } =
 		useContext(MainContext);
 	useEffect(() => {
-		if (wordLength < 3){
+		if (wordLength < 3) {
 			setWordLength(5);
 		}
-	})
+	});
 	var currGrid = [];
 	const socket = props.socket || null;
 	const [gameState, setGameState] = useState("Playing");
@@ -66,7 +67,6 @@ function Game(props) {
 	useEffect(() => {
 		setCurrentGuess(currentGuess.toLowerCase());
 	}, [currentGuess]);
-
 
 	useEffect(() => {
 		const onKeyDown = (e) => {
@@ -162,7 +162,7 @@ function Game(props) {
 		setGameState,
 		GameFinishedOpen,
 		randomTarget,
-	}
+	};
 
 	return (
 		<div className="Game">
