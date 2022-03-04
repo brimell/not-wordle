@@ -40,6 +40,7 @@ export default function Podium() {
 			setGrids({});
 			setLobby(true);
 			setPodium(false);
+			socket.off("playAgainRes");
 		});
 	}, [setGrids, setLobby, setPodium, socket]);
 

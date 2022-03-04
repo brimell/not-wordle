@@ -67,6 +67,7 @@ export default function Lobby() {
 			socket.emit("getUser", id);
 			await socket.on("getUserRes", (user) => {
 				setWinner(user.name);
+				socket.off("getUserRes");
 			});
 			setPodium(true);
 		}
@@ -107,6 +108,16 @@ export default function Lobby() {
 				userList.find((user) => user.id === socket.id).role === "host"
 			);
 		});
+		return () => { // cleans up the socket listeners
+			socket.off("game-started");
+			socket.off("getUserRes");
+			socket.off("gameWon");
+			socket.off("gameLost");
+			socket.off("allLost");
+			socket.off("update-grid-client");
+			socket.off("updateUsersList");
+			socket.off("updateFullUsersList");
+		};
 	}, [socket]);
 
 	return (

@@ -9,11 +9,10 @@ export function Row(props) {
 		.slice(0, props.wordLength)
 		.map(({ clue, letter }, i) => {
 			let letterRef = useRef();
-			useEffect(() => {
-				if (isLockedIn && clue !== undefined) {
-					gsap.to(letterRef.current, {rotationY:'360'});
-				}
-			});
+			if (isLockedIn && clue !== undefined) {
+				gsap.to(letterRef.current, { rotationX: "360", duration: 1 });
+				console.log("test");
+			}
 
 			let letterClass = "Row-letter";
 			if (isLockedIn && clue !== undefined) {

@@ -71,10 +71,12 @@ function Item(props) {
 									} else {
 										alert("that name is taken");
 									}
+									socket.off("joinRoomRes");
 								});
 							} else {
 								alert("name must be at least 3 characters");
 							}
+							socket.off("fetchUserListByRoomRes");
 						});
 					}}
 				>
