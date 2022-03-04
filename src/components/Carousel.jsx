@@ -28,7 +28,10 @@ function Item(props) {
 	return (
 		<article className="information card">
 			<span className="tag">Host: {room.host}</span>
-			<h2 className="title">{room.room}</h2>
+			<span className="subtitle">Room Code:</span>
+			<h2 className="title" id="roomCode" >{room.room}</h2>
+			{/* 
+			uncomment to show player list in server browser
 			<span className="subtitle">Players List:</span>
 			{room.users.map((user, j) => {
 				return (
@@ -36,7 +39,7 @@ function Item(props) {
 						{user}
 					</p>
 				);
-			})}
+			})} */}
 			{joinable && (
 				<button
 					className="button"

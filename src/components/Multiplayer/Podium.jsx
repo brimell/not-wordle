@@ -89,7 +89,9 @@ export default function Podium() {
 					fontSize: "20px",
 					margin: 0,
 				}}
-			>{`Definition: ${String(definition).slice(0, 48)}...`}</p>
+			>{`Definition: ${String(definition).slice(0, 50)}${
+				definition.length > 50 ? "..." : ""
+			}`}</p>
 			{grids &&
 				winner &&
 				Object.keys(grids).map((name, i) => {
@@ -121,6 +123,7 @@ export default function Podium() {
 			{startHide && (
 				<button
 					className="primary"
+					id="playAgainBtn"
 					onClick={() => {
 						playAgain();
 					}}
