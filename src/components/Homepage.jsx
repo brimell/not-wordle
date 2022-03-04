@@ -38,6 +38,7 @@ export default function Homepage() {
             }}
           >
             Multiplayer
+            <svg></svg>
           </button>
         </Link>
         <Link to="/game" className="link">
