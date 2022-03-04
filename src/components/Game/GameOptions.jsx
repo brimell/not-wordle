@@ -1,12 +1,26 @@
 import { MainContext } from "./../../context/context";
 import { seed } from "../util";
 import { useContext } from "react";
+import { resizeGrid } from "./resizeGrid";
+import { updateStats, disableTodaysWord } from "./onKey";
 
 export function GameOptions(props) {
-	const { settings, wordLength, setWordLength, target } =
+	const { settings, wordLength, setWordLength } =
 		useContext(MainContext);
 
-	const { gameState, guesses, currentGuess } = props;
+	const {
+		gameState,
+		guesses,
+		currentGuess,
+		resetRng,
+		setGuesses,
+		setHint,
+		setGameState,
+		GameFinishedOpen,
+		randomTarget,
+		gameTarget,
+		setGameTarget,
+	} = props;
 
 	return (
 		<div
@@ -36,10 +50,8 @@ export function GameOptions(props) {
 				onChange={(e) => {
 					const length = Number(e.target.value);
 					resetRng();
-					setGameNumber(1);
-					setGameState("Playing");
 					setGuesses([]);
-					setTarget(randomTarget(length));
+					setGameTarget(randomTarget(length));
 					setWordLength(length);
 					setHint(`${length} letters`);
 					document.activeElement?.blur();
@@ -55,19 +67,19 @@ export function GameOptions(props) {
 				disabled={gameState !== "Playing" || guesses.length === 0}
 				onClick={async () => {
 					if (seed) {
-						disableTodaysWord();
+						disableTodaysWord(GameFinishedOpen);
 						setHint(
-							`The answer was ${target.toUpperCase()}. (Enter to play a random word)`
+							`The answer was ${gameTarget.toUpperCase()}. (Enter to play a random word)`
 						);
 					} else {
 						setHint(
-							`The answer was ${target.toUpperCase()}. (Enter to play again)`
+							`The answer was ${gameTarget.toUpperCase()}. (Enter to play again)`
 						);
 					}
 
 					async function getData() {
 						const response = await fetch(
-							`https://api.dictionaryapi.dev/api/v2/entries/en/${target}`
+							`https://api.dictionaryapi.dev/api/v2/entries/en/${gameTarget}`
 						);
 						const data = await response.json();
 
@@ -83,20 +95,20 @@ export function GameOptions(props) {
 					}
 
 					if (seed) {
-						disableTodaysWord();
+						disableTodaysWord(GameFinishedOpen);
 						setHint(
-							`The answer was ${target.toUpperCase()}. Definition: ${await getData()} (Enter to play a random word)`
+							`The answer was ${gameTarget.toUpperCase()}. Definition: ${await getData()} (Enter to play a random word)`
 						);
 					} else {
 						setHint(
-							`The answer was ${target.toUpperCase()}. Definition: ${await getData()} (Enter to play again)`
+							`The answer was ${gameTarget.toUpperCase()}. Definition: ${await getData()} (Enter to play again)`
 						);
 					}
 
 					setGameState("Lost");
 
 					if (seed) {
-						disableTodaysWord();
+						disableTodaysWord(GameFinishedOpen);
 					}
 
 					updateStats(false, wordLength, guesses.length);

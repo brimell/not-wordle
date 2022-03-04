@@ -44,7 +44,7 @@ function Game(props) {
 	const [currentGuess, setCurrentGuess] = useState("");
 
 	const [hint, setHint] = useState(`Make your first guess!`);
-	const [target, setTarget] = useState(() => {
+	const [gameTarget, setGameTarget] = useState(() => {
 		if (props.target !== false) {
 			return props.target;
 		} else {
@@ -86,7 +86,7 @@ function Game(props) {
 					multiplayerGrid: props.multiplayerGrid,
 					setMultiplayerGrid: props.setMultiplayerGrid,
 					socket: props.socket,
-					target,
+					target: gameTarget,
 					propsTarget: props.target,
 					currGrid,
 					GameFinishedOpen,
@@ -108,7 +108,7 @@ function Game(props) {
 	}, [currentGuess, gameState]);
 
 	function startNextGame() {
-		setTarget(randomTarget(wordLength));
+		setGameTarget(randomTarget(wordLength));
 		setGuesses([]);
 		setCurrentGuess("");
 		setHint("");
@@ -126,7 +126,7 @@ function Game(props) {
 		.fill(undefined)
 		.map((_, i) => {
 			const guess = [...guesses, currentGuess][i] ?? "";
-			const cluedLetters = clue(guess, target);
+			const cluedLetters = clue(guess, gameTarget);
 			currGrid.push(cluedLetters);
 			const lockedIn = i < guesses.length;
 			if (lockedIn) {
@@ -154,6 +154,14 @@ function Game(props) {
 		gameState,
 		guesses,
 		currentGuess,
+		resetRng,
+		setGuesses,
+		setGameTarget,
+		gameTarget,
+		setHint,
+		setGameState,
+		GameFinishedOpen,
+		randomTarget,
 	}
 
 	return (

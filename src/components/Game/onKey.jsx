@@ -26,19 +26,6 @@ export function onKey(props) {
 		wordLength,
 	} = props;
 
-	function disableTodaysWord() {
-		if (seed && localStorage.getItem("wordMode") === "todaysWord") {
-			localStorage.setItem("wordMode", "randomWord");
-			$("#todaysWord").addClass("is-outlined");
-			$("#randomWord").removeClass("is-outlined");
-			localStorage.setItem(
-				"todays_last_played",
-				new Date().toISOString().replace(/-/g, "").slice(0, 8)
-			);
-			GameFinishedOpen();
-		}
-		// set modal display to block
-	}
 	if (gameState !== "Playing") {
 		console.log("game is not playing");
 		if (key === "enter" && !socket) {
@@ -85,7 +72,7 @@ export function onKey(props) {
 				handleGameFinish("Won");
 			} else {
 				if (seed) {
-					disableTodaysWord();
+					disableTodaysWord(GameFinishedOpen);
 					setHint("You won! (Enter to play a random word)");
 				} else {
 					setHint("You won! (Enter to play again)");
@@ -99,7 +86,7 @@ export function onKey(props) {
 				handleGameFinish("Lost");
 			} else {
 				if (seed) {
-					disableTodaysWord();
+					disableTodaysWord(GameFinishedOpen);
 					setHint(
 						`You lost! The answer was ${target.toUpperCase()}. (Enter to play a random word)`
 					);
@@ -161,4 +148,18 @@ export function updateStats(gameState, wordLength, guesses) {
 		.slice(0, 8);
 	stats[wordLength].games++;
 	localStorage.setItem("stats", JSON.stringify(stats));
+}
+
+export function disableTodaysWord(GameFinishedOpen) {
+	if (seed && localStorage.getItem("wordMode") === "todaysWord") {
+		localStorage.setItem("wordMode", "randomWord");
+		$("#todaysWord").addClass("is-outlined");
+		$("#randomWord").removeClass("is-outlined");
+		localStorage.setItem(
+			"todays_last_played",
+			new Date().toISOString().replace(/-/g, "").slice(0, 8)
+		);
+		GameFinishedOpen();
+	}
+	// set modal display to block
 }
