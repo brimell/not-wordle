@@ -9,6 +9,6 @@ export default defineConfig({
   build: {
     outDir: "build",
     cssCodeSplit: true,
-    
-  }
+    sourcemap: true,
+  },
 });
