@@ -14,6 +14,7 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 const Multiplayer = lazy(() => import("./components/Multiplayer/Multiplayer"));
 const GameParent = lazy(() => import("./components/Game/GameParent"));
 const Mathler = lazy(() => import("./components/Mathler"));
+const Quordle = lazy(() => import("./components/Quordle"));
 const CreateGameModal = lazy(() =>
 	import("./components/Modals/CreateGameModal")
 );
@@ -57,6 +58,10 @@ function App() {
 							<Route
 								path="/mathler"
 								element={<Mathler />}
+							></Route>
+							<Route
+								path="/quordle"
+								element={<Quordle />}
 							></Route>
 						</Routes>
 					</div>

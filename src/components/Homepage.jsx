@@ -46,6 +46,9 @@ export default function Homepage() {
         <Link to="/mathler" className="link">
           <button className="multiplayer-btn">Mathler</button>
         </Link>
+        <Link to="/quordle" className="link">
+          <button className="singleplayer-btn">Quordle</button>
+        </Link>
       </div>
       {/* <AdSense.Google
         client="ca-pub-8576400028620199"

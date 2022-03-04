@@ -4,16 +4,16 @@ import $ from "jquery";
 export default function Mathler() {
 	useEffect(() => {
 		$("body").css("transition", "2s all");
-		$("body").css("background-color", "rgb(237 237 237)");
+		$("body").css("background-color", "rgb(17,24,39)");
 	}, []);
 
 	return (
-		<div className="mathler">
+		<div className="quordle">
 			<iframe
-				id="mathlerIframe"
-				title="mathler"
-				className="mathlerIframe"
-				src="https://www.mathler.com/"
+				id="quordleIframe"
+				title="quordle"
+				className="quordleIframe"
+				src="https://www.quordle.com/"
 				frameborder="0"
 			></iframe>
 		</div>
