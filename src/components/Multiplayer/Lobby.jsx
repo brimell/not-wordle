@@ -13,6 +13,7 @@ export default function Lobby() {
 	const {
 		socket,
 		lobby,
+		name,
 		setLobby,
 		code,
 		users,
@@ -27,7 +28,7 @@ export default function Lobby() {
 		grids,
 		setGrids,
 		setWinner,
-		username,
+		winner,
 		setUsername,
 		setWordLength,
 	} = useContext(MainContext);
@@ -177,9 +178,9 @@ export default function Lobby() {
 				<div className="gridBar">
 					{grids &&
 						Object.keys(grids).map((nameProp, i) => {
-							if (nameProp === username) {
+							if (nameProp === name && !(winner && podium)) { // show yourself if no one won and podium is being displayed
 								return "";
-							} else {
+							} else if (grids[nameProp].length > 0) {
 								return (
 									<div className="gridItem" key={i}>
 										<span className="nameTitle">
