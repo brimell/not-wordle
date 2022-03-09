@@ -178,8 +178,8 @@ export default function Lobby() {
 				<div className="gridBar">
 					{grids &&
 						Object.keys(grids).map((nameProp, i) => {
-							console.log(!winner && !podium)
-							if (name === nameProp) { //TODO: show yourself if no one won and podium is being displayed
+							console.log(podium && winner || !podium && !winner) && !(podium && !winner)
+							if (name === nameProp) { // show yourself if no one won and podium is being displayed
 								return "";
 							} else if (grids[nameProp].length > 0) {
 								return (

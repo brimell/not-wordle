@@ -96,7 +96,7 @@ function Game(props) {
 			if (socket) {
 				props.setCurrentGrid(currGrid);
 			}
-			console.log("target: ", gameTarget);
+			// console.log("target: ", gameTarget);
 		};
 
 		document.addEventListener("keydown", onKeyDown);
