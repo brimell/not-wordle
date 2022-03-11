@@ -42,7 +42,7 @@ function GameMenu() {
 			<div className="gameMenu-grid-item">
 				<Link to="/timed" className="link">
 					<img src={timedSVG}></img>
-					<h1>Timed</h1>
+					<h1>Timed (WIP)</h1>
 				</Link>
 			</div>
 		</div>
