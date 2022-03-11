@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense, lazy} from "react";
+import React, { useEffect, Suspense, lazy, useState} from "react";
 import "./styles/__main.scss";
 
 import { ContextProvider } from "./context/context";
@@ -8,7 +8,7 @@ import "./components/firebaseInit";
 import Loading from "./components/Loading";
 import Nav from "./components/Nav";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 // import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 const Multiplayer = lazy(() => import("./components/Multiplayer/Multiplayer"));
@@ -28,6 +28,8 @@ if (!localStorage.getItem("wordMode")) {
 }
 
 function App() {
+	const location = useLocation()
+
 	useEffect(() => {
 		if (localStorage.getItem("wordMode") === "todaysWord") {
 			sessionStorage.setItem(
@@ -39,13 +41,12 @@ function App() {
 
 	return (
 		<ContextProvider>
-			<Router>
 				<Suspense fallback={<Loading />}>
 					<div className="App-container target-light">
 						<CreateGameModal />
 						<StatsModal />
 						<MessagesModal />
-						<Nav />
+						{location.pathname !== '/' && <Nav />}
 						<Routes>
 							<Route path="/" element={<Homepage />}></Route>
 							<Route
@@ -71,7 +72,6 @@ function App() {
 						</Routes>
 					</div>
 				</Suspense>
-			</Router>
 		</ContextProvider>
 	);
 }

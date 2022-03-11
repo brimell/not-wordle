@@ -7,6 +7,22 @@
   width: 100%;
 }
 
+.homepage-header {
+  .homepage-header-title {
+    margin-top: 3vh;
+    font-size: 7vh;
+    line-height: 62px;
+  }
+  .homepage-header-sub {
+    margin: 1vh;
+    font-size: 2vh;
+    opacity: 0.5;
+    text-transform: none;
+    letter-spacing: .2vw;
+    font-family: 'Roboto Mono', monospace;
+  }
+}
+
 .floatingBackground {
   width: 100vw;
   height: 100vh;
@@ -26,11 +42,38 @@
   font-size: 6vh !important;
 }
 
-.button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.gameMenu-grid {
+  height: 20vh;
+  width: 70vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  .gameMenu-grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--bg-s);
+    border-radius: 30px;
+    padding: 2vh;
+
+    h1 {
+      color: white;
+      &:hover {
+        opacity: 0.9;
+        transition: 0.2s all;
+      }
+    }
+    img {
+      max-width: 10vw;
+      margin: 10px;
+      &:hover {
+        opacity: 0.9;
+        transition: 0.2s all;
+      }
+    }
+  }
 }
 
 $total: 18;
