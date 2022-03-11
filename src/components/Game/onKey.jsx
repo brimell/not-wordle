@@ -27,8 +27,7 @@ export function onKey(props) {
 	} = props;
 
 	if (gameState !== "Playing") {
-		console.log("game is not playing");
-		if (key === "enter" && !socket) {
+		if (key === "enter" && !socket && !window.location.href.endsWith('timed')) {
 			startNextGame();
 		}
 		return;

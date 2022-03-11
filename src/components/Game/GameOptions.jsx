@@ -5,8 +5,7 @@ import { resizeGrid } from "./resizeGrid";
 import { updateStats, disableTodaysWord } from "./onKey";
 
 export function GameOptions(props) {
-	const { settings, wordLength, setWordLength } =
-		useContext(MainContext);
+	const { settings, wordLength, setWordLength } = useContext(MainContext);
 
 	const {
 		gameState,
@@ -35,30 +34,37 @@ export function GameOptions(props) {
 						: "flex",
 			}}
 		>
-			<label htmlFor="wordLength">{wordLength} Letters:</label>
-			<input
-				className="slider"
-				type="range"
-				min="3"
-				max="8"
-				id="wordLength"
-				disabled={
-					gameState === "Playing" &&
-					(guesses.length > 0 || currentGuess !== "")
-				}
-				value={wordLength}
-				onChange={(e) => {
-					const length = Number(e.target.value);
-					resetRng();
-					setGuesses([]);
-					setGameTarget(randomTarget(length));
-					setWordLength(length);
-					setHint(`${length} letters`);
-					document.activeElement?.blur();
-					localStorage.setItem("wordLength", length.toString());
-					resizeGrid();
-				}}
-			></input>
+			{!window.location.href.endsWith("timed") && (
+				<>
+					<label htmlFor="wordLength">{wordLength} Letters:</label>
+					<input
+						className="slider"
+						type="range"
+						min="3"
+						max="8"
+						id="wordLength"
+						disabled={
+							gameState === "Playing" &&
+							(guesses.length > 0 || currentGuess !== "")
+						}
+						value={wordLength}
+						onChange={(e) => {
+							const length = Number(e.target.value);
+							resetRng();
+							setGuesses([]);
+							setGameTarget(randomTarget(length));
+							setWordLength(length);
+							setHint(`${length} letters`);
+							document.activeElement?.blur();
+							localStorage.setItem(
+								"wordLength",
+								length.toString()
+							);
+							resizeGrid();
+						}}
+					></input>
+				</>
+			)}
 			<button
 				className="button primary"
 				style={{

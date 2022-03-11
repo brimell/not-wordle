@@ -93,7 +93,7 @@ function Game(props) {
 				};
 				onKey(propsObj);
 			}
-			if (socket) {
+			if (socket || window.location.href.endsWith('timed')) {
 				props.setCurrentGrid(currGrid);
 			}
 			// console.log("target: ", gameTarget);

@@ -51,8 +51,11 @@ export default function Homepage() {
 						Multiplayer
 					</button>
 				</Link>
-				<Link to="/game" className="link">
-					<button className="singleplayer-btn">Singleplayer</button>
+				<Link to="/classic" className="link">
+					<button className="singleplayer-btn">Classic</button>
+				</Link>
+				<Link to="/timed" className="link">
+					<button className="singleplayer-btn">Timed</button>
 				</Link>
 				<Link to="/mathler" className="link">
 					<button className="multiplayer-btn">Mathler</button>
