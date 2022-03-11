@@ -11,10 +11,10 @@
   .homepage-header-title {
     margin-top: 3vh;
     font-size: 7vh;
-    line-height: 62px;
+    line-height: 7vh;
   }
   .homepage-header-sub {
-    margin: 1vh;
+    margin-top: 1vh;
     font-size: 2vh;
     opacity: 0.5;
     text-transform: none;
@@ -43,12 +43,15 @@
 }
 
 .gameMenu-grid {
-  height: 20vh;
   width: 70vw;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-
+  margin-top: 40px;
+  @media (max-width: 1080px) {
+    grid-template-columns: repeat(1, 1fr);
+    max-width: fit-content;
+  }
   .gameMenu-grid-item {
     display: flex;
     align-items: center;
@@ -60,6 +63,12 @@
 
     h1 {
       color: white;
+      @media (max-width: 1450px) {
+        font-size: 3vh;
+      }
+      @media (max-width: 1250px) {
+        font-size: 2vh;
+      }
       &:hover {
         opacity: 0.9;
         transition: 0.2s all;
@@ -68,11 +77,20 @@
     img {
       max-width: 10vw;
       margin: 10px;
+      @media (max-width: 1080px) {
+        max-width: 5vh;
+      }
       &:hover {
         opacity: 0.9;
         transition: 0.2s all;
       }
     }
+  }
+}
+
+.link {
+  @media (max-height: 600px) {
+    margin: 0;
   }
 }
 

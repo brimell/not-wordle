@@ -16,9 +16,9 @@ export default function Homepage() {
 				<h5 className="homepage-header-sub">Wordle. But Multiplayer</h5>
 			</div>
 			<div className="homepage">
-				<FloatingBackground />
 				<GameMenu />
 			</div>
+			<FloatingBackground />
 		</>
 	);
 }
