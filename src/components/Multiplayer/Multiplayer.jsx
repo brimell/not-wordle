@@ -19,7 +19,8 @@ export default function Multiplayer(props) {
 		socket.emit("fetchRooms");
 	}, [socket]);
 
-	useEffect(() => { //? need to be inside useEffect otherwise will be rendered multiple times and multiple listeners will be added
+	useEffect(() => {
+		//? need to be inside useEffect otherwise will be rendered multiple times and multiple listeners will be added
 		socket.on("updateRooms", (rooms) => {
 			// console.log("updated rooms", rooms);
 			setRooms(rooms); //? returns utils.rooms
@@ -29,11 +30,12 @@ export default function Multiplayer(props) {
 			// console.log("updated rooms from fetch: ", rooms);
 			setRooms(rooms);
 		});
-		return () => { // return of useEffect cleans up the listeners
+		return () => {
+			// return of useEffect cleans up the listeners
 			socket.off("updateRooms");
 			socket.off("fetchRoomsRes");
-		}
-	},[socket]);
+		};
+	}, [socket]);
 
 	useEffect(() => {
 		if (name === "") {
@@ -48,9 +50,11 @@ export default function Multiplayer(props) {
 			{!lobby && !login && (
 				<div className="join-container">
 					<div className="join">
-						<h2 id="serverBrowserHeader">Server Browser</h2>
-						<div className="search-container">
-							<div className="search">
+						<div className="title-container">
+							<div className="multiplayer-heading-container flex">
+								<h2 id="serverBrowserHeader">Server Browser</h2>
+							</div>
+							{/* <div className="search">
 								<input
 									type="text"
 									placeholder="Search..."
@@ -58,26 +62,28 @@ export default function Multiplayer(props) {
 								<button className="search-btn">
 									<Search color="white" />
 								</button>
-							</div>
-							<div className="add">
+							</div> */}
+							<div className="multiplayer-buttons-container flex">
+								<div className="add">
+									<button
+										className="primary add-btn"
+										onClick={() => {
+											CreateGameOpen();
+										}}
+									>
+										{/* <Plus color="white" /> */}
+										Create Game
+									</button>
+								</div>
 								<button
-									className="primary add-btn"
+									className="changeNameBtn secondary"
 									onClick={() => {
-										CreateGameOpen();
+										setLogin(true);
 									}}
 								>
-									{/* <Plus color="white" /> */}
-									Create Game
+									Change Name
 								</button>
 							</div>
-							<button
-								className="changeNameBtn secondary"
-								onClick={() => {
-									setLogin(true);
-								}}
-							>
-								Change Name
-							</button>
 						</div>
 						{rooms.length === 0 && (
 							<h5>no one is hosting a game right now...</h5>

@@ -46,6 +46,7 @@
 #serverBrowserHeader {
 	font-size: 4vh;
 	margin: 0;
+
 }
 
 .join {
@@ -105,11 +106,18 @@
 	width: fit-content;
 }
 
-.search-container {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-around;
+.title-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	width: 100%;
+	.multiplayer-buttons-container {
+		flex-direction: row;
+		justify-content: flex-end;
+	}
+	.multiplayer-heading-container {
+		flex-direction: row;
+		justify-content: flex-start;
+	}
 }
 .search {
 	display: flex;
@@ -120,6 +128,16 @@
 @media only screen and (max-width: 700px) {
 	.search {
 		display: none;
+	}
+	#serverBrowserHeader {
+		display: none;
+	}
+	.title-container {
+		grid-template-columns: 1fr;
+		.multiplayer-buttons-container {
+			justify-content: flex-start;
+			padding-left: 5vw;
+		}
 	}
 }
 .search-btn {

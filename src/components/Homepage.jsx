@@ -1,13 +1,21 @@
-import { lazy } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-// import AdSense from "react-adsense";
+import { gsap, Power3 } from "gsap";
 import $ from "jquery";
-import nwLogo from "../../public/nw.svg";
-import multiplayerSVG from "../../public/multiplayer.svg";
-import timedSVG from "../../public/timed.svg";
+import nwLogo from "/nw.svg";
+import multiplayerSVG from "/multiplayer.svg";
+import timedSVG from "/timed.svg";
 
 export default function Homepage() {
-	$("body").css("background-color", "var(--bg)");
+	useEffect(() => {
+		$("body").css("background-color", "var(--bg)");
+
+		const links = $(".gameMenu-grid-item");
+		const tl = gsap.timeline({ defaults: { ease: Power3.easeOut } });
+		tl.staggerFrom(links, 0.5, { y: "-100%", opacity: 0 }, 0.1);
+		tl.from(".homepage-header", { y: "-100%", opacity: 0, duration: 0.5 }, 0.1);
+
+	}, []);
 
 	return (
 		<>

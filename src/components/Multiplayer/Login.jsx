@@ -30,7 +30,7 @@ export default function Login(props) {
 				}
 			}
 			console.log("users: ", users);
-			if (name.length > 2 && !dupe) {
+			if (name.length > 2 && name.length < 20 && !dupe) {
 				setLogin(false);
 			}
 			socket.off("getAllUsersRes"); // needs to be inside the socket.on
