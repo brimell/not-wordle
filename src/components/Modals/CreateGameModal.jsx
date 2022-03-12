@@ -1,9 +1,10 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useEffect } from "react";
 import "react-hooks-use-modal";
 import CloseIcon from "@mui/icons-material/Close";
 import socket from "../socketio";
 import { MainContext } from "../../context/context";
-
+import { gsap, Power3 } from "gsap";
+import $ from "jquery";
 export default function CreateGameModal() {
 	const {
 		setLobby,
@@ -19,6 +20,18 @@ export default function CreateGameModal() {
 	const Modal = createGameModal;
 	const Close = CreateGameClose;
 	const codeRef = useRef("");
+
+	useEffect(() => {
+		const ease = Power3.easeOut;
+		const modalContainer = $(".modalContainer")[0];
+		if (modalContainer) {
+			gsap.from(modalContainer, {
+				y: "100%",
+				duration: 1,
+				ease,
+			});
+		}
+	});
 
 	return (
 		<Modal>
@@ -40,7 +53,10 @@ export default function CreateGameModal() {
 								var dupe = false;
 								if (rooms.length > 0) {
 									for (var i = 0; i < rooms.length; i++) {
-										if (rooms[i].room === codeRef.current.value) {
+										if (
+											rooms[i].room ===
+											codeRef.current.value
+										) {
 											alert("that room already exists");
 											dupe = true;
 											return;

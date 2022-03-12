@@ -4,9 +4,9 @@ import { MainContext } from "../../context/context";
 import Lobby from "./Lobby";
 import ServerBrowser from "./ServerBrowser";
 import Login from "./Login";
-
+import { gsap, Power4 } from "gsap";
+import $ from 'jquery'
 import { Search } from "react-feather";
-import Notification from "../Notification/Notification";
 
 export default function Multiplayer(props) {
 	const { socket, lobby, code, name, CreateGameOpen } =
@@ -41,11 +41,15 @@ export default function Multiplayer(props) {
 		if (name === "") {
 			setLogin(true);
 		}
+		const tl = gsap.timeline({ defaults: { ease: Power4.easeOut } });
+		const buttons = $('.multiplayer-buttons-container')[0].children
+		const serverBrowser = $('.server-browser')[0].children
+		tl.staggerFrom(buttons, 0.5, { y: "-100%", opacity: 0, delay: 0.5, }, 0.1);
+		tl.staggerFrom(serverBrowser, 0.5, { y: "-100%", opacity: 0, delay: 0.5, }, 0.1);
 	}, []);
 
 	return (
 		<div className="multiplayer">
-			<Notification />
 			{!lobby && login && <Login setLogin={setLogin} />}
 			{!lobby && !login && (
 				<div className="join-container">

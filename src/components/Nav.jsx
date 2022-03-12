@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MainContext } from "../context/context";
 import { Home, Settings, X, User, MessageSquare } from "react-feather";
-
+import { gsap, Power3 } from "gsap";
 import { Link } from "react-router-dom";
 
 export default function MainNav() {
@@ -17,6 +17,12 @@ export default function MainNav() {
 		setPodium,
 		setGame,
 	} = useContext(MainContext);
+
+	useEffect(() => {
+		const ease = Power3.easeOut;
+		gsap.from(".navbar", { y: "-100%", opacity: 0, duration: 1, ease });
+
+	}, []);
 
 	return (
 		<nav className="navbar">

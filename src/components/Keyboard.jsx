@@ -2,6 +2,7 @@
 import { clueClass } from "./Game/clue";
 import { useEffect } from "react";
 import $ from "jquery";
+import { gsap, Power3 } from "gsap";
 
 export function Keyboard(props) {
   const hidden = props.hidden;
@@ -13,9 +14,11 @@ export function Keyboard(props) {
     "Enter z x c v b n m Backspace".split(" "),
   ];
 
-  // useEffect(() => {
-  //   window.addEventListener("load", startListeners());
-  // }, []);
+  useEffect(() => {
+    const ease = Power3.easeOut;
+		gsap.from(".Game-keyboard", { y: "50%", duration: 2, ease });
+
+  }, []);
   useEffect(() => {
     $(".Game-keyboard-button").on("click", function (e) {
       const letter = e.target.attributes["data-key"].value;

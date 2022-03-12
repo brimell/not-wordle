@@ -11,6 +11,8 @@ import { useModal } from "react-hooks-use-modal";
 import { MainContext } from "../../context/context";
 import { GameOptions } from "./GameOptions";
 import { GameFinishedModalComponent } from "./GameFinishedModal";
+import { gsap, Power3 } from "gsap";
+import $ from "jquery";
 
 const targets = wordList.slice(0, 2000); // adjust for max target freakiness
 const notFiveTargets = nonFiveWords.slice(0, 20000);
@@ -105,6 +107,12 @@ function Game(props) {
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentGuess, gameState]);
+
+	useEffect(() => {
+		const tiles = $(".Row-letter");
+		const tl = gsap.timeline({ defaults: { ease: Power3.easeOut } });
+		tl.staggerFrom(tiles, 0.5, { y: "-100%", opacity: 0 }, 0.1);
+	},[])
 
 	function startNextGame() {
 		setGameTarget(randomTarget(wordLength));

@@ -1,7 +1,8 @@
 import wordList from "../../Wordlist/wordList.json";
 import nonFiveWords from "../../Wordlist/common.json";
 import { seed } from "../util";
-
+import { gsap, Power3 } from "gsap";
+import $ from "jquery";
 
 export function onKey(props) {
 	const {
@@ -27,7 +28,11 @@ export function onKey(props) {
 	} = props;
 
 	if (gameState !== "Playing") {
-		if (key === "enter" && !socket && !window.location.href.endsWith('timed')) {
+		if (
+			key === "enter" &&
+			!socket &&
+			!window.location.href.endsWith("timed")
+		) {
 			startNextGame();
 		}
 		return;
@@ -58,9 +63,10 @@ export function onKey(props) {
 			}
 		}
 
-		//? guess logic
+		//? guess logic - passed checks
 		setGuesses((guesses) => guesses.concat([currentGuess]));
 		setCurrentGuess((guess) => "");
+		lockInAnim();
 		if (socket && multiplayerGrid !== currGrid) {
 			setMultiplayerGrid(currGrid);
 		}
@@ -101,6 +107,34 @@ export function onKey(props) {
 	}
 }
 
+async function lockInAnim() {
+	// const tl = gsap.timeline({ defaults: { ease: Power3.easeOut } });
+	const ease = Power3.easeOut;
+	const lockedRow = $(".Row-locked-in");
+	if (lockedRow.length > 0) {
+		const lockedInLetters = lockedRow[lockedRow.length - 1].children;
+		for (let i = 0; i < lockedInLetters.length; i++) {
+			console.log(lockedInLetters)
+			var letterClass = lockedInLetters[i].className.replace('Row-letter ','')
+			$(lockedInLetters[i]).removeClass(letterClass)
+			gsap.from(lockedInLetters[i], {
+				rotationX: "180",
+				duration: 1,
+				delay: i * 0.1,
+				onComplete: reAddClass,
+				onCompleteParams: [letterClass, lockedInLetters[i]],
+				ease
+			});
+		}
+	}
+	function reAddClass(letterClass, letter) {
+		$(letter).addClass(letterClass)
+	}
+}
+
+function invalidAnim() {
+
+}
 
 export function updateStats(gameState, wordLength, guesses) {
 	// console.log(guesses)
