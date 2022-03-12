@@ -1,113 +1,119 @@
 .homepage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+	@media (max-height: 700px) {
+	  justify-content: flex-start;
+	}
 }
 
 .homepage-header {
-  .homepage-header-title {
-    margin-top: 3vh;
-    font-size: 7vh;
-    line-height: 7vh;
-  }
-  .homepage-header-sub {
-    margin-top: 1vh;
-    font-size: 2vh;
-    opacity: 0.5;
-    text-transform: none;
-    letter-spacing: .2vw;
-    font-family: 'Roboto Mono', monospace;
-  }
+	.homepage-header-title {
+		margin-top: 3vh;
+		font-size: 7vh;
+		line-height: 7vh;
+	}
+	.homepage-header-sub {
+		margin-top: 1vh;
+		font-size: 2vh;
+		opacity: 0.5;
+		text-transform: none;
+		letter-spacing: 0.2vw;
+		font-family: "Roboto Mono", monospace;
+	}
 }
 
 .floatingBackground {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  z-index: -1;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	z-index: -1;
 }
 
 .floatingIcon {
-  position: absolute;
-  z-index: 1;
-  bottom: -100vh;
-  width: 10vh !important;
-  height: 10vh !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 6vh !important;
+	position: absolute;
+	z-index: 1;
+	bottom: -100vh;
+	width: 10vh !important;
+	height: 10vh !important;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 6vh !important;
 }
 
 .gameMenu-grid {
-  width: 70vw;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 40px;
-  @media (max-width: 1080px) {
-    grid-template-columns: repeat(1, 1fr);
-    max-width: fit-content;
-  }
-  .gameMenu-grid-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: var(--bg-s);
-    border-radius: 30px;
-    padding: 2vh;
+	width: 70vw;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+	margin-top: 40px;
+	@media (max-width: 700px) {
+		margin-top: 0;
+	}
+	@media (max-width: 1080px) {
+		grid-template-columns: repeat(1, 1fr);
+		max-width: fit-content;
+	}
+	.gameMenu-grid-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		background-color: var(--bg-s);
+		border-radius: 30px;
+		padding: 2vh;
 
-    h1 {
-      color: white;
-      @media (max-width: 1450px) {
-        font-size: 3vh;
-      }
-      @media (max-width: 1250px) {
-        font-size: 2vh;
-      }
-      &:hover {
-        opacity: 0.9;
-        transition: 0.2s all;
-      }
-    }
-    img {
-      max-width: 10vw;
-      margin: 10px;
-      @media (max-width: 1080px) {
-        max-width: 5vh;
-      }
-      &:hover {
-        opacity: 0.9;
-        transition: 0.2s all;
-      }
-    }
-  }
+		h1 {
+			color: white;
+			@media (max-width: 1450px) {
+				font-size: 3vh;
+			}
+			@media (max-width: 1250px) {
+				font-size: 2vh;
+			}
+			&:hover {
+				opacity: 0.9;
+				transition: 0.2s all;
+			}
+		}
+		img {
+			max-width: 10vw;
+			margin: 10px;
+			@media (max-width: 1080px) {
+				max-width: 5vh;
+			}
+			&:hover {
+				opacity: 0.9;
+				transition: 0.2s all;
+			}
+		}
+	}
 }
 
 .link {
-  @media (max-height: 600px) {
-    margin: 0;
-  }
+	@media (max-height: 600px) {
+		margin: 0;
+	}
 }
 
 $total: 18;
 
 @for $i from 1 through $total {
-  .floatingIcon:nth-child(#{$i}) {
-    left: random(80) * 1% + 10;
-    animation: bubble 6 + random(30) + s linear infinite;
-    animation-delay: random(10) - 5 + s;
-    transform: rotate(random(360) + deg);
-    z-index: -1;
-    @keyframes bubble {
-      to {
-        bottom: 110vh;
-        transform: rotate(5deg);
-      }
-    }
-  }
+	.floatingIcon:nth-child(#{$i}) {
+		left: random(80) * 1% + 10;
+		animation: bubble 6 + random(30) + s linear infinite;
+		animation-delay: random(10) - 5 + s;
+		transform: rotate(random(360) + deg);
+		z-index: -1;
+		@keyframes bubble {
+			to {
+				bottom: 110vh;
+				transform: rotate(5deg);
+			}
+		}
+	}
 }

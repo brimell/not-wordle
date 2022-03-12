@@ -2,63 +2,64 @@
 import { clueClass } from "./Game/clue";
 import { useEffect } from "react";
 import $ from "jquery";
-import { gsap, Power3 } from "gsap";
+// import { gsap, Power3 } from "gsap";
 
 export function Keyboard(props) {
-  const hidden = props.hidden;
-  const onKey = props.onKey;
-  const currentGuess = props.currentGuess
-  const keyboard = [
-    "q w e r t y u i o p".split(" "),
-    "a s d f g h j k l".split(" "),
-    "Enter z x c v b n m Backspace".split(" "),
-  ];
+	const hidden = props.hidden;
+	var onKeyProps = props.onKeyProps;
+	const currentGuess = props.currentGuess;
+	const keyboard = [
+		"q w e r t y u i o p".split(" "),
+		"a s d f g h j k l".split(" "),
+		"Enter z x c v b n m Backspace".split(" "),
+	];
 
-  useEffect(() => {
-    const ease = Power3.easeOut;
-		gsap.from(".Game-keyboard", { y: "50%", duration: 2, ease });
+	// useEffect(() => {
+	// 	const ease = Power3.easeOut;
+	// 	gsap.from(".Game-keyboard", { y: "50%", duration: 2, ease });
+	// }, []);
+	useEffect(() => {
+		$(".Game-keyboard-button").on("click", (e) => {
+			const letter = e.target.attributes["data-key"].value;
+			onKeyProps.key = letter.toLowerCase();
+			// console.log(onKeyProps);
+			props.onKey(onKeyProps);
+		});
+		return () => $(".Game-keyboard-button").off();
+	}, [currentGuess]);
 
-  }, []);
-  useEffect(() => {
-    $(".Game-keyboard-button").on("click", function (e) {
-      const letter = e.target.attributes["data-key"].value;
-      onKey(letter.toLowerCase());
-    });
-    return () => {
-      $(".Game-keyboard-button").off();
-    }
-  }, [currentGuess]);
-
-  return (
-    <div className="Game-keyboard" style={{ display: hidden && "none" }}>
-      {keyboard.map((row, i) => (
-        <div key={i} className="Game-keyboard-row">
-          {row.map((label, j) => {
-            let className = "Game-keyboard-button";
-            const clue = props.letterInfo.get(label);
-            if (clue !== undefined) {
-              className += " " + "keyboard-" + clueClass(clue);
-            }
-            if (label.length > 1) {
-              className += " Game-keyboard-button-wide";
-            }
-            return (
-              <button
-                data-key={label}
-                tabIndex={-1}
-                key={j}
-                className={className}
-                // onClick={() => {
-                //   console.log(label)
-                //   props.onKey(label.toLowerCase());
-                // }}
-              >
-                {label.replace("Backspace", "⌫")}
-              </button>
-            );
-          })}
-        </div>
-      ))}
-    </div>
-  );
+	return (
+		<div className="Game-keyboard" style={{ display: hidden && "none" }}>
+			{keyboard.map((row, i) => (
+				<div key={i} className="Game-keyboard-row">
+					{row.map((label, j) => {
+						let className = "Game-keyboard-button";
+						const clue = props.letterInfo.get(label);
+						if (clue !== undefined) {
+							className += " " + "keyboard-" + clueClass(clue);
+						}
+						if (label.length > 1) {
+							className += " Game-keyboard-button-wide";
+						}
+						return (
+							<button
+								type="button"
+								data-key={label}
+								tabIndex={-1}
+								key={j}
+								className={className}
+								// onClick={() => {
+								//   onKeyProps.key = label.toLowerCase();
+								//   // console.log(onKeyProps);
+								//   props.onKey(onKeyProps);
+								// }}
+							>
+								{label.replace("Backspace", "⌫")}
+							</button>
+						);
+					})}
+				</div>
+			))}
+		</div>
+	);
 }

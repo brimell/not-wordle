@@ -108,11 +108,11 @@ function Game(props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentGuess, gameState]);
 
-	useEffect(() => {
-		const tiles = $(".Row-letter");
-		const tl = gsap.timeline({ defaults: { ease: Power3.easeOut } });
-		tl.staggerFrom(tiles, 0.5, { y: "-100%", opacity: 0 }, 0.1);
-	},[])
+	// useEffect(() => {
+	// 	const tiles = $(".Row-letter");
+	// 	const tl = gsap.timeline({ defaults: { ease: Power3.easeOut } });
+	// 	tl.staggerFrom(tiles, 0.5, { y: "-100%", opacity: 0 }, 0.1);
+	// },[])
 
 	function startNextGame() {
 		setGameTarget(randomTarget(wordLength));
@@ -170,6 +170,27 @@ function Game(props) {
 		GameFinishedOpen,
 		randomTarget,
 	};
+	const onKeyProps = {
+		key: '',
+		startNextGame,
+		handleGameFinish,
+		gameState,
+		setGameState,
+		guesses,
+		setGuesses,
+		setCurrentGuess,
+		currentGuess,
+		setHint,
+		maxGuesses,
+		multiplayerGrid: props.multiplayerGrid,
+		setMultiplayerGrid: props.setMultiplayerGrid,
+		socket: props.socket,
+		target: gameTarget,
+		propsTarget: props.target,
+		currGrid,
+		GameFinishedOpen,
+		wordLength,
+	};
 
 	return (
 		<div className="Game">
@@ -203,6 +224,7 @@ function Game(props) {
 				hidden={settings}
 				letterInfo={letterInfo}
 				onKey={onKey}
+				onKeyProps={onKeyProps}
 			/>
 		</div>
 	);
