@@ -1,6 +1,6 @@
 import React, { useRef, useContext, useEffect } from "react";
 import "react-hooks-use-modal";
-import CloseIcon from "@mui/icons-material/Close";
+import { X } from "react-feather";
 import socket from "../socketio";
 import { MainContext } from "../../context/context";
 import { gsap, Power3 } from "gsap";
@@ -36,7 +36,7 @@ export default function CreateGameModal() {
 	return (
 		<Modal>
 			<div className="modalContainer">
-				<CloseIcon onClick={Close} className="modalCloseIcon" />
+				<X onClick={Close} className="modalCloseIcon" />
 				<h1 className="statsHeader">Create Game</h1>
 				<input
 					type="text"

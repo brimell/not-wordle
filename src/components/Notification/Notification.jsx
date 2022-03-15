@@ -1,6 +1,6 @@
 import React from "react";
 import gsap from "gsap";
-import CloseIcon from "@mui/icons-material/Close";
+import { X } from "react-feather";
 export default function Notification(props) {
   const openNotif = props.openNotif;
   const Icon = props.Icon;
@@ -43,7 +43,7 @@ export default function Notification(props) {
             <button>Accept</button>
           </div>
         ) : (
-          <CloseIcon />
+          <X />
         )}
       </div>
     </div>

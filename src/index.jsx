@@ -1,10 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-//  uncomment to use custom right click
-// import './components/rc/rc'
+
+import App from "./App";
+// import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+// import reportWebVitals from './reportWebVitals';
+
 import { HashRouter as Router} from "react-router-dom";
 // import { BrowserRouter as Router} from "react-router-dom";
-import App from "./App";
+
+//  uncomment to use custom right click
+// import './components/rc/rc'
 
 ReactDOM.render(
 	<React.StrictMode>

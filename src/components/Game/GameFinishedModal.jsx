@@ -1,11 +1,11 @@
-import CloseIcon from "@mui/icons-material/Close";
+import { X } from "react-feather";
 
 export function GameFinishedModalComponent(props) {
 	const { GameFinishedModal, GameFinishedClose, gameState } = props;
 	return (
 		<GameFinishedModal>
 			<div className="modalContainer">
-				<CloseIcon
+				<X
 					onClick={GameFinishedClose}
 					className="modalCloseIcon"
 				/>
