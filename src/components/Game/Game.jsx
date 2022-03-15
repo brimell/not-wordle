@@ -11,8 +11,6 @@ import { useModal } from "react-hooks-use-modal";
 import { MainContext } from "../../context/context";
 import { GameOptions } from "./GameOptions";
 import { GameFinishedModalComponent } from "./GameFinishedModal";
-import { gsap, Power3 } from "gsap";
-import $ from "jquery";
 
 const targets = wordList.slice(0, 2000); // adjust for max target freakiness
 const notFiveTargets = nonFiveWords.slice(0, 20000);

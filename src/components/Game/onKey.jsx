@@ -1,8 +1,8 @@
 import wordList from "../../Wordlist/wordList.json";
 import nonFiveWords from "../../Wordlist/common.json";
 import { seed } from "../util";
-import { gsap, Power3 } from "gsap";
-import $ from "jquery";
+// import { gsap, Power3 } from "gsap";
+// import $ from "jquery";
 
 export function onKey(props) {
 	const {
@@ -66,7 +66,7 @@ export function onKey(props) {
 		//? guess logic - passed checks
 		setGuesses((guesses) => guesses.concat([currentGuess]));
 		setCurrentGuess((guess) => "");
-		lockInAnim();
+		// lockInAnim();
 		if (socket && multiplayerGrid !== currGrid) {
 			setMultiplayerGrid(currGrid);
 		}
