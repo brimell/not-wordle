@@ -6,7 +6,7 @@ import ServerBrowser from "./ServerBrowser";
 import Login from "./Login";
 import { gsap, Power4 } from "gsap";
 import $ from 'jquery'
-import { Search } from "react-feather";
+// import { Search } from "react-feather";
 
 export default function Multiplayer(props) {
 	const { socket, lobby, code, name, CreateGameOpen } =

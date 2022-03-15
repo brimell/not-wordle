@@ -66,7 +66,7 @@ const SocketManager = (socket, io, utils) => {
 		if (gameState === "Won" && user) {
 			utils.updateGameState(user.room, "Podium");
 			io.to(user.room).emit("gameWon", user.id);
-			io.to(user.room).emit("updateRooms", utils.getRoomList());
+			socket.emit("updateRooms", utils.getRoomList());
 		} else if (gameState === "Lost" && user) {
 			utils.userLost(user.id);
 			io.to(user.room).emit("gameLost", user.id);
@@ -75,7 +75,7 @@ const SocketManager = (socket, io, utils) => {
 				utils.getUserList(user.room).length
 			) {
 				utils.updateGameState(user.room, "Podium");
-				io.to(user.room).emit("updateRooms", utils.getRoomList());
+				socket.emit("updateRooms", utils.getRoomList());
 				io.to(user.room).emit("allLost");
 			}
 		}
@@ -104,6 +104,7 @@ const SocketManager = (socket, io, utils) => {
 		utils.updateGameState(user.room, "lobby");
 		utils.resetRoom(user.room); // rests grids and lost count
 		io.to(user.room).emit("playAgainRes");
+		socket.emit("updateRooms", utils.getRoomList());
 	});
 
 	socket.on("fetchRooms", () => {
