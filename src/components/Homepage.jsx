@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { gsap, Power3 } from "gsap";
 import $ from "jquery";
-import nwLogo from "/nw.svg";
+import nwLogo from "/nw-outline.svg";
 import multiplayerSVG from "/multiplayer.svg";
 import timedSVG from "/timed.svg";
 
