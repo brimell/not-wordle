@@ -7,6 +7,8 @@ import "./components/firebaseInit";
 
 import Loading from "./components/Loading";
 import Nav from "./components/Nav";
+import ReloadPrompt from './components/ReloadPrompt';
+
 // import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import {
 	HashRouter as Router,
@@ -71,6 +73,7 @@ function App() {
 
 	return (
 		<ContextProvider>
+			<ReloadPrompt />
 			<Suspense fallback={<Loading />}>
 				<div className="App-container target-light">
 					<CreateGameModal />
