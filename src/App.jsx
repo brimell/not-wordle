@@ -35,7 +35,6 @@ if (!localStorage.getItem("wordMode")) {
 
 function App() {
 	const location = useLocation();
-
 	useEffect(() => {
 		if (localStorage.getItem("wordMode") === "todaysWord") {
 			sessionStorage.setItem(

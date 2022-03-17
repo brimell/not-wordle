@@ -23,7 +23,6 @@ export default function Multiplayer(props) {
 		//? need to be inside useEffect otherwise will be rendered multiple times and multiple listeners will be added
 		socket.on("updateRooms", (rooms) => {
 			// console.log("updated rooms", rooms);
-			console.log(rooms)
 			setRooms(rooms); //? returns utils.rooms
 			// this may cause an error if component is unmounted
 		});

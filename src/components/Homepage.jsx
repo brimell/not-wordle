@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, lazy } from "react";
 import { Link } from "react-router-dom";
 import { gsap, Power3 } from "gsap";
 import $ from "jquery";
@@ -48,10 +48,11 @@ function GameMenu() {
 			</div>
 
 			<div className="gameMenu-grid-item">
+				<Link to={'#'} className="link">
 				{/* <Link to="/timed" className="link"> */}
 					<img src={timedSVG}></img>
-					<h1>(unavailable)</h1>
-				{/* </Link> */}
+					<h1>(WIP)</h1>
+				</Link>
 			</div>
 		</div>
 	);

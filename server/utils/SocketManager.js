@@ -194,7 +194,6 @@ const SocketManager = (socket, io, utils) => {
 	});
 
 	socket.on("disconnect", () => {
-		console.log('disconnect')
 		let user = utils.removeUser(socket.id);
 
 		if (user) {
