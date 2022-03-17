@@ -109,7 +109,8 @@ export default function Lobby() {
 				userList.find((user) => user.id === socket.id).role === "host"
 			);
 		});
-		return () => { // cleans up the socket listeners
+		return () => {
+			// cleans up the socket listeners
 			socket.off("game-started");
 			socket.off("getUserRes");
 			socket.off("gameWon");
@@ -178,8 +179,10 @@ export default function Lobby() {
 				<div className="gridBar">
 					{grids &&
 						Object.keys(grids).map((nameProp, i) => {
-							console.log(podium && winner || !podium && !winner) && !(podium && !winner)
-							if (name === nameProp) { // show yourself if no one won and podium is being displayed
+							if (name === nameProp) {
+								// show yourself if no one won and podium is being displayed
+								return "";
+							} else if (nameProp === winner) {
 								return "";
 							} else if (grids[nameProp].length > 0) {
 								return (

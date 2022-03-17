@@ -96,7 +96,7 @@ export default function Podium() {
 			{grids &&
 				winner &&
 				Object.keys(grids).map((name, i) => {
-					if (name === winner) {
+					if (name === winner) { // renders winner grid
 						return (
 							<div className="gridItem podiumGridItem" key={i}>
 								{grids[name].map((row, j) => {
