@@ -1,4 +1,5 @@
 const wordList = require("./wordList.json");
+const messageManager = require("./messageManager.js")
 
 const makeRandom = () => Math.random();
 let random = makeRandom();
@@ -167,18 +168,6 @@ const SocketManager = (socket, io, utils) => {
 		}
 	});
 
-	// socket.on('getGrids', () => {
-	//   const user = users.getUser(socket.id);
-	// 	if (user) {
-	// 		users.getGrids(user.room);
-	// 		socket.broadcast
-	// 			.to(user.room)
-	// 			.emit("update-grid-client", users.getGrids(user.room));
-	// 	} else {
-	// 		console.log("user not found: ", socket.id, grid, users);
-	// 	}
-	// })
-
 	socket.on("leave-room", (props) => {
 		let user = utils.removeUser(socket.id);
 
@@ -201,21 +190,6 @@ const SocketManager = (socket, io, utils) => {
 		}
 
 		socket.emit("updateRooms", utils.getRoomList());
-	});
-
-	// voice chat
-	socket.on("sending signal", (payload) => {
-		io.to(payload.userToSignal).emit("user joined", {
-			signal: payload.signal,
-			callerID: payload.callerID,
-		});
-	});
-
-	socket.on("returning signal", (payload) => {
-		io.to(payload.callerID).emit("receiving returned signal", {
-			signal: payload.signal,
-			id: socket.id,
-		});
 	});
 
 	socket.on("disconnect", () => {
@@ -245,6 +219,35 @@ const SocketManager = (socket, io, utils) => {
 
 		socket.emit("updateRooms", utils.getRoomList());
 	});
+
+	messageManager(socket, io, utils);
 };
 
 module.exports = SocketManager;
+
+// voice chat
+// socket.on("sending signal", (payload) => {
+// 	io.to(payload.userToSignal).emit("user joined", {
+// 		signal: payload.signal,
+// 		callerID: payload.callerID,
+// 	});
+// });
+
+// socket.on("returning signal", (payload) => {
+// 	io.to(payload.callerID).emit("receiving returned signal", {
+// 		signal: payload.signal,
+// 		id: socket.id,
+// 	});
+// });
+
+// socket.on('getGrids', () => {
+//   const user = users.getUser(socket.id);
+// 	if (user) {
+// 		users.getGrids(user.room);
+// 		socket.broadcast
+// 			.to(user.room)
+// 			.emit("update-grid-client", users.getGrids(user.room));
+// 	} else {
+// 		console.log("user not found: ", socket.id, grid, users);
+// 	}
+// })

@@ -3,6 +3,13 @@ import { MainContext } from "../../context/context";
 import "react-hooks-use-modal";
 import { X } from "react-feather";
 
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+
+const firestore = firebase.firestore();
+
 export default function StatsModal(props) {
 	const {
 		name,
