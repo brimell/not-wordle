@@ -181,18 +181,20 @@ const SocketManager = (socket, io, utils) => {
 			console.log("cannot leave room as user is: ", user);
 		}
 		//? check for empty rooms and remove them
-		if (utils.getRoomList().length !== 0) {
-			for (let room in utils.getRoomList()) {
-				if (utils.getRoomList()[room].users.length === 0) {
-					utils.removeRoom(utils.getRoomList()[room].room);
+		const roomList = utils.getRoomList()
+		if (roomList.length !== 0) {
+			for (let room in roomList) {
+				if (roomList[room].users.length === 0) {
+					utils.removeRoom(roomList[room].room);
 				}
 			}
 		}
 
-		socket.emit("updateRooms", utils.getRoomList());
+		socket.broadcast.emit("updateRooms", utils.getRoomList());
 	});
 
 	socket.on("disconnect", () => {
+		console.log('disconnect')
 		let user = utils.removeUser(socket.id);
 
 		if (user) {
@@ -217,10 +219,10 @@ const SocketManager = (socket, io, utils) => {
 			}
 		}
 
-		socket.emit("updateRooms", utils.getRoomList());
+		socket.broadcast.emit("updateRooms", utils.getRoomList());
 	});
 
-	messageManager(socket, io, utils);
+	// messageManager(socket, io, utils);
 };
 
 module.exports = SocketManager;

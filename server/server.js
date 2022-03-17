@@ -24,7 +24,8 @@ const io = socketio(server, {
 			"https://admin.socket.io",
 			"https://notwordle.herokuapp.com:*",
 			"https://notwordle-raaydon.vercel.app",
-			"https://notwordle.netlify.app"
+			"https://notwordle.netlify.app",
+			"http://192.168.1.90:3000"
 		],
 	},
 });
