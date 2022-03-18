@@ -81,6 +81,7 @@ export default function Lobby() {
 				// check if game started was initialised by a host
 				// setGrids({})	// reset all grids for new game
 				setTarget(props.target);
+				console.log('winner: ',winner)
 				setGame(true);
 			}
 		});
@@ -179,12 +180,16 @@ export default function Lobby() {
 				<div className="gridBar">
 					{grids &&
 						Object.keys(grids).map((nameProp, i) => {
-							if (name === nameProp) {
-								// show yourself if no one won and podium is being displayed
+							console.log(grids)
+							if (podium && nameProp !== winner) {
+								// pass
+							}
+							else if (nameProp === winner) {
 								return "";
-							} else if (nameProp === winner) {
+							} else if (name === nameProp) {
 								return "";
-							} else if (grids[nameProp].length > 0) {
+							}
+							if (grids[nameProp].length > 0) {
 								return (
 									<div className="gridItem" key={i}>
 										<span className="nameTitle">
@@ -218,7 +223,7 @@ export default function Lobby() {
 			)}
 			{/* {(game || podium) && $(window).width() < 1000 && <GridViewModal />} */}
 
-			{podium && <Podium />}
+			{podium && <Podium setMultiplayerGrid={setMultiplayerGrid} />}
 		</div>
 	);
 }

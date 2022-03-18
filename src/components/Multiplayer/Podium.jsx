@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { MainContext } from "../../context/context";
 import axios from "axios";
 
-export default function Podium() {
+export default function Podium(props) {
 	const {
 		setLobby,
 		setPodium,
@@ -13,6 +13,7 @@ export default function Podium() {
 		winner,
 		target,
 		setWordLength,
+		setWinner,
 	} = useContext(MainContext);
 
 	useEffect(() => {
@@ -40,8 +41,12 @@ export default function Podium() {
 			setGrids({});
 			setLobby(true);
 			setPodium(false);
-			socket.off("playAgainRes");
+			setWinner(false);
+			props.setMultiplayerGrid([])
 		});
+		return () => {
+			socket.off("playAgainRes");
+		};
 	}, [setGrids, setLobby, setPodium, socket]);
 
 	async function getDefinition(target) {
@@ -96,7 +101,8 @@ export default function Podium() {
 			{grids &&
 				winner &&
 				Object.keys(grids).map((name, i) => {
-					if (name === winner) { // renders winner grid
+					if (name === winner) {
+						// renders winner grid
 						return (
 							<div className="gridItem podiumGridItem" key={i}>
 								{grids[name].map((row, j) => {
