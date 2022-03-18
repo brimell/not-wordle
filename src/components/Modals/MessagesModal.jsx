@@ -25,33 +25,56 @@ export default function StatsModal(props) {
 	);
 }
 
-const sendMessage = async (
+async function sendMessage(
 	e,
 	formValue,
 	name,
 	dummy,
 	messagesRef,
 	setFormValue
-) => {
+) {
 	e.preventDefault();
+	const { socket } = useContext(MainContext);
+
+	data = {
+		text: formValue,
+		user: name === "" ? "Anonymous" : name,
+	};
+
+	socket.emit("message-send", data);
+
+	let date = new Date();
+	let time = date.getHours() + ":" + date.getMinutes();
 
 	await messagesRef.add({
 		text: formValue,
-		createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+		time,
 		user: name === "" ? "Anonymous" : name,
 	});
 
 	setFormValue("");
 	dummy.current.scrollIntoView({ behavior: "smooth" });
-};
+}
 
 function ChatRoom() {
-	const { name } = useContext(MainContext);
+	const { name, socket } = useContext(MainContext);
 
 	useEffect(() => {
 		dummy.current.scrollIntoView({ behavior: "smooth" });
 	});
 	const dummy = useRef();
+
+	useEffect(() => {
+		socket.on('message-receive', (props) => {
+			messagesRef.add({
+				text: props.message,
+				time: props.time,
+				user: props.user,
+			});
+			dummy.current.scrollIntoView({ behavior: "smooth" });
+
+		})
+	})
 
 	// const yesterday = new Date() - 86400; // todays date - 1 day in seconds
 
@@ -63,7 +86,7 @@ function ChatRoom() {
 						<ChatMessage
 							name={name}
 							message={msg}
-							key={msg.createdAt}
+							key={msg.time}
 						/>
 					))}
 
@@ -104,7 +127,7 @@ function MessageInput(props) {
 }
 
 function ChatMessage(props) {
-	const { text, user, createdAt } = props.message;
+	const { text, user, time } = props.message;
 
 	const messageClass =
 		user === (props.name === "" ? "Anonymous" : props.name)
@@ -113,7 +136,7 @@ function ChatMessage(props) {
 
 	return (
 		<>
-			<div className={`message ${messageClass}`} key={createdAt}>
+			<div className={`message ${messageClass}`} key={time}>
 				<p>{text}</p>
 			</div>
 		</>

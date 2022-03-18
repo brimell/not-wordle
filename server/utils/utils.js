@@ -194,6 +194,13 @@ class Users {
 		this.resetGrids(room);
 		this.resetLost(room);
 	}
+	saveMessage(data) {
+		for (var i = 0; i < this.rooms.length; i++) {
+			if (this.rooms[i].room === data.room) {
+				this.rooms[i].messages.push(data);
+			}
+		}
+	}
 }
 
 module.exports = {

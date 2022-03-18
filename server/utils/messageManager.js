@@ -1,8 +1,8 @@
 function messageManager(socket,io,utils) {
-    socket.on('message-send', () => {
-        let message = socket.request.body.message;
-        let room = socket.request.body.room;
-        let user = socket.request.body.user;
+    socket.on('message-send', (props) => {
+        let message = props.message;
+        let room = props.room;
+        let user = props.user;
         let date = new Date();
         let time = date.getHours() + ":" + date.getMinutes();
         let data = {
@@ -13,6 +13,10 @@ function messageManager(socket,io,utils) {
         };
         io.to(room).emit('message-receive', data);
         utils.saveMessage(data);
+    })
+    socket.on('fetch-messages', () => {
+        let messages = utils.getMessages();
+        socket.emit('fetch-messages-res', messages);
     })
 }
 
