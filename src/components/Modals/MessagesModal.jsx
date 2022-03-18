@@ -5,7 +5,6 @@ import { X } from "react-feather";
 
 export default function StatsModal(props) {
 	const {
-		name,
 		messagesModal,
 		// messagesOpen,
 		messagesClose,
@@ -53,18 +52,8 @@ function ChatRoom() {
 		dummy.current.scrollIntoView({ behavior: "smooth" });
 	});
 	const dummy = useRef();
-	const messagesRef = firestore.collection("messages");
 
-	const yesterday = new Date() - 86400; // todays date - 1 day in seconds
-	const my_date = firebase.firestore.Timestamp.fromDate(new Date(yesterday));
-
-	const query = messagesRef.orderBy("createdAt", "asc");
-	// .where("createdAt", ">", my_date); // messages from the last day;
-	const [messages] = useCollectionData(query, { idField: "id" });
-
-	// console.log("messages: ", messages);
-	// console.log("yesterday: ", yesterday);
-	// console.log('today: ', String(new Date() - 1));
+	// const yesterday = new Date() - 86400; // todays date - 1 day in seconds
 
 	return (
 		<>
@@ -80,12 +69,12 @@ function ChatRoom() {
 
 				<span id="dummy" ref={dummy}></span>
 			</main>
-			<ChatForm mRef={messagesRef} dummy={dummy} />
+			<MessageInput mRef={messagesRef} dummy={dummy} />
 		</>
 	);
 }
 
-function ChatForm(props) {
+function MessageInput(props) {
 	const { name } = useContext(MainContext);
 	const [formValue, setFormValue] = useState("");
 	return (
