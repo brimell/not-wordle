@@ -37,10 +37,10 @@ export default function MainNav() {
 		<nav className="navbar">
 			<ul className="navbar__menu">
 				<HomeLink />
-				{game || (lobby && <MessagesLink />)}
+				{lobby && <MessagesLink />}
 				{location.pathname === "/classic" && <EmptyLink />}
 				<Title />
-				{lobby && <EmptyLink />}
+				{lobby && !game && <EmptyLink />}
 				<StatsLink />
 				{location.pathname === "/classic" && <SettingsLink />}
 				{game && <GridLink />}
@@ -130,7 +130,7 @@ function StatsLink() {
 function EmptyLink() {
 	return (
 		<li className="navbar__item">
-			<a className="navbar__link"></a>
+			<a className="navbar__link empty_link"></a>
 		</li>
 	);
 }

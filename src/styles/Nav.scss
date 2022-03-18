@@ -27,6 +27,9 @@ $transition: $timing ease all;
   top: $spacer;
   color: white;
   width: 90vw;
+  .empty_link {
+    cursor: default;
+  }
   &__link {
     position: relative;
     display: flex;

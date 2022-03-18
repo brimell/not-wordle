@@ -58,6 +58,17 @@ async function sendMessage(
 
 function ChatRoom() {
 	const { name, socket } = useContext(MainContext);
+	const [messages, setMessages] = useState([]);
+	const messagesRef = useRef();
+	useEffect(() => {
+		socket.emit("fetch-messages");
+		socket.on("fetch-messages-res", (data) => {
+			setMessages(data);
+		});
+		return () => {
+			socket.off("fetchMessages");
+		};
+	}, []);
 
 	useEffect(() => {
 		dummy.current.scrollIntoView({ behavior: "smooth" });
@@ -65,16 +76,15 @@ function ChatRoom() {
 	const dummy = useRef();
 
 	useEffect(() => {
-		socket.on('message-receive', (props) => {
+		socket.on("message-receive", (props) => {
 			messagesRef.add({
 				text: props.message,
 				time: props.time,
 				user: props.user,
 			});
 			dummy.current.scrollIntoView({ behavior: "smooth" });
-
-		})
-	})
+		});
+	});
 
 	// const yesterday = new Date() - 86400; // todays date - 1 day in seconds
 
@@ -83,11 +93,7 @@ function ChatRoom() {
 			<main id="messages">
 				{messages &&
 					messages.map((msg) => (
-						<ChatMessage
-							name={name}
-							message={msg}
-							key={msg.time}
-						/>
+						<ChatMessage message={msg} key={msg.time} />
 					))}
 
 				<span id="dummy" ref={dummy}></span>
