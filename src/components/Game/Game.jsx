@@ -96,7 +96,7 @@ function Game(props) {
 			if (socket || window.location.href.endsWith('timed')) {
 				props.setCurrentGrid(currGrid);
 			}
-			console.log("target: ", gameTarget);
+			// console.log("target: ", gameTarget);
 		};
 
 		document.addEventListener("keydown", onKeyDown);
@@ -122,7 +122,7 @@ function Game(props) {
 	}
 
 	function handleGameFinish(gameState) {
-		console.log("game finished with state: ", gameState);
+		// console.log("game finished with state: ", gameState);
 		props.handleGameFinish(gameState);
 	}
 
