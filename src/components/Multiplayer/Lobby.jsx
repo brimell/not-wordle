@@ -33,6 +33,7 @@ export default function Lobby() {
 		setWordLength,
 	} = useContext(MainContext);
 	const [multiplayerGrid, setMultiplayerGrid] = useState([]);
+	const [fullUsers, setFullUsers] = useState([]);
 
 	useEffect(() => {
 		setWordLength(5);
@@ -47,6 +48,46 @@ export default function Lobby() {
 		socket.emit("getUser", socket.id);
 	}, []);
 
+	async function notification(message) {
+		// Check if the browser supports notifications
+		if (!("Notification" in window)) {
+			// early return if not
+			return;
+		}
+
+		// Check if the user denied notifications
+		if (Notification.permission === "denied") {
+			// early return if so
+			return;
+		}
+		await new Promise(async (resolve) => {
+			if (Notification.permission === "granted") {
+				resolve();
+			}
+
+			const result = await Notification.requestPermission();
+
+			if (result === "granted") {
+				resolve();
+			}
+		});
+		new Notification(message);
+	}
+
+	function getUser(id) {
+		socket.emit("fetchFullUsersList");
+		socket.on("updateFullUsersList", (userList) => {
+			setFullUsers(userList);
+			for (let i = 0; i < fullUsers.length; i++) {
+				var currUser = fullUsers[i];
+				if (currUser.id === id) {
+					return currUser;
+				}
+			}
+		});
+		socket.off("updateFullUsersList");
+	}
+
 	function startGame() {
 		socket.emit("start-game");
 	}
@@ -59,6 +100,7 @@ export default function Lobby() {
 
 	function gameLost(id) {
 		console.log(id, " lost");
+		notification(`${getUser(id).name} lost`);
 	}
 
 	async function gameWon(id) {
@@ -81,8 +123,11 @@ export default function Lobby() {
 				// check if game started was initialised by a host
 				// setGrids({})	// reset all grids for new game
 				setTarget(props.target);
-				console.log('winner: ',winner)
+				console.log("winner: ", winner);
 				setGame(true);
+				if (document.hasFocus()) {
+					notification("✅ Game Started");
+				}
 			}
 		});
 		socket.on("getUserRes", (user) => {
@@ -106,6 +151,7 @@ export default function Lobby() {
 			setUsers(userList);
 		});
 		socket.on("updateFullUsersList", (userList) => {
+			setFullUsers(userList);
 			setStartHide(
 				userList.find((user) => user.id === socket.id).role === "host"
 			);
@@ -180,11 +226,9 @@ export default function Lobby() {
 				<div className="gridBar">
 					{grids &&
 						Object.keys(grids).map((nameProp, i) => {
-							console.log(grids)
 							if (podium && nameProp !== winner) {
 								// pass
-							}
-							else if (nameProp === winner) {
+							} else if (nameProp === winner) {
 								return "";
 							} else if (name === nameProp) {
 								return "";

@@ -16,6 +16,7 @@ export default function MainNav() {
 	const {
 		socket,
 		setLobby,
+		lobby,
 		setSeedUpdate,
 		settings,
 		setSettings,
@@ -35,71 +36,101 @@ export default function MainNav() {
 	return (
 		<nav className="navbar">
 			<ul className="navbar__menu">
-				<li className="navbar__item">
-					<Link
-						className="navbar__link"
-						to="/"
-						id="homeButton"
-						onClick={() => {
-							socket.emit("leave-room");
-							setLobby(false);
-							setPodium(false);
-							setGame(false);
-						}}
-					>
-						<Home />
-						<span>Home</span>
-					</Link>
-				</li>
-				{game && (
-					<li className="navbar__item">
-						<a className="navbar__link" onClick={messagesOpen}>
-							<MessageSquare />
-							<span>Messages</span>
-						</a>
-					</li>
-				)}
-				{location.pathname === "/classic" && (
-					<li className="navbar__item">
-						<a className="navbar__link">
-							{/* {!settings ? <Settings /> : <X />}
-						<span>Settings</span> */}
-						</a>
-					</li>
-				)}
-				<h1>not wordle</h1>
-				<li className="navbar__item">
-					<a className="navbar__link" onClick={statsOpen}>
-						<BarChart2 />
-						<span>Stats</span>
-					</a>
-				</li>
-				{location.pathname === "/classic" && (
-					<li className="navbar__item">
-						<a
-							className="navbar__link"
-							onClick={() => {
-								setSeedUpdate(
-									Number(sessionStorage.getItem("seed")) ||
-										false
-								);
-								setSettings((a) => !a);
-							}}
-						>
-							{!settings ? <Settings /> : <X />}
-							<span>Settings</span>
-						</a>
-					</li>
-				)}
-				{game && (
-					<li className="navbar__item">
-						<a className="navbar__link">
-							<Grid />
-							<span>Grid</span>
-						</a>
-					</li>
-				)}
+				<HomeLink />
+				{game || (lobby && <MessagesLink />)}
+				{location.pathname === "/classic" && <EmptyLink />}
+				<Title />
+				{lobby && <EmptyLink />}
+				<StatsLink />
+				{location.pathname === "/classic" && <SettingsLink />}
+				{game && <GridLink />}
 			</ul>
 		</nav>
+	);
+}
+
+function Title() {
+	return <h1>not wordle</h1>;
+}
+function HomeLink() {
+	const { socket, setLobby, setPodium, setGame } = useContext(MainContext);
+	return (
+		<li className="navbar__item">
+			<Link
+				className="navbar__link"
+				to="/"
+				id="homeButton"
+				onClick={() => {
+					socket.emit("leave-room");
+					setLobby(false);
+					setPodium(false);
+					setGame(false);
+				}}
+			>
+				<Home />
+				<span>Home</span>
+			</Link>
+		</li>
+	);
+}
+function MessagesLink() {
+	const { messagesOpen } = useContext(MainContext);
+	return (
+		<li className="navbar__item">
+			<a className="navbar__link" onClick={messagesOpen}>
+				<MessageSquare />
+				<span>Messages</span>
+			</a>
+		</li>
+	);
+}
+
+function GridLink() {
+	return (
+		<li className="navbar__item">
+			<a className="navbar__link">
+				<Grid />
+				<span>Grid</span>
+			</a>
+		</li>
+	);
+}
+function SettingsLink() {
+	const { setSeedUpdate, settings, setSettings } = useContext(MainContext);
+	return (
+		<li className="navbar__item">
+			<a
+				className="navbar__link"
+				onClick={() => {
+					setSeedUpdate(
+						Number(sessionStorage.getItem("seed")) || false
+					);
+					setSettings((a) => !a);
+				}}
+			>
+				{!settings ? <Settings /> : <X />}
+				<span>Settings</span>
+			</a>
+		</li>
+	);
+}
+
+function StatsLink() {
+	const { statsOpen } = useContext(MainContext);
+	return (
+		<li className="navbar__item">
+			<a className="navbar__link" onClick={statsOpen}>
+				<BarChart2 />
+				<span>Stats</span>
+			</a>
+		</li>
+	);
+}
+
+function EmptyLink() {
+	return (
+		<li className="navbar__item">
+			<a className="navbar__link"></a>
+		</li>
 	);
 }

@@ -44,7 +44,7 @@ function App() {
 		}
 	}, []);
 
-	async function setupNotifications() {
+	async function notification(message) {
 		// Check if the browser supports notifications
 		if (!("Notification" in window)) {
 			// early return if not
@@ -67,7 +67,7 @@ function App() {
 				resolve();
 			}
 		});
-		new Notification("A notif");
+		new Notification(message);
 	}
 
 	return (
