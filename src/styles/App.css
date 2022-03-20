@@ -197,7 +197,7 @@ a {
 	}
 }
 
-@media only screen and (max-height: 820px) {
+@media only screen and (max-height: 844px) {
 	.Row-letter {
 		width: 7vh;
 		height: 7vh;
@@ -213,7 +213,7 @@ a {
 	.Game-keyboard {
 		max-width: 100vw;
 		position: absolute;
-		left: 0;
+		/* left: 0; */
 		bottom: 0;
 	}
 	.Game-options {
