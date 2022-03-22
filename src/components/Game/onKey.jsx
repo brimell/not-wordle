@@ -1,6 +1,7 @@
 import wordList from "../../Wordlist/wordList.json";
 import nonFiveWords from "../../Wordlist/common.json";
 import { seed } from "../util";
+import { clue } from "./clue";
 // import { gsap, Power3 } from "gsap";
 // import $ from "jquery";
 
@@ -62,6 +63,16 @@ export function onKey(props) {
 				return;
 			}
 		}
+		var clueList = []
+		for (let i = 0; i < guesses.length; i++) {
+			clueList.push(clue(guesses[i],target))
+		}
+		
+		for (let i = 0; i < guesses.length; i++) {
+			for (let j = 0; j < guesses[i].length; j++) {
+				const letter = guesses[i][j];
+			}
+		}
 
 		//? guess logic - passed checks
 		setGuesses((guesses) => guesses.concat([currentGuess]));
@@ -114,27 +125,28 @@ async function lockInAnim() {
 	if (lockedRow.length > 0) {
 		const lockedInLetters = lockedRow[lockedRow.length - 1].children;
 		for (let i = 0; i < lockedInLetters.length; i++) {
-			console.log(lockedInLetters)
-			var letterClass = lockedInLetters[i].className.replace('Row-letter ','')
-			$(lockedInLetters[i]).removeClass(letterClass)
+			console.log(lockedInLetters);
+			var letterClass = lockedInLetters[i].className.replace(
+				"Row-letter ",
+				""
+			);
+			$(lockedInLetters[i]).removeClass(letterClass);
 			gsap.from(lockedInLetters[i], {
 				rotationX: "180",
 				duration: 1,
 				delay: i * 0.1,
 				onComplete: reAddClass,
 				onCompleteParams: [letterClass, lockedInLetters[i]],
-				ease
+				ease,
 			});
 		}
 	}
 	function reAddClass(letterClass, letter) {
-		$(letter).addClass(letterClass)
+		$(letter).addClass(letterClass);
 	}
 }
 
-function invalidAnim() {
-
-}
+function invalidAnim() {}
 
 export function updateStats(gameState, wordLength, guesses) {
 	// console.log(guesses)
