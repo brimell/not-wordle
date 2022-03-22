@@ -77,7 +77,7 @@ export function onKey(props) {
 			for (let i = 0; i < wordLength; i++) {
 				// initialise columns
 				wrong_columns.push([]);
-				correct_list.push('');
+				correct_list.push("");
 			}
 
 			for (let i = 0; i < clueList.length; i++) {
@@ -102,14 +102,9 @@ export function onKey(props) {
 						return true;
 					}
 				}
-				for (let j = 0; j < wordLength; j++) {
-					// check if a correct letter is in wrong place
-					if (
-						correct_list[j] &&
-						currentGuess[i] !== correct_list[j]
-					) {
-						return true;
-					}
+				// check if a correct letter is in wrong place
+				if (correct_list[i] && currentGuess[i] !== correct_list[i]) {
+					return true;
 				}
 			}
 			return false;
