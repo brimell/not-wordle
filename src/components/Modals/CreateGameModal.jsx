@@ -33,6 +33,50 @@ export default function CreateGameModal() {
 		}
 	});
 
+	useEffect(() => {
+		function onKeyDown(e) {
+			if (e.key === "Enter") {
+				createGame()
+			}
+		}
+		document.addEventListener("keydown", onKeyDown);
+		return () => {
+			document.removeEventListener("keydown", onKeyDown);
+		};
+	}, []);
+
+	function createGame() {
+		setCode(codeRef.current.value);
+		socket.emit("fetchRooms");
+		socket.on("fetchRoomsRes", (rooms) => {
+			var dupe = false;
+			if (rooms.length > 0) {
+				for (var i = 0; i < rooms.length; i++) {
+					if (rooms[i].room === codeRef.current.value) {
+						alert("that room already exists");
+						dupe = true;
+						return;
+					}
+				}
+			}
+			if (name.length > 2 && codeRef.current.value.length > 2 && !dupe) {
+				socket.emit("joinRoom", {
+					name: name,
+					room: codeRef.current.value,
+					role: "host",
+				});
+				Close();
+				setLobby(true);
+			} else if (name.length < 3) {
+				Close();
+				document.getElementById("name-input").focus();
+			} else {
+				alert("name and code must be at least 3 characters");
+			}
+			socket.off("fetchRoomsRes"); // otherwise another listener is created after button clicked - needs to be inside the socket.on
+		});
+	}
+
 	return (
 		<Modal>
 			<div className="modalContainer">
@@ -46,48 +90,7 @@ export default function CreateGameModal() {
 				<div className="create-game">
 					<button
 						className="create-game-btn neumorphic-btn"
-						onClick={() => {
-							setCode(codeRef.current.value);
-							socket.emit("fetchRooms");
-							socket.on("fetchRoomsRes", (rooms) => {
-								var dupe = false;
-								if (rooms.length > 0) {
-									for (var i = 0; i < rooms.length; i++) {
-										if (
-											rooms[i].room ===
-											codeRef.current.value
-										) {
-											alert("that room already exists");
-											dupe = true;
-											return;
-										}
-									}
-								}
-								if (
-									name.length > 2 &&
-									codeRef.current.value.length > 2 &&
-									!dupe
-								) {
-									socket.emit("joinRoom", {
-										name: name,
-										room: codeRef.current.value,
-										role: "host",
-									});
-									Close();
-									setLobby(true);
-								} else if (name.length < 3) {
-									Close();
-									document
-										.getElementById("name-input")
-										.focus();
-								} else {
-									alert(
-										"name and code must be at least 3 characters"
-									);
-								}
-								socket.off("fetchRoomsRes"); // otherwise another listener is created after button clicked - needs to be inside the socket.on
-							});
-						}}
+						onClick={createGame}
 					>
 						Create Game
 					</button>

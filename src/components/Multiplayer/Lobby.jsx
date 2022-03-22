@@ -7,6 +7,7 @@ import PlayerListItem from "./PlayerListItem";
 import Podium from "./Podium";
 import GridViewModal from "../Modals/GridViewModal";
 import $ from "jquery";
+import MessagesModal from "../Modals/MessagesModal";
 import { Socket } from "socket.io-client";
 
 export default function Lobby() {
@@ -20,8 +21,8 @@ export default function Lobby() {
 		setUsers,
 		game,
 		setGame,
-		startHide: isHost,
-		setStartHide,
+		isHost,
+		setIsHost,
 		setTarget,
 		podium,
 		setPodium,
@@ -36,6 +37,7 @@ export default function Lobby() {
 	const [fullUsers, setFullUsers] = useState([]);
 	const [hardmode, setHardmode] = useState(false);
 	const hardmodeRef = useRef();
+	const [messages, setMessages] = useState([]);
 
 	useEffect(() => {
 		setWordLength(5);
@@ -155,7 +157,7 @@ export default function Lobby() {
 		});
 		socket.on("updateFullUsersList", (userList) => {
 			setFullUsers(userList);
-			setStartHide(
+			setIsHost(
 				userList.find((user) => user.id === socket.id).role === "host"
 			);
 		});
@@ -174,6 +176,7 @@ export default function Lobby() {
 
 	return (
 		<div className="container">
+			<MessagesModal messages={messages} setMessages={setMessages} />
 			{!game && !podium && (
 				<div className="lobby back-row-toggle splat-toggle">
 					<h2 className="lobby-title">

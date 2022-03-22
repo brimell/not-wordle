@@ -26,7 +26,6 @@ const CreateGameModal = lazy(() =>
 	import("./components/Modals/CreateGameModal")
 );
 const Homepage = lazy(() => import("./components/Homepage"));
-const MessagesModal = lazy(() => import("./components/Modals/MessagesModal"));
 const StatsModal = lazy(() => import("./components/Modals/StatsModal"));
 
 if (!localStorage.getItem("wordMode")) {
@@ -77,7 +76,6 @@ function App() {
 				<div className="App-container target-light">
 					<CreateGameModal />
 					<StatsModal />
-					<MessagesModal />
 					{location.pathname !== "/" && <Nav />}
 					<Routes>
 						<Route path="/" element={<Homepage />}></Route>

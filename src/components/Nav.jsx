@@ -14,16 +14,7 @@ import { Link, useLocation } from "react-router-dom";
 
 export default function MainNav() {
 	const {
-		socket,
-		setLobby,
 		lobby,
-		setSeedUpdate,
-		settings,
-		setSettings,
-		statsOpen,
-		messagesOpen,
-		setPodium,
-		setGame,
 		game,
 	} = useContext(MainContext);
 

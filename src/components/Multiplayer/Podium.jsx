@@ -7,7 +7,7 @@ export default function Podium(props) {
 		setLobby,
 		setPodium,
 		socket,
-		startHide,
+		isHost,
 		grids,
 		setGrids,
 		winner,
@@ -32,6 +32,19 @@ export default function Podium(props) {
 		}
 	}, [winner, grids]);
 
+
+	useEffect(() => {
+		function onKeyDown(e) {
+			if (e.key === "Enter" && isHost) {
+				playAgain()
+			}
+		}
+		document.addEventListener("keydown", onKeyDown);
+		return () => {
+			document.removeEventListener("keydown", onKeyDown);
+		};
+	}, []);
+
 	function playAgain() {
 		socket.emit("playAgain");
 	}
@@ -42,7 +55,7 @@ export default function Podium(props) {
 			setLobby(true);
 			setPodium(false);
 			setWinner(false);
-			props.setMultiplayerGrid([])
+			props.setMultiplayerGrid([]);
 		});
 		return () => {
 			socket.off("playAgainRes");
@@ -127,13 +140,11 @@ export default function Podium(props) {
 						return "";
 					}
 				})}
-			{startHide && (
+			{isHost && (
 				<button
 					className="primary"
 					id="playAgainBtn"
-					onClick={() => {
-						playAgain();
-					}}
+					onClick={playAgain}
 				>
 					Play Again
 				</button>

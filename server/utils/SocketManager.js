@@ -230,7 +230,7 @@ const SocketManager = (socket, io, utils) => {
 		socket.broadcast.emit("updateRooms", utils.getRoomList());
 	});
 
-	// messageManager(socket, io, utils);
+	messageManager(socket, io, utils);
 };
 
 module.exports = SocketManager;

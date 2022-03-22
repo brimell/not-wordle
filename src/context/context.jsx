@@ -17,7 +17,7 @@ export function ContextProvider(props) {
 	);
 	const [users, setUsers] = useState([]);
 	const [game, setGame] = useState(false);
-	const [startHide, setStartHide] = useState(false);
+	const [isHost, setIsHost] = useState(false);
 	const [target, setTarget] = useState("");
 	const [podium, setPodium] = useState(false);
 	const [grids, setGrids] = useState({});
@@ -74,8 +74,8 @@ export function ContextProvider(props) {
 				setUsers,
 				game,
 				setGame,
-				startHide,
-				setStartHide,
+				isHost,
+				setIsHost,
 				target,
 				setTarget,
 				podium,

@@ -4,6 +4,8 @@ import { seed } from "../util";
 import { clue } from "./clue";
 // import { gsap, Power3 } from "gsap";
 // import $ from "jquery";
+import { useContext } from "react";
+import { MainContext } from "./../../context/context";
 
 export function onKey(props) {
 	const {
@@ -28,7 +30,10 @@ export function onKey(props) {
 		wordLength,
 		hardmode,
 	} = props;
-
+	const { messagesIsOpen } = useContext(MainContext);
+	if (messagesIsOpen) {
+		return
+	}
 	if (gameState !== "Playing") {
 		if (
 			key === "enter" &&

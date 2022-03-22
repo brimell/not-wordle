@@ -10,6 +10,7 @@ export default function StatsModal(props) {
 		messagesClose,
 		// messagesIsOpen,
 	} = useContext(MainContext);
+	console.log(props.messages);
 
 	const Modal = messagesModal;
 	const close = messagesClose;
@@ -18,57 +19,20 @@ export default function StatsModal(props) {
 			<div className="modalContainer">
 				<X onClick={close} className="modalCloseIcon" />
 				<div className="messagesContainer">
-					<ChatRoom />
+					<ChatRoom
+						messages={props.messages}
+						setMessages={props.setMessages}
+					/>
 				</div>
 			</div>
 		</Modal>
 	);
 }
 
-async function sendMessage(
-	e,
-	formValue,
-	name,
-	dummy,
-	messagesRef,
-	setFormValue
-) {
-	e.preventDefault();
+function ChatRoom(props) {
+	const { messages, setMessages } = props;
 	const { socket } = useContext(MainContext);
-
-	data = {
-		text: formValue,
-		user: name === "" ? "Anonymous" : name,
-	};
-
-	socket.emit("message-send", data);
-
-	let date = new Date();
-	let time = date.getHours() + ":" + date.getMinutes();
-
-	await messagesRef.add({
-		text: formValue,
-		time,
-		user: name === "" ? "Anonymous" : name,
-	});
-
-	setFormValue("");
-	dummy.current.scrollIntoView({ behavior: "smooth" });
-}
-
-function ChatRoom() {
-	const { name, socket } = useContext(MainContext);
-	const [messages, setMessages] = useState([]);
 	const messagesRef = useRef();
-	useEffect(() => {
-		socket.emit("fetch-messages");
-		socket.on("fetch-messages-res", (data) => {
-			setMessages(data);
-		});
-		return () => {
-			socket.off("fetchMessages");
-		};
-	}, []);
 
 	useEffect(() => {
 		dummy.current.scrollIntoView({ behavior: "smooth" });
@@ -76,15 +40,24 @@ function ChatRoom() {
 	const dummy = useRef();
 
 	useEffect(() => {
-		socket.on("message-receive", (props) => {
-			messagesRef.add({
-				text: props.message,
-				time: props.time,
-				user: props.user,
-			});
+		socket.emit("fetch-messages");
+
+		socket.on("message-receive", (data) => {
+			setMessages(data);
 			dummy.current.scrollIntoView({ behavior: "smooth" });
 		});
-	});
+		socket.on("fetch-messages-res", (data) => {
+			console.log("ran", data, messages);
+			if (data.length > 0) {
+				setMessages(data);
+			}
+			console.log("ran2", data, messages);
+		});
+		return () => {
+			socket.off("fetch-messages-res");
+			socket.off("message-receive");
+		};
+	}, [socket]);
 
 	// const yesterday = new Date() - 86400; // todays date - 1 day in seconds
 
@@ -92,8 +65,8 @@ function ChatRoom() {
 		<>
 			<main id="messages">
 				{messages &&
-					messages.map((msg) => (
-						<ChatMessage message={msg} key={msg.time} />
+					messages.map((msg, i) => (
+						<ChatMessage message={msg} key={i} />
 					))}
 
 				<span id="dummy" ref={dummy}></span>
@@ -104,7 +77,7 @@ function ChatRoom() {
 }
 
 function MessageInput(props) {
-	const { name } = useContext(MainContext);
+	const { name, socket } = useContext(MainContext);
 	const [formValue, setFormValue] = useState("");
 	return (
 		<form
@@ -115,7 +88,8 @@ function MessageInput(props) {
 					name,
 					props.dummy,
 					props.mRef,
-					setFormValue
+					setFormValue,
+					socket
 				);
 			}}
 		>
@@ -132,18 +106,41 @@ function MessageInput(props) {
 	);
 }
 
-function ChatMessage(props) {
-	const { text, user, time } = props.message;
+function sendMessage(
+	e,
+	formValue,
+	name,
+	dummy,
+	messagesRef,
+	setFormValue,
+	socket
+) {
+	e.preventDefault();
 
-	const messageClass =
-		user === (props.name === "" ? "Anonymous" : props.name)
-			? "sent"
-			: "received";
+	const data = {
+		message: formValue,
+	};
+
+	socket.emit("message-send", data);
+
+	let date = new Date();
+	let time = date.getHours() + ":" + date.getMinutes();
+
+	setFormValue("");
+	dummy.current.scrollIntoView({ behavior: "smooth" });
+}
+
+function ChatMessage(props) {
+	const { name } = useContext(MainContext);
+	const { message, room, time, user } = props.message;
+
+	const messageClass = user.name === name ? "sent" : "received";
 
 	return (
 		<>
-			<div className={`message ${messageClass}`} key={time}>
-				<p>{text}</p>
+			<div className={`message ${messageClass}`}>
+				<h4>{user.name}</h4>
+				<p>{message}</p>
 			</div>
 		</>
 	);

@@ -67,7 +67,6 @@
 
 	p {
 		max-width: 95%;
-		margin-bottom: 12px;
 		line-height: 24px;
 		padding: 10px 20px;
 		border-radius: 25px;
@@ -75,6 +74,7 @@
 		color: white;
 		text-align: center;
 		overflow-wrap: break-word;
+		margin: 1vh;
 	}
 
 	// for potential user img
@@ -96,6 +96,9 @@
 .message {
 	display: flex;
 	align-items: center;
+	h4 {
+		margin: 0;
+	}
 }
 
 .sent {
@@ -105,7 +108,6 @@
 .sent p {
 	color: white;
 	background: #0b93f6;
-	align-self: flex-end;
 	text-align: end;
 }
 .received p {

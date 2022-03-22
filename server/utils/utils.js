@@ -82,7 +82,7 @@ class Users {
 	updateHost(room) {
 		for (var i = 0; i < this.rooms.length; i++) {
 			if (this.rooms[i].room === room) {
-				this.rooms[i].users[0].role = 'host';
+				this.rooms[i].users[0].role = "host";
 			}
 		}
 	}
@@ -205,9 +205,26 @@ class Users {
 	saveMessage(data) {
 		for (var i = 0; i < this.rooms.length; i++) {
 			if (this.rooms[i].room === data.room) {
-				this.rooms[i].messages.push(data);
+				if (this.rooms[i].messages) {
+					this.rooms[i].messages.push(data);
+				} else {
+					this.rooms[i].messages = [data];
+				}
 			}
 		}
+	}
+	getMessages(room) {
+		var messages = [];
+		for (var i = 0; i < this.rooms.length; i++) {
+			if (this.rooms[i].room === room) {
+				if (this.rooms[i].messages) {
+					messages = this.rooms[i].messages;
+				} else {
+					messages = [];
+				}
+			}
+		}
+		return messages;
 	}
 }
 
