@@ -226,6 +226,20 @@ class Users {
 		}
 		return messages;
 	}
+	setStartTime(room) {
+		for (var i = 0; i < this.rooms.length; i++) {
+			if (this.rooms[i].room === room) {
+				this.rooms[i].startTime = new Date();
+			}
+		}
+	}
+	setFinishTime(room) {
+		for (var i = 0; i < this.rooms.length; i++) {
+			if (this.rooms[i].room === room) {
+				this.rooms[i].finishTime = new Date();
+			}
+		}
+	}
 }
 
 module.exports = {

@@ -38,6 +38,7 @@ export default function Lobby() {
 	const [hardmode, setHardmode] = useState(false);
 	const hardmodeRef = useRef();
 	const [messages, setMessages] = useState([]);
+	const [finishTime, setFinishTime] = useState();
 
 	useEffect(() => {
 		setWordLength(5);
@@ -50,7 +51,7 @@ export default function Lobby() {
 	useEffect(() => {
 		socket.emit("fetchUserList");
 		socket.emit("getUser", socket.id);
-		$('#switch')
+		$("#switch");
 	}, []);
 
 	async function notification(message) {
@@ -160,6 +161,13 @@ export default function Lobby() {
 			setIsHost(
 				userList.find((user) => user.id === socket.id).role === "host"
 			);
+		});
+		socket.on("updateRooms", (props) => {
+			for (let i = 0; i < props.length; i++) {
+				if (props[i].room === code) {
+					setFinishTime((props[i].finishTime - props[i].startTime) / 1000);
+				}
+			}
 		});
 		return () => {
 			// cleans up the socket listeners
@@ -292,7 +300,7 @@ export default function Lobby() {
 			)}
 			{/* {(game || podium) && $(window).width() < 1000 && <GridViewModal />} */}
 
-			{podium && <Podium setMultiplayerGrid={setMultiplayerGrid} />}
+			{podium && <Podium finishTime={finishTime} setMultiplayerGrid={setMultiplayerGrid} />}
 		</div>
 	);
 }

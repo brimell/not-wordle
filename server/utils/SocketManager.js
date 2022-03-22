@@ -66,6 +66,8 @@ const SocketManager = (socket, io, utils) => {
 		const user = utils.getUser(socket.id);
 		if (gameState === "Won" && user) {
 			utils.updateGameState(user.room, "Podium");
+			utils.setFinishTime(user.room)
+
 			io.to(user.room).emit("gameWon", user.id);
 			socket.emit("updateRooms", utils.getRoomList());
 		} else if (gameState === "Lost" && user) {
@@ -76,6 +78,7 @@ const SocketManager = (socket, io, utils) => {
 				utils.getUserList(user.room).length
 			) {
 				utils.updateGameState(user.room, "Podium");
+				
 				socket.emit("updateRooms", utils.getRoomList());
 				io.to(user.room).emit("allLost");
 			}
@@ -95,6 +98,7 @@ const SocketManager = (socket, io, utils) => {
 				hardmode: props.hardmode,
 			});
 			utils.updateGameState(user.room, "playing");
+			utils.setStartTime(user.room)
 			socket.broadcast.emit("updateRooms", utils.getRoomList());
 		} else {
 			io.to(user.room).emit("game-started", { res: false });

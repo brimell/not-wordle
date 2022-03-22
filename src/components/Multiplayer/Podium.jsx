@@ -32,11 +32,10 @@ export default function Podium(props) {
 		}
 	}, [winner, grids]);
 
-
 	useEffect(() => {
 		function onKeyDown(e) {
 			if (e.key === "Enter" && isHost) {
-				playAgain()
+				playAgain();
 			}
 		}
 		document.addEventListener("keydown", onKeyDown);
@@ -90,7 +89,7 @@ export default function Podium(props) {
 			{winner && (
 				<p>
 					<span className="wordHighlight">{winner}</span> got the word
-					in <span className="wordHighlight">{guesses}</span> guesses!
+					in <span className="wordHighlight">{guesses}</span> guesses in <span className="wordHighlight">{props.finishTime}s</span>!
 				</p>
 			)}
 			{!winner && (

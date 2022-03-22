@@ -10,7 +10,6 @@ export default function StatsModal(props) {
 		messagesClose,
 		// messagesIsOpen,
 	} = useContext(MainContext);
-	console.log(props.messages);
 
 	const Modal = messagesModal;
 	const close = messagesClose;
@@ -47,11 +46,9 @@ function ChatRoom(props) {
 			dummy.current.scrollIntoView({ behavior: "smooth" });
 		});
 		socket.on("fetch-messages-res", (data) => {
-			console.log("ran", data, messages);
 			if (data.length > 0) {
 				setMessages(data);
 			}
-			console.log("ran2", data, messages);
 		});
 		return () => {
 			socket.off("fetch-messages-res");
