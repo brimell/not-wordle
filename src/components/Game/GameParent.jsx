@@ -29,6 +29,7 @@ export default function GameParent(props) {
 		<div className="GameContainer">
 			{settings && <Settings />}
 			<Game
+				hardmode={props.hardmode}
 				socket={socket}
 				setMultiplayerGrid={setMultiplayerGrid}
 				multiplayerGrid={multiplayerGrid}

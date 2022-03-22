@@ -188,6 +188,7 @@ function Game(props) {
 		currGrid,
 		GameFinishedOpen,
 		wordLength,
+		hardmode: props.hardmode,
 	};
 
 	return (

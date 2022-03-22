@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useRef } from "react";
 import { MainContext } from "../../context/context";
 
 import GameParent from "../Game/GameParent";
@@ -20,7 +20,7 @@ export default function Lobby() {
 		setUsers,
 		game,
 		setGame,
-		startHide,
+		startHide: isHost,
 		setStartHide,
 		setTarget,
 		podium,
@@ -34,6 +34,8 @@ export default function Lobby() {
 	} = useContext(MainContext);
 	const [multiplayerGrid, setMultiplayerGrid] = useState([]);
 	const [fullUsers, setFullUsers] = useState([]);
+	const [hardmode, setHardmode] = useState(false);
+	const hardmodeRef = useRef();
 
 	useEffect(() => {
 		setWordLength(5);
@@ -192,7 +194,7 @@ export default function Lobby() {
 							})}
 						</div>
 						<div className="lobby-btns">
-							{startHide && users.length > 1 && (
+							{isHost && users.length > 1 && (
 								<button
 									className="primary start-game-btn"
 									onClick={() => {
@@ -211,12 +213,31 @@ export default function Lobby() {
 							>
 								Leave
 							</button>
+							{isHost && (
+								<>
+									<input
+										onChange={() => {
+											setHardmode(
+												hardmodeRef.current.checked
+											);
+										}}
+										ref={hardmodeRef}
+										type="checkbox"
+										id="switch"
+									/>
+									<label htmlFor="switch">
+										Hard Mode Toggle
+									</label>
+									<span>Hard Mode</span>
+								</>
+							)}
 						</div>
 					</div>
 				</div>
 			)}
 			{game && (
 				<GameParent
+					hardmode={hardmode}
 					socket={socket}
 					multiplayerGrid={multiplayerGrid}
 					setMultiplayerGrid={setMultiplayerGrid}

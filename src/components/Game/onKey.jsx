@@ -26,6 +26,7 @@ export function onKey(props) {
 		currGrid,
 		GameFinishedOpen,
 		wordLength,
+		hardmode
 	} = props;
 
 	if (gameState !== "Playing") {
@@ -63,15 +64,55 @@ export function onKey(props) {
 				return;
 			}
 		}
-		var clueList = []
+		var clueList = [];
 		for (let i = 0; i < guesses.length; i++) {
-			clueList.push(clue(guesses[i],target))
+			clueList.push(clue(guesses[i], target));
 		}
-		
-		for (let i = 0; i < guesses.length; i++) {
-			for (let j = 0; j < guesses[i].length; j++) {
-				const letter = guesses[i][j];
+
+		function checkHardmode() {
+			//? returns true if not valid hardmode word
+
+			var wrong_columns = []; // a list of where letter can't be for hard mode
+			var correct_columns = []; // a list of where letters have to be
+			for (let i = 0; i < wordLength; i++) {
+				// initialise columns
+				wrong_columns.push([]);
+				correct_columns.push([]);
 			}
+
+			for (let i = 0; i < clueList.length; i++) {
+				for (let j = 0; j < clueList[i].length; j++) {
+					const letter = guesses[i][j];
+					if (letter.clue == "absent") {
+						for (let y = 0; y < wordLength; y++) {
+							wrong_columns[y].push(letter.letter); // letter is not anywhere
+						}
+					} else if (letter.clue === "elsewhere") {
+						wrong_columns[j].push(letter.letter); // letter is not in that position
+					} else if (letter.clue === "correct") {
+						correct_columns[j].push(letter.letter);
+					}
+				}
+			}
+			for (let i = 0; i < currentGuess.length; i++) {
+				for (let j = 0; j < wrong_columns[i]; j++) {
+					// check if letter is in wrong place
+					if (currentGuess[i] === wrong_columns[j]) {
+						return true;
+					}
+				}
+				for (let j = 0; j < correct_columns[i]; j++) {
+					// check if a correct letter is in wrong place
+					if (correct_columns[j] && currentGuess[i] !== correct_columns[j]) {
+						return true;
+					}
+				}
+			}
+			return false
+		}
+		if (hardmode && checkHardmode()) {
+			setHint("Not a valid word as you are in hard mode");
+			return;
 		}
 
 		//? guess logic - passed checks
