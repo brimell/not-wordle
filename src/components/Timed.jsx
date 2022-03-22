@@ -1,6 +1,7 @@
 import Game from "./Game/Game";
 import { useEffect, useState, useContext } from "react";
 import { MainContext } from "./../context/context";
+import { useTimer } from "react-timer-hook";
 
 export default function Timed() {
 	const [currentGrid, setCurrentGrid] = useState([]);
@@ -22,7 +23,8 @@ export default function Timed() {
 
 	return (
 		<div className="GameContainer">
-			<Timer seconds={seconds} setSeconds={setSeconds} timerState={timerState} setTimerState={setTimerState} />
+			<Timer expiryTimestamp={Date.now() + 60000} />
+			,
 			<Game
 				target={false}
 				socket={false}
@@ -32,48 +34,37 @@ export default function Timed() {
 		</div>
 	);
 }
+function Timer({ expiryTimestamp }) {
+	const {
+		seconds,
+		minutes,
+		hours,
+		days,
+		isRunning,
+		start,
+		pause,
+		resume,
+		restart,
+	} = useTimer({
+		expiryTimestamp,
+		onExpire: () => console.warn("onExpire called"),
+	});
 
-function Timer(props) {
-	const [running, setRunning] = useState(false);
-
-	useEffect(() => {
-		if (props.timerState === "started") {
-			startTimer();
-			props.setTimerState("counting");
-		}
-		if (props.timerState === "stopped") {
-			resetTimer();
-		}
-	}, [props.timerState]);
-
-	useEffect(() => {
-		console.log("seconds: ", props.seconds);
-	}, [props.seconds]);
-
-	function resetTimer() {
-		// timer = 5
+	function restartTimer() {
+		// restarts to 5 minute timer
+		const time = new Date();
+		time.setSeconds(time.getSeconds() + 300);
+		restart(time);
 	}
 
-	function startTimer() {
-        var secondsInterval
-		if (props.seconds > 0 && !running) {
-			setRunning(true);
-			secondsInterval = setInterval(countDown, 1000);
-		}
-        function countDown() { // gets run every second
-            props.setSeconds(props.seconds - 1);
-            console.log(props.seconds)
-    
-            // Check if we're at zero.
-            if (props.seconds - 1 == 0) {
-                setTimerState("stopped");
-                clearInterval(secondsInterval)
-            }
-            setRunning(false);
-        }
-	}
-
-
-
-	return <div>{props.seconds}</div>;
+	return (
+		<div style={{ textAlign: "center" }}>
+			<h1>react-timer-hook </h1>
+			<p>Timer Demo</p>
+			<div>
+				<span>{minutes}</span>:<span>{seconds}</span>
+			</div>
+			<p>{isRunning ? "Running" : "Not running"}</p>
+		</div>
+	);
 }
