@@ -26,7 +26,7 @@ export function onKey(props) {
 		currGrid,
 		GameFinishedOpen,
 		wordLength,
-		hardmode
+		hardmode,
 	} = props;
 
 	if (gameState !== "Playing") {
@@ -73,16 +73,16 @@ export function onKey(props) {
 			//? returns true if not valid hardmode word
 
 			var wrong_columns = []; // a list of where letter can't be for hard mode
-			var correct_columns = []; // a list of where letters have to be
+			var correct_list = []; // a list of where letters have to be
 			for (let i = 0; i < wordLength; i++) {
 				// initialise columns
 				wrong_columns.push([]);
-				correct_columns.push([]);
+				correct_list.push('');
 			}
 
 			for (let i = 0; i < clueList.length; i++) {
 				for (let j = 0; j < clueList[i].length; j++) {
-					const letter = guesses[i][j];
+					const letter = clueList[i][j];
 					if (letter.clue == "absent") {
 						for (let y = 0; y < wordLength; y++) {
 							wrong_columns[y].push(letter.letter); // letter is not anywhere
@@ -90,25 +90,29 @@ export function onKey(props) {
 					} else if (letter.clue === "elsewhere") {
 						wrong_columns[j].push(letter.letter); // letter is not in that position
 					} else if (letter.clue === "correct") {
-						correct_columns[j].push(letter.letter);
+						correct_list[j] = letter.letter;
 					}
 				}
 			}
+			//? checks for hardmode invalidation
 			for (let i = 0; i < currentGuess.length; i++) {
-				for (let j = 0; j < wrong_columns[i]; j++) {
+				for (let j = 0; j < wrong_columns[i].length; j++) {
 					// check if letter is in wrong place
-					if (currentGuess[i] === wrong_columns[j]) {
+					if (currentGuess[i] === wrong_columns[i][j]) {
 						return true;
 					}
 				}
-				for (let j = 0; j < correct_columns[i]; j++) {
+				for (let j = 0; j < wordLength; j++) {
 					// check if a correct letter is in wrong place
-					if (correct_columns[j] && currentGuess[i] !== correct_columns[j]) {
+					if (
+						correct_list[j] &&
+						currentGuess[i] !== correct_list[j]
+					) {
 						return true;
 					}
 				}
 			}
-			return false
+			return false;
 		}
 		if (hardmode && checkHardmode()) {
 			setHint("Not a valid word as you are in hard mode");

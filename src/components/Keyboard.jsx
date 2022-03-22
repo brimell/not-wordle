@@ -5,9 +5,8 @@ import $ from "jquery";
 // import { gsap, Power3 } from "gsap";
 
 export function Keyboard(props) {
-	const hidden = props.hidden;
+	const { hidden, currentGuess, onKey } = props;
 	var onKeyProps = props.onKeyProps;
-	const currentGuess = props.currentGuess;
 	const keyboard = [
 		"q w e r t y u i o p".split(" "),
 		"a s d f g h j k l".split(" "),
@@ -22,8 +21,7 @@ export function Keyboard(props) {
 		$(".Game-keyboard-button").on("click", (e) => {
 			const letter = e.target.attributes["data-key"].value;
 			onKeyProps.key = letter.toLowerCase();
-			// console.log(onKeyProps);
-			props.onKey(onKeyProps);
+			onKey(onKeyProps);
 		});
 		return () => $(".Game-keyboard-button").off();
 	}, [currentGuess]);
@@ -51,7 +49,7 @@ export function Keyboard(props) {
 								// onClick={() => {
 								//   onKeyProps.key = label.toLowerCase();
 								//   // console.log(onKeyProps);
-								//   props.onKey(onKeyProps);
+								//   onKey(onKeyProps);
 								// }}
 							>
 								{label.replace("Backspace", "⌫")}
