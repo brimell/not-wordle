@@ -48,6 +48,7 @@ export default function Lobby() {
 	useEffect(() => {
 		socket.emit("fetchUserList");
 		socket.emit("getUser", socket.id);
+		$('#switch')
 	}, []);
 
 	async function notification(message) {
@@ -91,7 +92,7 @@ export default function Lobby() {
 	}
 
 	function startGame() {
-		socket.emit("start-game",{hardmode:hardmode});
+		socket.emit("start-game", { hardmode: hardmode });
 	}
 
 	function allLost() {
@@ -125,7 +126,7 @@ export default function Lobby() {
 				// check if game started was initialised by a host
 				// setGrids({})	// reset all grids for new game
 				setTarget(props.target);
-				setHardmode(props.hardmode)
+				setHardmode(props.hardmode);
 				setGame(true);
 				if (!document.hasFocus()) {
 					notification("✅ Game Started");
