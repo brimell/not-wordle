@@ -91,7 +91,7 @@ export default function Lobby() {
 	}
 
 	function startGame() {
-		socket.emit("start-game");
+		socket.emit("start-game",{hardmode:hardmode});
 	}
 
 	function allLost() {
@@ -101,7 +101,7 @@ export default function Lobby() {
 	}
 
 	function gameLost(id) {
-		console.log(id, " lost");
+		console.log(getUser(id), " lost");
 		notification(`${getUser(id).name} lost`);
 	}
 
@@ -125,9 +125,9 @@ export default function Lobby() {
 				// check if game started was initialised by a host
 				// setGrids({})	// reset all grids for new game
 				setTarget(props.target);
-				console.log("winner: ", winner);
+				setHardmode(props.hardmode)
 				setGame(true);
-				if (document.hasFocus()) {
+				if (!document.hasFocus()) {
 					notification("✅ Game Started");
 				}
 			}

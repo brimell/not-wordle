@@ -1,5 +1,5 @@
 const wordList = require("./wordList.json");
-const messageManager = require("./messageManager.js")
+const messageManager = require("./messageManager.js");
 
 const makeRandom = () => Math.random();
 let random = makeRandom();
@@ -92,6 +92,7 @@ const SocketManager = (socket, io, utils) => {
 			io.to(user.room).emit("game-started", {
 				res: true,
 				target: randomTarget(5),
+				hardmode: props.hardmode,
 			});
 			utils.updateGameState(user.room, "playing");
 			socket.broadcast.emit("updateRooms", utils.getRoomList());
@@ -105,7 +106,7 @@ const SocketManager = (socket, io, utils) => {
 		utils.updateGameState(user.room, "lobby");
 		utils.resetRoom(user.room); // rests grids and lost count
 		io.to(user.room).emit("playAgainRes");
-		socket.emit("updateRooms", utils.getRoomList());
+		socket.broadcast.emit("updateRooms", utils.getRoomList());
 	});
 
 	socket.on("fetchRooms", () => {
@@ -169,19 +170,27 @@ const SocketManager = (socket, io, utils) => {
 	});
 
 	socket.on("leave-room", (props) => {
-		let user = utils.removeUser(socket.id);
+		const user = utils.removeUser(socket.id);
 
 		if (user) {
+			socket.leave(user.room);
+			if (user.role === "host") {
+				utils.updateHost(user.room);
+			}
+
 			io.to(user.room).emit(
 				"updateUsersList",
 				utils.getUserList(user.room)
 			);
-			socket.leave(user.room);
+			io.to(user.room).emit(
+				"updateFullUsersList",
+				utils.getFullUserList(user.room)
+			);
 		} else {
 			console.log("cannot leave room as user is: ", user);
 		}
 		//? check for empty rooms and remove them
-		const roomList = utils.getRoomList()
+		const roomList = utils.getRoomList();
 		if (roomList.length !== 0) {
 			for (let room in roomList) {
 				if (roomList[room].users.length === 0) {

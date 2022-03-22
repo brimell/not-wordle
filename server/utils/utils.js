@@ -71,10 +71,18 @@ class Users {
 		return this.rooms;
 	}
 
-	updateGameState(roomprop, gameState) {
+	updateGameState(room, gameState) {
 		for (var i = 0; i < this.rooms.length; i++) {
-			if (this.rooms[i].room === roomprop) {
+			if (this.rooms[i].room === room) {
 				this.rooms[i].gameState = gameState;
+			}
+		}
+	}
+
+	updateHost(room) {
+		for (var i = 0; i < this.rooms.length; i++) {
+			if (this.rooms[i].room === room) {
+				this.rooms[i].users[0].role = 'host';
 			}
 		}
 	}
