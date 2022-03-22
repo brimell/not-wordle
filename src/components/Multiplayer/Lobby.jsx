@@ -114,6 +114,27 @@ export default function Lobby() {
 			console.log(id, " won");
 			setGame(false);
 			socket.emit("getUser", id);
+			socket.on("updateRooms", (props) => {
+				for (let i = 0; i < props.length; i++) {
+					var this_time = 0
+					if (props[i].room === code) {
+						function timeStringToSeconds(str) {
+							var time = str.split("T");
+							var time2 = time[1].replace('Z', '');
+							var time3 = time2.split(":");
+							var time4 = parseInt(time3[0]) * 3600 + parseInt(time3[1]) * 60 + parseFloat(time3[2]);
+							return parseFloat(time4.toFixed(3));
+						}
+						var start = timeStringToSeconds(props[i].startTime)
+						var finish = timeStringToSeconds(props[i].finishTime)
+						setFinishTime(finish-start);
+						this_time = finish-start
+					}
+				}
+				console.log(this_time)
+				socket.emit("updatePodiumTime", (this_time).toFixed(3))
+				socket.off("updateRooms");
+			});
 			await socket.on("getUserRes", (user) => {
 				setWinner(user.name);
 				socket.off("getUserRes");
@@ -161,13 +182,6 @@ export default function Lobby() {
 			setIsHost(
 				userList.find((user) => user.id === socket.id).role === "host"
 			);
-		});
-		socket.on("updateRooms", (props) => {
-			for (let i = 0; i < props.length; i++) {
-				if (props[i].room === code) {
-					setFinishTime((props[i].finishTime - props[i].startTime) / 1000);
-				}
-			}
 		});
 		return () => {
 			// cleans up the socket listeners
@@ -300,7 +314,12 @@ export default function Lobby() {
 			)}
 			{/* {(game || podium) && $(window).width() < 1000 && <GridViewModal />} */}
 
-			{podium && <Podium finishTime={finishTime} setMultiplayerGrid={setMultiplayerGrid} />}
+			{podium && (
+				<Podium
+					finishTime={finishTime}
+					setMultiplayerGrid={setMultiplayerGrid}
+				/>
+			)}
 		</div>
 	);
 }

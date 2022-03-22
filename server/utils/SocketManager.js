@@ -85,6 +85,13 @@ const SocketManager = (socket, io, utils) => {
 		}
 	});
 
+	socket.on("updatePodiumTime", (time) => {
+		const user = utils.getUser(socket.id);
+		if (user) {
+			io.to(user.room).emit("updatePodiumTimeAll", time);
+		}
+	})
+
 	socket.on("start-game", (props) => {
 		const user = utils.getUser(socket.id);
 		if (utils.getUser(socket.id).role === "host") {

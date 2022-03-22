@@ -21,6 +21,7 @@ export default function Podium(props) {
 	});
 	const [guesses, setGuesses] = useState(0);
 	const [definition, setDefinition] = useState("Loading...");
+	const [finishTime, setFinishTime] = useState(props.finishTime)
 
 	useEffect(() => {
 		if (winner && grids[winner]) {
@@ -43,6 +44,12 @@ export default function Podium(props) {
 			document.removeEventListener("keydown", onKeyDown);
 		};
 	}, []);
+
+	useEffect(() => {
+		socket.on("updatePodiumTimeAll", (time) => {
+			setFinishTime(time);
+		})
+	})
 
 	function playAgain() {
 		socket.emit("playAgain");
@@ -89,7 +96,9 @@ export default function Podium(props) {
 			{winner && (
 				<p>
 					<span className="wordHighlight">{winner}</span> got the word
-					in <span className="wordHighlight">{guesses}</span> guesses in <span className="wordHighlight">{props.finishTime}s</span>!
+					in <span className="wordHighlight">{guesses}</span> guesses
+					in{" "}
+					<span className="wordHighlight">{finishTime}s</span>!
 				</p>
 			)}
 			{!winner && (

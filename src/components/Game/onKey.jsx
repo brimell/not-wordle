@@ -29,8 +29,8 @@ export function onKey(props) {
 		GameFinishedOpen,
 		wordLength,
 		hardmode,
+		messagesIsOpen
 	} = props;
-	const { messagesIsOpen } = useContext(MainContext);
 	if (messagesIsOpen) {
 		return
 	}

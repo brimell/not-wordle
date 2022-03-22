@@ -33,17 +33,17 @@ export default function CreateGameModal() {
 		}
 	});
 
-	useEffect(() => {
-		function onKeyDown(e) {
-			if (e.key === "Enter") {
-				createGame()
-			}
-		}
-		document.addEventListener("keydown", onKeyDown);
-		return () => {
-			document.removeEventListener("keydown", onKeyDown);
-		};
-	}, []);
+	// useEffect(() => {
+	// 	function onKeyDown(e) {
+	// 		if (e.key === "Enter") {
+	// 			createGame()
+	// 		}
+	// 	}
+	// 	document.addEventListener("keydown", onKeyDown);
+	// 	return () => {
+	// 		document.removeEventListener("keydown", onKeyDown);
+	// 	};
+	// }, []);
 
 	function createGame() {
 		setCode(codeRef.current.value);

@@ -30,7 +30,7 @@ if (!localStorage.getItem("wordLength")) {
 }
 
 function Game(props) {
-	const { maxGuesses, settings, wordLength, setWordLength } =
+	const { maxGuesses, settings, wordLength, setWordLength, messagesIsOpen } =
 		useContext(MainContext);
 	useEffect(() => {
 		if (wordLength < 3) {
@@ -91,13 +91,14 @@ function Game(props) {
 					GameFinishedOpen,
 					wordLength,
 					hardmode: props.hardmode,
+					messagesIsOpen
 				};
 				onKey(propsObj);
 			}
 			if (socket || window.location.href.endsWith('timed')) {
 				props.setCurrentGrid(currGrid);
 			}
-			// console.log("target: ", gameTarget);
+			console.log("target: ", gameTarget);
 		};
 
 		document.addEventListener("keydown", onKeyDown);
@@ -190,6 +191,7 @@ function Game(props) {
 		GameFinishedOpen,
 		wordLength,
 		hardmode: props.hardmode,
+		messagesIsOpen
 	};
 
 	return (
