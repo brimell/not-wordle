@@ -48,6 +48,7 @@ function ChatRoom(props) {
 		socket.on("fetch-messages-res", (data) => {
 			if (data.length > 0) {
 				setMessages(data);
+				dummy.current.scrollIntoView({ behavior: "smooth" });
 			}
 		});
 		return () => {

@@ -12,8 +12,9 @@ function messageManager(socket, io, utils) {
 		utils.saveMessage(data);
 		io.to(user.room).emit("message-receive", utils.getMessages(user.room));
 	});
-	socket.on("fetch-messages", (room) => {
-		socket.emit("fetch-messages-res", utils.getMessages(room));
+	socket.on("fetch-messages", (props) => {
+		const user = utils.getUser(socket.id);
+		socket.emit("fetch-messages-res", utils.getMessages(user.room));
 	});
 }
 
