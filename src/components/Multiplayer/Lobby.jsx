@@ -64,6 +64,7 @@ export default function Lobby() {
 		// Check if the user denied notifications
 		if (Notification.permission === "denied") {
 			// early return if so
+			// console.log('notification denied')
 			return;
 		}
 		await new Promise(async (resolve) => {
@@ -116,23 +117,26 @@ export default function Lobby() {
 			socket.emit("getUser", id);
 			socket.on("updateRooms", (props) => {
 				for (let i = 0; i < props.length; i++) {
-					var this_time = 0
+					var this_time = 0;
 					if (props[i].room === code) {
 						function timeStringToSeconds(str) {
 							var time = str.split("T");
-							var time2 = time[1].replace('Z', '');
+							var time2 = time[1].replace("Z", "");
 							var time3 = time2.split(":");
-							var time4 = parseInt(time3[0]) * 3600 + parseInt(time3[1]) * 60 + parseFloat(time3[2]);
+							var time4 =
+								parseInt(time3[0]) * 3600 +
+								parseInt(time3[1]) * 60 +
+								parseFloat(time3[2]);
 							return parseFloat(time4.toFixed(3));
 						}
-						var start = timeStringToSeconds(props[i].startTime)
-						var finish = timeStringToSeconds(props[i].finishTime)
-						setFinishTime(finish-start);
-						this_time = finish-start
+						var start = timeStringToSeconds(props[i].startTime);
+						var finish = timeStringToSeconds(props[i].finishTime);
+						setFinishTime(finish - start);
+						this_time = finish - start;
 					}
 				}
-				console.log(this_time)
-				socket.emit("updatePodiumTime", (this_time).toFixed(3))
+				console.log(this_time);
+				socket.emit("updatePodiumTime", this_time.toFixed(3));
 				socket.off("updateRooms");
 			});
 			await socket.on("getUserRes", (user) => {
@@ -175,6 +179,11 @@ export default function Lobby() {
 		});
 		socket.on("updateUsersList", (userList) => {
 			socket.emit("fetchFullUsersList");
+			// if (userList.length > users.length) {
+			// 	notification("someone joined!");
+			// } else if (userList.length < users.length) {
+			// 	notification("someone left...");
+			// }
 			setUsers(userList);
 		});
 		socket.on("updateFullUsersList", (userList) => {
