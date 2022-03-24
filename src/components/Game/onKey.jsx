@@ -29,10 +29,10 @@ export function onKey(props) {
 		GameFinishedOpen,
 		wordLength,
 		hardmode,
-		messagesIsOpen
+		messagesIsOpen,
 	} = props;
 	if (messagesIsOpen) {
-		return
+		return;
 	}
 	if (gameState !== "Playing") {
 		if (
@@ -132,12 +132,7 @@ export function onKey(props) {
 			if (propsTarget) {
 				handleGameFinish("Won");
 			} else {
-				if (seed) {
-					disableTodaysWord(GameFinishedOpen);
-					setHint("You won! (Enter to play a random word)");
-				} else {
-					setHint("You won! (Enter to play again)");
-				}
+				setHint("You won! (Enter to play again)");
 			}
 		} else if (guesses.length + 1 === maxGuesses) {
 			setGameState("Lost");
@@ -146,16 +141,9 @@ export function onKey(props) {
 			if (propsTarget) {
 				handleGameFinish("Lost");
 			} else {
-				if (seed) {
-					disableTodaysWord(GameFinishedOpen);
-					setHint(
-						`You lost! The answer was ${target.toUpperCase()}. (Enter to play a random word)`
-					);
-				} else {
-					setHint(
-						`You lost! The answer was ${target.toUpperCase()}. (Enter to play again)`
-					);
-				}
+				setHint(
+					`You lost! The answer was ${target.toUpperCase()}. (Enter to play again)`
+				);
 			}
 		} else {
 			setHint("");

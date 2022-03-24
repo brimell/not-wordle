@@ -29,11 +29,11 @@ export default function MainNav() {
 			<ul className="navbar__menu">
 				<HomeLink />
 				{lobby && <MessagesLink />}
-				{location.pathname === "/classic" && <EmptyLink />}
+				{/* {location.pathname === "/classic" && <EmptyLink />} */}
 				<Title />
 				{lobby && !game && <EmptyLink />}
 				<StatsLink />
-				{location.pathname === "/classic" && <SettingsLink />}
+				{/* {location.pathname === "/classic" && <SettingsLink />} */}
 				{game && <GridLink />}
 			</ul>
 		</nav>

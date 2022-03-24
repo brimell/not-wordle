@@ -82,7 +82,9 @@ class Users {
 	updateHost(room) {
 		for (var i = 0; i < this.rooms.length; i++) {
 			if (this.rooms[i].room === room) {
-				this.rooms[i].users[0].role = "host";
+				if (this.rooms[i].users.length > 0) {
+					this.rooms[i].users[0].role = "host";
+				}
 			}
 		}
 	}

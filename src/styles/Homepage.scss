@@ -58,6 +58,11 @@
 		grid-template-columns: repeat(1, 1fr);
 		max-width: fit-content;
 	}
+	.link {
+		height: 100%;
+		width: 100%;
+		margin: 0;
+	}
 	.gameMenu-grid-item {
 		display: flex;
 		align-items: center;
@@ -65,7 +70,8 @@
 		flex-direction: column;
 		background-color: var(--bg-s);
 		border-radius: 30px;
-		padding: 2vh;
+		padding: 5vh;
+		height: 100%;
 
 		h1 {
 			color: white;
