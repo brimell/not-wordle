@@ -5,7 +5,7 @@ import $ from "jquery";
 // import { gsap, Power3 } from "gsap";
 
 export function Keyboard(props) {
-	const { hidden, currentGuess, onKey } = props;
+	const { currentGuess, onKey } = props;
 	var onKeyProps = props.onKeyProps;
 	const keyboard = [
 		"q w e r t y u i o p".split(" "),
@@ -27,7 +27,7 @@ export function Keyboard(props) {
 	}, [currentGuess]);
 
 	return (
-		<div className="Game-keyboard" style={{ display: hidden && "none" }}>
+		<div className="Game-keyboard">
 			{keyboard.map((row, i) => (
 				<div key={i} className="Game-keyboard-row">
 					{row.map((label, j) => {

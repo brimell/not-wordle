@@ -28,7 +28,7 @@ if (!localStorage.getItem("wordLength")) {
 }
 
 function Game(props) {
-	const { maxGuesses, settings, wordLength, setWordLength, messagesIsOpen } =
+	const { maxGuesses, wordLength, setWordLength, messagesIsOpen } =
 		useContext(MainContext);
 	useEffect(() => {
 		if (wordLength < 3) {
@@ -172,29 +172,26 @@ function Game(props) {
 	};
 
 	return (
-		<div className="Game">
-			{!settings && (
-				<div
-					className={`Game ${
-						Boolean(localStorage.getItem("partytime"))
-							? "glow-card"
-							: ""
-					}`}
-					id="gridKeyboardHint"
-				>
-					{rowDivs}
-					<p id="hint">{hint || `\u00a0`}</p>{" "}
-					{/* no break space / nbsp */}
-				</div>
-			)}
+		<>
+			<div
+				className={`Game ${
+					Boolean(localStorage.getItem("partytime"))
+						? "glow-card"
+						: ""
+				}`}
+				id="gridKeyboardHint"
+			>
+				{rowDivs}
+				<p id="hint">{hint || `\u00a0`}</p>{" "}
+				{/* no break space / nbsp */}
+			</div>
 			<Keyboard
 				currentGuess={currentGuess}
-				hidden={settings}
 				letterInfo={letterInfo}
 				onKey={onKey}
 				onKeyProps={onKeyProps}
 			/>
-		</div>
+		</>
 	);
 }
 export default Game;

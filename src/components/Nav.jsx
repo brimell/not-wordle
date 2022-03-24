@@ -3,8 +3,6 @@ import { useContext, useEffect } from "react";
 import { MainContext } from "../context/context";
 import {
 	Home,
-	Settings,
-	X,
 	BarChart2,
 	MessageSquare,
 	Grid,
@@ -29,11 +27,9 @@ export default function MainNav() {
 			<ul className="navbar__menu">
 				<HomeLink />
 				{lobby && <MessagesLink />}
-				{/* {location.pathname === "/classic" && <EmptyLink />} */}
 				<Title />
 				{lobby && !game && <EmptyLink />}
 				<StatsLink />
-				{/* {location.pathname === "/classic" && <SettingsLink />} */}
 				{game && <GridLink />}
 			</ul>
 		</nav>
@@ -82,25 +78,6 @@ function GridLink() {
 			<a className="navbar__link">
 				<Grid />
 				<span>Grid</span>
-			</a>
-		</li>
-	);
-}
-function SettingsLink() {
-	const { setSeedUpdate, settings, setSettings } = useContext(MainContext);
-	return (
-		<li className="navbar__item">
-			<a
-				className="navbar__link"
-				onClick={() => {
-					setSeedUpdate(
-						Number(sessionStorage.getItem("seed")) || false
-					);
-					setSettings((a) => !a);
-				}}
-			>
-				{!settings ? <Settings /> : <X />}
-				<span>Settings</span>
 			</a>
 		</li>
 	);

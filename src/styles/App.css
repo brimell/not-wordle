@@ -112,13 +112,6 @@ a {
 	text-decoration: none;
 }
 
-.settingsIcon {
-	position: absolute;
-	top: 0;
-	right: 0;
-	margin: 20px;
-}
-
 .personIcon {
 	position: absolute;
 	top: 0;
@@ -172,21 +165,11 @@ a {
 	--speed: 1000ms;
 }
 
-#settingsButton,
 #personButton {
 	background-color: rgba(255, 255, 255, 0) !important;
 	border: none;
 	cursor: pointer;
 	user-select: none;
-}
-
-.settingsContainer {
-	margin: 20px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-evenly;
-	padding: 20px;
 }
 
 @media only screen and (max-height: 1250px) {

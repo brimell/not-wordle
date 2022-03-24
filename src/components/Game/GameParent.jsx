@@ -2,12 +2,11 @@
 import React, { useState, useContext } from "react";
 import { MainContext } from "../../context/context";
 import Game from "./Game";
-import Settings from "../Modals/Settings";
 import { useEffect } from "react";
 
 export default function GameParent(props) {
 	const socket = props.socket;
-	const { settings, target, setTarget } = useContext(MainContext);
+	const { target } = useContext(MainContext);
 	const [currentGrid, setCurrentGrid] = useState([]);
 	const multiplayerGrid = props.multiplayerGrid
 	const setMultiplayerGrid = props.setMultiplayerGrid;
@@ -27,7 +26,6 @@ export default function GameParent(props) {
 
 	return (
 		<div className="GameContainer">
-			{settings && <Settings />}
 			<Game
 				hardmode={props.hardmode}
 				socket={socket}

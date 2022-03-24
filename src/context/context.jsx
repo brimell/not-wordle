@@ -11,7 +11,6 @@ export function ContextProvider(props) {
 	const [name, setName] = useState(localStorage.getItem("name") || "");
 	const maxGuesses = 6;
 	const [seedUpdate, setSeedUpdate] = useState(seed);
-	const [settings, setSettings] = useState(false);
 	const [wordLength, setWordLength] = useState(
 		parseInt(localStorage.getItem("wordLength") || 5)
 	);
@@ -52,8 +51,6 @@ export function ContextProvider(props) {
 				maxGuesses,
 				seedUpdate,
 				setSeedUpdate,
-				settings,
-				setSettings,
 				statsModal,
 				statsOpen,
 				statsClose,
