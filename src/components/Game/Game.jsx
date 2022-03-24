@@ -30,6 +30,7 @@ if (!localStorage.getItem("wordLength")) {
 function Game(props) {
 	const { maxGuesses, wordLength, setWordLength, messagesIsOpen } =
 		useContext(MainContext);
+	const timed = props.timed;
 	useEffect(() => {
 		if (wordLength < 3) {
 			setWordLength(5);
@@ -82,10 +83,10 @@ function Game(props) {
 				};
 				onKey(propsObj);
 			}
-			if (socket || window.location.href.endsWith("timed")) {
+			if (socket || timed) {
 				props.setCurrentGrid(currGrid);
 			}
-			// console.log("target: ", gameTarget);
+			console.log("target: ", gameTarget);
 		};
 
 		document.addEventListener("keydown", onKeyDown);
@@ -102,7 +103,7 @@ function Game(props) {
 	// },[])
 
 	function startNextGame() {
-		if (props.timed) {
+		if (timed) {
 			props.updateTimedData(gameTarget, guesses);
 		}
 		setGameTarget(randomTarget(wordLength));
@@ -169,6 +170,7 @@ function Game(props) {
 		wordLength,
 		hardmode: props.hardmode,
 		messagesIsOpen,
+		timed: props.timed,
 	};
 
 	return (

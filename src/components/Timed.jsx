@@ -6,7 +6,7 @@ import { timers } from "jquery";
 
 export default function Timed() {
 	const [currentGrid, setCurrentGrid] = useState([]);
-	const [successfulGuesses, setSuccessfulGuesses] = useState();
+	const [successfulGuesses, setSuccessfulGuesses] = useState([]);
 	const [podium, setPodium] = useState(false);
 	const timerLength = 10 * 1000;
 	const expiryTimestamp = Date.now() + timerLength;
@@ -26,15 +26,17 @@ export default function Timed() {
 		expiryTimestamp,
 		onExpire: timerFinish,
 	});
+
 	function timerFinish() {
 		console.log("timer finish");
 		setPodium(true);
 	}
 	function restartTimer() {
 		// restarts to 5 minute timer
-		const time = new Date();
-		time.setSeconds(time.getSeconds() + timerLength);
-		restart(time);
+		setCurrentGrid([]);
+		setSuccessfulGuesses([]);
+		const expiryTimestamp = Date.now() + timerLength;
+		restart(expiryTimestamp, false); // seconds arg is autostart bool
 	}
 
 	function handleGameFinish(gameState) {
@@ -42,8 +44,8 @@ export default function Timed() {
 	}
 
 	function playAgain() {
-		restartTimer()
-		setPodium(false)
+		restartTimer();
+		setPodium(false);
 	}
 
 	function updateTimedData(gameTarget, guesses) {
@@ -75,7 +77,13 @@ export default function Timed() {
 					/>
 				</>
 			)}
-			{podium && <TimedPodium />}
+			{podium && (
+				<TimedPodium
+					successfulGuesses={successfulGuesses}
+					playAgain={playAgain}
+					timerLength={timerLength}
+				/>
+			)}
 		</div>
 	);
 }
@@ -91,7 +99,8 @@ function Timer(props) {
 	);
 }
 
-function TimedPodium() {
+function TimedPodium(props) {
+	const { successfulGuesses, playAgain, timerLength } = props;
 	return (
 		<div className="timedPodium">
 			<h2>
@@ -99,18 +108,18 @@ function TimedPodium() {
 				<span className="wordHighlight">
 					{successfulGuesses.length}
 				</span>{" "}
-				{successfulGuesses.length === 1 ? "guess" : "guesses"} in{" "}
-				{timerLength/1000}s
+				{successfulGuesses.length === 1 ? "word" : "words"} in{" "}
+				<span className="wordPrimary">{timerLength / 1000}s</span>
 			</h2>
-			<div className="wordsList">
-				{successfulGuesses.map((word) => {
-					return (
-						<>
-							<span>{word}</span>
-						</>
-					);
-				})}
-			</div>
+			{successfulGuesses.length > 0 && (
+				<div className="wordsList">
+					<h2>Words Guessed:</h2>
+
+					{successfulGuesses.map((word) => {
+						return <p key={word}>{word}</p>;
+					})}
+				</div>
+			)}
 			<button className="primary" id="playAgainBtn" onClick={playAgain}>
 				Play Again
 			</button>

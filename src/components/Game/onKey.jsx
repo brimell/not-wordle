@@ -34,11 +34,7 @@ export function onKey(props) {
 		return;
 	}
 	if (gameState !== "Playing") {
-		if (
-			key === "enter" &&
-			!socket &&
-			!window.location.href.endsWith("timed")
-		) {
+		if (key === "enter" && !socket) {
 			startNextGame();
 		}
 		return;
@@ -130,6 +126,8 @@ export function onKey(props) {
 			updateStats(true, wordLength, guesses.length);
 			if (propsTarget) {
 				handleGameFinish("Won");
+			} else if (props.timed) {
+				setHint("You got the word! Press enter to continue");
 			} else {
 				setHint("You won! (Enter to play again)");
 			}
