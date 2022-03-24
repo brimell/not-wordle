@@ -9,8 +9,6 @@ import wordList from "../../Wordlist/wordList.json";
 import { pick, resetRng, seed } from "../util";
 import { useModal } from "react-hooks-use-modal";
 import { MainContext } from "../../context/context";
-import { GameOptions } from "./GameOptions";
-import { GameFinishedModalComponent } from "./GameFinishedModal";
 
 const targets = wordList.slice(0, 2000); // adjust for max target freakiness
 const notFiveTargets = nonFiveWords.slice(0, 20000);
@@ -52,16 +50,6 @@ function Game(props) {
 			return randomTarget(wordLength);
 		}
 	});
-	const [gameNumber, setGameNumber] = useState(1);
-	const [
-		GameFinishedModal,
-		GameFinishedOpen,
-		GameFinishedClose,
-		GameFinishedIsOpen,
-	] = useModal("root", {
-		preventScroll: true,
-		// closeOnOverlayClick: false
-	});
 
 	useEffect(() => {
 		setCurrentGuess(currentGuess.toLowerCase());
@@ -88,14 +76,13 @@ function Game(props) {
 					target: gameTarget,
 					propsTarget: props.target,
 					currGrid,
-					GameFinishedOpen,
 					wordLength,
 					hardmode: props.hardmode,
-					messagesIsOpen
+					messagesIsOpen,
 				};
 				onKey(propsObj);
 			}
-			if (socket || window.location.href.endsWith('timed')) {
+			if (socket || window.location.href.endsWith("timed")) {
 				props.setCurrentGrid(currGrid);
 			}
 			// console.log("target: ", gameTarget);
@@ -116,14 +103,13 @@ function Game(props) {
 
 	function startNextGame() {
 		if (props.timed) {
-			props.updateTimedData(gameTarget,guesses)
+			props.updateTimedData(gameTarget, guesses);
 		}
 		setGameTarget(randomTarget(wordLength));
 		setGuesses([]);
 		setCurrentGuess("");
 		setHint("");
 		setGameState("Playing");
-		setGameNumber((x) => x + 1);
 	}
 
 	function handleGameFinish(gameState) {
@@ -139,7 +125,8 @@ function Game(props) {
 			const cluedLetters = clue(guess, gameTarget);
 			currGrid.push(cluedLetters);
 			const lockedIn = i < guesses.length;
-			if (lockedIn) { // sets letterinfo for keyboard
+			if (lockedIn) {
+				// sets letterinfo for keyboard
 				for (const { clue, letter } of cluedLetters) {
 					if (clue === undefined) break;
 					const old = letterInfo.get(letter);
@@ -148,7 +135,8 @@ function Game(props) {
 					}
 				}
 			}
-			return ( // returns rows for grid
+			return (
+				// returns rows for grid
 				<Row
 					key={i}
 					wordLength={wordLength}
@@ -160,21 +148,8 @@ function Game(props) {
 
 	resizeGrid();
 
-	const gameOptionsProps = {
-		gameState,
-		guesses,
-		currentGuess,
-		resetRng,
-		setGuesses,
-		setGameTarget,
-		gameTarget,
-		setHint,
-		setGameState,
-		GameFinishedOpen,
-		randomTarget,
-	};
 	const onKeyProps = {
-		key: '',
+		key: "",
 		startNextGame,
 		handleGameFinish,
 		gameState,
@@ -191,20 +166,13 @@ function Game(props) {
 		target: gameTarget,
 		propsTarget: props.target,
 		currGrid,
-		GameFinishedOpen,
 		wordLength,
 		hardmode: props.hardmode,
-		messagesIsOpen
+		messagesIsOpen,
 	};
 
 	return (
 		<div className="Game">
-			<GameFinishedModalComponent
-				GameFinishedModal={GameFinishedModal}
-				GameFinishedClose={GameFinishedClose}
-				gameState={gameState}
-			/>
-			{!props.target && <GameOptions {...gameOptionsProps} />}
 			{!settings && (
 				<div
 					className={`Game ${
@@ -219,11 +187,6 @@ function Game(props) {
 					{/* no break space / nbsp */}
 				</div>
 			)}
-			{/* {seed && !props.target && (
-				<div className="Game-seed-info">
-					seed {seed}, length {wordLength}, game {gameNumber}
-				</div>
-			)} */}
 			<Keyboard
 				currentGuess={currentGuess}
 				hidden={settings}

@@ -26,7 +26,6 @@ export function onKey(props) {
 		target,
 		propsTarget,
 		currGrid,
-		GameFinishedOpen,
 		wordLength,
 		hardmode,
 		messagesIsOpen,
@@ -226,18 +225,4 @@ export function updateStats(gameState, wordLength, guesses) {
 		.slice(0, 8);
 	stats[wordLength].games++;
 	localStorage.setItem("stats", JSON.stringify(stats));
-}
-
-export function disableTodaysWord(GameFinishedOpen) {
-	if (seed && localStorage.getItem("wordMode") === "todaysWord") {
-		localStorage.setItem("wordMode", "randomWord");
-		$("#todaysWord").addClass("is-outlined");
-		$("#randomWord").removeClass("is-outlined");
-		localStorage.setItem(
-			"todays_last_played",
-			new Date().toISOString().replace(/-/g, "").slice(0, 8)
-		);
-		GameFinishedOpen();
-	}
-	// set modal display to block
 }
