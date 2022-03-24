@@ -8,7 +8,7 @@ export default function Timed() {
 	const [currentGrid, setCurrentGrid] = useState([]);
 	const [successfulGuesses, setSuccessfulGuesses] = useState([]);
 	const [podium, setPodium] = useState(false);
-	const timerLength = 10 * 1000;
+	const timerLength = 60 * 1000;
 	const expiryTimestamp = Date.now() + timerLength;
 
 	const {
