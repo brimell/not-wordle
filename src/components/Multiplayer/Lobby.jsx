@@ -106,8 +106,8 @@ export default function Lobby() {
 	}
 
 	function gameLost(id) {
-		console.log(getUser(id), " lost");
-		notification(`${getUser(id).name} lost`);
+		// console.log(getUser(id), " lost");
+		// notification(`${getUser(id).name} lost`);
 	}
 
 	async function gameWon(id) {

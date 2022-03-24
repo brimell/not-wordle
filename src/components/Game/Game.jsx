@@ -115,6 +115,9 @@ function Game(props) {
 	// },[])
 
 	function startNextGame() {
+		if (props.timed) {
+			props.updateTimedData(gameTarget,guesses)
+		}
 		setGameTarget(randomTarget(wordLength));
 		setGuesses([]);
 		setCurrentGuess("");
@@ -216,11 +219,11 @@ function Game(props) {
 					{/* no break space / nbsp */}
 				</div>
 			)}
-			{seed && !props.target && (
+			{/* {seed && !props.target && (
 				<div className="Game-seed-info">
 					seed {seed}, length {wordLength}, game {gameNumber}
 				</div>
-			)}
+			)} */}
 			<Keyboard
 				currentGuess={currentGuess}
 				hidden={settings}

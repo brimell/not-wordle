@@ -2,10 +2,14 @@ import Game from "./Game/Game";
 import { useEffect, useState, useContext } from "react";
 import { MainContext } from "./../context/context";
 import { useTimer } from "react-timer-hook";
+import { timers } from "jquery";
 
 export default function Timed() {
 	const [currentGrid, setCurrentGrid] = useState([]);
-	const expiryTimestamp = Date.now() + 60000;
+	const [successfulGuesses, setSuccessfulGuesses] = useState();
+	const [podium, setPodium] = useState(false);
+	const timerLength = 10 * 1000;
+	const expiryTimestamp = Date.now() + timerLength;
 
 	const {
 		seconds,
@@ -19,17 +23,17 @@ export default function Timed() {
 		restart,
 	} = useTimer({
 		autoStart: false,
-		onExpire: timerFinish,
 		expiryTimestamp,
-		onExpire: () => console.warn("onExpire called"),
+		onExpire: timerFinish,
 	});
 	function timerFinish() {
-		// do stuff
+		console.log("timer finish");
+		setPodium(true);
 	}
 	function restartTimer() {
 		// restarts to 5 minute timer
 		const time = new Date();
-		time.setSeconds(time.getSeconds() + 300);
+		time.setSeconds(time.getSeconds() + timerLength);
 		restart(time);
 	}
 
@@ -37,24 +41,41 @@ export default function Timed() {
 		return;
 	}
 
+	function playAgain() {
+		restartTimer()
+		setPodium(false)
+	}
+
+	function updateTimedData(gameTarget, guesses) {
+		let new_guesses = successfulGuesses;
+		new_guesses.push(gameTarget);
+		setSuccessfulGuesses(new_guesses);
+	}
+
 	useEffect(() => {
 		if (currentGrid.length > 0) {
 			if (currentGrid[0].length > 0 && !isRunning) {
-				start()
+				start();
 			}
 		}
-		console.log(currentGrid);
 	}, [currentGrid]);
 
 	return (
 		<div className="GameContainer">
-			<Timer minutes={minutes} seconds={seconds} />
-			<Game
-				target={false}
-				socket={false}
-				setCurrentGrid={setCurrentGrid}
-				handleGameFinish={handleGameFinish}
-			/>
+			{!podium && (
+				<>
+					<Timer minutes={minutes} seconds={seconds} />
+					<Game
+						timed={true}
+						updateTimedData={updateTimedData}
+						target={false}
+						socket={false}
+						setCurrentGrid={setCurrentGrid}
+						handleGameFinish={handleGameFinish}
+					/>
+				</>
+			)}
+			{podium && <TimedPodium />}
 		</div>
 	);
 }
@@ -66,6 +87,33 @@ function Timer(props) {
 			<div>
 				<span>{minutes}</span>:<span>{seconds}</span>
 			</div>
+		</div>
+	);
+}
+
+function TimedPodium() {
+	return (
+		<div className="timedPodium">
+			<h2>
+				you got{" "}
+				<span className="wordHighlight">
+					{successfulGuesses.length}
+				</span>{" "}
+				{successfulGuesses.length === 1 ? "guess" : "guesses"} in{" "}
+				{timerLength/1000}s
+			</h2>
+			<div className="wordsList">
+				{successfulGuesses.map((word) => {
+					return (
+						<>
+							<span>{word}</span>
+						</>
+					);
+				})}
+			</div>
+			<button className="primary" id="playAgainBtn" onClick={playAgain}>
+				Play Again
+			</button>
 		</div>
 	);
 }
