@@ -6,16 +6,11 @@
 }
 :root {
 	--hue: 223;
-	--bg: hsl(var(--hue), 10%, 90%);
 	--fg: hsl(var(--hue), 10%, 10%);
-	font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
 }
 body {
 	background-color: var(--bg);
 	color: var(--fg);
-	font: 1em/1.5 sans-serif;
-	height: 100vh;
-	display: grid;
 	place-items: center;
 	transition: background-color 0.3s;
 }
@@ -26,7 +21,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
 	main {
 		padding: 1.5em 0;
 	}
