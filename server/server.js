@@ -52,9 +52,9 @@ app.use(express.static(path.resolve(__dirname, "../build")));
 app.get("*", (req, res) => {
 	res.sendFile(path.resolve(__dirname, "../build/index.html"));
 });
-app.get("/port", (req, res) => {
-	res.send(process.env.PORT);
-});
+// app.get("/port", (req, res) => {
+// 	res.send(process.env.PORT);
+// });
 
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {

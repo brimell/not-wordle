@@ -9,13 +9,13 @@ import Loading from "./components/Loading";
 import Nav from "./components/Nav";
 import ReloadPrompt from './components/ReloadPrompt';
 
-// import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import {
-	HashRouter as Router,
-	Routes,
-	Route,
-	useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+// import {
+// 	HashRouter as Router,
+// 	Routes,
+// 	Route,
+// 	useLocation,
+// } from "react-router-dom";
 
 const Multiplayer = lazy(() => import("./components/Multiplayer/Multiplayer"));
 const GameParent = lazy(() => import("./components/Game/GameParent"));
