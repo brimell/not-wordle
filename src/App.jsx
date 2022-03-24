@@ -20,8 +20,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 const Multiplayer = lazy(() => import("./components/Multiplayer/Multiplayer"));
 const GameParent = lazy(() => import("./components/Game/GameParent"));
 const Timed = lazy(() => import("./components/Timed"));
-const Mathler = lazy(() => import("./components/Mathler"));
-const Quordle = lazy(() => import("./components/Quordle"));
 const CreateGameModal = lazy(() =>
 	import("./components/Modals/CreateGameModal")
 );
@@ -85,8 +83,7 @@ function App() {
 						></Route>
 						<Route path="/classic" element={<GameParent />}></Route>
 						<Route path="/timed" element={<Timed />}></Route>
-						<Route path="/mathler" element={<Mathler />}></Route>
-						<Route path="/quordle" element={<Quordle />}></Route>
+						<Route path="/loading" element={<Loading />}></Route>
 					</Routes>
 				</div>
 			</Suspense>
