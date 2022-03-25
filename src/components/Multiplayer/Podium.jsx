@@ -33,17 +33,17 @@ export default function Podium(props) {
 		}
 	}, [winner, grids]);
 
-	useEffect(() => {
-		function onKeyDown(e) {
-			if (e.key === "Enter" && isHost) {
-				playAgain();
-			}
-		}
-		document.addEventListener("keydown", onKeyDown);
-		return () => {
-			document.removeEventListener("keydown", onKeyDown);
-		};
-	}, []);
+	// useEffect(() => {
+	// 	function onKeyDown(e) {
+	// 		if (e.key === "Enter" && isHost) {
+	// 			playAgain();
+	// 		}
+	// 	}
+	// 	document.addEventListener("keydown", onKeyDown);
+	// 	return () => {
+	// 		document.removeEventListener("keydown", onKeyDown);
+	// 	};
+	// }, []);
 
 	useEffect(() => {
 		socket.on("updatePodiumTimeAll", (time) => {
