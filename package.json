@@ -26,7 +26,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite",
+    "host": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "githubdeploy": "npm run build && gh-pages -d build",
