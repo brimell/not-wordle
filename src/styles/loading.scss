@@ -16,11 +16,11 @@ body {
 }
 
 #loading-wrapper {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	main {
 		padding: 1.5em 0;
@@ -97,6 +97,279 @@ body {
 		to {
 			stroke-dashoffset: -669.92;
 			visibility: visible;
+		}
+	}
+}
+.loading-wrapper-scateboard {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	$hue: 223;
+	$fg: hsl($hue, 10%, 10%);
+	$themeTrans: 0.3s;
+
+	body {
+		background: var(--bg);
+		color: $fg;
+		font: 1em/1.5 sans-serif;
+		height: 100vh;
+		display: grid;
+		place-items: center;
+		transition: background-color $themeTrans;
+	}
+	main {
+		padding: 1.5em 0;
+	}
+
+	.pl {
+		width: 11em;
+		height: 10em;
+	}
+	.pl__ring,
+	.pl__worm1,
+	.pl__worm2,
+	.pl__worm3 {
+		animation-duration: 4s;
+		animation-iteration-count: infinite;
+	}
+	.pl__ring {
+		stroke: hsla($hue, 10%, 10%, 0.1);
+		transition: stroke $themeTrans;
+	}
+	.pl__worm1 {
+		animation-name: worm3;
+	}
+	.pl__worm2 {
+		animation-name: worm4;
+		transform-origin: 32px 88px;
+	}
+	.pl__worm3 {
+		animation-name: worm5;
+		transform-origin: 144px 88px;
+	}
+
+	/* Dark theme */
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--bg: hsl($hue, 10%, 10%);
+			$fg: hsl($hue, 10%, 90%);
+		}
+		.pl__ring {
+			stroke: hsla($hue, 10%, 90%, 0.1);
+		}
+	}
+
+	/* Animations */
+	@keyframes worm3 {
+		from {
+			animation-timing-function: ease-out;
+			stroke-dashoffset: 43.98;
+		}
+		12.5% {
+			animation-timing-function: ease-in-out;
+			stroke-dashoffset: -131.95;
+		}
+		25% {
+			animation-timing-function: ease-in;
+			stroke-dashoffset: 0;
+		}
+		37.5%,
+		50% {
+			animation-timing-function: ease-out;
+			stroke-dashoffset: -175.93;
+		}
+		62.5% {
+			animation-timing-function: ease-in-out;
+			stroke-dashoffset: 0;
+		}
+		75% {
+			animation-timing-function: ease-in;
+			stroke-dashoffset: -131.95;
+		}
+		87.5%,
+		to {
+			stroke-dashoffset: 43.98;
+		}
+	}
+	@keyframes worm4 {
+		from,
+		35.5% {
+			animation-timing-function: linear;
+			stroke-dasharray: 0 40 0 44;
+			visibility: hidden;
+			transform: translate(0, 0) rotate(0);
+		}
+		37.5% {
+			animation-timing-function: ease-out;
+			stroke-dasharray: 0 40 44 0;
+			visibility: visible;
+			transform: translate(0, 0) rotate(0);
+		}
+		47.5% {
+			animation-timing-function: ease-in;
+			stroke-dasharray: 0 4 40 40;
+			visibility: visible;
+			transform: translate(0, -80px) rotate(360deg);
+		}
+		50% {
+			animation-timing-function: linear;
+			stroke-dasharray: 0 4 40 40;
+			visibility: visible;
+			transform: translate(0, -36px) rotate(360deg);
+		}
+		52.5%,
+		to {
+			stroke-dasharray: 0 42 0 42;
+			visibility: hidden;
+			transform: translate(0, 12px) rotate(360deg);
+		}
+	}
+	@keyframes worm5 {
+		from {
+			animation-timing-function: linear;
+			stroke-dasharray: 0 4 40 40;
+			visibility: visible;
+			transform: translate(0, -36px) rotate(0);
+		}
+		2.5% {
+			animation-timing-function: linear;
+			stroke-dasharray: 0 42 0 42;
+			visibility: hidden;
+			transform: translate(0, 12px) rotate(0);
+		}
+		85.5% {
+			animation-timing-function: linear;
+			stroke-dasharray: 0 40 0 44;
+			visibility: hidden;
+			transform: translate(0, 0) rotate(0);
+		}
+		87.5% {
+			animation-timing-function: ease-out;
+			stroke-dasharray: 0 40 44 0;
+			visibility: visible;
+			transform: translate(0, 0) rotate(0);
+		}
+		97.5% {
+			animation-timing-function: ease-in;
+			stroke-dasharray: 0 4 40 40;
+			visibility: visible;
+			transform: translate(0, -80px) rotate(-360deg);
+		}
+		to {
+			stroke-dasharray: 0 4 40 40;
+			visibility: visible;
+			transform: translate(0, -36px) rotate(-360deg);
+		}
+	}
+}
+.loading-wrapper-bouncing {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	$hue: 223;
+	$fg: hsl($hue, 10%, 10%);
+	
+	body {
+		background-color: var(--bg);
+		color: $fg;
+		font: 1em/1.5 sans-serif;
+		height: 100vh;
+		display: grid;
+		place-items: center;
+		transition: background-color 0.3s;
+	}
+	main {
+		padding: 1.5em 0;
+	}
+
+	.pl,
+	.pl__worm {
+		animation-duration: 3s;
+		animation-iteration-count: infinite;
+	}
+	.pl {
+		animation-name: bump;
+		animation-timing-function: linear;
+		width: 8em;
+		height: 8em;
+	}
+	.pl__ring {
+		stroke: hsla($hue, 10%, 10%, 0.1);
+		transition: stroke 0.3s;
+	}
+	.pl__worm {
+		animation-name: worm;
+		animation-timing-function: cubic-bezier(0.42, 0.17, 0.75, 0.83);
+	}
+
+	/* Dark theme */
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--bg: hsl($hue, 10%, 10%);
+			$fg: hsl($hue, 10%, 90%);
+		}
+		.pl__ring {
+			stroke: hsla($hue, 10%, 90%, 0.1);
+		}
+	}
+
+	/* Animations */
+	@keyframes bump {
+		from,
+		42%,
+		46%,
+		51%,
+		55%,
+		59%,
+		63%,
+		67%,
+		71%,
+		74%,
+		78%,
+		81%,
+		85%,
+		88%,
+		92%,
+		to {
+			transform: translate(0, 0);
+		}
+		44% {
+			transform: translate(1.33%, 6.75%);
+		}
+		53% {
+			transform: translate(-16.67%, -0.54%);
+		}
+		61% {
+			transform: translate(3.66%, -2.46%);
+		}
+		69% {
+			transform: translate(-0.59%, 15.27%);
+		}
+		76% {
+			transform: translate(-1.92%, -4.68%);
+		}
+		83% {
+			transform: translate(9.38%, 0.96%);
+		}
+		90% {
+			transform: translate(-4.55%, 1.98%);
+		}
+	}
+	@keyframes worm {
+		from {
+			stroke-dashoffset: 10;
+		}
+		25% {
+			stroke-dashoffset: 295;
+		}
+		to {
+			stroke-dashoffset: 1165;
 		}
 	}
 }
