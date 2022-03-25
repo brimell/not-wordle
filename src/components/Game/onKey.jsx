@@ -98,12 +98,15 @@ export function onKey(props) {
 			for (let i = 0; i < currentGuess.length; i++) {
 				for (let j = 0; j < wrong_columns[i].length; j++) {
 					// check if letter is in wrong place
-					if (currentGuess[i] === wrong_columns[i][j]) {
+					if (currentGuess[i] === wrong_columns[i][j] && currentGuess[i] !== correct_list[i]) {
 						return true;
 					}
 				}
-				// check if a correct letter is in wrong place
-				if (correct_list[i] && currentGuess[i] !== correct_list[i]) {
+			}
+			// check if a correct letter is in the right place
+			for (let i = 0; i < correct_list.length; i++) {
+				console.log(i, correct_list[i])
+				if (correct_list[i] && correct_list[i] !== currentGuess[i]) {
 					return true;
 				}
 			}
