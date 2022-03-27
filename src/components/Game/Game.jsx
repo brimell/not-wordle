@@ -30,7 +30,7 @@ if (!localStorage.getItem("wordLength")) {
 function Game(props) {
 	const { maxGuesses, wordLength, setWordLength, messagesIsOpen } =
 		useContext(MainContext);
-	const timed = props.timed;
+	const { timed, updateTimedData, hardmode, multiplayerGrid, setMultiplayerGrid, handleGameFinish } = props;
 	useEffect(() => {
 		if (wordLength < 3) {
 			setWordLength(5);
@@ -71,15 +71,17 @@ function Game(props) {
 					currentGuess,
 					setHint,
 					maxGuesses,
-					multiplayerGrid: props.multiplayerGrid,
-					setMultiplayerGrid: props.setMultiplayerGrid,
+					multiplayerGrid,
+					setMultiplayerGrid,
 					socket: props.socket,
 					target: gameTarget,
 					propsTarget: props.target,
 					currGrid,
 					wordLength,
-					hardmode: props.hardmode,
+					hardmode,
 					messagesIsOpen,
+					timed,
+					updateTimedData,
 				};
 				onKey(propsObj);
 			}
@@ -103,19 +105,11 @@ function Game(props) {
 	// },[])
 
 	function startNextGame() {
-		if (timed) {
-			props.updateTimedData(gameTarget, guesses);
-		}
 		setGameTarget(randomTarget(wordLength));
 		setGuesses([]);
 		setCurrentGuess("");
 		setHint("");
 		setGameState("Playing");
-	}
-
-	function handleGameFinish(gameState) {
-		// console.log("game finished with state: ", gameState);
-		props.handleGameFinish(gameState);
 	}
 
 	let letterInfo = new Map();
@@ -161,16 +155,17 @@ function Game(props) {
 		currentGuess,
 		setHint,
 		maxGuesses,
-		multiplayerGrid: props.multiplayerGrid,
-		setMultiplayerGrid: props.setMultiplayerGrid,
+		multiplayerGrid,
+		setMultiplayerGrid,
 		socket: props.socket,
 		target: gameTarget,
 		propsTarget: props.target,
 		currGrid,
 		wordLength,
-		hardmode: props.hardmode,
+		hardmode,
 		messagesIsOpen,
-		timed: props.timed,
+		timed,
+		updateTimedData,
 	};
 
 	return (

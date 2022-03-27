@@ -1,6 +1,5 @@
 import wordList from "../../Wordlist/wordList.json";
 import nonFiveWords from "../../Wordlist/common.json";
-import { seed } from "../util";
 import { clue } from "./clue";
 // import { gsap, Power3 } from "gsap";
 // import $ from "jquery";
@@ -29,6 +28,8 @@ export function onKey(props) {
 		wordLength,
 		hardmode,
 		messagesIsOpen,
+		updateTimedData,
+		timed,
 	} = props;
 	if (messagesIsOpen) {
 		return;
@@ -98,14 +99,17 @@ export function onKey(props) {
 			for (let i = 0; i < currentGuess.length; i++) {
 				for (let j = 0; j < wrong_columns[i].length; j++) {
 					// check if letter is in wrong place
-					if (currentGuess[i] === wrong_columns[i][j] && currentGuess[i] !== correct_list[i]) {
+					if (
+						currentGuess[i] === wrong_columns[i][j] &&
+						currentGuess[i] !== correct_list[i]
+					) {
 						return true;
 					}
 				}
 			}
 			// check if a correct letter is in the right place
 			for (let i = 0; i < correct_list.length; i++) {
-				console.log(i, correct_list[i])
+				console.log(i, correct_list[i]);
 				if (correct_list[i] && correct_list[i] !== currentGuess[i]) {
 					return true;
 				}
@@ -129,7 +133,8 @@ export function onKey(props) {
 			updateStats(true, wordLength, guesses.length);
 			if (propsTarget) {
 				handleGameFinish("Won");
-			} else if (props.timed) {
+			} else if (timed) {
+				updateTimedData(target, guesses);
 				setHint("You got the word! Press enter to continue");
 			} else {
 				setHint("You won! (Enter to play again)");
